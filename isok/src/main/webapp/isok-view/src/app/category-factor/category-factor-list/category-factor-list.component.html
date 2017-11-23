@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <section>
+        <header class="header">
+          <div class="row">
+            <div class="col-md-4">
+              <h1>Category factors</h1>
+            </div>
+            <div class="col-md-6">
+ 
+            </div>
+            <div class="col-md-2">
+ 
+            </div>
+          </div>
+ 
+        </header>
+      </section>
+ 
+      <section class="main">
+ 
+        <table class="table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Ime</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let categoryFactor of categoryFactors">
+            <th scope="row">{{categoryFactor.id}}</th>
+            <td>{{categoryFactor.name}}</td>
+            <td><button class="btn btn-primary" type="button" (click)="findCategory(categoryFactor)">Update</button>
+            <td><button class="btn btn-danger" type="button" (click)="deleteCategory(categoryFactor)">Delete</button>
+            <td>
+            </td>
+          </tr>
+ 
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="createForm">
+  <div class="row">
+    <div class="col">
+      <section>
+        <form novalidate [formGroup]="categoryFactorForm" (ngSubmit)="createCategoryFactor()">
+          
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="name">
+            </div>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!categoryFactorForm.valid" >Submit</button>
+         
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="updateForm">
+  <div class="row">
+    <div class="col">
+      <section>
+        <form novalidate [formGroup]="updateCategoryFactorForm" (ngSubmit)="updateCategoryFactor()">
+          
+            <div class="form-group">
+              <label>Id</label>
+              <input type="number"
+                     class="form-control"
+                     formControlName="id" disabled>
+            </div>
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="name">
+            </div>
+
+          <button type="submit" class="btn btn-primary"  [disabled]="!updateCategoryFactorForm.valid" >Submit</button>
+          <button type="submit" class="btn btn-primary" (click)="closeUpdate()" >Cancel</button>
+          
+         
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+

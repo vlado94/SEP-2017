@@ -48,13 +48,11 @@ export class FactorFormComponent implements OnInit {
     }
 
   	save(data) {
-        var id;
         this.route.params.subscribe(params => {
-            id = params['id'];        
+            var id = params['id'];        
             this.factorValue = this.factorForm.value;
             if (id !== undefined){
                 this.factorValue.id = parseInt(id);
-                var result;
                 this.factorService.update(this.factorValue);
             } else {
                 this.factorService.save(this.factorValue);

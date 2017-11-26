@@ -15,7 +15,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./factor-list.component.css'],
 })
 export class FactorListComponent implements OnInit {
-    
+    title = "Factors";
     factors : Array<Factor>;
 	  constructor(
         private factorService: FactorService,

@@ -19,6 +19,8 @@ export class CategoryFactorService {
     }
 
     saveCategory(categoryFactor): Observable<CategoryFactor> {
+            console.log(categoryFactor)
+
         return this.http.post(this.apiUrl, categoryFactor).map((res: Response) => res.json());
     }
 

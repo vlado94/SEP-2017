@@ -1,0 +1,23 @@
+<h5>{{ title }}</h5>
+<div class="row">
+  <form materialize class="col s12" [formGroup]="factorForm" (ngSubmit)="save()">
+    <div class="row">
+      <div class="input-field col s12">
+        <label for="name"
+               [class.active]="factor.name"
+               data-error="Name is required and needs to contain at least 3 chars">
+          Name
+        </label>
+        <input id="name" type="text" class="validate"
+               [(ngModel)]="factor.name" formControlName="name"
+               [class.invalid]="factorForm.controls['name'].touched && !factorForm.controls['name'].valid"
+        >
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light" type="submit"
+            [disabled]="!factorForm.valid">
+      Submit
+    </button>
+  </form>
+</div>
+

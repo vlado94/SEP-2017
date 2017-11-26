@@ -6,7 +6,7 @@ import { CategoryFactorComponent } from './category-factor/category-factor.compo
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  { path: 'categoryFactor', component: CategoryFactorComponent },
+  { path: 'categoryFactor', component: CategoryFactorComponent }
 ];
 
 @NgModule({

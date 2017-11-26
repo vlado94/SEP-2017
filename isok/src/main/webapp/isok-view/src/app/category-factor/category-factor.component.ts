@@ -12,5 +12,4 @@ export class CategoryFactorComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

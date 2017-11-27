@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { CategoryFactorService } from "../category-factor.service";
-import { CategoryFactorComponent } from "../category-factor.component";
-import { CategoryFactorListComponent } from "../category-factor-list/category-factor-list.component";
 import { CategoryFactor } from "../category-factor";
 
 @Component({
@@ -25,6 +23,7 @@ export class CategoryFactorFormComponent implements OnInit {
         private route: ActivatedRoute,
         private http: Http) {
             this.categoryFactorForm = formBuilder.group({
+                id : [''],
                 name: ['', [
                     Validators.required,
                     Validators.minLength(3)
@@ -44,18 +43,15 @@ export class CategoryFactorFormComponent implements OnInit {
                     categoryFactor => this.categoryFactor = categoryFactor,
                 );
         });
+
     }
 
   	save(data) {
-        this.route.params.subscribe(params => {
-            var id = params['id'];        
-            this.factorValue = this.categoryFactorForm.value;
-            if (id !== undefined){
-                this.factorValue.id = parseInt(id);
-                this.categoryFactorService.update(this.factorValue);
-            } else {
-                this.categoryFactorService.save(this.factorValue);
-            }
-        })
+        var factorValue = this.categoryFactorForm.value;
+        if (factorValue.id !== undefined){
+            this.categoryFactorService.update(factorValue);
+        } else {
+            this.categoryFactorService.save(factorValue);
+        }
     }   
 }

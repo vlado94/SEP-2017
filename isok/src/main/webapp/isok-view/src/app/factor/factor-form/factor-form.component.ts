@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { FactorService } from "../factor.service";
-import { FactorComponent } from "../factor.component";
-import { FactorListComponent } from "../factor-list/factor-list.component";
 import { Factor } from "../factor";
 
 @Component({
@@ -16,7 +14,6 @@ import { Factor } from "../factor";
 export class FactorFormComponent implements OnInit {
     factorForm: FormGroup;
     factor : Factor  = new Factor();
-    factorValue : Factor  = new Factor();
     title: string;
 
 	constructor(
@@ -25,15 +22,16 @@ export class FactorFormComponent implements OnInit {
         private route: ActivatedRoute,
         private http: Http) {
             this.factorForm = formBuilder.group({
+                id : [''],
                 name: ['', [
                     Validators.required,
                     Validators.minLength(3)
-                ]],
+                ]]
             });
     }
 
     ngOnInit() {
-	    var id = this.route.params.subscribe(params => {
+	    this.route.params.subscribe(params => {
             var id = params['id'];
             this.title = id ? 'Edit factor' : 'New factor';
             if (!id)
@@ -47,15 +45,11 @@ export class FactorFormComponent implements OnInit {
     }
 
   	save(data) {
-        this.route.params.subscribe(params => {
-            var id = params['id'];        
-            this.factorValue = this.factorForm.value;
-            if (id !== undefined){
-                this.factorValue.id = parseInt(id);
-                this.factorService.update(this.factorValue);
-            } else {
-                this.factorService.save(this.factorValue);
-            }
-        })
+        var factorValue = this.factorForm.value;
+        if (factorValue.id !== undefined){
+            this.factorService.update(factorValue);
+        } else {
+            this.factorService.save(factorValue);
+        }
     }
 }

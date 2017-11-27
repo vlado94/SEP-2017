@@ -1,13 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Http, Response } from "@angular/http";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, } from "@angular/forms";
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { CategoryFactorService } from "../category-factor.service";
 import { CategoryFactor } from '../category-factor';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-category-factor-list',

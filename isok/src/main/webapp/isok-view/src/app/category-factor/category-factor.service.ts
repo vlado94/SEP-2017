@@ -3,16 +3,13 @@ import { Http, Response } from "@angular/http";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import { Subject } from "rxjs/Subject";
-import { Observable } from "rxjs/Observable";
-import { of } from 'rxjs/observable/of'; 
+
 import { CategoryFactor } from './category-factor'
 
 @Injectable()
 export class CategoryFactorService {
 
     private apiUrl = 'http://localhost:8080/categoryFactor';
-
-    public categoryFactors: Observable<CategoryFactor[]>;
     public newCategoryFactor = new Subject<any>();
 
     constructor(private http: Http) { }

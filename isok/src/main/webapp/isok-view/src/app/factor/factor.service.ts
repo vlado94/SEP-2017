@@ -3,16 +3,13 @@ import { Http, Response } from "@angular/http";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import { Subject } from "rxjs/Subject";
-import { Observable } from "rxjs/Observable";
-import { of } from 'rxjs/observable/of'; 
+
 import { Factor } from './factor'
     
 @Injectable()
 export class FactorService {
 
 	private apiUrl = 'http://localhost:8080/factor';
-
-    public factors: Observable<Factor[]>;
     public newFactor = new Subject<any>();
 
     constructor(private http: Http) { }

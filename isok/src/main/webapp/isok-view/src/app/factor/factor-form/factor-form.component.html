@@ -3,6 +3,8 @@
         <h4>{{ title }}</h4>
         <form materialize class="col s12" [formGroup]="factorForm" (ngSubmit)="save()">
             <div class="form-group row">
+                <input id="id" type="hidden" class="form-control validate"
+                        [(ngModel)]="factor.id" formControlName="id">
                 <div class="form-group col-sm-12">
                     <label for="name"
                         [class.active]="factor.name"

@@ -10,19 +10,19 @@ import { Factor } from '../factor';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-factor-list',
-  templateUrl: './factor-list.component.html',
-  styleUrls: ['./factor-list.component.css'],
+    selector: 'app-factor-list',
+    templateUrl: './factor-list.component.html',
+    styleUrls: ['./factor-list.component.css'],
 })
 export class FactorListComponent implements OnInit {
     title = "Factors";
     factors : Array<Factor>;
-	  constructor(
+    constructor(
         private factorService: FactorService,
         private http: Http
     ) { }
 
-	  ngOnInit() { 
+	ngOnInit() { 
         this.factorService.findAll()
             .subscribe(factors => 
                 this.factors = factors);
@@ -39,7 +39,7 @@ export class FactorListComponent implements OnInit {
           }) 
     }
     
-    deleteFactor(factor){
+    delete(factor){
       var index = this.factors.indexOf(factor);
       this.factors.splice(index, 1);
 

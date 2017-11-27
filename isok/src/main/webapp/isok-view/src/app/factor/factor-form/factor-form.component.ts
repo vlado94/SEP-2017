@@ -7,7 +7,6 @@ import { FactorService } from "../factor.service";
 import { FactorComponent } from "../factor.component";
 import { FactorListComponent } from "../factor-list/factor-list.component";
 import { Factor } from "../factor";
-import { NgForm } from '@angular/forms';
 
 @Component({
   	selector: 'app-factor-form',
@@ -58,6 +57,5 @@ export class FactorFormComponent implements OnInit {
                 this.factorService.save(this.factorValue);
             }
         })
-
     }
 }

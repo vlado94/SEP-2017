@@ -14,6 +14,9 @@ import { FactorFormComponent } from './factor/factor-form/factor-form.component'
 
 import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
+import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-form.component';
+import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
+
 
 import { FactorService } from "./factor/factor.service";
 import { CategoryFactorService } from "./category-factor/category-factor.service";
@@ -23,7 +26,7 @@ import { CategoryFactorListComponent } from './category-factor/category-factor-l
 import { CategoryFactorFormComponent } from './category-factor/category-factor-form/category-factor-form.component';
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     AppComponent,
 
     CategoryFactorComponent,
@@ -34,7 +37,8 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
     FactorListComponent,
     FactorFormComponent,
     InsurancePolicyComponent,
-    InsurancePolicyFormComponent  
+    InsurancePolicyFormComponent,
+    InsurancePolicyPersonFormComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,7 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
     FormsModule,
     HttpModule
   ],
-  providers: [CategoryFactorService,FactorService],
+  providers: [CategoryFactorService,FactorService,InsurancePolicyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

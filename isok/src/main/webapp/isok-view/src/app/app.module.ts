@@ -13,7 +13,8 @@ import { FactorComponent } from './factor/factor.component';
 import { CategoryFactorListComponent } from './category-factor/category-factor-list/category-factor-list.component';
 import { FactorListComponent } from './factor/factor-list/factor-list.component';
 import { FactorFormComponent } from './factor/factor-form/factor-form.component';
-
+import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
+import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,9 @@ import { FactorFormComponent } from './factor/factor-form/factor-form.component'
     CategoryFactorListComponent,
     FactorComponent,
     FactorListComponent,
-    FactorFormComponent,    
+    FactorFormComponent,
+    InsurancePolicyComponent,
+    InsurancePolicyFormComponent  
   ],
   imports: [
     BrowserModule,

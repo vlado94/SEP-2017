@@ -12,6 +12,9 @@ import { FactorComponent } from './factor/factor.component';
 import { FactorListComponent } from './factor/factor-list/factor-list.component';
 import { FactorFormComponent } from './factor/factor-form/factor-form.component';
 
+import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
+import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
+
 import { FactorService } from "./factor/factor.service";
 import { CategoryFactorService } from "./category-factor/category-factor.service";
 import { categoryFactorsRouting } from "./category-factor/category-factor.routing";
@@ -29,7 +32,9 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
 
     FactorComponent,
     FactorListComponent,
-    FactorFormComponent,   
+    FactorFormComponent,
+    InsurancePolicyComponent,
+    InsurancePolicyFormComponent  
   ],
   imports: [
     BrowserModule,

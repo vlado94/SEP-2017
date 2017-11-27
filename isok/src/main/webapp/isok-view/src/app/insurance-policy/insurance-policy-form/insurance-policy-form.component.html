@@ -1,0 +1,47 @@
+<form class="form-horizontal" [formGroup]="insurancePolicy"
+	(ngSubmit)="onSubmit(insurancePolicy)">
+
+	<div class="form-group">
+		<label for="startDate" class="col-xs-1">Od:</label>
+		<div class="col-xs-5">
+			<input id="startDate" type="date" class="form-control"
+				formControlName="startDate">
+		</div>
+		<label for="startDate" class="col-xs-1">Do:</label>
+		<div class="col-xs-5">
+			<input id="endDate" type="date" class="form-control"
+				formControlName="endDate">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="duration" class="col-xs-4">Trajanje(u danima):</label>
+		<div class="col-xs-4">
+			<input id="duration" type="text" class="form-control"
+				formControlName="duration">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="duration" class="col-xs-4">Region:</label>
+		<div class="col-xs-4">
+			<select id="region" class="form-control" formControlName="region">
+				<option value="">Evropa</option>
+				<option value="">Azija</option>
+				<option value="">Amerika</option>
+				<option value="">Japan</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="amount" class="col-xs-4">Iznos:</label>
+		<div class="col-xs-4">
+			<select id="amount" class="form-control" formControlName="amount">
+				<option value="">100.000,00</option>
+				<option value="">200.000,00</option>
+				<option value="">300.000,00</option>
+				<option value="">400.000,00</option>
+			</select>
+		</div>
+	</div>
+</form>

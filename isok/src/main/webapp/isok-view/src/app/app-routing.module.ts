@@ -6,10 +6,9 @@ import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.comp
 import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-    { path: 'categoryFactor', component: CategoryFactorComponent },
     { path: 'insurancePolicy', component: InsurancePolicyComponent }
-
 ];
+
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

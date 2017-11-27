@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar-sidenav {
+	border-top : 1px solid #ccc !important;
+	top : 2px !important;
+}
+
+.borderDiv {
+    border: 5px solid #ccc;
+	padding : 15px;
+}
+
+.btn,.btn:hover {
+	cursor : pointer;
+	width : 55px;
+	border : 1px solid black !important;
+	background : #ccc;
+	color : black;	
+}
+
+.leftMargin {
+	margin-right : 5px;
+	margin-left : 5px;
+}
+
+.floatRight {
+	float : right;
+}
+
+
+.container-fluid {
+	padding-bottom : 10px;
+}
+
+.scroll-to-top { 
+	display : block !important;	
+}
+
+table th {
+	border-bottom : 3px solid #ccc !important;
+}
+
+
+table tr {
+	border-bottom : 2px solid #ccc !important;
+}
+
+input {
+	border : 3px solid #ccc !important;
+}

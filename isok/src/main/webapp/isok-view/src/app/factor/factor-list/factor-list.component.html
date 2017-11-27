@@ -1,21 +1,24 @@
-<div class="table-responsive">
-	<table class="table table-hover">
-		<thead>
-	        <tr>
-	            <th>#</th>
-	            <th>Ime</th>
-	            <th>Akcija</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        <tr *ngFor="let factor of this.factors">
-	    	    <td scope="row">{{factor.id}}</td>
-	            <td>{{factor.name}}</td>
-  	            <td><a class="btn btn-primary" [routerLink]="['/factors', factor.id]">Edit</a> </td>
-	            <td><button class="btn btn-danger" type="button" (click)="deleteFactor(factor)">Delete</button></td>
-	        </tr>
-	    </tbody>
-	</table>
+<div class="row leftMargin rightMargin">
+    <h4>{{ title }}</h4>
+    <table class="table table-hover table-bordered borderDiv">
+    	<thead>
+            <tr>
+                <th >#</th>
+                <th >Name</th>
+                <th >Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let factor of this.factors">
+        	    <td>{{factor.id}}</td>
+                <td>{{factor.name}}</td>
+     	        <td>
+     	          	<a class="btn fa fa-pencil" [routerLink]="['/factors', factor.id]"></a>
+    	           	<button class="btn fa fa-times" type="button" (click)="delete(factor)"></button>
+    			</td>
+            </tr>
+       </tbody>
+    </table>
 </div>
 
 

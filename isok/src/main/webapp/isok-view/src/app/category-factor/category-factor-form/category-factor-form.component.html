@@ -1,0 +1,26 @@
+<div class="row leftMargin rightMargin">
+    <div class="col-sm-4 borderDiv">
+        <h4>{{ title }}</h4>
+        <form materialize class="col s12" [formGroup]="categoryFactorForm" (ngSubmit)="save()">
+            <div class="form-group row">
+                <div class="form-group col-sm-12">
+                    <label for="name"
+                        [class.active]="categoryFactor.name"
+                        data-error="Name is required and needs to contain at least 3 chars"> Name
+                    </label>
+                    <input id="name" type="text" class="form-control validate"
+                        [(ngModel)]="categoryFactor.name" formControlName="name"
+                        [class.invalid]="categoryFactorForm.controls['name'].touched && !categoryFactorForm.controls['name'].valid">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn fa fa-plus floatRight" type="submit"
+                        [disabled]="!categoryFactorForm.valid">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

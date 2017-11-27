@@ -2,42 +2,45 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
+import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
+import { of } from 'rxjs/observable/of'; 
 import { CategoryFactor } from './category-factor'
-
 
 @Injectable()
 export class CategoryFactorService {
 
     private apiUrl = 'http://localhost:8080/categoryFactor';
 
+    public categoryFactors: Observable<CategoryFactor[]>;
+    public newCategoryFactor = new Subject<any>();
+
     constructor(private http: Http) { }
 
     findAll() {
         return this.http.get(this.apiUrl)
-            .map((res: Response) => res.json());
+            .map(res => res.json());
     }
 
-    saveCategory(categoryFactor): Observable<CategoryFactor> {
-            console.log(categoryFactor)
-
-        return this.http.post(this.apiUrl, categoryFactor).map((res: Response) => res.json());
+    save(categoryFactor) {
+        this.http.post(this.apiUrl, categoryFactor).map(res => res.json())
+            .subscribe(data => this.newCategoryFactor.next(data));
     }
 
-    deleteById(id: number): Observable<boolean> {
+    deleteById(id){
         return this.http.delete(this.apiUrl + '/' + id)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+          .map(res => res.json());
     }
 
-    findById(id: number): Observable<CategoryFactor> {
+    get(id: number) {
         return this.http.get(this.apiUrl + '/' + id)
             .map((res: Response) => res.json());
     }
 
-    updateCategoryFactor(categoryFactor): Observable<CategoryFactor>  {
-        return this.http.put(this.apiUrl, categoryFactor)
-            .map((res: Response) => res.json());
+    update(categoryFactor)  {
+        this.http.put(this.apiUrl, categoryFactor)
+            .map((res: Response) => res.json())
+            .subscribe(data => this.newCategoryFactor.next(data));
     }
 
 

@@ -4,10 +4,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
 import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
-import { of } from 'rxjs/observable/of';
- 
+import { of } from 'rxjs/observable/of'; 
 import { Factor } from './factor'
-
     
 @Injectable()
 export class FactorService {
@@ -25,7 +23,6 @@ export class FactorService {
     }
 
     save(factor) {
-        //this.newFactor.next(factor);
         this.http.post(this.apiUrl, factor).map(res => res.json())
             .subscribe(data => this.newFactor.next(data));
     }
@@ -44,9 +41,5 @@ export class FactorService {
         this.http.put(this.apiUrl, factor)
             .map((res: Response) => res.json())
             .subscribe(data => this.newFactor.next(data));
-    }
-
-    findIndexToUpdate(newItem) { 
-        return newItem.id === this;
     }
 }

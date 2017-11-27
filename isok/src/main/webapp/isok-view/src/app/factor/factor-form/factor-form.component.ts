@@ -7,7 +7,6 @@ import { FactorService } from "../factor.service";
 import { FactorComponent } from "../factor.component";
 import { FactorListComponent } from "../factor-list/factor-list.component";
 import { Factor } from "../factor";
-import { NgForm } from '@angular/forms';
 
 @Component({
   	selector: 'app-factor-form',
@@ -48,18 +47,15 @@ export class FactorFormComponent implements OnInit {
     }
 
   	save(data) {
-        var id;
         this.route.params.subscribe(params => {
-            id = params['id'];        
+            var id = params['id'];        
             this.factorValue = this.factorForm.value;
             if (id !== undefined){
                 this.factorValue.id = parseInt(id);
-                var result;
                 this.factorService.update(this.factorValue);
             } else {
                 this.factorService.save(this.factorValue);
             }
         })
-
     }
 }

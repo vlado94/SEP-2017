@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IsokView</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="/assets/thema/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/thema/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/thema/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="/assets/thema/css/sb-admin.css" rel="stylesheet">
+    
+</head>
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+	<app-root></app-root>
+    
+    <script src="/assets/thema/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/thema/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/thema/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/assets/thema/js/sb-admin.min.js"></script>
+	<script>
+	$(document).ready(function () {
+		$("#sidenavToggler").click(function(o){
+			o.preventDefault();
+			$("body").toggleClass("sidenav-toggled");
+			$(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+			$(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+		})
+		})
+	</script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package isok.isok.factor;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import isok.isok.categoryFactor.CategoryFactorService;
+import isok.isok.dto.FactorDTO;
+
 @RestController
 @RequestMapping("/factor")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -19,26 +23,43 @@ public class FactorController {
 
 	@Autowired
 	private FactorService service;
+	
+	@Autowired
+	private CategoryFactorService categoryService;
 
 	@GetMapping
-	private List<Factor> findAll() {
-		return service.findAll();
+	private List<FactorDTO> findAll() {
+		List<Factor> list = service.findAll();
+		List<FactorDTO> retVal = new ArrayList<FactorDTO>();
+		for (Factor f : list) {
+			FactorDTO temp = f.getDTO();
+			temp.setCategoryName(f.getCategory().getName());
+			retVal.add(temp);
+		}
+		return retVal;
 	}
 
 	@PostMapping
-	private Factor save(@RequestBody Factor factor) {
-		Factor newFactor = service.save(factor);
+	private FactorDTO save(@RequestBody FactorDTO obj) {
+		Factor f = new Factor();
+		f.setName(obj.getName());
+		f.setCategory(categoryService.findOne(obj.getCategory()));
+		FactorDTO newFactor = service.save(f).getDTO();
 		return newFactor;
 	}
 
 	@GetMapping("/{id}")
-	private Factor findOne(@PathVariable Long id) {
-		return service.findOne(id);
+	private FactorDTO findOne(@PathVariable Long id) {
+		return service.findOne(id).getDTO();
 	}
 	
 	@PutMapping
-	private Factor update(@RequestBody Factor factor) {
-		Factor updateFactor = service.save(factor);
+	private FactorDTO update(@RequestBody FactorDTO obj) {
+		Factor f = new Factor();
+		f.setId(obj.getId());
+		f.setName(obj.getName());
+		f.setCategory(categoryService.findOne(obj.getCategory()));
+		FactorDTO updateFactor = service.save(f).getDTO();
 		return updateFactor;
 	}
 	

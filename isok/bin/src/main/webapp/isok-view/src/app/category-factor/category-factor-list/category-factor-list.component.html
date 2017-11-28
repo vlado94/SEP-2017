@@ -1,0 +1,24 @@
+<div class="row leftMargin rightMargin">
+    <h4>{{ title }}</h4>
+    <table class="table table-hover table-bordered borderDiv">
+    	<thead>
+            <tr>
+                <th >#</th>
+                <th >Name</th>
+                <th >Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let factor of this.categoryFactors">
+        	    <td>{{factor.id}}</td>
+                <td>{{factor.name}}</td>
+     	        <td>
+     	          	<a class="btn fa fa-pencil" [routerLink]="['/categoryFactors', factor.id]"></a>
+    	           	<button class="btn fa fa-times" type="button" (click)="delete(factor)"></button>
+    			</td>
+            </tr>
+       </tbody>
+    </table>
+</div>
+
+

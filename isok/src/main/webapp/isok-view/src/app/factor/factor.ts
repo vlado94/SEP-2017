@@ -1,4 +1,6 @@
 export class Factor {
   id: number;
-  name: string;
+  name: string; 
+  category: number;
+  categoryName: string; 
 }

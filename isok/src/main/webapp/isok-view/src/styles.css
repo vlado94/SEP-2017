@@ -36,15 +36,42 @@
 	display : block !important;	
 }
 
-table th {
+.appTable th {
 	border-bottom : 3px solid #ccc !important;
 }
 
 
-table tr {
+.appTable tr {
 	border-bottom : 2px solid #ccc !important;
 }
 
 input {
 	border : 3px solid #ccc !important;
+}
+
+.appTable {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+}
+.appTable  thead {
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+.appTable  tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.appTable  tbody tr {
+    width: 100%;
+}
+.appTable  thead, .appTable  tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+.table-bordered {
+    height: 200px;
 }

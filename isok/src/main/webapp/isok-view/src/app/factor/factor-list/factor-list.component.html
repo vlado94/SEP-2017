@@ -1,6 +1,6 @@
-<div class="row leftMargin rightMargin">
+<div class="row leftMargin rightMargin borderDiv">
     <h4>{{ title }}</h4>
-    <table class="table table-hover table-bordered borderDiv">
+    <table class="table table-hover table-bordered appTable">
     	<thead>
             <tr>
                 <th >#</th>
@@ -14,7 +14,7 @@
         	    <td>{{factor.id}}</td>
                 <td>{{factor.name}}</td>
                 <td>{{factor.categoryName}}</td>
-     	        <td>
+     	        <td class="actionsCol">
      	          	<a class="btn fa fa-pencil" [routerLink]="['/factors', factor.id]"></a>
     	           	<button class="btn fa fa-times" type="button" (click)="delete(factor)"></button>
     			</td>

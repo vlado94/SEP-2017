@@ -26,7 +26,6 @@ public class CategoryFactorServiceImpl implements CategoryFactorService{
 
 	@Override
 	public CategoryFactor save(CategoryFactor categoryFactor) {
-		// TODO Auto-generated method stub
 		return repository.save(categoryFactor);
 	}
 

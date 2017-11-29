@@ -3,7 +3,6 @@ package da.categoryFactor;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +24,7 @@ public class CategoryFactorController {
 		return service.findAll();
 	}
 
-	@PostMapping
+	@PostMapping(path = "/save")
 	private CategoryFactor save(@RequestBody CategoryFactor categoryFactor) {
 		CategoryFactor newCategoryFactor = service.save(categoryFactor);
 		return newCategoryFactor;
@@ -36,17 +35,16 @@ public class CategoryFactorController {
 		return service.findOne(id);
 	}
 	
-	@PutMapping
+	@PutMapping(path = "/update")
 	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {
 		CategoryFactor updateCategory = service.save(categoryFactor);
 		return updateCategory;
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping(path = "delete/{id}")
 	private boolean delete(@PathVariable Long id) {
 		try {
 			service.delete(id);
-			System.out.println("obrisan sa id-em : " + id);
 			return true;
 		} catch(Exception e) {
 			return false;

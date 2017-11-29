@@ -1,10 +1,13 @@
 package isok.isok.categoryFactor;
 
+import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +25,6 @@ import org.springframework.web.client.RestTemplate;
 @CrossOrigin(origins = "http://localhost:4200")
 public class CategoryFactorController {
 
-	@Autowired
-	private CategoryFactorService service;
-
 	@Bean
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();
@@ -35,12 +35,17 @@ public class CategoryFactorController {
 	
 	@GetMapping
 	private List<CategoryFactor> findAll() {
-		return service.findAll();
+		ResponseEntity<CategoryFactor[]> responseEntity = restTemplate().getForEntity(
+				dataccessPort.toString()+"/categoryFactor", CategoryFactor[].class);
+		CategoryFactor[] objects = responseEntity.getBody();
+		return  Arrays.asList(objects);
 	}
 
 	@PostMapping
 	private CategoryFactor save(@RequestBody CategoryFactor categoryFactor) {
-		CategoryFactor newCategoryFactor = service.save(categoryFactor);
+		CategoryFactor newCategoryFactor = restTemplate().postForObject(
+				dataccessPort.toString()+"/categoryFactor/save", categoryFactor, CategoryFactor.class);
+		
 		return newCategoryFactor;
 	}
 
@@ -52,16 +57,20 @@ public class CategoryFactorController {
 	}
 	
 	@PutMapping
-	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {
-		CategoryFactor updateCategory = service.save(categoryFactor);
+	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {	 
+		HttpEntity<?> requestEntity = new HttpEntity<Object>(categoryFactor);
+		HttpEntity<CategoryFactor> updateCategoryEntity = restTemplate().exchange(
+				dataccessPort.toString()+"/categoryFactor/update", HttpMethod.PUT, requestEntity, CategoryFactor.class );
+		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
+	
 		return updateCategory;
 	}
 	
 	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) {
 		try {
-			service.delete(id);
-			System.out.println("obrisan sa id-em : " + id);
+			HttpEntity<Boolean> updateCategoryEntity = restTemplate().exchange(
+					dataccessPort.toString()+"/categoryFactor/delete/"+id, HttpMethod.DELETE, null, Boolean.class);
 			return true;
 		} catch(Exception e) {
 			return false;

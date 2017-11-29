@@ -1,4 +1,4 @@
-package isok.isok.factor;
+package da.factor;
 
 import java.util.List;
 

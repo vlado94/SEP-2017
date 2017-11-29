@@ -1,4 +1,4 @@
-package isok.isok.factor;
+package da.factor;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 

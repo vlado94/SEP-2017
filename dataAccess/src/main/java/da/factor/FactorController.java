@@ -42,7 +42,7 @@ public class FactorController {
 		return retVal;
 	}
 
-	@PostMapping(path = "/save")
+	@PostMapping
 	private FactorDTO save(@RequestBody FactorDTO obj) {
 		Factor f = new Factor();
 		f.setName(obj.getName());
@@ -57,7 +57,7 @@ public class FactorController {
 		return factor.getDTO();
 	}
 	
-	@PutMapping(path = "/update")
+	@PutMapping
 	private FactorDTO update(@RequestBody FactorDTO obj) {
 		Factor f = new Factor();
 		f.setId(obj.getId());
@@ -67,7 +67,7 @@ public class FactorController {
 		return updateFactor;
 	}
 	
-	@DeleteMapping(path = "delete/{id}")
+	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) {
 		try {
 			service.delete(id);

@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import isok.isok.categoryFactor.CategoryFactor;
 import isok.isok.dto.FactorDTO;
 
 @RestController
@@ -48,7 +46,7 @@ public class FactorController {
 	@PostMapping
 	private FactorDTO save(@RequestBody FactorDTO obj) {
 		FactorDTO newFactorDTO = restTemplate().postForObject(
-				dataccessPort.toString()+"/factor/save", obj, FactorDTO.class);
+				dataccessPort.toString()+"/factor", obj, FactorDTO.class);
 		
 		return newFactorDTO;
 	}
@@ -64,18 +62,16 @@ public class FactorController {
 	private FactorDTO update(@RequestBody FactorDTO obj) {
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(obj);
 		HttpEntity<FactorDTO> updateFactorEntity = restTemplate().exchange(
-				dataccessPort.toString()+"/factor/update", HttpMethod.PUT, requestEntity, FactorDTO.class );
+				dataccessPort.toString()+"/factor", HttpMethod.PUT, requestEntity, FactorDTO.class );
 		FactorDTO updateFactorDTO  =  updateFactorEntity.getBody();
 		return updateFactorDTO;
-		
 	}
 	
 	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) {
 		try {
-			HttpEntity<Boolean> updateCategoryEntity = restTemplate().exchange(
-					dataccessPort.toString()+"/factor/delete/"+id, HttpMethod.DELETE, null, Boolean.class);
-			return true;
+			return restTemplate().exchange(
+					dataccessPort.toString()+"/factor/"+id, HttpMethod.DELETE, null, Boolean.class).getBody();
 		} catch(Exception e) {
 			return false;
 		}

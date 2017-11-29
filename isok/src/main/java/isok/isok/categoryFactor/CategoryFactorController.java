@@ -44,7 +44,7 @@ public class CategoryFactorController {
 	@PostMapping
 	private CategoryFactor save(@RequestBody CategoryFactor categoryFactor) {
 		CategoryFactor newCategoryFactor = restTemplate().postForObject(
-				dataccessPort.toString()+"/categoryFactor/save", categoryFactor, CategoryFactor.class);
+				dataccessPort.toString()+"/categoryFactor", categoryFactor, CategoryFactor.class);
 		
 		return newCategoryFactor;
 	}
@@ -60,7 +60,7 @@ public class CategoryFactorController {
 	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {	 
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(categoryFactor);
 		HttpEntity<CategoryFactor> updateCategoryEntity = restTemplate().exchange(
-				dataccessPort.toString()+"/categoryFactor/update", HttpMethod.PUT, requestEntity, CategoryFactor.class );
+				dataccessPort.toString()+"/categoryFactor", HttpMethod.PUT, requestEntity, CategoryFactor.class );
 		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
 	
 		return updateCategory;
@@ -69,9 +69,8 @@ public class CategoryFactorController {
 	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) {
 		try {
-			HttpEntity<Boolean> updateCategoryEntity = restTemplate().exchange(
-					dataccessPort.toString()+"/categoryFactor/delete/"+id, HttpMethod.DELETE, null, Boolean.class);
-			return true;
+			return restTemplate().exchange(
+					dataccessPort.toString()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class).getBody();
 		} catch(Exception e) {
 			return false;
 		}

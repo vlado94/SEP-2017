@@ -24,7 +24,7 @@ public class CategoryFactorController {
 		return service.findAll();
 	}
 
-	@PostMapping(path = "/save")
+	@PostMapping
 	private CategoryFactor save(@RequestBody CategoryFactor categoryFactor) {
 		CategoryFactor newCategoryFactor = service.save(categoryFactor);
 		return newCategoryFactor;
@@ -35,13 +35,13 @@ public class CategoryFactorController {
 		return service.findOne(id);
 	}
 	
-	@PutMapping(path = "/update")
+	@PutMapping
 	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {
 		CategoryFactor updateCategory = service.save(categoryFactor);
 		return updateCategory;
 	}
 	
-	@DeleteMapping(path = "delete/{id}")
+	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) {
 		try {
 			service.delete(id);

@@ -4,9 +4,13 @@ import { FormControl, FormGroup } from "@angular/forms";
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { FactorService } from "../factor.service";
 import { Factor } from '../factor';
+
+import { CategoryFactorService } from "../../category-factor/category-factor.service";
+import { CategoryFactor } from "../../category-factor/category-factor";
 
 @Component({
     selector: 'app-factor-list',
@@ -16,9 +20,13 @@ import { Factor } from '../factor';
 export class FactorListComponent implements OnInit {
     title = "Factors";
     factors : Array<Factor>;
+    categories : Array<CategoryFactor>;
+    categoryForFactors;
     constructor(
         private factorService: FactorService,
-        private http: Http
+        private categoryFactorService: CategoryFactorService,
+        private http: Http,
+        private route: ActivatedRoute
     ) { }
 
 	ngOnInit() { 
@@ -26,16 +34,32 @@ export class FactorListComponent implements OnInit {
             .subscribe(factors => 
                 this.factors = factors);
 
+        this.categoryFactorService.findAll()
+            .subscribe(categories => 
+                this.categories = categories
+            );
+
         this.factorService.newFactor.subscribe(
             data =>  {
                 var updateItem = this.factors.find(x=>x.id == data.id);
                 var index = this.factors.indexOf(updateItem);
+                if(categoryForFactors.value.split(":")[1] == undefined || 
+                        parseInt(categoryForFactors.value.split(":")[1] == 0) || 
+                        data.category == parseInt(categoryForFactors.value.split(":")[1])) {
+                    if(index == -1)
+                        this.factors = [data, ...this.factors]
+                    else
+                        this.factors[index] = data;
+                }
+            }
+        ) 
 
-                if(index == -1)
-                    this.factors = [data, ...this.factors]
-                else
-                    this.factors[index] = data;
-          }) 
+        this.route.params.subscribe(params => {
+            var id = params['categoryFactorId'];
+            if (!id)
+                return; 
+            this.update(id); 
+        })
     }
     
     delete(factor){
@@ -48,5 +72,17 @@ export class FactorListComponent implements OnInit {
             alert("Could not delete factor.");
             this.factors.splice(index, 0, factor);
           });
+    }
+
+    update(catID) {
+        if(catID == undefined) {
+        this.categoryFactorService.findFactorsByID(categoryForFactors.value.split(":")[1])
+            .subscribe(factors => 
+                this.factors = factors
+        } else {
+        this.categoryFactorService.findFactorsByID(parseInt(catID))
+            .subscribe(factors => 
+                this.factors = factors;         
+        }
     }
 }

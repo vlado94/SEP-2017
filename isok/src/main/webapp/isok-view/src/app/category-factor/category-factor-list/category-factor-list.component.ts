@@ -5,6 +5,8 @@ import { FormControl, FormGroup, } from "@angular/forms";
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
+import {ActivatedRoute, Router} from '@angular/router';
+
 import { CategoryFactorService } from "../category-factor.service";
 import { CategoryFactor } from '../category-factor';
 
@@ -18,7 +20,8 @@ export class CategoryFactorListComponent implements OnInit {
     categoryFactors : Array<CategoryFactor>;
 	  constructor(
         private categoryFactorService: CategoryFactorService,
-        private http: Http
+        private http: Http,
+        private router: Router
     ) { }
 
    	ngOnInit() { 
@@ -48,5 +51,9 @@ export class CategoryFactorListComponent implements OnInit {
             alert("Could not delete category factor.");
             this.categoryFactors.splice(index, 0, factor);
           });
+    }
+
+    getFactors(factor) {
+        this.router.navigate(['/factors', { categoryFactorId: factor.id}]);
     }
 }

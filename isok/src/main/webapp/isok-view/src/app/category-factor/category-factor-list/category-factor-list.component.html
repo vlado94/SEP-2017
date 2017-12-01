@@ -1,21 +1,21 @@
-<div class="row leftMargin rightMargin borderDiv">
+<div class="leftMargin rightMargin borderDiv">
     <h4>{{ title }}</h4>
     <table class="table table-hover table-bordered appTable">
     	<thead>
             <tr>
-                <th >#</th>
+                <th class="idColumn" >#</th>
                 <th >Name</th>
                 <th class="actionsCol">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let factor of this.categoryFactors">
-        	    <td>{{factor.id}}</td>
+        	    <td class="idColumn">{{factor.id}}</td>
                 <td>{{factor.name}}</td>
      	        <td class="actionsCol">
      	          	<a class="btn fa fa-pencil" [routerLink]="['/categoryFactors', factor.id]"></a>
                     <button class="btn fa fa-times" type="button" (click)="delete(factor)"></button>
-                    <button class="btn fa fa-times" type="button" (click)="getFactors(factor)"></button>
+                    <button class="btn fa fa-arrow-right" type="button" (click)="getFactors(factor)"></button>
     			</td>
             </tr>
        </tbody>

@@ -1,5 +1,5 @@
-<div class="row leftMargin rightMargin">
-    <div class="col-sm-4 borderDiv">
+<div class="leftMargin rightMargin">
+    <div class="borderDiv">
         <h4>{{ title }}</h4>
         <form materialize class="col s12" [formGroup]="factorForm" (ngSubmit)="save()">
             <div class="form-group row">
@@ -20,7 +20,7 @@
                         data-error="Category is required"> Category
                     </label>
                     <select [(ngModel)]="factor.category" id="category" class="form-control validate" formControlName="category">
-                        <option *ngFor="let c of categories" [ngValue]="c.id">{{c.name}}</option>
+                        <option *ngFor="let c of categories" [ngValue]="c.id" >{{c.name}}</option>
 
                         [class.invalid]="factorForm.controls['category'].touched && !factorForm.controls['category'].valid">
                     </select>

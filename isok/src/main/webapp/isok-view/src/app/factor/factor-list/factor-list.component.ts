@@ -32,7 +32,8 @@ export class FactorListComponent implements OnInit {
 	ngOnInit() { 
         this.factorService.findAll()
             .subscribe(factors => 
-                this.factors = factors);
+                this.factors = factors
+            );
 
         this.categoryFactorService.findAll()
             .subscribe(categories => 
@@ -43,9 +44,9 @@ export class FactorListComponent implements OnInit {
             data =>  {
                 var updateItem = this.factors.find(x=>x.id == data.id);
                 var index = this.factors.indexOf(updateItem);
-                if(categoryForFactors.value.split(":")[1] == undefined || 
-                        parseInt(categoryForFactors.value.split(":")[1] == 0) || 
-                        data.category == parseInt(categoryForFactors.value.split(":")[1])) {
+                if(this.categoryForFactors.value.split(":")[1] == undefined || 
+                        parseInt(this.categoryForFactors.value.split(":")[1]) == 0 || 
+                        data.category == parseInt(this.categoryForFactors.value.split(":")[1])) {
                     if(index == -1)
                         this.factors = [data, ...this.factors]
                     else
@@ -76,13 +77,15 @@ export class FactorListComponent implements OnInit {
 
     update(catID) {
         if(catID == undefined) {
-        this.categoryFactorService.findFactorsByID(categoryForFactors.value.split(":")[1])
-            .subscribe(factors => 
-                this.factors = factors
+            this.categoryFactorService.findFactorsByID(this.categoryForFactors.value.split(":")[1])
+                .subscribe(factors => 
+                    this.factors = factors
+                )
         } else {
-        this.categoryFactorService.findFactorsByID(parseInt(catID))
-            .subscribe(factors => 
-                this.factors = factors;         
+            this.categoryFactorService.findFactorsByID(parseInt(catID))
+                .subscribe(factors => 
+                    this.factors = factors
+                )         
         }
     }
 }

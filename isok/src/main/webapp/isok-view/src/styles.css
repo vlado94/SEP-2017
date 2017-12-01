@@ -1,10 +1,9 @@
 .navbar-sidenav {
 	border-top : 1px solid #ccc !important;
-	top : 2px !important;
 }
 
 .borderDiv {
-    border: 5px solid #ccc;
+    border: 2px solid #ccc;
 	padding : 15px;
 	margin-bottom: 15px;
 
@@ -45,8 +44,8 @@
 	border-bottom : 2px solid #ccc !important;
 }
 
-input {
-	border : 3px solid #ccc !important;
+input,select {
+	border : 2px solid #ccc !important;
 }
 
 .appTable {
@@ -74,4 +73,8 @@ input {
 
 .table-bordered {
     height: 200px;
+}
+
+.idColumn {
+	width : 10%;
 }

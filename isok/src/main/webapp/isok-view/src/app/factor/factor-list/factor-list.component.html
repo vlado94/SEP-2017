@@ -19,6 +19,7 @@
             <tr>
                 <th class="idColumn" >#</th>
                 <th >Name</th>
+                <th >Percent</th>
                 <th >Component</th>
                 <th class="actionsCol">Actions</th>
             </tr>
@@ -27,10 +28,11 @@
             <tr *ngFor="let factor of this.factorComponent.factors">
         	    <td class="idColumn">{{factor.id}}</td>
                 <td>{{factor.name}}</td>
+                <td>{{factor.percent}}</td>
                 <td>{{factor.categoryName}}</td>
      	        <td class="actionsCol">
-                    <a class="btn fa fa-pencil" (click)="this.factorComponent.get(factor)" title="Details"></a>
-    	           	<button class="btn fa fa-times" type="button" (click)="this.factorComponent.delete(factor)" title="Delete"></button>
+                    <a class="btn fa fa-pencil" (click)="this.factorComponent.get(factor)" title="Item details"></a>
+    	           	<button class="btn fa fa-times" type="button" (click)="this.factorComponent.delete(factor)" title="Delete item"></button>
     			</td>
             </tr>
        </tbody>

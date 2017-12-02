@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import da.categoryFactor.CategoryFactorService;
-import da.dto.FactorDTO;
-
-
+import model.dto.FactorDTO;
 
 @RestController
 @RequestMapping("/factor")
@@ -46,6 +44,7 @@ public class FactorController {
 	private FactorDTO save(@RequestBody FactorDTO obj) {
 		Factor f = new Factor();
 		f.setName(obj.getName());
+		f.setPercent(obj.getPercent());
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO newFactor = service.save(f).getDTO();
 		return newFactor;
@@ -59,9 +58,10 @@ public class FactorController {
 	
 	@PutMapping
 	private FactorDTO update(@RequestBody FactorDTO obj) {
-		Factor f = new Factor();
-		f.setId(obj.getId());
+		Factor f = Factor.getObj(obj);
+		/*f.setId(obj.getId());
 		f.setName(obj.getName());
+		f.setPercent(obj.getPercent());*/
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO updateFactor = service.save(f).getDTO();
 		return updateFactor;

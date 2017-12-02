@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import da.dto.FactorDTO;
 import da.factor.Factor;
 import da.factor.FactorService;
+import model.dto.FactorDTO;
 
 @RestController
 @RequestMapping("/categoryFactor")

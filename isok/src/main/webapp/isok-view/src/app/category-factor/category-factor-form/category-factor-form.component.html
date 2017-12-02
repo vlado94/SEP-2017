@@ -5,22 +5,20 @@
             <div class="form-group row">
                 <input id="id" type="hidden" class="form-control validate"
                         [(ngModel)]="this.categoryFactorComponent.categoryFactor" formControlName="id">
-                <div class="form-group col-sm-12">
-                    <label for="name"
-                        [class.active]="this.categoryFactorComponent.categoryFactor"
-                        data-error="Name is required and needs to contain at least 3 chars"> Name
+                <span class="input input--hoshi">
+                    <input class="input__field input__field--hoshi" type="text" id="name" formControlName="name"
+                        [(ngModel)]="this.categoryFactorComponent.categoryFactor.name">
+                    <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="name">
+                        <span class="input__label-content input__label-content--hoshi">Name</span>
                     </label>
-                    <input id="name" type="text" class="form-control validate"
-                        [(ngModel)]="this.categoryFactorComponent.categoryFactor.name" formControlName="name"
-                        [class.invalid]="categoryFactorForm.controls['name'].touched && !categoryFactorForm.controls['name'].valid">
-                </div>
+                </span>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 buttons">
                     <button class="btn fa fa-check floatRight" type="submit"
-                        [disabled]="!categoryFactorForm.valid">
+                        [disabled]="!categoryFactorForm.valid" title="Save item">
                     </button>
-                    <button class="btn fa fa-plus floatRight" (click)="this.resetForm()">
+                    <button class="btn fa fa-plus floatRight" (click)="this.resetForm()" title="Reset form">
                     </button>
                 </div>
             </div>

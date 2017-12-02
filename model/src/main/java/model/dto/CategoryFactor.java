@@ -1,4 +1,4 @@
-package isok.isok.categoryFactor;
+package model.dto;
 
 public class CategoryFactor {
 

@@ -18,11 +18,6 @@ export class CategoryFactorService {
             .map(res => res.json());
     }
 
-    findFactorsByID(id) {
-        return this.http.get(this.apiUrl+'/findFactorsByID/' + id)
-            .map(res => res.json());
-    }
-
     save(categoryFactor) {
         return this.http.post(this.apiUrl, categoryFactor)
             .map(res => res.json())

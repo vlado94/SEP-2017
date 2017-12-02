@@ -1,7 +1,10 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NgModule } from '@angular/core';
+
+import { FactorService } from "../../factor/factor.service";
+import { Factor } from '../../factor/factor';
 
 import {InsurancePolicyService} from '../insurance-policy.service';
 //import {InsurancePolicyPersonRequest} from './insurance-policy-person-request';
@@ -21,6 +24,7 @@ import {InsurancePolicyService} from '../insurance-policy.service';
     ],
     providers: [ // singleton services
         InsurancePolicyService,
+        FactorService
     ]
 })
 export class InsurancePolicyPersonFormComponent {
@@ -28,28 +32,59 @@ export class InsurancePolicyPersonFormComponent {
     insurancePolicyPerson: FormGroup;
     persons: InsurancePolicyPersonRequest[];
     public submitted: boolean;
+    sports: Factor[];
+    ages: Factor[];
 
-    constructor(private insurancePolicyService: InsurancePolicyService) { }
+    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
     ngOnInit() {
         this.insurancePolicyPerson = new FormGroup({
-            firstName: new FormControl(''),
-            lastName: new FormControl(''),
-            jmbg: new FormControl(''),
+            firstName: new FormControl('', [
+                Validators.required,
+                Validators.minLength(3)
+            ]),
+            lastName: new FormControl('', [
+                Validators.required,
+                Validators.minLength(3)
+            ]),
+            jmbg: new FormControl('', [
+                Validators.required,
+                Validators.minLength(13),
+                Validators.maxLength(13)
+            ]),
             passportNumber: new FormControl(''),
-            address: new FormControl(''),
-            phone: new FormControl(''),
-            age: new FormControl(''),
-            sport: new FormControl(''),
-            amount: new FormControl(''),
+            address: new FormControl('', [
+                Validators.required
+            ]),
+            phone: new FormControl('', [
+                Validators.required
+            ]),
+            age: new FormControl('', [
+                Validators.required
+            ]),
+            sport: new FormControl('', [
+                Validators.required
+            ]),
+            amount: new FormControl('', [
+                Validators.required
+            ]),
         })
-        
+        this.factorService.findByCategory(2)
+            .subscribe(ages => {
+                this.ages = ages;
+            })
+        this.factorService.findByCategory(1)
+            .subscribe(sports => {
+                this.sports = sports;
+            })
     }
 
     onSubmit({value}: { value: InsurancePolicyPersonRequest }) {
         this.insurancePolicyService.add(value);
     }
-
+    closePersonForm() {
+        this.insurancePolicyService.changePersonFormVisibility(false);
+    }
 }
 export class InsurancePolicyPersonRequest {
     firstName: string;

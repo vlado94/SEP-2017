@@ -75,5 +75,13 @@ public class FactorController {
 			return false;
 		}
 	}
+	
+	@GetMapping("/category/{id}")
+	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
+		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
+				dataccessPort.toString()+"/factor/category/"+id, FactorDTO[].class);
+		FactorDTO[] objects = responseEntity.getBody();
+		return  Arrays.asList(objects);
+	}
 
 }

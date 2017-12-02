@@ -5,6 +5,9 @@ import { NgModule } from '@angular/core';
 import {InsurancePolicyService} from '../insurance-policy.service';
 import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance-policy-person-form.component';
 
+import { FactorService } from "../../factor/factor.service";
+import { Factor } from '../../factor/factor';
+
 
 @Component({
     selector: 'app-insurance-policy-form',
@@ -21,6 +24,7 @@ import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance
     ],
     providers: [ // singleton services
         InsurancePolicyService,
+        FactorService
     ]
 })
 export class InsurancePolicyFormComponent {
@@ -31,10 +35,16 @@ export class InsurancePolicyFormComponent {
     public personForm: boolean = false;
     public addPersonButton: boolean = true;
     persons: InsurancePolicyPersonRequest[] = [];
-    constructor(private insurancePolicyService: InsurancePolicyService) { }
+    regions: Factor[];
+    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 
     ngOnInit() {
+        this.insurancePolicyService.personForm.subscribe
+            (updatedValue => {
+                this.personForm = updatedValue;
+                this.addPersonButton = true;
+            })
         this.insurancePolicy = new FormGroup({
             startDate: new FormControl(''),
             endDate: new FormControl(''),
@@ -46,6 +56,10 @@ export class InsurancePolicyFormComponent {
             (updatedTodos => {
                 this.persons = updatedTodos;
             });
+        this.factorService.findByCategory(3)
+            .subscribe(regions => {
+                this.regions = regions;
+            })
     }
     onSubmit() {
         console.log(this.persons[0].firstName);

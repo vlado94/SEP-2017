@@ -2,6 +2,7 @@ package isok.isok.categoryFactor;
 
 import java.util.Arrays;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import model.dto.FactorDTO;
+
 import model.dto.CategoryFactor;
 
 @RestController
@@ -41,14 +42,6 @@ public class CategoryFactorController {
 		return  Arrays.asList(objects);
 	}
 	
-	@GetMapping("/findFactorsByID/{id}")
-	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
-		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
-				dataccessPort.toString()+"/categoryFactor/findFactorsByID/"+id, FactorDTO[].class);
-		FactorDTO[] objects = responseEntity.getBody();
-		return  Arrays.asList(objects);
-	}
-
 	@PostMapping
 	private CategoryFactor save(@RequestBody CategoryFactor categoryFactor) {
 		CategoryFactor newCategoryFactor = restTemplate().postForObject(

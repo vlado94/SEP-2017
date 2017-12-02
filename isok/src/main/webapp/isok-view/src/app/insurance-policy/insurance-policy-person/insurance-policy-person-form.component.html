@@ -10,6 +10,17 @@
 				<input id="firstName" type="text" class="form-control"
 					formControlName="firstName">
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['firstName'].errors && !insurancePolicyPerson.controls['firstName'].pristine"
+				class="alert alert-danger">
+
+				<div
+					*ngIf="insurancePolicyPerson.controls['firstName'].errors.required">Morate
+					uneti ime.</div>
+				<div
+					*ngIf="insurancePolicyPerson.controls['firstName'].errors.minlength">Prekratko
+					ime.</div>
+			</div>
 		</div>
 
 		<div class="form-group">
@@ -17,6 +28,17 @@
 			<div class="col-xs-4">
 				<input id="lastName" type="text" class="form-control"
 					formControlName="lastName">
+			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['lastName'].errors && !insurancePolicyPerson.controls['lastName'].pristine"
+				class="alert alert-danger">
+
+				<div
+					*ngIf="insurancePolicyPerson.controls['lastName'].errors.required">Morate
+					uneti prezime.</div>
+				<div
+					*ngIf="insurancePolicyPerson.controls['lastName'].errors.minlength">Prekratko
+					prezime.</div>
 			</div>
 		</div>
 
@@ -26,10 +48,21 @@
 				<input id="jmbg" type="text" class="form-control"
 					formControlName="jmbg">
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['jmbg'].errors && !insurancePolicyPerson.controls['jmbg'].pristine"
+				class="alert alert-danger">
+
+				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.required">Morate
+					uneti jedinstveni matični broj.</div>
+				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.minlength">Jedinstveni
+					matični broj sadrži 13 cifara.</div>
+				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.maxlength">Jedinstveni
+					matični broj sadrži 13 cifara.</div>
+			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="passportNumber">Broj pasoša:</label>
+			<label for="passportNumber">Broj pasoÅ¡a:</label>
 			<div class="col-xs-4">
 				<input id="passportNumber" type="text" class="form-control"
 					formControlName="passportNumber">
@@ -42,6 +75,14 @@
 				<input id="address" type="text" class="form-control"
 					formControlName="address">
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['address'].errors && !insurancePolicyPerson.controls['address'].pristine"
+				class="alert alert-danger">
+
+				<div
+					*ngIf="insurancePolicyPerson.controls['address'].errors.required">Morate
+					uneti adresu.</div>
+			</div>
 		</div>
 
 		<div class="form-group">
@@ -50,16 +91,29 @@
 				<input id="phone" type="text" class="form-control"
 					formControlName="phone">
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['phone'].errors && !insurancePolicyPerson.controls['phone'].pristine"
+				class="alert alert-danger">
+
+				<div *ngIf="insurancePolicyPerson.controls['phone'].errors.required">Morate
+					uneti broj telefona.</div>
+			</div>
 		</div>
 
 		<div class="form-group">
 			<label for="age" class="col-xs-4">Starost:</label>
 			<div class="col-xs-4">
 				<select id="age" class="form-control" formControlName="age">
-					<option value="1">Do 18 godina</option>
-					<option value="2">Od 18 do 60 godina</option>
-					<option value="3">Preko 60 godina</option>
+					<option value="">Izaberite starost</option>				
+					<option *ngFor="let a of ages" value="{{a.id}}">{{a.name}}</option>
 				</select>
+			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['age'].errors && !insurancePolicyPerson.controls['age'].pristine"
+				class="alert alert-danger">
+
+				<div *ngIf="insurancePolicyPerson.controls['age'].errors.required">Morate
+					izabrati starost korisnika polise.</div>
 			</div>
 		</div>
 
@@ -68,29 +122,48 @@
 				osiguran:</label>
 			<div class="col-xs-4">
 				<select id="amount" class="form-control" formControlName="amount">
+					<option value="">Izaberite iznos</option>
 					<option value="1">100.000,00</option>
 					<option value="2">200.000,00</option>
 					<option value="3">300.000,00</option>
 					<option value="4">400.000,00</option>
 				</select>
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['amount'].errors && !insurancePolicyPerson.controls['amount'].pristine"
+				class="alert alert-danger">
+
+				<div
+					*ngIf="insurancePolicyPerson.controls['amount'].errors.required">Morate
+					izabrati iznos do kog je korisnik polise osiguran.</div>
+			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="sport" class="col-xs-4">Iznos do kog je osiguran:</label>
+			<label for="sport" class="col-xs-4">Sport kojim se korisnik
+				namerava baviti:</label>
 			<div class="col-xs-4">
 				<select id="sport" class="form-control" formControlName="sport">
-					<option value="1">Neće se baviti sportom</option>
-					<option value="2">Fudbal</option>
-					<option value="3">Košarka</option>
-					<option value="4">Plivanje</option>
+					<option value="">Izaberite sport</option>
+					<option *ngFor="let s of sports" value="{{s.id}}">{{s.name}}</option>
+
 				</select>
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['sport'].errors && !insurancePolicyPerson.controls['sport'].pristine"
+				class="alert alert-danger">
+
+				<div *ngIf="insurancePolicyPerson.controls['sport'].errors.required">Morate
+					izabrati sport kojim korisnik namerava da se bavi.</div>
+			</div>
 		</div>
-		<button class="btn fa fa-check floatRight" type="submit"
-			[disabled]="!insurancePolicyPerson.valid"></button>
-			
-		<button class="btn fa fa-discard floatRight" type="submit"
-			[disabled]="!insurancePolicyPerson.valid">Ponisti</button>
+		<span class="floatRight button">
+			<button class="btn fa fa-check " type="submit"
+				[disabled]="!insurancePolicyPerson.valid"></button>
+		</span> <span class="floatRight button">
+			<button class="btn fa fa-close " type="button"
+				(click)="closePersonForm()"></button>
+		</span>
 	</form>
+
 </section>

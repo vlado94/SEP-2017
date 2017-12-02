@@ -12,7 +12,8 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-
 export class InsurancePolicyService {
 
     private _todos: BehaviorSubject<InsurancePolicyPersonRequest[]>;
-    private dataStore: {  // This is where we will store our data in memory
+    private _personForm = new Subject<boolean>();
+    private dataStore: {  
         todos: InsurancePolicyPersonRequest[]
     };
 
@@ -25,10 +26,17 @@ export class InsurancePolicyService {
     get todos() {
         return this._todos.asObservable();
     }
-
+    get personForm(){
+        return this._personForm.asObservable();    
+    }
     add(person: InsurancePolicyPersonRequest) {
+        console.log("123");
         this.dataStore.todos.push(person);
         this._todos.next(this.dataStore.todos);
+    }
+    
+    changePersonFormVisibility(value:boolean){
+            this._personForm.next(value);
     }
     /*constructor(private http: Http) { }
 

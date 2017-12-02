@@ -8,7 +8,7 @@
         </div>
         
         <div class="form-group col-sm-4">
-            <select [(ngModel)]="categoryForFactors" (change)="update()" id="categoryForFactors" class="form-control validate">
+            <select [(ngModel)]="categoryForFactors" (change)="findFactorsByID()" id="categoryForFactors" class="form-control validate">
                 <option [ngValue]="0" [selected]="1===1">Sve</option>
                 <option *ngFor="let c of this.factorComponent.categories" [ngValue]="c.id">{{c.name}}</option>
             </select>
@@ -29,8 +29,8 @@
                 <td>{{factor.name}}</td>
                 <td>{{factor.categoryName}}</td>
      	        <td class="actionsCol">
-                    <a class="btn fa fa-pencil" (click)="this.factorComponent.get(factor)"></a>
-    	           	<button class="btn fa fa-times" type="button" (click)="this.factorComponent.delete(factor)"></button>
+                    <a class="btn fa fa-pencil" (click)="this.factorComponent.get(factor)" title="Details"></a>
+    	           	<button class="btn fa fa-times" type="button" (click)="this.factorComponent.delete(factor)" title="Delete"></button>
     			</td>
             </tr>
        </tbody>

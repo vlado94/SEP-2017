@@ -84,7 +84,6 @@ export class CategoryFactorComponent implements OnInit {
     }
 
     getFactors(categoryFactor) {
-        //this.router.navigate(['/categoryFactors/findFactorsByID?findFactorsByID='+ categoryFactor.id]); 
         this.router.navigate(['/factors', { categoryFactorId: categoryFactor.id}]);
     }
 }

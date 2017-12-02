@@ -3,8 +3,16 @@ package model.dto;
 public class FactorDTO {
 	private Long id;
 	private String name;
+	private Double percent;
 	private Long category;
 	private String categoryName;
+	
+	public Double getPercent() {
+		return percent;
+	}
+	public void setPercent(Double percent) {
+		this.percent = percent;
+	}
 	public Long getId() {
 		return id;
 	}

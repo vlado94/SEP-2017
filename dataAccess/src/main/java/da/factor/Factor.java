@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 
 import da.categoryFactor.CategoryFactor;
-import da.dto.FactorDTO;
+import model.dto.FactorDTO;
 
 @Entity
 public class Factor {
@@ -21,6 +21,8 @@ public class Factor {
 	@NotBlank
 	private String name;
 	
+	private Double percent;
+	
 	@ManyToOne
 	@JoinColumn(name = "CATEGORY_ID")
 	private CategoryFactor category;
@@ -29,9 +31,26 @@ public class Factor {
 		FactorDTO retVal = new FactorDTO();
 		retVal.setId(id);
 		retVal.setName(name);
+		retVal.setPercent(percent);
 		retVal.setCategoryName(category.getName());
 		retVal.setCategory(category.getId());
 		return retVal;
+	}	
+	
+	public static Factor getObj(FactorDTO dto) {
+		Factor retVal = new Factor();
+		retVal.setId(dto.getId());
+		retVal.setName(dto.getName());
+		retVal.setPercent(dto.getPercent());
+		return retVal;
+	}
+	
+	public Double getPercent() {
+		return percent;
+	}
+
+	public void setPercent(Double percent) {
+		this.percent = percent;
 	}
 
 	public Long getId() {

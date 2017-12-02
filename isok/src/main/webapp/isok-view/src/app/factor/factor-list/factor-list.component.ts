@@ -13,13 +13,27 @@ import { FactorComponent } from "../factor.component";
 })
 export class FactorListComponent implements OnInit {
     title = "Factors";
+    categoryForFactors;
     constructor(
         private factorComponent: FactorComponent,
         private route: ActivatedRoute
     ) { }
 
 	ngOnInit() { 
+        this.route.params.subscribe(params => {
+            var id = params['categoryFactorId'];
+            if (!id)
+                return; 
+            this.findFactorsByID(id); 
+        })
     }
     
-  
+    findFactorsByID(catID) {
+        if(catID == undefined) {
+            this.factorComponent.findFactorsByID(this.categoryForFactors);
+        } else {
+            catID = this.factorComponent.findFactorsByID(parseInt(catID));
+            this.categoryForFactors = catID;
+        }
+    }
 }

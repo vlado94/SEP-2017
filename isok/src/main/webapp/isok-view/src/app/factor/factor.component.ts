@@ -90,4 +90,12 @@ export class FactorComponent implements OnInit {
                 })         
         }
     }
+
+    findFactorsByID(catID) {
+        this.categoryFactorService.findFactorsByID(parseInt(catID))
+            .subscribe(factors => 
+                  this.factors = factors
+            )    
+        return catID;     
+    }
 }

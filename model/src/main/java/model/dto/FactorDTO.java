@@ -1,4 +1,4 @@
-package isok.isok.dto;
+package model.dto;
 
 public class FactorDTO {
 	private Long id;

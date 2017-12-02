@@ -10,10 +10,8 @@ import javax.validation.constraints.NotBlank;
 
 import da.categoryFactor.CategoryFactor;
 import da.dto.FactorDTO;
-import lombok.Data;
 
 @Entity
-@Data
 public class Factor {
 
 	@Id
@@ -34,5 +32,29 @@ public class Factor {
 		retVal.setCategoryName(category.getName());
 		retVal.setCategory(category.getId());
 		return retVal;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public CategoryFactor getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryFactor category) {
+		this.category = category;
 	}
 }

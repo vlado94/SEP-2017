@@ -1,24 +1,26 @@
 <div class="leftMargin rightMargin">
     <div class="borderDiv">
         <h4>{{ title }}</h4>
-        <form materialize class="col s12" [formGroup]="categoryFactorForm" (ngSubmit)="save()">
+        <form materialize [formGroup]="categoryFactorForm" (ngSubmit)="this.categoryFactorComponent.save()">
             <div class="form-group row">
                 <input id="id" type="hidden" class="form-control validate"
-                        [(ngModel)]="categoryFactor.id" formControlName="id">
+                        [(ngModel)]="this.categoryFactorComponent.categoryFactor" formControlName="id">
                 <div class="form-group col-sm-12">
                     <label for="name"
-                        [class.active]="categoryFactor.name"
+                        [class.active]="this.categoryFactorComponent.categoryFactor"
                         data-error="Name is required and needs to contain at least 3 chars"> Name
                     </label>
                     <input id="name" type="text" class="form-control validate"
-                        [(ngModel)]="categoryFactor.name" formControlName="name"
+                        [(ngModel)]="this.categoryFactorComponent.categoryFactor.name" formControlName="name"
                         [class.invalid]="categoryFactorForm.controls['name'].touched && !categoryFactorForm.controls['name'].valid">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button class="btn fa fa-plus floatRight" type="submit"
+                    <button class="btn fa fa-check floatRight" type="submit"
                         [disabled]="!categoryFactorForm.valid">
+                    </button>
+                    <button class="btn fa fa-plus floatRight" (click)="this.resetForm()">
                     </button>
                 </div>
             </div>

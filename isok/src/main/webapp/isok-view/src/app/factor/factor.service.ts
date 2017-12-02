@@ -10,7 +10,6 @@ import { Factor } from './factor'
 export class FactorService {
 
 	private apiUrl = 'http://localhost:8080/factor';
-    public newFactor = new Subject<any>();
 
     constructor(private http: Http) { }
 
@@ -20,8 +19,9 @@ export class FactorService {
     }
 
     save(factor) {
-        this.http.post(this.apiUrl, factor).map(res => res.json())
-            .subscribe(data => this.newFactor.next(data));
+        return this.http.post(this.apiUrl, factor)
+            .map(res => res.json());
+            
     }
 
     deleteById(id){
@@ -35,8 +35,7 @@ export class FactorService {
     }
 
     update(factor)  {
-        this.http.put(this.apiUrl, factor)
-            .map((res: Response) => res.json())
-            .subscribe(data => this.newFactor.next(data));
+        return this.http.put(this.apiUrl, factor)
+            .map((res: Response) => res.json());
     }
 }

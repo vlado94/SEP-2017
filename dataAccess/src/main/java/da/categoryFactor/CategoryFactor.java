@@ -5,9 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.Data;
-
-@Data
 @Entity
 public class CategoryFactor {
 
@@ -32,5 +29,4 @@ public class CategoryFactor {
 	public void setName(String name) {
 		this.name = name;
 	}
-
 }

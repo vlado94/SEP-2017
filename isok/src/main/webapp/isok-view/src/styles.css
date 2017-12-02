@@ -6,7 +6,6 @@
     border: 2px solid #ccc;
 	padding : 15px;
 	margin-bottom: 15px;
-
 }
 
 .btn,.btn:hover {
@@ -53,6 +52,7 @@ input,select {
     flex-flow: column;
     height: 100%;
     width: 100%;
+	cursor : pointer;
 }
 .appTable  thead {
     flex: 0 0 auto;

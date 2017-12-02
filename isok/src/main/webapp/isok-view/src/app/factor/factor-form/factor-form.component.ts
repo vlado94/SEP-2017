@@ -1,12 +1,8 @@
-import { Component, OnInit, Input,ViewChild  } from '@angular/core';
-import { Http, Response } from "@angular/http";
+import { Component, OnInit, Input  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { FactorService } from "../factor.service";
-import { CategoryFactorService } from "../../category-factor/category-factor.service";
-import { Factor } from "../factor";
-import { CategoryFactor } from "../../category-factor/category-factor";
+import { FactorComponent } from "../factor.component";
 
 @Component({
   	selector: 'app-factor-form',
@@ -15,16 +11,11 @@ import { CategoryFactor } from "../../category-factor/category-factor";
 })
 export class FactorFormComponent implements OnInit {
     factorForm: FormGroup;
-    factor : Factor  = new Factor();
-    title: string;
-    categories : Array<CategoryFactor>;
 
 	constructor(
         formBuilder: FormBuilder,
-        private factorService: FactorService,
-        private categoryFactorService: CategoryFactorService,
-        private route: ActivatedRoute,
-        private http: Http) {
+        private router: Router,
+        private factorComponent: FactorComponent) {
             this.factorForm = formBuilder.group({
                 id : [''],
                 name: ['', [
@@ -36,31 +27,10 @@ export class FactorFormComponent implements OnInit {
             });
     }
 
-    ngOnInit() {
-        this.categoryFactorService.findAll()
-            .subscribe(categories => 
-                this.categories = categories
-            );
-
-	    this.route.params.subscribe(params => {
-            var id = params['id'];
-            this.title = id ? 'Edit factor' : 'New factor';
-            if (!id)
-              return;
-
-            this.factorService.get(id)
-                .subscribe(
-                    factor => this.factor = factor,
-                );
-        });
+    ngOnInit() {        
     }
 
-  	save(data) {
-        var factorValue = this.factorForm.value;
-        if (factorValue.id !== undefined){
-            this.factorService.update(factorValue);
-        } else {
-            this.factorService.save(factorValue);
-        }
+    resetForm() {
+        this.router.navigate(['/factors']); 
     }
 }

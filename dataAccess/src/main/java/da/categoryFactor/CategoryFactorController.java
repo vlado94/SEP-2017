@@ -32,7 +32,7 @@ public class CategoryFactorController {
 	private List<CategoryFactor> findAll() {
 		return service.findAll();
 	}
-
+	
 	@GetMapping("/findFactorsByID/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		List<FactorDTO> retVal = new ArrayList<FactorDTO>();

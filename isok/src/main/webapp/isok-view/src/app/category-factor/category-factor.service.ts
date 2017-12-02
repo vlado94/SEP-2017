@@ -10,7 +10,6 @@ import { CategoryFactor } from './category-factor'
 export class CategoryFactorService {
 
     private apiUrl = 'http://localhost:8080/categoryFactor';
-    public newCategoryFactor = new Subject<any>();
 
     constructor(private http: Http) { }
 
@@ -25,8 +24,8 @@ export class CategoryFactorService {
     }
 
     save(categoryFactor) {
-        this.http.post(this.apiUrl, categoryFactor).map(res => res.json())
-            .subscribe(data => this.newCategoryFactor.next(data));
+        return this.http.post(this.apiUrl, categoryFactor)
+            .map(res => res.json())
     }
 
     deleteById(id){
@@ -40,9 +39,8 @@ export class CategoryFactorService {
     }
 
     update(categoryFactor)  {
-        this.http.put(this.apiUrl, categoryFactor)
-            .map((res: Response) => res.json())
-            .subscribe(data => this.newCategoryFactor.next(data));
+        return this.http.put(this.apiUrl, categoryFactor)
+            .map((res: Response) => res.json());
     }
 
 

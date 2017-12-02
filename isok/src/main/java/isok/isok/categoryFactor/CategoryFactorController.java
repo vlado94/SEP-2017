@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import isok.isok.dto.FactorDTO;
-import isok.isok.factor.Factor;
-
 
 @RestController
 @RequestMapping("/categoryFactor")
@@ -45,7 +42,7 @@ public class CategoryFactorController {
 	}
 	
 	@GetMapping("/findFactorsByID/{id}")
-	private List<FactorDTO> FindFactorsByID(@PathVariable Long id) {
+	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
 				dataccessPort.toString()+"/categoryFactor/findFactorsByID/"+id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();

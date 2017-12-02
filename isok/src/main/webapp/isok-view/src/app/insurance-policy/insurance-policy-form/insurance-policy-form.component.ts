@@ -10,7 +10,7 @@ import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance
     selector: 'app-insurance-policy-form',
     templateUrl: './insurance-policy-form.component.html',
     styleUrls: ['./insurance-policy-form.component.css'],
-    
+
 })
 @NgModule({
     imports: [
@@ -28,7 +28,8 @@ export class InsurancePolicyFormComponent {
     insurancePolicy: FormGroup;
     public submitted: boolean;
     request: InsurancePolicyRequest;
-
+    public personForm: boolean = false;
+    public addPersonButton: boolean = true;
     persons: InsurancePolicyPersonRequest[] = [];
     constructor(private insurancePolicyService: InsurancePolicyService) { }
 
@@ -40,17 +41,23 @@ export class InsurancePolicyFormComponent {
             duration: new FormControl(''),
             region: new FormControl(''),
             amount: new FormControl(''),
-        })
-        this.insurancePolicyService.todos.subscribe(updatedTodos => {
-            this.persons = updatedTodos;
         });
+        this.insurancePolicyService.todos.subscribe
+            (updatedTodos => {
+                this.persons = updatedTodos;
+            });
     }
     onSubmit() {
         console.log(this.persons[0].firstName);
         console.log("123");
     }
 
+    showPersonForm() {
+        this.personForm = true;
+        this.addPersonButton = false;
+    }
 }
+
 
 
 export class InsurancePolicyRequest {

@@ -1,91 +1,96 @@
-<h2>Podaci o putniku</h2>
+<section>
+	<h2>Podaci o putniku</h2>
 
-<form [formGroup]="insurancePolicyPerson"
-	(ngSubmit)="onSubmit(insurancePolicyPerson)">
+	<form [formGroup]="insurancePolicyPerson"
+		(ngSubmit)="onSubmit(insurancePolicyPerson)">
 
-	<div class="form-group">
-		<label for="firstName" class="col-xs-4">Ime:</label>
-		<div class="col-xs-4">
-			<input id="firstName" type="text" class="form-control"
-				formControlName="firstName">
+		<div class="form-group">
+			<label for="firstName" class="col-xs-4">Ime:</label>
+			<div class="col-xs-4">
+				<input id="firstName" type="text" class="form-control"
+					formControlName="firstName">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="lastName">Prezime:</label>
-		<div class="col-xs-4">
-			<input id="lastName" type="text" class="form-control"
-				formControlName="lastName">
+		<div class="form-group">
+			<label for="lastName">Prezime:</label>
+			<div class="col-xs-4">
+				<input id="lastName" type="text" class="form-control"
+					formControlName="lastName">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="jmbg">Jmbg:</label>
-		<div class="col-xs-4">
-			<input id="jmbg" type="text" class="form-control"
-				formControlName="jmbg">
+		<div class="form-group">
+			<label for="jmbg">Jmbg:</label>
+			<div class="col-xs-4">
+				<input id="jmbg" type="text" class="form-control"
+					formControlName="jmbg">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="passportNumber">Broj pasoša:</label>
-		<div class="col-xs-4">
-			<input id="passportNumber" type="text" class="form-control"
-				formControlName="passportNumber">
+		<div class="form-group">
+			<label for="passportNumber">Broj pasoša:</label>
+			<div class="col-xs-4">
+				<input id="passportNumber" type="text" class="form-control"
+					formControlName="passportNumber">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="address">Adresa:</label>
-		<div class="col-xs-4">
-			<input id="address" type="text" class="form-control"
-				formControlName="address">
+		<div class="form-group">
+			<label for="address">Adresa:</label>
+			<div class="col-xs-4">
+				<input id="address" type="text" class="form-control"
+					formControlName="address">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="phone">Telefon:</label>
-		<div class="col-xs-4">
-			<input id="phone" type="text" class="form-control"
-				formControlName="phone">
+		<div class="form-group">
+			<label for="phone">Telefon:</label>
+			<div class="col-xs-4">
+				<input id="phone" type="text" class="form-control"
+					formControlName="phone">
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="age" class="col-xs-4">Starost:</label>
-		<div class="col-xs-4">
-			<select id="age" class="form-control" formControlName="age">
-				<option value="1">Do 18 godina</option>
-				<option value="2">Od 18 do 60 godina</option>
-				<option value="3">Preko 60 godina</option>
-			</select>
+		<div class="form-group">
+			<label for="age" class="col-xs-4">Starost:</label>
+			<div class="col-xs-4">
+				<select id="age" class="form-control" formControlName="age">
+					<option value="1">Do 18 godina</option>
+					<option value="2">Od 18 do 60 godina</option>
+					<option value="3">Preko 60 godina</option>
+				</select>
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="amount" class="col-xs-4">Iznos do kog je osiguran:</label>
-		<div class="col-xs-4">
-			<select id="amount" class="form-control" formControlName="amount">
-				<option value="1">100.000,00</option>
-				<option value="2">200.000,00</option>
-				<option value="3">300.000,00</option>
-				<option value="4">400.000,00</option>
-			</select>
+		<div class="form-group">
+			<label for="amount" class="col-xs-4">Iznos do kog je
+				osiguran:</label>
+			<div class="col-xs-4">
+				<select id="amount" class="form-control" formControlName="amount">
+					<option value="1">100.000,00</option>
+					<option value="2">200.000,00</option>
+					<option value="3">300.000,00</option>
+					<option value="4">400.000,00</option>
+				</select>
+			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<label for="sport" class="col-xs-4">Iznos do kog je osiguran:</label>
-		<div class="col-xs-4">
-			<select id="sport" class="form-control" formControlName="sport">
-				<option value="1">Neće se baviti sportom</option>
-				<option value="2">Fudbal</option>
-				<option value="3">Košarka</option>
-				<option value="4">Plivanje</option>
-			</select>
+		<div class="form-group">
+			<label for="sport" class="col-xs-4">Iznos do kog je osiguran:</label>
+			<div class="col-xs-4">
+				<select id="sport" class="form-control" formControlName="sport">
+					<option value="1">Neće se baviti sportom</option>
+					<option value="2">Fudbal</option>
+					<option value="3">Košarka</option>
+					<option value="4">Plivanje</option>
+				</select>
+			</div>
 		</div>
-	</div>
-
-	<button class="btn btn-default" type="submit"
-		[disabled]="!insurancePolicyPerson.valid"></button>
-</form>
+		<button class="btn fa fa-check floatRight" type="submit"
+			[disabled]="!insurancePolicyPerson.valid"></button>
+			
+		<button class="btn fa fa-discard floatRight" type="submit"
+			[disabled]="!insurancePolicyPerson.valid">Ponisti</button>
+	</form>
+</section>

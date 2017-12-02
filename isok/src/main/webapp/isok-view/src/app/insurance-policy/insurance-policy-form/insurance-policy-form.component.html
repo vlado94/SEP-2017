@@ -35,9 +35,10 @@
 			</select>
 		</div>
 	</div>
+	<button type="button" (click)="showPersonForm()"
+		*ngIf="addPersonButton">Dodaj osobu</button>
+	<app-insurance-policy-person-form *ngIf="personForm"></app-insurance-policy-person-form>
 
-	<app-insurance-policy-person-form></app-insurance-policy-person-form>
-	
-	<button type="submit">DASDASD</button>
+	<button type="submit">Kupi polisu</button>
 
 </form>

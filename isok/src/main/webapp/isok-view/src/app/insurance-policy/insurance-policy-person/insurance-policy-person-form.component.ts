@@ -30,10 +30,12 @@ import {InsurancePolicyService} from '../insurance-policy.service';
 export class InsurancePolicyPersonFormComponent {
 
     insurancePolicyPerson: FormGroup;
-    persons: InsurancePolicyPersonRequest[];
+    persons: InsurancePolicyPersonRequest[] = [];
     public submitted: boolean;
     sports: Factor[];
     ages: Factor[];
+    currentPerson: InsurancePolicyPersonRequest = null;
+    contractorAdded: boolean = false;
 
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
@@ -53,6 +55,7 @@ export class InsurancePolicyPersonFormComponent {
                 Validators.maxLength(13)
             ]),
             passportNumber: new FormControl(''),
+
             address: new FormControl('', [
                 Validators.required
             ]),
@@ -68,7 +71,33 @@ export class InsurancePolicyPersonFormComponent {
             amount: new FormControl('', [
                 Validators.required
             ]),
+            contractor: new FormControl('true', [
+            ]),
+            email: new FormControl('', [
+            ]),
         })
+
+        this.insurancePolicyService.currentPerson.subscribe(current => {
+            this.currentPerson = current;
+            this.insurancePolicyPerson.setValue({
+                firstName: this.currentPerson.firstName,
+                lastName: this.currentPerson.lastName,
+                jmbg: this.currentPerson.jmbg,
+                passportNumber: this.currentPerson.passportNumber,
+                address: this.currentPerson.address,
+                phone: this.currentPerson.phone,
+                age: this.currentPerson.age,
+                sport: this.currentPerson.sport,
+                amount: this.currentPerson.amount
+
+            })
+        })
+
+        this.insurancePolicyService.contractorAdded
+            .subscribe(result => {
+                this.contractorAdded = result;
+            })
+
         this.factorService.findByCategory(2)
             .subscribe(ages => {
                 this.ages = ages;
@@ -77,11 +106,22 @@ export class InsurancePolicyPersonFormComponent {
             .subscribe(sports => {
                 this.sports = sports;
             })
+
     }
 
     onSubmit({value}: { value: InsurancePolicyPersonRequest }) {
         this.insurancePolicyService.add(value);
+        this.insurancePolicyPerson.reset();
+        this.checkIfContractorExists();
     }
+
+    checkIfContractorExists() {
+        for (let person of this.persons) {
+            if (person.contractor)
+                this.contractorAdded = true;
+        }
+    }
+
     closePersonForm() {
         this.insurancePolicyService.changePersonFormVisibility(false);
     }
@@ -93,9 +133,11 @@ export class InsurancePolicyPersonRequest {
     passportNumber: string;
     address: string;
     phone: string;
-    ageId: string;
-    sportId: string;
-    amountId: string;
+    age: string;
+    sport: string;
+    amount: string;
+    contractor: boolean;
+    email:string;
     constructor(firstName: string,
         lastName: string,
         jmbg: string,
@@ -104,15 +146,19 @@ export class InsurancePolicyPersonRequest {
         phone: string,
         ageId: string,
         sportId: string,
-        amountId: string) {
+        amountId: string,
+        contractor: boolean,
+        email:string) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.jmbg = jmbg;
         this.passportNumber = passportNumber;
         this.address = address;
         this.phone = phone;
-        this.ageId = ageId;
-        this.sportId = sportId;
-        this.amountId = amountId;
+        this.age = ageId;
+        this.sport = sportId;
+        this.amount = amountId;
+        this.contractor = contractor;
+        this.email = email;
     }
 }

@@ -36,7 +36,7 @@
 		<button type="button" (click)="showPersonForm()"
 			*ngIf="addPersonButton" class="btn btn-default">Dodaj osobu</button>
 	</div>
-	<app-insurance-policy-person-form *ngIf="personForm"></app-insurance-policy-person-form>
+	<app-insurance-policy-person-form [hidden]="!personForm"></app-insurance-policy-person-form>
 	<div class="floatRight">
 		<button type="submit" class="btn btn-default">Kupi polisu</button>
 	</div>

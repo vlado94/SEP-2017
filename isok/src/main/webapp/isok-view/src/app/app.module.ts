@@ -15,6 +15,8 @@ import { FactorFormComponent } from './factor/factor-form/factor-form.component'
 import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
 import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-form.component';
+import {InsurancePolicyPersonListComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-list.component';
+
 import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
 
 
@@ -38,7 +40,8 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
     FactorFormComponent,
     InsurancePolicyComponent,
     InsurancePolicyFormComponent,
-    InsurancePolicyPersonFormComponent
+    InsurancePolicyPersonFormComponent,
+    InsurancePolicyPersonListComponent
   ],
   imports: [
     BrowserModule,

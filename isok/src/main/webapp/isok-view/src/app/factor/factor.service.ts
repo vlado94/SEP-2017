@@ -5,11 +5,12 @@ import 'rxjs/add/operator/catch';
 import { Subject } from "rxjs/Subject";
 
 import { Factor } from './factor'
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class FactorService {
 
-    private apiUrl = 'http://localhost:8080/factor';
+    private apiUrl = `${environment.BACKEND_URL}/factor`;
 
     constructor(private http: Http) { }
 

@@ -6,10 +6,18 @@ import { Subject } from "rxjs/Subject";
 import { Observable } from "rxjs/Observable";
 import { of } from 'rxjs/observable/of';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
+import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-form.component';
+
 import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form.component';
+
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class InsurancePolicyService {
+
+
+    private apiUrl = `${environment.BACKEND_URL}/insurancePolicy`;
 
     private _todos: BehaviorSubject<InsurancePolicyPersonRequest[]>;
     private _personForm = new BehaviorSubject<boolean>(false);
@@ -40,6 +48,12 @@ export class InsurancePolicyService {
 
     get contractorAdded() {
         return this._contractorAdded.asObservable();
+    }
+
+    create(insurancePolicy: InsurancePolicyRequest) {
+
+        return this.http.post(this.apiUrl, insurancePolicy)
+            .map(res => res.json());
     }
 
     add(person: InsurancePolicyPersonRequest) {

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -30,16 +30,18 @@ import {InsurancePolicyService} from '../insurance-policy.service';
 export class InsurancePolicyPersonFormComponent {
 
     insurancePolicyPerson: FormGroup;
-    persons: InsurancePolicyPersonRequest[] = [];
+    @Input() persons;
+    @Input() lista;
+    //: InsurancePolicyPersonRequest[] = [];
     public submitted: boolean;
     sports: Factor[];
     ages: Factor[];
     currentPerson: InsurancePolicyPersonRequest = null;
     contractorAdded: boolean = false;
+    @Output() toggleFormPerson = new EventEmitter<boolean>();
 
-    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
+    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
 
-    ngOnInit() {
         this.insurancePolicyPerson = new FormGroup({
             firstName: new FormControl('', [
                 Validators.required,
@@ -65,20 +67,27 @@ export class InsurancePolicyPersonFormComponent {
             age: new FormControl('', [
                 Validators.required
             ]),
-            sport: new FormControl('', [
-                Validators.required
-            ]),
-            amount: new FormControl('', [
-                Validators.required
-            ]),
-            contractor: new FormControl('true', [
+            contractor: new FormControl('false', [
             ]),
             email: new FormControl('', [
             ]),
         })
+    }
 
-        this.insurancePolicyService.currentPerson.subscribe(current => {
-            this.currentPerson = current;
+    ngOnInit() {
+
+        this.insurancePolicyPerson.reset();
+
+        this.factorService.findByCategory(2)
+            .subscribe(ages => {
+                this.ages = ages;
+            })
+    }
+
+    @Input()
+    set current(person: InsurancePolicyPersonRequest) {
+        if (person) {
+            this.currentPerson = person;
             this.insurancePolicyPerson.setValue({
                 firstName: this.currentPerson.firstName,
                 lastName: this.currentPerson.lastName,
@@ -87,30 +96,16 @@ export class InsurancePolicyPersonFormComponent {
                 address: this.currentPerson.address,
                 phone: this.currentPerson.phone,
                 age: this.currentPerson.age,
-                sport: this.currentPerson.sport,
-                amount: this.currentPerson.amount
-
+                contractor: this.currentPerson.contractor,
+                email: this.currentPerson.email
             })
-        })
-
-        this.insurancePolicyService.contractorAdded
-            .subscribe(result => {
-                this.contractorAdded = result;
-            })
-
-        this.factorService.findByCategory(2)
-            .subscribe(ages => {
-                this.ages = ages;
-            })
-        this.factorService.findByCategory(1)
-            .subscribe(sports => {
-                this.sports = sports;
-            })
-
+            console.log("bbbb");
+            //ControlGroupHelper.updateControls(this.insurancePolicyPerson, this.person);
+            //console.log((<Control>this.insurancePolicyPerson.controls['firstName']).errors);
+        }
     }
-
     onSubmit({value}: { value: InsurancePolicyPersonRequest }) {
-        this.insurancePolicyService.add(value);
+        this.persons.push(value);
         this.insurancePolicyPerson.reset();
         this.checkIfContractorExists();
     }
@@ -123,7 +118,8 @@ export class InsurancePolicyPersonFormComponent {
     }
 
     closePersonForm() {
-        this.insurancePolicyService.changePersonFormVisibility(false);
+        this.toggleFormPerson.emit(false);
+        this.insurancePolicyPerson.reset();
     }
 }
 export class InsurancePolicyPersonRequest {
@@ -134,10 +130,8 @@ export class InsurancePolicyPersonRequest {
     address: string;
     phone: string;
     age: string;
-    sport: string;
-    amount: string;
     contractor: boolean;
-    email:string;
+    email: string;
     constructor(firstName: string,
         lastName: string,
         jmbg: string,
@@ -145,10 +139,8 @@ export class InsurancePolicyPersonRequest {
         address: string,
         phone: string,
         ageId: string,
-        sportId: string,
-        amountId: string,
         contractor: boolean,
-        email:string) {
+        email: string) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.jmbg = jmbg;
@@ -156,8 +148,6 @@ export class InsurancePolicyPersonRequest {
         this.address = address;
         this.phone = phone;
         this.age = ageId;
-        this.sport = sportId;
-        this.amount = amountId;
         this.contractor = contractor;
         this.email = email;
     }

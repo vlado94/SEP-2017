@@ -3,9 +3,13 @@
 </header>
 <div class="row">
 	<div class="col-sm-6">
-		<app-insurance-policy-form></app-insurance-policy-form>
+		<app-insurance-policy-form [formPerson]="formPerson"
+			(toggleFormPersonEmitter)="toggleFormPerson($event)"
+			[persons]="personsList" [currentPerson]="currentPerson"></app-insurance-policy-form>
 	</div>
 	<div class="col-sm-6">
-		<app-insurance-policy-person-list></app-insurance-policy-person-list>
+		<app-insurance-policy-person-list [lista]="lista"
+			[persons]="personsList"
+			(onSelectForUpdate)="onSelectForUpdate($event)"></app-insurance-policy-person-list>
 	</div>
 </div>

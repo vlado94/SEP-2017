@@ -24,7 +24,6 @@ import model.dto.FactorDTO;
 @CrossOrigin(origins = "http://localhost:4200")
 public class FactorController {
 
-
 	@Bean
 	public RestTemplate restTemplate() {
 	    return new RestTemplate();

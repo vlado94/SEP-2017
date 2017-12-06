@@ -21,7 +21,6 @@ export class CategoryFactorComponent implements OnInit {
           private categoryFactorService: CategoryFactorService,
           private router: Router,
           private route: ActivatedRoute
-
           )
   	{ }
 

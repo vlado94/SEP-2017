@@ -1,0 +1,13 @@
+<form materialize class="col s12" #form="ngForm" (ngSubmit)="this.save(form)">
+	<div class="leftMargin rightMargin borderDiv">
+	    <div *ngFor="let priceListItem of this.priceListItems">
+	        <label>{{priceListItem.factorName}}</label>
+	        <label>{{priceListItem.percent}}</label>
+	        <input type="text" id="priceListItem{{priceListItem.id}}" ngModel name="priceListItem{{priceListItem.id}}">
+	    </div>
+	</div>
+
+    <button class="btn fa fa-check floatRight" type="submit"
+         title="Save item">
+    </button>
+</form>

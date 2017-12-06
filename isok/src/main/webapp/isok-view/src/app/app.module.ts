@@ -11,6 +11,7 @@ import { factorsRouting } from "./factor/factor.routing";
 import { FactorComponent } from './factor/factor.component';
 import { FactorListComponent } from './factor/factor-list/factor-list.component';
 import { FactorFormComponent } from './factor/factor-form/factor-form.component';
+import { FactorService } from "./factor/factor.service";
 
 import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
@@ -18,12 +19,15 @@ import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-p
 import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
 
 
-import { FactorService } from "./factor/factor.service";
 import { CategoryFactorService } from "./category-factor/category-factor.service";
 import { categoryFactorsRouting } from "./category-factor/category-factor.routing";
 import { CategoryFactorComponent } from './category-factor/category-factor.component';
 import { CategoryFactorListComponent } from './category-factor/category-factor-list/category-factor-list.component';
 import { CategoryFactorFormComponent } from './category-factor/category-factor-form/category-factor-form.component';
+
+import { PriceListComponent } from './price-list/price-list.component';
+import { priceListRouting } from "./price-list/price-list.routing";
+import { PriceService } from "./price-list/price.service";
 
 @NgModule({
   declarations: [ 
@@ -36,20 +40,24 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
     FactorComponent,
     FactorListComponent,
     FactorFormComponent,
+    
+    PriceListComponent,
+
     InsurancePolicyComponent,
     InsurancePolicyFormComponent,
-    InsurancePolicyPersonFormComponent
+    InsurancePolicyPersonFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     factorsRouting,
     categoryFactorsRouting,
+    priceListRouting,
     ReactiveFormsModule,
     FormsModule,
     HttpModule
   ],
-  providers: [CategoryFactorService,FactorService,InsurancePolicyService],
+  providers: [CategoryFactorService,FactorService,PriceService,InsurancePolicyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

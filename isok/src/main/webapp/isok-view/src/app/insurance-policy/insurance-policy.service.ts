@@ -12,7 +12,11 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-
 export class InsurancePolicyService {
 
     private _todos: BehaviorSubject<InsurancePolicyPersonRequest[]>;
-    private dataStore: {  // This is where we will store our data in memory
+    private _personForm = new BehaviorSubject<boolean>(false);
+    private _contractorAdded = new BehaviorSubject<boolean>(false);
+
+    private _currentPerson = new Subject<InsurancePolicyPersonRequest>();;
+    private dataStore: {
         todos: InsurancePolicyPersonRequest[]
     };
 
@@ -26,22 +30,53 @@ export class InsurancePolicyService {
         return this._todos.asObservable();
     }
 
+    get personForm() {
+        return this._personForm.asObservable();
+    }
+
+    get currentPerson() {
+        return this._currentPerson.asObservable();
+    }
+
+    get contractorAdded() {
+        return this._contractorAdded.asObservable();
+    }
+
     add(person: InsurancePolicyPersonRequest) {
+        console.log("123");
         this.dataStore.todos.push(person);
         this._todos.next(this.dataStore.todos);
+        this.checkIfContractorExists();
     }
-    /*constructor(private http: Http) { }
 
+    checkIfContractorExists() {
+        let x = false;
+        for (let person of this.dataStore.todos) {
+            if (person.contractor) {
+                this._contractorAdded.next(true);
+                x = true;
+            }
+        }
+        if (!x)
+            this._contractorAdded.next(false);
 
-    private _list: InsurancePolicyPersonRequest[] = [];
-    private _observableList: BehaviorSubject<InsurancePolicyPersonRequest[]> = new BehaviorSubject([]);
+    }
 
-    get observableList(): Observable<InsurancePolicyPersonRequest[]> { return this._observableList.asObservable() }
+    deletePerson(person: InsurancePolicyPersonRequest) {
+        const index: number = this.dataStore.todos.indexOf(person);
+        if (index !== -1) {
+            this.dataStore.todos.splice(index, 1);
+            this._todos.next(this.dataStore.todos);
+        }
+        this.checkIfContractorExists();
+    }
 
-    add(person: InsurancePolicyPersonRequest) {
-        this._list.push(person);
-        this._observableList.next(this._list);
-        console.log(person.firstName);
-    }*/
+    changePersonFormVisibility(value: boolean) {
+        this._personForm.next(value);
+    }
 
+    setCurrentPerson(person: InsurancePolicyPersonRequest) {
+        this._currentPerson.next(person);
+        this._personForm.next(true);
+    }
 }

@@ -19,7 +19,7 @@ export class FactorComponent implements OnInit {
     factors: Factor[];
     categories: CategoryFactor[];
     factor : Factor = new Factor();
-
+    
   	constructor(
           private categoryFactorService: CategoryFactorService,
           private factorService: FactorService,
@@ -91,8 +91,8 @@ export class FactorComponent implements OnInit {
         }
     }
 
-    findFactorsByID(catID) {
-        this.categoryFactorService.findFactorsByID(parseInt(catID))
+    findByCategory(catID) {
+        this.factorService.findByCategory(parseInt(catID))
             .subscribe(factors => 
                   this.factors = factors
             )    

@@ -1,0 +1,23 @@
+<div>
+	<table class="table table table-hover table-bordered">
+		<thead>
+			<th>Ime</th>
+			<th>Prezime</th>
+			<th>Maticni broj</th>
+			<th>Telefon</th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let person of persons">
+				<td>{{person.firstName}}</td>
+				<td>{{person.lastName}}</td>
+				<td>{{person.jmbg}}</td>
+				<td>{{person.phone}}</td>
+				<td class="actionsCol"><a class="btn fa fa-pencil"
+					(click)="get(person)" title="Item details"></a>
+					<button class="btn fa fa-times" type="button"
+						(click)="delete(person)" title="Delete item"></button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

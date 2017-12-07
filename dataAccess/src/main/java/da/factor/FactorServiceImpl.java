@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
-public class FactorServiceImpl implements FactorService{
-	
+public class FactorServiceImpl implements FactorService {
+
 	@Autowired
 	private FactorRepository repository;
 
@@ -32,6 +32,12 @@ public class FactorServiceImpl implements FactorService{
 	@Override
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<Factor> findByCategory(Long categoryId) {
+
+		return repository.findByCategoryId(categoryId);
 	}
 
 }

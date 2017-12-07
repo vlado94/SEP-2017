@@ -17,7 +17,6 @@
 
 .btn,.btn:hover {
 	cursor : pointer;
-	width : 55px;
 	border : 1px solid black !important;
 	background : #ccc;
 	color : black;	

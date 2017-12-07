@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from "@angular/http";
 import 'rxjs/add/operator/map'
 import 'rxjs/add/operator/catch';
-    
+import { Subject } from "rxjs/Subject";
+
+import { Factor } from './factor'
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class FactorService {
 
-	private apiUrl = 'http://localhost:8080/factor';
+    private apiUrl = `${environment.BACKEND_URL}/factor`;
 
     constructor(private http: Http) { }
 
@@ -18,12 +22,12 @@ export class FactorService {
     save(factor) {
         return this.http.post(this.apiUrl, factor)
             .map(res => res.json());
-            
+
     }
 
-    deleteById(id){
+    deleteById(id) {
         return this.http.delete(this.apiUrl + '/' + id)
-          .map(res => res.json());
+            .map(res => res.json());
     }
 
     get(id: number) {
@@ -31,8 +35,13 @@ export class FactorService {
             .map((res: Response) => res.json());
     }
 
-    update(factor)  {
+    update(factor) {
         return this.http.put(this.apiUrl, factor)
             .map((res: Response) => res.json());
+    }
+
+    findByCategory(categoryId) {
+        return this.http.get(this.apiUrl + '/category/' + categoryId)
+            .map(res => res.json());
     }
 }

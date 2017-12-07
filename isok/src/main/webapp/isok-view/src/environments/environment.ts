@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+	production: false,
+    KEYCLOAK_URL: 'http://localhost:8180/auth',
+  	KEYCLOAK_REALM: 'isok',
+  	KEYCLOAK_CLIENTID: 'isok-frontend-employee',
+	BACKEND_URL: 'http://localhost:8080/api'
 };

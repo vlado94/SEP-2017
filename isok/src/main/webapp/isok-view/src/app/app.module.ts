@@ -16,7 +16,11 @@ import { FactorService } from "./factor/factor.service";
 import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
 import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-form.component';
+import {InsurancePolicyPersonListComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-list.component';
+
 import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
+import { KeycloakService } from './keycloak/service/keycloak.service';
+import { KEYCLOAK_HTTP_PROVIDER } from './keycloak/service/keycloak.http';
 
 
 import { CategoryFactorService } from "./category-factor/category-factor.service";
@@ -45,7 +49,7 @@ import { PriceService } from "./price-list/price.service";
 
     InsurancePolicyComponent,
     InsurancePolicyFormComponent,
-    InsurancePolicyPersonFormComponent,
+    InsurancePolicyPersonFormComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,7 @@ import { PriceService } from "./price-list/price.service";
     FormsModule,
     HttpModule
   ],
-  providers: [CategoryFactorService,FactorService,PriceService,InsurancePolicyService],
+  providers: [CategoryFactorService,FactorService,PriceService,InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

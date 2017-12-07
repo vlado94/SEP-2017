@@ -12,4 +12,6 @@ public interface FactorService {
 	
 	public void delete(Long id);
 
+	public List<Factor> findByCategory(Long categoryId);
+
 }

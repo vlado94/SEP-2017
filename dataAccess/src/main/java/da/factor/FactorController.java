@@ -76,5 +76,20 @@ public class FactorController {
 			return false;
 		}
 	}
+	
+	@GetMapping("/category/{categoryId}")
+	private List<FactorDTO> findByCategory(@PathVariable Long categoryId) {
+		List<FactorDTO> retVal = new ArrayList<>();
+		List<Factor> ret = service.findByCategory(categoryId);
+		for(Factor r : ret) {
+			FactorDTO dto = new FactorDTO();
+			dto.setCategory(r.getCategory().getId());
+			dto.setCategoryName(r.getCategory().getName());
+			dto.setId(r.getId());
+			dto.setName(r.getName());
+			retVal.add(dto);
+		}
+		return retVal;
+	}
 
 }

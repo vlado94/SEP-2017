@@ -5,21 +5,17 @@ import 'rxjs/add/operator/catch';
 import { Subject } from "rxjs/Subject";
 
 import { CategoryFactor } from './category-factor'
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CategoryFactorService {
 
-    private apiUrl = 'http://localhost:8080/categoryFactor';
+    private apiUrl = `${environment.BACKEND_URL}/categoryFactor`;
 
     constructor(private http: Http) { }
 
     findAll() {
         return this.http.get(this.apiUrl)
-            .map(res => res.json());
-    }
-
-    findFactorsByID(id) {
-        return this.http.get(this.apiUrl+'/findFactorsByID/' + id)
             .map(res => res.json());
     }
 

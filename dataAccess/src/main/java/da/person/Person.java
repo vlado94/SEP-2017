@@ -13,8 +13,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
 
-import da.factor.Factor;
 import da.insurancePolicy.InsurancePolicy;
+import da.priceListItem.PriceListItem;
 
 @Entity
 public class Person {
@@ -26,7 +26,7 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	@Length(max = 13, min = 13)
-	private String jbmg;
+	private String jmbg;
 	private String passportNumber;
 	private String address;
 	private String phone;
@@ -34,7 +34,7 @@ public class Person {
 	private String email;
 
 	@ManyToOne
-	private Factor age;
+	private PriceListItem age;
 
 	@ManyToMany(mappedBy="persons")
 	private Set<InsurancePolicy> policies = new HashSet<InsurancePolicy>();
@@ -43,13 +43,13 @@ public class Person {
 		super();
 	}
 
-	public Person(Long id, @NotBlank String firstName, String lastName, @Length(max = 13, min = 13) String jbmg,
+	public Person(Long id, @NotBlank String firstName, String lastName, @Length(max = 13, min = 13) String jmbg,
 			String passportNumber, String address, String phone, Boolean contractor, String email) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.jbmg = jbmg;
+		this.jmbg = jmbg;
 		this.passportNumber = passportNumber;
 		this.address = address;
 		this.phone = phone;
@@ -81,12 +81,13 @@ public class Person {
 		this.lastName = lastName;
 	}
 
-	public String getJbmg() {
-		return jbmg;
+
+	public String getJmbg() {
+		return jmbg;
 	}
 
-	public void setJbmg(String jbmg) {
-		this.jbmg = jbmg;
+	public void setJmbg(String jmbg) {
+		this.jmbg = jmbg;
 	}
 
 	public String getPassportNumber() {
@@ -129,11 +130,11 @@ public class Person {
 		this.email = email;
 	}
 
-	public Factor getAge() {
+	public PriceListItem getAge() {
 		return age;
 	}
 
-	public void setAge(Factor age) {
+	public void setAge(PriceListItem age) {
 		this.age = age;
 	}
 

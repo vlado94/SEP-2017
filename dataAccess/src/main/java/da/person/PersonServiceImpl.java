@@ -37,4 +37,10 @@ public class PersonServiceImpl implements PersonService{
 		// TODO Auto-generated method stub
 		repository.deleteById(id);
 	}
+
+	@Override
+	public Person findByJmbg(String jmbg) {
+		// TODO Auto-generated method stub
+		return repository.findByJmbg(jmbg);
+	}
 }

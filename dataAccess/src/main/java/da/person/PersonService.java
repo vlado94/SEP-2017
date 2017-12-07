@@ -11,4 +11,6 @@ public interface PersonService {
 	public Person save(Person person);
 	
 	public void delete(Long id);
+
+	public Person findByJmbg(String jmbg);
 }

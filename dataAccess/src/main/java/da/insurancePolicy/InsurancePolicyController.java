@@ -1,6 +1,7 @@
 package da.insurancePolicy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,12 @@ public class InsurancePolicyController {
 	@Autowired
 	private PersonService personService;
 
+    @Autowired
+    ConversionService conversionService;
+    
 	@PostMapping
 	public InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest request) {
-		
+		InsurancePolicy entity = conversionService.convert(request, InsurancePolicy.class);
 		
 		return request;
 	}

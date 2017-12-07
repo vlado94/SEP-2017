@@ -12,4 +12,5 @@ public interface PriceListItemService {
 	
 	public void delete(Long id);
 
+	public PriceListItem findByFactorIdAndPriceListId(Long factorId,Long priceListId);
 }

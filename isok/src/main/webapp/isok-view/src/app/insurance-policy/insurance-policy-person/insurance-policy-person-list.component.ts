@@ -22,7 +22,6 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person-form.compo
 export class InsurancePolicyPersonListComponent {
     //persons: InsurancePolicyPersonRequest[] = [];
     @Input() persons;
-    @Input() lista;
     @Output() onSelectForUpdate = new EventEmitter<InsurancePolicyPersonRequest>();
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }

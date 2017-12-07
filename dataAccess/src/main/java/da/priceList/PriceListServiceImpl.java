@@ -33,4 +33,10 @@ public class PriceListServiceImpl implements PriceListService{
 	public void delete(Long id) {
 		repository.deleteById(id);
 	}
+
+	@Override
+	public PriceList findCurrent() {
+		// TODO Auto-generated method stub
+		return repository.findFirstByOrderByIdDesc();
+	}
 }

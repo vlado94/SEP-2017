@@ -49,7 +49,8 @@ import { PriceService } from "./price-list/price.service";
 
     InsurancePolicyComponent,
     InsurancePolicyFormComponent,
-    InsurancePolicyPersonFormComponent
+    InsurancePolicyPersonFormComponent,
+    InsurancePolicyPersonListComponent
   ],
   imports: [
     BrowserModule,

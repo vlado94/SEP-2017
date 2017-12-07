@@ -15,8 +15,8 @@ import javax.persistence.ManyToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import da.factor.Factor;
 import da.person.Person;
+import da.priceListItem.PriceListItem;
 
 @Entity
 public class InsurancePolicy {
@@ -39,7 +39,7 @@ public class InsurancePolicy {
 	private Set<Person> persons = new HashSet<Person>();
 
 	@ManyToMany
-	private Set<Factor> factors = new HashSet<Factor>();
+	private Set<PriceListItem> priceListItems = new HashSet<PriceListItem>();
 
 	public InsurancePolicy() {
 		super();
@@ -84,12 +84,12 @@ public class InsurancePolicy {
 		this.duration = duration;
 	}
 
-	public Set<Factor> getFactors() {
-		return factors;
+	public Set<PriceListItem> getPriceListItems() {
+		return priceListItems;
 	}
 
-	public void setFactors(Set<Factor> factors) {
-		this.factors = factors;
+	public void setPriceListItems(Set<PriceListItem> priceListItems) {
+		this.priceListItems = priceListItems;
 	}
 
 	public Set<Person> getPersons() {
@@ -99,5 +99,6 @@ public class InsurancePolicy {
 	public void setPersons(Set<Person> persons) {
 		this.persons = persons;
 	}
+
 
 }

@@ -12,4 +12,6 @@ public interface PriceListService {
 	
 	public void delete(Long id);
 
+	public PriceList findCurrent();
+
 }

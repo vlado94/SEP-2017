@@ -1,14 +1,11 @@
 package da.priceListItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import da.priceList.PriceList;
 
 @Service
 @Transactional
@@ -35,5 +32,11 @@ public class PriceListItemServiceImpl implements PriceListItemService{
 	@Override
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public PriceListItem findByFactorIdAndPriceListId(Long factorId, Long priceListId) {
+		// TODO Auto-generated method stub
+		return repository.findByFactorIdAndPriceListId(factorId, priceListId);
 	}
 }

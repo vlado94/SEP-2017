@@ -56,7 +56,7 @@
 			class="form-group">
 			<label for="email">Email ugovarača:</label>
 			<div class="col-xs-4">
-				<input id="email" type="email" class="form-control" />
+				<input id="email" type="email" class="form-control" formControlName="email"/>
 			</div>
 		</div>
 
@@ -135,53 +135,13 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="amount" class="col-xs-4">Iznos do kog je
-				osiguran:</label>
-			<div class="col-xs-4">
-				<select id="amount" class="form-control" formControlName="amount">
-					<option value="">Izaberite iznos</option>
-					<option value="1">100.000,00</option>
-					<option value="2">200.000,00</option>
-					<option value="3">300.000,00</option>
-					<option value="4">400.000,00</option>
-				</select>
-			</div>
-			<div
-				*ngIf="insurancePolicyPerson.controls['amount'].errors && !insurancePolicyPerson.controls['amount'].pristine"
-				class="alert alert-danger">
-
-				<div
-					*ngIf="insurancePolicyPerson.controls['amount'].errors.required">Morate
-					izabrati iznos do kog je korisnik polise osiguran.</div>
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="sport" class="col-xs-4">Sport kojim se korisnik
-				namerava baviti:</label>
-			<div class="col-xs-4">
-				<select id="sport" class="form-control" formControlName="sport">
-					<option value="">Izaberite sport</option>
-					<option *ngFor="let s of sports" value="{{s.id}}">{{s.name}}</option>
-
-				</select>
-			</div>
-			<div
-				*ngIf="insurancePolicyPerson.controls['sport'].errors && !insurancePolicyPerson.controls['sport'].pristine"
-				class="alert alert-danger">
-
-				<div *ngIf="insurancePolicyPerson.controls['sport'].errors.required">Morate
-					izabrati sport kojim korisnik namerava da se bavi.</div>
-			</div>
-		</div>
-		<span class="floatRight button">
+		<div class="floatRight button">
 			<button class="btn fa fa-check " type="submit"
 				[disabled]="!insurancePolicyPerson.valid"></button>
-		</span> <span class="floatRight button">
+		</div> <div class="floatRight button">
 			<button class="btn fa fa-close " type="button"
 				(click)="closePersonForm()"></button>
-		</span>
+		</div>
 	</form>
 
 </section>

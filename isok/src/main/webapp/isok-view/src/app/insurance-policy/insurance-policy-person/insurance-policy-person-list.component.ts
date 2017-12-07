@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgModule} from '@angular/core';
 import {InsurancePolicyService} from '../insurance-policy.service';
 import {InsurancePolicyPersonRequest} from './insurance-policy-person-form.component';
@@ -20,22 +20,25 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person-form.compo
     ]
 })
 export class InsurancePolicyPersonListComponent {
-    persons: InsurancePolicyPersonRequest[] = [];
+    //persons: InsurancePolicyPersonRequest[] = [];
+    @Input() persons;
+    @Input() lista;
+    @Output() onSelectForUpdate = new EventEmitter<InsurancePolicyPersonRequest>();
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }
 
     ngOnInit() {
-        this.insurancePolicyService.todos.subscribe
-            (updatedTodos => {
-                this.persons = updatedTodos;
-            });
+
     }
-    
-    delete(person:InsurancePolicyPersonRequest){
-        this.insurancePolicyService.deletePerson(person);    
+
+    delete(person: InsurancePolicyPersonRequest) {
+        let index = this.persons.indexOf(person);
+        if (index != -1)
+            this.persons.splice(index, 1);
     }
-    
-    get(person:InsurancePolicyPersonRequest) {
-        this.insurancePolicyService.setCurrentPerson(person);
+
+    get(person: InsurancePolicyPersonRequest) {
+        this.onSelectForUpdate.emit(person);
     }
+
 }

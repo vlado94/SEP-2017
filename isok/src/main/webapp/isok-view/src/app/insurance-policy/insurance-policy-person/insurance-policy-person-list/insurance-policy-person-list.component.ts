@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {NgModule} from '@angular/core';
-import {InsurancePolicyService} from '../insurance-policy.service';
-import {InsurancePolicyPersonRequest} from './insurance-policy-person-form.component';
+import {InsurancePolicyService} from '../../insurance-policy.service';
+import {InsurancePolicyPersonRequest} from '../insurance-policy-person-form/insurance-policy-person-form.component';
 
 @Component({
     selector: 'app-insurance-policy-person-list',

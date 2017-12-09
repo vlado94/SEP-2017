@@ -3,11 +3,26 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NgModule } from '@angular/core';
 import {InsurancePolicyService} from '../insurance-policy.service';
-import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance-policy-person-form.component';
+import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 
 import { FactorService } from "../../factor/factor.service";
 import { Factor } from '../../factor/factor';
 
+function dateValidator(date: FormControl) {
+    let input = date.value;
+    let parts = input.split('-');
+
+    let inpuDate = new Date(+parts[0], +parts[1] - 1, parts[2],23,59);
+    let currentDate = new Date();
+    if (inpuDate < currentDate)
+        return {
+            dateValidator: {
+                valid: false
+            }
+        }
+    else
+        return null;
+}
 
 @Component({
     selector: 'app-insurance-policy-form',
@@ -46,9 +61,17 @@ export class InsurancePolicyFormComponent {
     ngOnInit() {
 
         this.insurancePolicy = new FormGroup({
-            startDate: new FormControl(''),
-            endDate: new FormControl(''),
-            duration: new FormControl(''),
+            startDate: new FormControl('',[dateValidator]),
+            endDate: new FormControl('',[dateValidator]),
+            duration: new FormControl('', [
+                Validators.required,
+                Validators.pattern("[0-9]*")]),
+            typeOfPolicy: new FormControl(''),
+            numberOfPersons: new FormControl('', [
+                Validators.pattern("[0-9]*")])
+            numberOfPersonsUpTo16: new FormControl(''),
+            numberOfPersonsBetween16And60: new FormControl(''),
+            numberOfPersonsOver60: new FormControl(''),
             region: new FormControl(''),
             sport: new FormControl('', [
                 Validators.required
@@ -79,15 +102,47 @@ export class InsurancePolicyFormComponent {
         this.addPersonButton = !value;
     }
 
-    checkIfContractorExists() {
-        let x = false;
-        for (let person of this.persons) {
-            if (person.contractor) {
-                x = true;
-                break;
-            }
+    checkNumberOfPeople() {
+        if (+this.insurancePolicy.get('typeOfPolicy').value == 1)
+            return true;
+        let result = false;
+        let upTo16: number = +this.insurancePolicy.get('numberOfPersonsUpTo16').value;
+        let between16And60: number = +this.insurancePolicy.get('numberOfPersonsBetween16And60').value;
+        let over60: number = +this.insurancePolicy.get('numberOfPersonsOver60').value;
+        let sum: number = upTo16 + between16And60 + over60;
+
+        let numOfPersons = +this.insurancePolicy.get('numberOfPersons').value;
+        if (numOfPersons > 1 && sum == numOfPersons) {
+            result = true;
+            console.log("Valid");
         }
-        return x;
+        if (result)
+            console.log("Valid");
+
+        else
+            console.log("Invalid");
+
+        return result;
+    }
+
+    checkDates() {
+        let s = this.insurancePolicy.get('startDate').value
+        let e = this.insurancePolicy.get('endDate').value
+        console.log(s);
+        let start = this.convertDate(s);
+        let end = this.convertDate(e);
+        console.log("Start:" + start);
+        console.log(e);
+
+        console.log("End:" + end);
+        console.log(start < end);
+        return start < end;
+    }
+    //today | date:'fullDate'
+    convertDate(d) {
+        let parts = d.split('-');
+
+        return new Date(+parts[0], +parts[1] - 1, parts[2]);
     }
 }
 

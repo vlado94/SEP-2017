@@ -9,7 +9,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-form.component';
 
-import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form.component';
+import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 
 import { environment } from '../../environments/environment';
 

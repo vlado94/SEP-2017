@@ -5,8 +5,8 @@
 		(ngSubmit)="onSubmit(insurancePolicyPerson)">
 
 		<div class="form-group">
-			<label for="firstName" class="col-xs-4">Ime:</label>
-			<div class="col-xs-4">
+			<label for="firstName" class="col-12">Ime:</label>
+			<div class="col-12">
 				<input id="firstName" type="text" class="form-control"
 					formControlName="firstName">
 			</div>
@@ -24,8 +24,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="lastName">Prezime:</label>
-			<div class="col-xs-4">
+			<label for="lastName" class="col-12">Prezime:</label>
+			<div class="col-12">
 				<input id="lastName" type="text" class="form-control"
 					formControlName="lastName">
 			</div>
@@ -42,8 +42,8 @@
 			</div>
 		</div>
 		<div class="form-group" *ngIf="!contractorAdded">
-			<label for="contractor">Ugovarač:</label>
-			<div class="col-xs-4">
+			<label for="contractor" class="col-12">Ugovarač:</label>
+			<div class="col-12">
 				<label class="radio-inline radio-button">
 				<input type="radio" value="true" name="contractor" checked formControlName="contractor">Da</label>
 				 <label class="radio-inline radio-button"><input
@@ -54,15 +54,15 @@
 		<div
 			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && !contractorAdded"
 			class="form-group">
-			<label for="email">Email ugovarača:</label>
-			<div class="col-xs-4">
+			<label for="email" class="col-12">Email ugovarača:</label>
+			<div class="col-12">
 				<input id="email" type="email" class="form-control" formControlName="email"/>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="jmbg">Jmbg:</label>
-			<div class="col-xs-4">
+			<label for="jmbg" class="col-12">Jmbg:</label>
+			<div class="col-12">
 				<input id="jmbg" type="text" class="form-control"
 					formControlName="jmbg">
 			</div>
@@ -80,16 +80,16 @@
 		</div>
 
 		<div class="form-group">
-			<label for="passportNumber">Broj pasoÅ¡a:</label>
-			<div class="col-xs-4">
+			<label for="passportNumber" class="col-12">Broj pasoÅ¡a:</label>
+			<div class="col-12">
 				<input id="passportNumber" type="text" class="form-control"
 					formControlName="passportNumber">
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label for="address">Adresa:</label>
-			<div class="col-xs-4">
+			<label for="address" class="col-12">Adresa:</label>
+			<div class="col-12">
 				<input id="address" type="text" class="form-control"
 					formControlName="address">
 			</div>
@@ -104,8 +104,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="phone">Telefon:</label>
-			<div class="col-xs-4">
+			<label for="phone" class="col-12">Telefon:</label>
+			<div class="col-12">
 				<input id="phone" type="text" class="form-control"
 					formControlName="phone">
 			</div>
@@ -119,8 +119,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="age" class="col-xs-4">Starost:</label>
-			<div class="col-xs-4">
+			<label for="age" class="col-12">Starost:</label>
+			<div class="col-12">
 				<select id="age" class="form-control" formControlName="age">
 					<option value="">Izaberite starost</option>
 					<option *ngFor="let a of ages" value="{{a.id}}">{{a.name}}</option>

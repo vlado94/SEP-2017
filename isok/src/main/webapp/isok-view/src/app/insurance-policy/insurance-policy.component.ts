@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-form.component';
 
-import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form.component';
+import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 
 
 @Component({
@@ -12,6 +12,7 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-
 
 export class InsurancePolicyComponent {
 
+    activeTab:string = '1';
     lista: string[] = ['123', '123', '456'];
     personsList: InsurancePolicyPersonRequest[] = [];
     currentPerson: InsurancePolicyPersonRequest = null;

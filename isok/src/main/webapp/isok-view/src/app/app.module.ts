@@ -15,8 +15,9 @@ import { FactorService } from "./factor/factor.service";
 
 import { InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
-import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-form.component';
-import {InsurancePolicyPersonListComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-list.component';
+import {InsurancePolicyPersonComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person.component';
+import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
+import {InsurancePolicyPersonListComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-list/insurance-policy-person-list.component';
 
 import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
 import { KeycloakService } from './keycloak/service/keycloak.service';
@@ -34,35 +35,36 @@ import { priceListRouting } from "./price-list/price-list.routing";
 import { PriceService } from "./price-list/price.service";
 
 @NgModule({
-  declarations: [ 
-    AppComponent,
+    declarations: [
+        AppComponent,
 
-    CategoryFactorComponent,
-    CategoryFactorListComponent,
-    CategoryFactorFormComponent, 
+        CategoryFactorComponent,
+        CategoryFactorListComponent,
+        CategoryFactorFormComponent,
 
-    FactorComponent,
-    FactorListComponent,
-    FactorFormComponent,
-    
-    PriceListComponent,
+        FactorComponent,
+        FactorListComponent,
+        FactorFormComponent,
 
-    InsurancePolicyComponent,
-    InsurancePolicyFormComponent,
-    InsurancePolicyPersonFormComponent,
-    InsurancePolicyPersonListComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    factorsRouting,
-    categoryFactorsRouting,
-    priceListRouting,
-    ReactiveFormsModule,
-    FormsModule,
-    HttpModule
-  ],
-  providers: [CategoryFactorService,FactorService,PriceService,InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
-  bootstrap: [AppComponent]
+        PriceListComponent,
+
+        InsurancePolicyComponent,
+        InsurancePolicyFormComponent,
+        InsurancePolicyPersonComponent,
+        InsurancePolicyPersonFormComponent,
+        InsurancePolicyPersonListComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        factorsRouting,
+        categoryFactorsRouting,
+        priceListRouting,
+        ReactiveFormsModule,
+        FormsModule,
+        HttpModule
+    ],
+    providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,12 @@
+<div class="row">
+
+	<div class="col-6">
+		<app-insurance-policy-person-form
+			[persons]="persons" [lista]="lista" [current]="currentPerson"
+			(toggleFormPerson)="toggleFormPerson($event)"></app-insurance-policy-person-form>
+	</div>
+	<div class="col-6">
+		<app-insurance-policy-person-list [persons]="personsList"
+			(onSelectForUpdate)="onSelectForUpdate($event)"></app-insurance-policy-person-list>
+	</div>
+</div>

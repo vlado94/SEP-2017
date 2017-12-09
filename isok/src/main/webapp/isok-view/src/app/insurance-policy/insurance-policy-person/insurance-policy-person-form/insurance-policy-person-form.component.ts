@@ -3,10 +3,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { FactorService } from "../../factor/factor.service";
-import { Factor } from '../../factor/factor';
+import { FactorService } from "../../../factor/factor.service";
+import { Factor } from '../../../factor/factor';
 
-import {InsurancePolicyService} from '../insurance-policy.service';
+import {InsurancePolicyService} from '../../insurance-policy.service';
 //import {InsurancePolicyPersonRequest} from './insurance-policy-person-request';
 
 @Component({

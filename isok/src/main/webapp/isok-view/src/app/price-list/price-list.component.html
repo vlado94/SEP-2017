@@ -1,13 +1,33 @@
-<form materialize class="col s12" #form="ngForm" (ngSubmit)="this.save(form)">
-	<div class="leftMargin rightMargin borderDiv">
-	    <div *ngFor="let priceListItem of this.priceListItems">
-	        <label>{{priceListItem.factorName}}</label>
-	        <label>{{priceListItem.percent}}</label>
-	        <input type="text" id="priceListItem{{priceListItem.id}}" ngModel name="priceListItem{{priceListItem.id}}">
-	    </div>
-	</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="col-sm-9 borderDiv">
+	        <h4>New price list</h4>
+			<form materialize #form="ngForm" (ngSubmit)="this.save(form)">
+				<div class="leftMargin rightMargin">
+					<div class="row">
+						<span *ngFor="let priceListItem of this.priceListItems"  class="col-sm-6">
+							<div class="row rowSpace buttomBorder">
+						        <label class="col-sm-6">{{priceListItem.factorName}}</label>
+						        <label class="col-sm-2">{{priceListItem.percent}}</label>
+						        <div class="col-sm-3">
+						        	<input class="form-control validate" type="text" id="priceListItem{{priceListItem.id}}" ngModel name="priceListItem{{priceListItem.id}}">
+								</div>
+							</div>
+							<div class="col-sm-1"></div>
 
-    <button class="btn fa fa-check floatRight" type="submit"
-         title="Save item">
-    </button>
-</form>
+					    </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 text-right">
+					    <button class="btn fa fa-check" type="submit"
+					         title="Save item">
+					    </button>
+					</div>
+			    </div>
+			</form>
+		</div>
+	</div>
+</div>
+
+

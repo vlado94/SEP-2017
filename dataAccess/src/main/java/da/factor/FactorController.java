@@ -3,6 +3,8 @@ package da.factor;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import da.categoryFactor.CategoryFactorService;
+import da.priceList.PriceList;
+import da.priceList.PriceListService;
+import da.priceListItem.PriceListItem;
+import da.priceListItem.PriceListItemService;
 import model.dto.FactorDTO;
 
 @RestController
@@ -25,6 +31,12 @@ public class FactorController {
 	
 	@Autowired
 	private CategoryFactorService categoryService;
+
+	@Autowired
+	private PriceListService priceListService;
+
+	@Autowired
+	private PriceListItemService priceListItemService;
 
 	@GetMapping
 	private List<FactorDTO> findAll() {
@@ -44,9 +56,17 @@ public class FactorController {
 	private FactorDTO save(@RequestBody FactorDTO obj) {
 		Factor f = new Factor();
 		f.setName(obj.getName());
-		f.setPercent(obj.getPercent());
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO newFactor = service.save(f).getDTO();
+		PriceListItem pli = new PriceListItem();
+		pli.setPercent(0.0);
+		pli.setFactor(service.findOne(newFactor.getId()));
+
+		/* isto mora na repo -nadji aktivan cenovnik*/
+		List<PriceList> priceLists = priceListService.findAll();
+		PriceList active = priceLists.get(priceLists.size()-1);
+		pli.setPriceList(active);
+		priceListItemService.save(pli);		
 		return newFactor;
 	}
 
@@ -59,9 +79,6 @@ public class FactorController {
 	@PutMapping
 	private FactorDTO update(@RequestBody FactorDTO obj) {
 		Factor f = Factor.getObj(obj);
-		/*f.setId(obj.getId());
-		f.setName(obj.getName());
-		f.setPercent(obj.getPercent());*/
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO updateFactor = service.save(f).getDTO();
 		return updateFactor;
@@ -73,7 +90,7 @@ public class FactorController {
 			service.delete(id);
 			return true;
 		} catch(Exception e) {
-			return false;
+			throw new BadRequestException();
 		}
 	}
 	

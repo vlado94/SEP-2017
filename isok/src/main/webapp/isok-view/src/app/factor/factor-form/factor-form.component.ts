@@ -22,9 +22,6 @@ export class FactorFormComponent implements OnInit {
                     Validators.required,
                     Validators.minLength(3)
                 ]],
-                percent: ['0', [
-                    Validators.required,
-                ]],
                 category : ['',[
                     Validators.required]]
             });

@@ -15,18 +15,18 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./price-list.component.css']
 })
 export class PriceListComponent implements OnInit {
-  	priceListItems: PriceListItem[];
+    priceListItems: PriceListItem[];
 
-  	constructor( 
+    constructor( 
         private priceService: PriceService,
         private router: Router,
         private route: ActivatedRoute,
     ){ 
     }
 
-  	ngOnInit() {
-  	  	this.findAll();
-	  }
+    ngOnInit() {
+        this.findAll();
+    }
 
     findAll() {
         this.priceService.findLast()

@@ -7,6 +7,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 import { factorsRouting } from "./factor/factor.routing";
 import { FactorComponent } from './factor/factor.component';
 import { FactorListComponent } from './factor/factor-list/factor-list.component';
@@ -62,7 +65,9 @@ import { PriceService } from "./price-list/price.service";
         priceListRouting,
         ReactiveFormsModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        BrowserAnimationsModule,
+        ToastModule.forRoot()
     ],
     providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
     bootstrap: [AppComponent]

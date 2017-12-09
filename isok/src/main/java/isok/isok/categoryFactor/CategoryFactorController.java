@@ -3,6 +3,8 @@ package isok.isok.categoryFactor;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import model.dto.CategoryFactor;
@@ -63,14 +66,15 @@ public class CategoryFactorController {
 		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
 		return updateCategory;
 	}
-	
+		
 	@DeleteMapping("/{id}")
-	private boolean delete(@PathVariable Long id) {
+	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {
-			return restTemplate().exchange(
-					dataccessPort.toString()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class).getBody();
-		} catch(Exception e) {
-			return false;
+			ResponseEntity<Boolean> retVal = restTemplate().exchange(
+					dataccessPort.toString()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class);
+			return retVal.getBody();
+		} catch(HttpServerErrorException e) {
+			throw e;
 		}
 	}
 }

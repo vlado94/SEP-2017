@@ -20,6 +20,8 @@ export class FactorListComponent implements OnInit {
     ) { }
 
 	ngOnInit() { 
+        this.factorComponent.findAll();
+
         this.route.params.subscribe(params => {
             var id = params['categoryFactorId'];
             if (!id)

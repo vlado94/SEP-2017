@@ -2,6 +2,8 @@ package da.categoryFactor;
 
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,8 +48,8 @@ public class CategoryFactorController {
 		try {
 			service.delete(id);
 			return true;
-		} catch (Exception e) {
-			return false;
+		} catch(Exception e) {
+			throw new BadRequestException();
 		}
 	}
 }

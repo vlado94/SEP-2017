@@ -3,6 +3,8 @@ import { Http, Response } from "@angular/http";
 
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ViewContainerRef } from '@angular/core';
 
 import { FactorService } from "./factor.service";
 import { Factor } from './factor';
@@ -21,17 +23,18 @@ export class FactorComponent implements OnInit {
     factor : Factor = new Factor();
     
   	constructor(
+          public toastr: ToastsManager,vcr: ViewContainerRef,
           private categoryFactorService: CategoryFactorService,
           private factorService: FactorService,
           private router: Router,
           private route: ActivatedRoute
-
-          )
-  	{ }
+        )
+  	{ 
+        this.toastr.setRootViewContainerRef(vcr);
+    }
 
   	ngOnInit() {  
-  	  	this.findAll();
-
+  	 
         this.categoryFactorService.findAll()
             .subscribe(categories => 
                 this.categories = categories);
@@ -45,7 +48,6 @@ export class FactorComponent implements OnInit {
                 .subscribe(
                     factor => this.factor = factor,
                 );
-            this.findAll();     
         })   
   	}	
 
@@ -60,11 +62,15 @@ export class FactorComponent implements OnInit {
       	this.factors.splice(index, 1);
 
         this.factorService.deleteById(factor.id)
-          	.subscribe(null,
-         		err => {
-             		alert("Could not delete category factor.");
-             		this.factors.splice(index, 0, factor);
-           	});
+          	.subscribe(
+                data => {
+                    this.toastr.success('Done!', 'Success');
+                },
+                err => {
+                   this.toastr.error("Could not delete factor, becouse some policy are contected with that.",'Error');
+                   this.factors.splice(index, 0, factor);
+               }
+            );
   	}
 
   	get(factor) {
@@ -78,7 +84,8 @@ export class FactorComponent implements OnInit {
             this.factorService.save(this.factor)
                 .subscribe(factor => {
                     this.factor = factor;  
-                    this.findAll(); 
+                    this.findAll();
+                    this.toastr.success('Done!', 'Success');
             })
         }  
         else {
@@ -87,6 +94,7 @@ export class FactorComponent implements OnInit {
                     this.factor = factor;
                     this.findAll();
                     this.get(this.factor);
+                    this.toastr.success('Done!', 'Success');
                 })         
         }
     }

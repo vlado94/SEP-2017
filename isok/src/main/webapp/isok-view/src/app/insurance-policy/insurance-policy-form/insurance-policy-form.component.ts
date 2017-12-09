@@ -68,7 +68,7 @@ export class InsurancePolicyFormComponent {
                 Validators.pattern("[0-9]*")]),
             typeOfPolicy: new FormControl(''),
             numberOfPersons: new FormControl('', [
-                Validators.pattern("[0-9]*")])
+                Validators.pattern("[0-9]*")]),
             numberOfPersonsUpTo16: new FormControl(''),
             numberOfPersonsBetween16And60: new FormControl(''),
             numberOfPersonsOver60: new FormControl(''),
@@ -139,7 +139,8 @@ export class InsurancePolicyFormComponent {
         return start < end;
     }
     //today | date:'fullDate'
-    convertDate(d) {
+
+    convertDate(d) {
         let parts = d.split('-');
 
         return new Date(+parts[0], +parts[1] - 1, parts[2]);

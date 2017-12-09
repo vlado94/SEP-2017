@@ -1,0 +1,17 @@
+//created on: May 9, 2017
+package drools.spring.rules
+
+import model.request.InsurancePolicyRequest;
+
+rule "Classify Item - High Range"
+    when
+        $i: InsurancePolicyRequest( this.duration > 4, this.amount==null)
+    then
+    	modify($i){
+    		setAmount((long)100000);
+    	}
+        System.out.println("HIGH  ");
+end
+
+
+

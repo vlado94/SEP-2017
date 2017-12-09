@@ -92,9 +92,9 @@ export class InsurancePolicyFormComponent {
     }
     onSubmit({value}: { value: InsurancePolicyRequest }) {
         let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.endDate, value.duration,
-            value.region, value.sport, value.amount, this.persons)
+            value.region, value.sport, value.amount, this.persons);
         this.insurancePolicyService.create(insurancePolicyRequest)
-            .subscribe(insurancePolicy => console.log("123"));
+            .subscribe(insurancePolicy => console.log('123'));
     }
 
     toggleFormPerson(value: boolean) {

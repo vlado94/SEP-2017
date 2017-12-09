@@ -68,7 +68,7 @@ export class InsurancePolicyFormComponent {
                 Validators.pattern("[0-9]*")]),
             typeOfPolicy: new FormControl(''),
             numberOfPersons: new FormControl('', [
-                Validators.pattern("[0-9]*")])
+                Validators.pattern("[0-9]*")]),
             numberOfPersonsUpTo16: new FormControl(''),
             numberOfPersonsBetween16And60: new FormControl(''),
             numberOfPersonsOver60: new FormControl(''),
@@ -92,9 +92,9 @@ export class InsurancePolicyFormComponent {
     }
     onSubmit({value}: { value: InsurancePolicyRequest }) {
         let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.endDate, value.duration,
-            value.region, value.sport, value.amount, this.persons)
+            value.region, value.sport, value.amount, this.persons);
         this.insurancePolicyService.create(insurancePolicyRequest)
-            .subscribe(insurancePolicy => console.log("123"));
+            .subscribe(insurancePolicy => console.log('123'));
     }
 
     toggleFormPerson(value: boolean) {

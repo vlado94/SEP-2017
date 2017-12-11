@@ -1,14 +1,11 @@
 package da.categoryFactor;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.BadRequestException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import da.factor.Factor;
 import da.factor.FactorRepository;
 

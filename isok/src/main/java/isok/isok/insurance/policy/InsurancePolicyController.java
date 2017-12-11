@@ -2,6 +2,7 @@ package isok.isok.insurance.policy;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,11 @@ public class InsurancePolicyController {
 				dataccessPort.toString()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
 		return newInsuranceReq;
 	}
-
+	
+	@GetMapping("/calculatePrice")
+	private Integer calculatePrice(/*@RequestBody InsurancePolicyRequest obj*/) {
+		Integer insurancePrice = restTemplate().getForObject(
+				dataccessPort.toString()+"/insurancePolicy/calculatePrice", /*obj*/Integer.class);
+		return insurancePrice;
+	}
 }

@@ -38,6 +38,10 @@ export class InsurancePolicyService {
         return this._todos.asObservable();
     }
 
+    calculatePrice() {
+        return this.http.get(this.apiUrl+"/calculatePrice");
+    }
+
     get personForm() {
         return this._personForm.asObservable();
     }
@@ -51,7 +55,6 @@ export class InsurancePolicyService {
     }
 
     create(insurancePolicy: InsurancePolicyRequest) {
-
         return this.http.post(this.apiUrl, insurancePolicy)
             .map(res => res.json());
     }

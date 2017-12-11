@@ -5,6 +5,7 @@
             <tr>
                 <th class="idColumn" >#</th>
                 <th >Name</th>
+                <th >Base price</th>
                 <th class="actionsCol">Actions</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             <tr *ngFor="let factor of this.categoryFactorComponent.categoryFactors">
         	    <td class="idColumn">{{factor.id}}</td>
                 <td>{{factor.name}}</td>
+                <td>{{factor.basePrice}}</td>
      	        <td class="actionsCol">
      	          	<a class="btn fa fa-pencil" (click)="this.categoryFactorComponent.get(factor)" title="Item details"></a>
                     <button class="btn fa fa-times" type="button" (click)="this.categoryFactorComponent.delete(factor)" title="Delete item"></button>

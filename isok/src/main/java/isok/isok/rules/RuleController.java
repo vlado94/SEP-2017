@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import model.dto.PriceListItemDTO;
 import model.request.InsurancePolicyRequest;
-
+/*
 @RestController
 @RequestMapping("/rules")
 public class RuleController {
@@ -90,3 +90,4 @@ public class RuleController {
 	}
 	
 }
+*/

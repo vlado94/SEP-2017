@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import model.request.InsurancePolicyRequest;
-@Service
+/*@Service
 public class RuleService {
 
 	private final KieContainer kieContainer;
@@ -24,4 +24,4 @@ public class RuleService {
         return i;
     }
 	
-}
+}*/

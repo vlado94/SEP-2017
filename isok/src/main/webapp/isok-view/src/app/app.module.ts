@@ -36,6 +36,8 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
 import { PriceListComponent } from './price-list/price-list.component';
 import { priceListRouting } from "./price-list/price-list.routing";
 import { PriceService } from "./price-list/price.service";
+import { RulesComponent } from './rules/rules.component';
+import { RulesService} from './rules/rules.service';
 
 @NgModule({
     declarations: [
@@ -55,7 +57,8 @@ import { PriceService } from "./price-list/price.service";
         InsurancePolicyFormComponent,
         InsurancePolicyPersonComponent,
         InsurancePolicyPersonFormComponent,
-        InsurancePolicyPersonListComponent
+        InsurancePolicyPersonListComponent,
+        RulesComponent
     ],
     imports: [
         BrowserModule,
@@ -69,7 +72,8 @@ import { PriceService } from "./price-list/price.service";
         BrowserAnimationsModule,
         ToastModule.forRoot()
     ],
-    providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
+    providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER,
+      KeycloakService, RulesService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

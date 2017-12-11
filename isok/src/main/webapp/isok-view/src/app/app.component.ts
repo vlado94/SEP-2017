@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Contract } from './keycloak/model/contract.model';
 import { User } from './keycloak/model/user.model';
 import { KeycloakService } from './keycloak/service/keycloak.service';
+import { InsurancePolicyService } from './insurance-policy/insurance-policy.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
 	profile: User;
   	title = 'app';
 
-  	constructor(private keycloakService: KeycloakService) {
+  	constructor(private keycloakService: KeycloakService,private insurancePolicyService: InsurancePolicyService) {
 	}
 
   	public ngOnInit(): void {
@@ -32,4 +33,8 @@ export class AppComponent implements OnInit {
 	public logout() {
         this.keycloakService.logout();
 	}
+
+  public calculatePrice() {
+      this.insurancePolicyService.calculatePrice().subscribe(null);
+  }
 }

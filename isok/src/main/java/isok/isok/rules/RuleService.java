@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import model.request.InsurancePolicyRequest;
 /*@Service
+
 public class RuleService {
 
 	private final KieContainer kieContainer;

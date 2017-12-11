@@ -122,6 +122,7 @@ export class InsurancePolicyPersonFormComponent {
         this.insurancePolicyPerson.reset();
     }
 }
+
 export class InsurancePolicyPersonRequest {
     firstName: string;
     lastName: string;

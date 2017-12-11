@@ -23,6 +23,9 @@ export class CategoryFactorFormComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(3)
             ]],
+            basePrice: ['', [
+                Validators.required
+            ]],
         });
     }
 

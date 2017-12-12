@@ -18,7 +18,9 @@ export class CategoryFactorFormComponent implements OnInit {
         private categoryFactorComponent: CategoryFactorComponent
     ) {
         this.categoryFactorForm = formBuilder.group({
-            id : [''],
+            id : ['',[
+                            Validators.required,
+            ]],
             name: ['', [
                 Validators.required,
                 Validators.minLength(3)

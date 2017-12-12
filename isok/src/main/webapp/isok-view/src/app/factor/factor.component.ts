@@ -80,22 +80,28 @@ export class FactorComponent implements OnInit {
     save() {
         if(this.factor.name == undefined)
             return;
-        if(this.factor.id == undefined) {
-            this.factorService.save(this.factor)
-                .subscribe(factor => {
-                    this.factor = factor;  
-                    this.findAll();
-                    this.toastr.success('Done!', 'Success');
-            })
-        }  
+        var validInput = true;
+        if(this.factor.category != 2) {
+            if(this.factor.id == undefined) {
+                this.factorService.save(this.factor)
+                    .subscribe(factor => {
+                        this.factor = factor;  
+                        this.findAll();
+                        this.toastr.success('Done!', 'Success');
+                })
+            }  
+            else {
+                this.factorService.update(this.factor)
+                    .subscribe(factor => {
+                        this.factor = factor;
+                        this.findAll();
+                        this.get(this.factor);
+                        this.toastr.success('Done!', 'Success');
+                    })         
+            }
+        }
         else {
-            this.factorService.update(this.factor)
-                .subscribe(factor => {
-                    this.factor = factor;
-                    this.findAll();
-                    this.get(this.factor);
-                    this.toastr.success('Done!', 'Success');
-                })         
+            this.toastr.error("Can't change factors for choosen category!", 'Error');  
         }
     }
 

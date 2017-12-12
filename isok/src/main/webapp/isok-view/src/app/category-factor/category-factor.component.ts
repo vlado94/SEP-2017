@@ -74,15 +74,7 @@ export class CategoryFactorComponent implements OnInit {
     save() {
         if(this.categoryFactor.name == undefined)
             return;
-        if(this.categoryFactor.id == undefined) {
-            this.categoryFactorService.save(this.categoryFactor)
-                .subscribe(categoryFactor => {
-                    this.categoryFactor = categoryFactor;  
-                    this.findAll(); 
-                    this.toastr.success('Done!', 'Success');
-            })
-        }  
-        else {
+        if(this.categoryFactor.id != undefined) {
             this.categoryFactorService.update(this.categoryFactor)
                 .subscribe(categoryFactor => {
                     this.categoryFactor = categoryFactor;

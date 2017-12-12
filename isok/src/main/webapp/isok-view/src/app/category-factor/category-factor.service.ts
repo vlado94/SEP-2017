@@ -19,11 +19,6 @@ export class CategoryFactorService {
             .map(res => res.json());
     }
 
-    save(categoryFactor) {
-        return this.http.post(this.apiUrl, categoryFactor)
-            .map(res => res.json())
-    }
-
     deleteById(id){
         return this.http.delete(this.apiUrl + '/' + id)
           .map(res => res.json());

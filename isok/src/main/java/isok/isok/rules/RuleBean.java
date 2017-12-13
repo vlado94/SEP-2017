@@ -19,5 +19,4 @@ public class RuleBean {
 		return kContainer;
 		//return KieServices.Factory.get().getKieClasspathContainer();
     }
-	
 }

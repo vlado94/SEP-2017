@@ -24,5 +24,4 @@ public class RuleService {
         kieSession.dispose();
         return i;
     }
-	
 }

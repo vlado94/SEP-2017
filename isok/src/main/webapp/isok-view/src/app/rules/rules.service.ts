@@ -10,6 +10,12 @@ export class RulesService {
 
     getRules() {
         return this.http.get(this.apiUrl + '/getRules')
-            .map(res => res.json());
+            .map(res => res.text());
     }
+
+    changeRules(s) {
+        alert('evo ga u service');
+        return this.http.post(this.apiUrl + '/changeRules', s);
+    }
+
 }

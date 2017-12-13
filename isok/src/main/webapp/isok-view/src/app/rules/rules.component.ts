@@ -21,7 +21,15 @@ export class RulesComponent implements OnInit {
 
   getRules() {
      this.rulesService.getRules().subscribe(s =>
-               this.s = s);
+      this.s = s);
+
+  }
+
+  change(s) {
+    //this.rulesService.changeRules(document.getElementById('textArea1').value);
+    this.rulesService.changeRules('sasa');
+    // this.getRules();
+    alert('prosao ovo');
   }
 
 }

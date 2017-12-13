@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import model.request.InsurancePolicyRequest;
 
-@RestController
+/*@RestController
 @RequestMapping("/rules")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RuleController {
@@ -49,7 +49,7 @@ public class RuleController {
 			s=s.substring(0, s.indexOf("\\isok"));
 			s=(s+"\\drools-spring-v2-kjar\\src\\main\\resources\\drools\\spring\\rules\\rules2.drl");
 			File f= new File(s);
-			/*FileReader fileReader = 
+			FileReader fileReader = 
 	                new FileReader(s);
 
 	            // Always wrap FileReader in BufferedReader.
@@ -66,7 +66,7 @@ public class RuleController {
 	            }   
 
 	            // Always close files.
-	            bufferedReader.close();*/
+	            bufferedReader.close();
 	           
 				FileInputStream fis = new FileInputStream(f);
 	            byte[] data = new byte[(int) f.length()];
@@ -112,3 +112,4 @@ public class RuleController {
 	}
 	
 }
+*/

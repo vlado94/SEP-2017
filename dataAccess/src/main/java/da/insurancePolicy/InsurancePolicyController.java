@@ -46,6 +46,7 @@ public class InsurancePolicyController {
 		
 		policy.setRegion(9l);
 		policy.setSport(1l);
+		policy.setAmount(15l);
 		
 		
 		double amount = insurancePolicyService.calculatePolice(policy);

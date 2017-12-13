@@ -12,7 +12,7 @@ function dateValidator(date: FormControl) {
     let input = date.value;
     let parts = input.split('-');
 
-    let inpuDate = new Date(+parts[0], +parts[1] - 1, parts[2],23,59);
+    let inpuDate = new Date(+parts[0], +parts[1] - 1, parts[2], 23, 59);
     let currentDate = new Date();
     if (inpuDate < currentDate)
         return {
@@ -48,27 +48,25 @@ export class InsurancePolicyFormComponent {
     contractorAdded: boolean = false;
     request: InsurancePolicyRequest;
     public addPersonButton: boolean = true;
-    @Input() currentPerson;
-
+    @Output() onFormSubmit = new EventEmitter<InsurancePolicyRequest>();
+    @Output() nextTab = new EventEmitter<string>();     
+     
     regions: Factor[];
     sports: Factor[];
-    @Input() persons;
-    @Input() formPerson;
-    @Output() toggleFormPersonEmitter = new EventEmitter<boolean>();
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 
     ngOnInit() {
 
         this.insurancePolicy = new FormGroup({
-            startDate: new FormControl('',[dateValidator]),
-            endDate: new FormControl('',[dateValidator]),
+            startDate: new FormControl('', [dateValidator]),
+            endDate: new FormControl('', [dateValidator]),
             duration: new FormControl('', [
                 Validators.required,
                 Validators.pattern("[0-9]*")]),
             typeOfPolicy: new FormControl(''),
             numberOfPersons: new FormControl('', [
-                Validators.pattern("[0-9]*")])
+                Validators.pattern("[0-9]*")]),
             numberOfPersonsUpTo16: new FormControl(''),
             numberOfPersonsBetween16And60: new FormControl(''),
             numberOfPersonsOver60: new FormControl(''),
@@ -92,14 +90,10 @@ export class InsurancePolicyFormComponent {
     }
     onSubmit({value}: { value: InsurancePolicyRequest }) {
         let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.endDate, value.duration,
-            value.region, value.sport, value.amount, this.persons)
-        this.insurancePolicyService.create(insurancePolicyRequest)
-            .subscribe(insurancePolicy => console.log("123"));
-    }
-
-    toggleFormPerson(value: boolean) {
-        this.toggleFormPersonEmitter.emit(value);
-        this.addPersonButton = !value;
+            value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16,+value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+        this.onFormSubmit.emit(insurancePolicyRequest);
+        console.log('123231231');
+        this.nextTab.emit('2');
     }
 
     checkNumberOfPeople() {
@@ -153,16 +147,26 @@ export class InsurancePolicyRequest {
     region: string;
     sport: string;
     amount: string;
+    typeOfPolicy: string;
+    numberOfPersons: number;
+    numberOfPersonsUpTo16: number;
+    numberOfPersonsBetween16And60: number;
+    numberOfPersonsOver60: number;
+
     persons: InsurancePolicyPersonRequest[] = [];
     constructor(startDate: string, endDate: string, duration: number,
         region: string, sportId: string,
-        amountId: string, persons: InsurancePolicyPersonRequest[]) {
+        amountId: string,typeOfPolicy:string ,numberOfPersons: number,
+        numberOfPersonsUpTo16: number,
+        numberOfPersonsBetween16And60: number,
+        numberOfPersonsOver60: number) { 
         this.startDate = startDate;
         this.endDate = endDate;
         this.duration = duration;
         this.region = region;
-        this.persons = persons;
         this.sport = sportId;
         this.amount = amountId;
+        this.numberOfPersons = numberOfPersons;
+        this.typeOfPolicy = typeOfPolicy;
     }
 }

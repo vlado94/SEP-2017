@@ -15,14 +15,14 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12">
-			<app-insurance-policy-form *ngIf="activeTab=='1'" [formPerson]="formPerson"
-				(toggleFormPersonEmitter)="toggleFormPerson($event)"
-				[persons]="personsList" [currentPerson]="currentPerson"></app-insurance-policy-form>
+			<app-insurance-policy-form [hidden]="activeTab !=='1'"
+			(onFormSubmit)="onSubmit($event)" (nextTab)="nextTab($event)"
+				></app-insurance-policy-form>
 		</div>
 
 
 		<div class="col-12">
-			<app-insurance-policy-person *ngIf="activeTab=='2'"></app-insurance-policy-person>
+			<app-insurance-policy-person [hidden]="activeTab !=='2'" (nextTab)="nextTab($event)"></app-insurance-policy-person>
 		</div>
 
 	</div>

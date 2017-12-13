@@ -12,18 +12,15 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-
 
 export class InsurancePolicyComponent {
 
-    activeTab:string = '1';
-    lista: string[] = ['123', '123', '456'];
+    activeTab: string = '2';
     personsList: InsurancePolicyPersonRequest[] = [];
-    currentPerson: InsurancePolicyPersonRequest = null;
-    formPerson: boolean = false;
-
-    onSelectForUpdate(person: InsurancePolicyPersonRequest) {
-        this.currentPerson = person;
-        this.formPerson = true;
+    currentInsurancePolicy:InsurancePolicyPersonRequest;
+    
+    nextTab(value: string) {
+        this.activeTab = value;
     }
-
-    toggleFormPerson(value: boolean) {
-        this.formPerson = value;
+    
+    onSubmit(insurancePolicyRequest:InsurancePolicyPersonRequest){
+        this.currentInsurancePolicy = insurancePolicyRequest; 
     }
 }

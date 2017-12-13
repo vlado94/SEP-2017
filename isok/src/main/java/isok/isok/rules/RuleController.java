@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.request.InsurancePolicyRequest;
-/*
+
 @RestController
 @RequestMapping("/rules")
 public class RuleController {
@@ -66,4 +66,3 @@ public class RuleController {
 		return "greska";
 	}	
 }
-*/

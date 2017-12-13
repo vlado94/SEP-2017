@@ -1,14 +1,27 @@
 package da.insurancePolicy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.transaction.Transactional;
+import javax.validation.constraints.NotBlank;
 
+import org.aspectj.weaver.PoliceExtensionUse;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.pl.PESEL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import da.insurancePolicyWithPrice.InsurancePolicyWithPrice;
+import da.person.Person;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
@@ -54,13 +67,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	}
 
 	@Override
-	public Double calculatePolice(InsurancePolicyRequest policy) {
+	public Double calculatePolice(InsurancePolicyRequest insurencePolicy) {
 		double retVal = 0;
-		
-		/*insurencyPolicyWithPrice sluzi za generisanje pdf-a polise i sadrzi sve cijene za pojedinacne korisnike*/
-		
-		//InsurancePolicyWithPrice policyWithPrice = new InsurancePolicyWithPrice(policy);
-		
 		
 		PriceList last = priceListService.findCurrent();
 		/*ide na repo*/
@@ -70,8 +78,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			if(item.getPriceList().getId() == last.getId())
 				usableList.add(item);		
 		}
-		/*ovim sam dobio aktuelne stavke cenovnika*/
-
+		/*ovim sam dobila aktuelne stavke cenovnika*/
+		
 		/*hardodirano da je prvo za sport*/
 		/*cena dana polise bilo gde*/
 		int day = 100;
@@ -83,11 +91,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		double agePer = 0; /*fali za godine*/
 		
 		for (PriceListItem item : usableList) {
-			if(item.getFactor().getId() == policy.getRegion()) {
+			if(item.getFactor().getId() == insurencePolicy.getRegion()) {
 				regPer = item.getPercent(); //trenutni procenat za region
 				regBasePrice = item.getFactor().getCategory().getBasePrice();
 			}
-			if(item.getFactor().getId() == policy.getSport()) {
+			if(item.getFactor().getId() == insurencePolicy.getSport()) {
 				sportPer = item.getPercent();
 				sportBasePrice = item.getFactor().getCategory().getBasePrice();
 			}
@@ -103,39 +111,71 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 		double sportPrice = sportBasePrice + sportBasePrice * sportPer/100;
 		double regionPrice = regBasePrice + regBasePrice * regPer/100;
-	
 		pricePerDayForSportAndRegion = sportPrice + regionPrice;
 		
+		/*insurencyPolicyWithPrice sluzi za generisanje pdf-a polise i sadrzi sve cijene za pojedinacne korisnike*/
+		InsurancePolicy policy  = generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList);
+		InsurancePolicyWithPrice policyWithPrice = new InsurancePolicyWithPrice(policy);
 		
 		/*upit na repo*/
 		List<PriceListItem> ageItems = new ArrayList<PriceListItem>();
 		
 		for (PriceListItem item : usableList) {
-			if(item.getFactor().getId() == 2) {
+			if(item.getFactor().getCategory().getId() == 2) {
 				ageItems.add(item);
 			}
 		}
 		
-		
-		for (PersonRequest person : policy.getPersons()) {
-			for (PriceListItem priceListItem : ageItems) {
+		double agePrice = 0;
+			for(int i =0; i<insurencePolicy.getPersons().size(); i++) {
+				PersonRequest person = insurencePolicy.getPersons().get(i);
+				for (PriceListItem priceListItem : ageItems) { //tri kategorije
 				String agePeriod = priceListItem.getFactor().getName();
 				String[] ageList = agePeriod.split("-");
-				
 				String firstAge = ageList[0];
 				String secondAge = ageList[1];
 				
-				if(Integer.parseInt(firstAge) >= person.getAge() && person.getAge() <= Integer.parseInt(secondAge) ) {
+				if( person.getAge()>=Integer.parseInt(firstAge)  && person.getAge() <= Integer.parseInt(secondAge) ) {
 					double baseForAge = priceListItem.getFactor().getCategory().getBasePrice();
 					double percentForAge = priceListItem.getPercent();
-					double agePrice = baseForAge +   baseForAge * percentForAge/100; //konkretna cijena za tog covjeka za godine
+					agePrice = baseForAge +   baseForAge * percentForAge/100; 
+					double amountForPerson = sportPrice + regionPrice + agePrice; 
+					policyWithPrice.getPricePerPerson().add(i, amountForPerson);;
 				}
-				
 			} 
-			
 		}
 		
-		retVal = policy.getDuration() * pricePerDayForSportAndRegion;
+		for(int i = 0; i<policyWithPrice.getPricePerPerson().size(); i++) {
+			retVal += insurencePolicy.getDuration() * policyWithPrice.getPricePerPerson().get(i);
+		}
+		policyWithPrice.setAmount(retVal);
 		return retVal;
 	}
+
+	private InsurancePolicy generatePolicyFromInsurencePolicyRequest(InsurancePolicyRequest insurencePolicy, List<PriceListItem> items) {
+		InsurancePolicy policy = new InsurancePolicy();
+		policy.setStartDate(insurencePolicy.getStartDate());
+		policy.setEndDate(policy.getEndDate());
+		policy.setDuration(insurencePolicy.getDuration());
+		Set<Person> personList = new HashSet<Person>();
+		Set<PriceListItem> itemList =  new HashSet<PriceListItem>();
+		
+		for (PersonRequest personRequest : insurencePolicy.getPersons()) {
+			Person person = new Person(personRequest.getFirstName(), personRequest.getLastName(), personRequest.getJmbg(),personRequest.getPassportNumber(),
+					personRequest.getAddress(), personRequest.getPhone(), personRequest.isContractor(), personRequest.getEmail());
+			personList.add(person);
+		}
+		policy.setPersons(personList);
+		
+		for (PriceListItem item : items) {
+			if(item.getFactor().getId() == insurencePolicy.getRegion() || item.getFactor().getId() == insurencePolicy.getSport()) {
+				itemList.add(item);
+			}
+		
+		}
+		policy.setPriceListItems(itemList);
+		return policy;
+	}
+	
+	
 }

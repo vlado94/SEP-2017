@@ -57,6 +57,18 @@ public class Person {
 		this.email = email;
 	}
 
+	public Person( @NotBlank String firstName, String lastName, @Length(max = 13, min = 13) String jmbg,
+			String passportNumber, String address, String phone, Boolean contractor, String email) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.jmbg = jmbg;
+		this.passportNumber = passportNumber;
+		this.address = address;
+		this.phone = phone;
+		this.contractor = contractor;
+		this.email = email;
+	}
 	public Long getId() {
 		return id;
 	}

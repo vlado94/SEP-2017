@@ -39,16 +39,16 @@ public class InsurancePolicyController {
 		InsurancePolicyRequest policy = new InsurancePolicyRequest();
 		policy.setDuration(5);
 		policy.setPersons(new ArrayList<>());
-		policy.getPersons().add(new PersonRequest());
-		policy.getPersons().add(new PersonRequest());
-		policy.getPersons().add(new PersonRequest());
-		policy.getPersons().add(new PersonRequest());
-		policy.getPersons().add(new PersonRequest());
-		policy.setRegion(2l);
+		PersonRequest person1 = new PersonRequest("Jovan","Jovanovic","1212994156225","12563","adress","06451145",28l,false, "fjass@sdha");
+		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",62l,false, "fjass@sdha");
+		policy.getPersons().add(person1);
+		policy.getPersons().add(person2);
+		
+		policy.setRegion(9l);
 		policy.setSport(1l);
 		
 		
-		insurancePolicyService.calculatePolice(policy);
+		double amount = insurancePolicyService.calculatePolice(policy);
 		
 		return 1;
 	}

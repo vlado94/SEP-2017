@@ -23,7 +23,17 @@ function dateValidator(date: FormControl) {
     else
         return null;
 }
+function numberOfPersonsValidator(num: FormControl) {
+    if ((+num.value) <= 0)
+        return {
+            numberOfPersonsValidator:{
+                valid: false    
+            }
+        }
+    else
+        return null;
 
+}
 @Component({
     selector: 'app-insurance-policy-form',
     templateUrl: './insurance-policy-form.component.html',
@@ -49,10 +59,11 @@ export class InsurancePolicyFormComponent {
     request: InsurancePolicyRequest;
     public addPersonButton: boolean = true;
     @Output() onFormSubmit = new EventEmitter<InsurancePolicyRequest>();
-    @Output() nextTab = new EventEmitter<string>();     
-     
+    @Output() nextTab = new EventEmitter<string>();
+
     regions: Factor[];
     sports: Factor[];
+    agesCategory:Factor[];
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 
@@ -65,8 +76,11 @@ export class InsurancePolicyFormComponent {
                 Validators.required,
                 Validators.pattern("[0-9]*")]),
             typeOfPolicy: new FormControl(''),
+            age: new FormControl(''),
             numberOfPersons: new FormControl('', [
-                Validators.pattern("[0-9]*")]),
+                Validators.required,
+                Validators.pattern("[0-9]*"),numberOfPersonsValidator]
+                ),
             numberOfPersonsUpTo16: new FormControl(''),
             numberOfPersonsBetween16And60: new FormControl(''),
             numberOfPersonsOver60: new FormControl(''),
@@ -87,18 +101,21 @@ export class InsurancePolicyFormComponent {
             .subscribe(sports => {
                 this.sports = sports;
             })
+
+        this.factorService.findByCategory(2)
+            .subscribe(agesCategory => {
+                this.agesCategory = agesCategory;
+            })
     }
-    onSubmit({value}: { value: InsurancePolicyRequest }) {
+    onSubmit({value}: { value }) {
         let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.endDate, value.duration,
-            value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16,+value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+            value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
         this.onFormSubmit.emit(insurancePolicyRequest);
-        console.log('123231231');
+        console.log('Submitting first page...');
         this.nextTab.emit('2');
     }
 
     checkNumberOfPeople() {
-        if (+this.insurancePolicy.get('typeOfPolicy').value == 1)
-            return true;
         let result = false;
         let upTo16: number = +this.insurancePolicy.get('numberOfPersonsUpTo16').value;
         let between16And60: number = +this.insurancePolicy.get('numberOfPersonsBetween16And60').value;
@@ -106,7 +123,7 @@ export class InsurancePolicyFormComponent {
         let sum: number = upTo16 + between16And60 + over60;
 
         let numOfPersons = +this.insurancePolicy.get('numberOfPersons').value;
-        if (numOfPersons > 1 && sum == numOfPersons) {
+        if (sum == numOfPersons) {
             result = true;
             console.log("Valid");
         }
@@ -120,20 +137,25 @@ export class InsurancePolicyFormComponent {
     }
 
     checkDates() {
+        console.log("Provera ispravnosti datuma...");
         let s = this.insurancePolicy.get('startDate').value
         let e = this.insurancePolicy.get('endDate').value
-        console.log(s);
         let start = this.convertDate(s);
         let end = this.convertDate(e);
-        console.log("Start:" + start);
-        console.log(e);
+        console.log("Uneti datum pocetka putovanja:" + start);
+        //console.log("Tranformisan datu");
 
-        console.log("End:" + end);
-        console.log(start < end);
+        console.log("Uneti datum okoncanja putovanja:" + end);
+        if(start < end){
+            console.log("Datumi su validni");    
+        }else{
+            console.log("Datumi nisu validni");    
+        }
         return start < end;
     }
     //today | date:'fullDate'
-    convertDate(d) {
+
+    convertDate(d) {
         let parts = d.split('-');
 
         return new Date(+parts[0], +parts[1] - 1, parts[2]);
@@ -149,17 +171,17 @@ export class InsurancePolicyRequest {
     amount: string;
     typeOfPolicy: string;
     numberOfPersons: number;
-    numberOfPersonsUpTo16: number;
-    numberOfPersonsBetween16And60: number;
-    numberOfPersonsOver60: number;
+    firstAgeCategory: number;
+    secondAgeCategory: number;
+    thirdAgeCategory: number;
 
     persons: InsurancePolicyPersonRequest[] = [];
     constructor(startDate: string, endDate: string, duration: number,
         region: string, sportId: string,
-        amountId: string,typeOfPolicy:string ,numberOfPersons: number,
-        numberOfPersonsUpTo16: number,
-        numberOfPersonsBetween16And60: number,
-        numberOfPersonsOver60: number) { 
+        amountId: string, typeOfPolicy: string, numberOfPersons: number,
+        firstAgeCategory: number,
+        secondAgeCategory: number,
+        thirdAgeCategory: number) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.duration = duration;
@@ -167,6 +189,9 @@ export class InsurancePolicyRequest {
         this.sport = sportId;
         this.amount = amountId;
         this.numberOfPersons = numberOfPersons;
+        this.firstAgeCategory = firstAgeCategory;
+        this.secondAgeCategory = secondAgeCategory;
+        this.thirdAgeCategory = thirdAgeCategory;
         this.typeOfPolicy = typeOfPolicy;
     }
 }

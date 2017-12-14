@@ -3,6 +3,8 @@ import { Http, Response } from "@angular/http";
 
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ViewContainerRef } from '@angular/core';
 
 import { CategoryFactorService } from "./category-factor.service";
 import { CategoryFactor } from './category-factor';
@@ -18,11 +20,14 @@ export class CategoryFactorComponent implements OnInit {
     categoryFactor : CategoryFactor = new CategoryFactor();
 
   	constructor(
+          public toastr: ToastsManager,vcr: ViewContainerRef,
           private categoryFactorService: CategoryFactorService,
           private router: Router,
           private route: ActivatedRoute
           )
-  	{ }
+  	{ 
+        this.toastr.setRootViewContainerRef(vcr);
+    }
 
   	ngOnInit() {  
   	  	this.findAll();
@@ -51,11 +56,15 @@ export class CategoryFactorComponent implements OnInit {
       	this.categoryFactors.splice(index, 1);
 
         this.categoryFactorService.deleteById(factor.id)
-          	.subscribe(null,
-         		err => {
-             		alert("Could not delete category factor.");
-             		this.categoryFactors.splice(index, 0, factor);
-           	});
+          	.subscribe(
+                data => {
+                    this.toastr.success('Done!', 'Success');
+                },
+             		err => {
+                 		this.toastr.error("Could not delete category factor, becouse some factors are contected with that.",'Error');
+                 		this.categoryFactors.splice(index, 0, factor);
+               	}
+            );
   	}
 
   	get(categoryFactor) {
@@ -65,19 +74,13 @@ export class CategoryFactorComponent implements OnInit {
     save() {
         if(this.categoryFactor.name == undefined)
             return;
-        if(this.categoryFactor.id == undefined) {
-            this.categoryFactorService.save(this.categoryFactor)
-                .subscribe(categoryFactor => {
-                    this.categoryFactor = categoryFactor;  
-                    this.findAll(); 
-            })
-        }  
-        else {
+        if(this.categoryFactor.id != undefined) {
             this.categoryFactorService.update(this.categoryFactor)
                 .subscribe(categoryFactor => {
                     this.categoryFactor = categoryFactor;
                     this.findAll(); 
                     this.get(this.categoryFactor);
+                    this.toastr.success('Done!', 'Success');
                 })         
         }
     }

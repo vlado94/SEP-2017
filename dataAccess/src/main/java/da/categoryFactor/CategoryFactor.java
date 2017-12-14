@@ -14,6 +14,8 @@ public class CategoryFactor {
 
 	private String name;
 
+	private Double basePrice;
+
 	public Long getId() {
 		return id;
 	}
@@ -28,5 +30,13 @@ public class CategoryFactor {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Double getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(Double basePrice) {
+		this.basePrice = basePrice;
 	}
 }

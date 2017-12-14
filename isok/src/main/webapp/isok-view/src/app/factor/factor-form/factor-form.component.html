@@ -6,24 +6,6 @@
                 <input id="id" type="hidden" class="form-control validate"
                         [(ngModel)]="this.factorComponent.factor.id" formControlName="id">
                 <div class="form-group col-sm-12">
-                    <label for="name"
-                        [class.active]="this.factorComponent.factor.name"
-                        data-error="Name is required and needs to contain at least 3 chars"> Name
-                    </label>
-                    <input id="name" type="text" class="form-control validate"
-                        [(ngModel)]="this.factorComponent.factor.name" formControlName="name"
-                        [class.invalid]="factorForm.controls['name'].touched && !factorForm.controls['name'].valid">
-                </div>
-                <div class="form-group col-sm-12">
-                    <label for="percent"
-                        [class.active]="this.factorComponent.factor.percent"
-                        data-error="Percent is required and needs to contain at least 3 chars"> Percent
-                    </label>
-                    <input id="percent" type="text" class="form-control validate"
-                        [(ngModel)]="this.factorComponent.factor.percent" formControlName="percent"
-                        [class.invalid]="factorForm.controls['percent'].touched && !factorForm.controls['percent'].valid">
-                </div>
-                <div class="form-group col-sm-12">
                     <label for="category"
                         [class.active]="this.factorComponent.factor.category"
                         data-error="Category is required"> Category
@@ -33,6 +15,15 @@
 
                         [class.invalid]="factorForm.controls['category'].touched && !factorForm.controls['category'].valid">
                     </select>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="name"
+                        [class.active]="this.factorComponent.factor.name"
+                        data-error="Name is required and needs to contain at least 3 chars"> Name
+                    </label>
+                    <input id="name" type="text" class="form-control validate"
+                        [(ngModel)]="this.factorComponent.factor.name" formControlName="name"
+                        [class.invalid]="factorForm.controls['name'].touched && !factorForm.controls['name'].valid">
                 </div>
             </div>
             <div class="row">

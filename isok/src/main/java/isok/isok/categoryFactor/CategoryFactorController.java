@@ -3,6 +3,8 @@ package isok.isok.categoryFactor;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
@@ -11,11 +13,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import model.dto.CategoryFactor;
@@ -40,14 +42,6 @@ public class CategoryFactorController {
 		return  Arrays.asList(objects);
 	}
 	
-	@PostMapping
-	private CategoryFactor save(@RequestBody CategoryFactor categoryFactor) {
-		CategoryFactor newCategoryFactor = restTemplate().postForObject(
-				dataccessPort.toString()+"/categoryFactor", categoryFactor, CategoryFactor.class);
-		
-		return newCategoryFactor;
-	}
-
 	@GetMapping("/{id}")
 	private CategoryFactor findOne(@PathVariable Long id) {
         CategoryFactor quote = restTemplate().getForObject(
@@ -63,14 +57,15 @@ public class CategoryFactorController {
 		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
 		return updateCategory;
 	}
-	
+		
 	@DeleteMapping("/{id}")
-	private boolean delete(@PathVariable Long id) {
+	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {
-			return restTemplate().exchange(
-					dataccessPort.toString()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class).getBody();
-		} catch(Exception e) {
-			return false;
+			ResponseEntity<Boolean> retVal = restTemplate().exchange(
+					dataccessPort.toString()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class);
+			return retVal.getBody();
+		} catch(HttpServerErrorException e) {
+			throw e;
 		}
 	}
 }

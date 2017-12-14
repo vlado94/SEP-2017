@@ -7,6 +7,8 @@ import { FactorService } from "../../../factor/factor.service";
 import { Factor } from '../../../factor/factor';
 
 import {InsurancePolicyService} from '../../insurance-policy.service';
+import {Age} from '../../insurance-policy.component';
+
 //import {InsurancePolicyPersonRequest} from './insurance-policy-person-request';
 
 @Component({
@@ -105,8 +107,8 @@ export class InsurancePolicyPersonFormComponent {
             for (let person of this.persons) {
                 if (person.jmbg === jmbg) {
                     if (this.currentPerson != null) {
-                        if(jmbg != this.currentPerson.jmbg){
-                            result = true;    
+                        if (jmbg != this.currentPerson.jmbg) {
+                            result = true;
                         }
                     } else {
                         result = true;
@@ -118,13 +120,18 @@ export class InsurancePolicyPersonFormComponent {
     }
 
     contractorExists() {
+        console.log("Provera da li su uneti podaci za ugovaraca polise.")
         let result = false;
         for (let person of this.persons) {
             if (!!person.contractor) {
                 result = true;
             }
         }
-        console.log("123");
+        if (result)
+            console.log("Podaci za ugovaraca polise su uneti.")
+        else
+            console.log("Podaci za ugovaraca polise nisu uneti.")
+
         return result;
     }
 
@@ -133,6 +140,7 @@ export class InsurancePolicyPersonFormComponent {
         this.resetCurrent.emit(null);
     }
 }
+
 export class InsurancePolicyPersonRequest {
     firstName: string;
     lastName: string;

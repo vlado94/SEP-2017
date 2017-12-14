@@ -24,10 +24,11 @@ export class InsurancePolicyService {
 
     }
 
-
+    calculatePrice() {
+        return this.http.get(this.apiUrl+"/calculatePrice");
+    }
 
     create(insurancePolicy: InsurancePolicyRequest) {
-
         return this.http.post(this.apiUrl, insurancePolicy)
             .map(res => res.json());
     }

@@ -14,13 +14,26 @@ export class InsurancePolicyComponent {
 
     activeTab: string = '2';
     personsList: InsurancePolicyPersonRequest[] = [];
-    currentInsurancePolicy:InsurancePolicyPersonRequest;
-    
+    currentInsurancePolicy: InsurancePolicyRequest;
+    age: Age = new Age(0, 0, 0);
     nextTab(value: string) {
         this.activeTab = value;
     }
-    
-    onSubmit(insurancePolicyRequest:InsurancePolicyPersonRequest){
-        this.currentInsurancePolicy = insurancePolicyRequest; 
+ 
+    onSubmit(insurancePolicyRequest:InsurancePolicyRequest){ 
+        this.currentInsurancePolicy = insurancePolicyRequest;
+        this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
+        this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
+        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+    }
+}
+export class Age {
+    firstCategory: number;
+    secondCategory: number;
+    thirdCategory: number;
+    constructor(firstCategory: number, secondCategory: number, thirdCategory: number) {
+        this.firstCategory = firstCategory;
+        this.secondCategory = secondCategory;
+        this.thirdCategory = thirdCategory;
     }
 }

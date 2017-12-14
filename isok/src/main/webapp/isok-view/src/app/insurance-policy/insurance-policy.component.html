@@ -22,7 +22,7 @@
 
 
 		<div class="col-12">
-			<app-insurance-policy-person [hidden]="activeTab !=='2'" (nextTab)="nextTab($event)"></app-insurance-policy-person>
+			<app-insurance-policy-person [expectedNumbersByAgeCategories]="age" [hidden]="activeTab !=='2'" (nextTab)="nextTab($event)"></app-insurance-policy-person>
 		</div>
 
 	</div>

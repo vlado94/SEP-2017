@@ -7,6 +7,9 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 import { factorsRouting } from "./factor/factor.routing";
 import { FactorComponent } from './factor/factor.component';
 import { FactorListComponent } from './factor/factor-list/factor-list.component';
@@ -33,6 +36,8 @@ import { CategoryFactorFormComponent } from './category-factor/category-factor-f
 import { PriceListComponent } from './price-list/price-list.component';
 import { priceListRouting } from "./price-list/price-list.routing";
 import { PriceService } from "./price-list/price.service";
+import { RulesComponent } from './rules/rules.component';
+import { RulesService} from './rules/rules.service';
 
 @NgModule({
     declarations: [
@@ -52,7 +57,8 @@ import { PriceService } from "./price-list/price.service";
         InsurancePolicyFormComponent,
         InsurancePolicyPersonComponent,
         InsurancePolicyPersonFormComponent,
-        InsurancePolicyPersonListComponent
+        InsurancePolicyPersonListComponent,
+        RulesComponent
     ],
     imports: [
         BrowserModule,
@@ -62,9 +68,12 @@ import { PriceService } from "./price-list/price.service";
         priceListRouting,
         ReactiveFormsModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        BrowserAnimationsModule,
+        ToastModule.forRoot()
     ],
-    providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
+    providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER,
+      KeycloakService, RulesService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

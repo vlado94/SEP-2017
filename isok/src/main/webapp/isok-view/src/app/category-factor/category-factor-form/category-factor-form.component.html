@@ -10,19 +10,24 @@
                         [class.active]="this.categoryFactorComponent.categoryFactor.name"
                         data-error="Name is required and needs to contain at least 3 chars"> Name
                     </label>
-                    <input id="name" type="text" class="form-control validate"
-                        [(ngModel)]="this.categoryFactorComponent.categoryFactor.name" formControlName="name"
-                        [class.invalid]="categoryFactorForm.controls['name'].touched && !categoryFactorForm.controls['name'].valid">
+                    <input id="name" type="text" class="form-control validate" disabled="disabled" 
+                        [(ngModel)]="this.categoryFactorComponent.categoryFactor.name" formControlName="name">
                 </div>
-
+                <div class="form-group col-sm-12">
+                    <label for="name"
+                        [class.active]="this.categoryFactorComponent.categoryFactor.basePrice"
+                        data-error="Base price is required"> Base price
+                    </label>
+                    <input id="name" type="text" class="form-control validate"
+                        [(ngModel)]="this.categoryFactorComponent.categoryFactor.basePrice" formControlName="basePrice"
+                        [class.invalid]="categoryFactorForm.controls['basePrice'].touched && !categoryFactorForm.controls['basePrice'].valid">
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12 buttons">
                     <button class="btn fa fa-check floatRight" type="submit"
                         [disabled]="!categoryFactorForm.valid" title="Save item">
-                    </button>
-                    <button class="btn fa fa-plus floatRight" (click)="this.resetForm()" title="Reset form">
                     </button>
                 </div>
             </div>

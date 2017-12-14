@@ -15,10 +15,10 @@
 	</div>
 
 	<div class="col-3">
-		<button class="btn" (click)="changeTab('1')">Nazad</button>
+		<button class="btn" (click)="changeTab('1')" >Nazad</button>
 	</div>
 	<div class="col-2 offset-7">
-		<button class="btn" (click)="changeTab('1')">Dalje</button>
+		<button class="btn" (click)="changeTab('1')" [disabled]="!isNumberOfPersonsByAgeCorrect() || !isContractorAdded()">Dalje</button>
 
 	</div>
 </div>

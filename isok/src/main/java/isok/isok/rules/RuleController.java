@@ -116,7 +116,7 @@ public class RuleController {
 		        System.out.println("check2");*/
 				/*MavenCli cli = new MavenCli();
 				System.out.println("before");
-				cli.doMain(new String[]{"install"}, s, System.out, System.out);
+				cli.doMain(new String[]{"install"}, s, System.out, null);
 				System.out.println("after");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block

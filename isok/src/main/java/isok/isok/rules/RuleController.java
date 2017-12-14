@@ -1,4 +1,4 @@
-/*package isok.isok.rules;
+package isok.isok.rules;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,14 +8,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-<<<<<<< HEAD
+
 import java.util.Arrays;
 import java.util.List;
-=======
->>>>>>> 3f8783d4baaeb67c24e544dd0963e577fbef9df9
 
 import javax.ws.rs.Consumes;
 
+import org.apache.maven.cli.MavenCli;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.net.MediaType;
-
 import model.request.InsurancePolicyRequest;
 
 @RestController
@@ -56,7 +54,7 @@ public class RuleController {
 			s=s.substring(0, s.indexOf("\\isok"));
 			s=(s+"\\drools-spring-v2-kjar\\src\\main\\resources\\drools\\spring\\rules\\rules2.drl");
 			File f= new File(s);
-			FileReader fileReader = 
+			/*FileReader fileReader = 
 	                new FileReader(s);
 
 	            // Always wrap FileReader in BufferedReader.
@@ -75,7 +73,7 @@ public class RuleController {
 	            // Always close files.
 	            bufferedReader.close();
 	           
-				/*FileInputStream fis = new FileInputStream(f);
+				*/FileInputStream fis = new FileInputStream(f);
 	            byte[] data = new byte[(int) f.length()];
 	            fis.read(data);
 	            fis.close();
@@ -105,36 +103,29 @@ public class RuleController {
 				/*
 				String[] cmd = { s + "\\mvn install" };
 		        Process p = Runtime.getRuntime().exec(cmd);
-		        p.waitFor();
+		        p.waitFor();*/
 				/*InvocationRequest request = new DefaultInvocationRequest();
 				request.setPomFile( new File( "/path/to/pom.xml" ) );
 				request.setGoals( Arrays.asList( "clean", "install" ) );
 
 				Invoker invoker = new DefaultInvoker();
-				invoker.execute( request );*/
-				Process p=Runtime.getRuntime().exec("cmd \\c mvn install",null,new File(s));
+				invoker.execute( request );
+				Process p=Runtime.getRuntime().exec("cmd \\c mvn -v",null,new File(s));
 				System.out.println("check1");
 		        p.waitFor();
-		        System.out.println("check2");
+		        System.out.println("check2");*/
+				MavenCli cli = new MavenCli();
+				System.out.println("before");
+				cli.doMain(new String[]{"install"}, s, System.out, System.out);
+				System.out.println("after");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-<<<<<<< HEAD
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		
 		return true;
 	}
 }
-=======
-		}	
-		return true;
-	}
-	
-}*/
 
 
->>>>>>> 3f8783d4baaeb67c24e544dd0963e577fbef9df9

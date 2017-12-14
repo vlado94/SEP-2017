@@ -41,6 +41,9 @@ public class InsurancePolicy {
 	@ManyToMany
 	private Set<PriceListItem> priceListItems = new HashSet<PriceListItem>();
 
+	private Double amount;
+	
+	
 	public InsurancePolicy() {
 		super();
 	}
@@ -98,6 +101,14 @@ public class InsurancePolicy {
 
 	public void setPersons(Set<Person> persons) {
 		this.persons = persons;
+	}
+
+	public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 

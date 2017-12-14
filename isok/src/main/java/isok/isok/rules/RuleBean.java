@@ -6,7 +6,6 @@ import org.kie.api.runtime.KieContainer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 public class RuleBean {
 
@@ -22,3 +21,4 @@ public class RuleBean {
     }
 	
 }*/
+

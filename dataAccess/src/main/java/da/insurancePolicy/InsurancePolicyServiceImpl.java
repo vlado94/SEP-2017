@@ -20,14 +20,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
-import da.insurancePolicyWithPrice.InsurancePolicyWithPrice;
+
 import da.person.Person;
+import da.person.PersonRepository;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
 import da.priceListItem.PriceListItemRepository;
 import model.request.InsurancePolicyRequest;
+import model.request.InsurancePolicyResponce;
 import model.request.PersonRequest;
+import model.request.PersonResponse;
 
 @Service
 @Transactional
@@ -42,6 +45,9 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	@Autowired
 	private PriceListService priceListService;
 
+	@Autowired
+	private InsurancePolicyRepository insurancePolicyRepository;
+	
 	@Override
 	public List<InsurancePolicy> findAll() {
 		// TODO Auto-generated method stub
@@ -85,9 +91,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		int day = 100;
 		double pricePerDayForSportAndRegion;
 		double sportPer = 0;
+		double coverPer = 0;
 		double regPer = 0;
 		double sportBasePrice = 0;
 		double regBasePrice = 0;
+		double coverBasePrice = 0;
 		double agePer = 0; /*fali za godine*/
 		
 		for (PriceListItem item : usableList) {
@@ -98,6 +106,10 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			if(item.getFactor().getId() == insurencePolicy.getSport()) {
 				sportPer = item.getPercent();
 				sportBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+			if(item.getFactor().getId() == insurencePolicy.getAmount()) {
+				coverPer = item.getPercent();
+				coverBasePrice = item.getFactor().getCategory().getBasePrice();
 			}
 		}
 		
@@ -111,11 +123,12 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 		double sportPrice = sportBasePrice + sportBasePrice * sportPer/100;
 		double regionPrice = regBasePrice + regBasePrice * regPer/100;
+		double coverPrice = coverBasePrice + coverBasePrice * coverPer/100;
 		pricePerDayForSportAndRegion = sportPrice + regionPrice;
 		
-		/*insurencyPolicyWithPrice sluzi za generisanje pdf-a polise i sadrzi sve cijene za pojedinacne korisnike*/
-		InsurancePolicy policy  = generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList);
-		InsurancePolicyWithPrice policyWithPrice = new InsurancePolicyWithPrice(policy);
+		InsurancePolicy policy  = insurancePolicyRepository.save(generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList));
+		InsurancePolicyResponce responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);
+	
 		
 		/*upit na repo*/
 		List<PriceListItem> ageItems = new ArrayList<PriceListItem>();
@@ -129,26 +142,32 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		double agePrice = 0;
 			for(int i =0; i<insurencePolicy.getPersons().size(); i++) {
 				PersonRequest person = insurencePolicy.getPersons().get(i);
+				PersonResponse personResponce = generatePersonResponseFromRequest(person);
 				for (PriceListItem priceListItem : ageItems) { //tri kategorije
 				String agePeriod = priceListItem.getFactor().getName();
 				String[] ageList = agePeriod.split("-");
 				String firstAge = ageList[0];
 				String secondAge = ageList[1];
 				
+				personResponce.setSportPrice(sportPrice);
+				personResponce.setRegionPrice(regionPrice);
+				personResponce.setCoverPrice(coverPrice);
 				if( person.getAge()>=Integer.parseInt(firstAge)  && person.getAge() <= Integer.parseInt(secondAge) ) {
 					double baseForAge = priceListItem.getFactor().getCategory().getBasePrice();
 					double percentForAge = priceListItem.getPercent();
 					agePrice = baseForAge +   baseForAge * percentForAge/100; 
-					double amountForPerson = sportPrice + regionPrice + agePrice; 
-					policyWithPrice.getPricePerPerson().add(i, amountForPerson);;
+					double amountForPerson = sportPrice + regionPrice + agePrice + coverPrice; 
+					personResponce.setAgePrice(agePrice);
+					personResponce.setTotalPrice(amountForPerson);
+					responce.getPersons().add(personResponce);
 				}
 			} 
 		}
 		
-		for(int i = 0; i<policyWithPrice.getPricePerPerson().size(); i++) {
-			retVal += insurencePolicy.getDuration() * policyWithPrice.getPricePerPerson().get(i);
+		for(int i = 0; i<responce.getPersons().size(); i++) {
+			retVal += insurencePolicy.getDuration() * responce.getPersons().get(i).getTotalPrice();
 		}
-		policyWithPrice.setAmount(retVal);
+		policy.setAmount(retVal);
 		return retVal;
 	}
 
@@ -168,7 +187,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		policy.setPersons(personList);
 		
 		for (PriceListItem item : items) {
-			if(item.getFactor().getId() == insurencePolicy.getRegion() || item.getFactor().getId() == insurencePolicy.getSport()) {
+			if(item.getFactor().getId() == insurencePolicy.getRegion() || item.getFactor().getId() == insurencePolicy.getSport() || item.getFactor().getId() == insurencePolicy.getAmount()) {
 				itemList.add(item);
 			}
 		
@@ -176,6 +195,29 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		policy.setPriceListItems(itemList);
 		return policy;
 	}
+
+	private InsurancePolicyResponce generateInsurenceResponceFromPolicyRequest(InsurancePolicyRequest insurencePolicyRequest, InsurancePolicy policy) {
+		InsurancePolicyResponce responce = new InsurancePolicyResponce();
+		responce.setPolicyID(policy.getId());
+		responce.setStartDate(policy.getStartDate());
+		responce.setDuration(policy.getDuration());
+		responce.setRegion(insurencePolicyRequest.getRegion());
+		responce.setSport(insurencePolicyRequest.getSport());
+		responce.setCoverAmount(insurencePolicyRequest.getAmount());
+		responce.setAmount(policy.getAmount());
+		responce.setPersons(new ArrayList<PersonResponse>());
 	
+		return responce;
+	}
+
+	private PersonResponse generatePersonResponseFromRequest(PersonRequest person) {
+		PersonResponse response = new PersonResponse();
+		response.setFirstName(person.getFirstName());
+		response.setLastName(person.getLastName());
+		response.setJmbg(person.getJmbg());
+		
+		return response;
+	}
+
 	
 }

@@ -8,13 +8,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +47,7 @@ public class RuleController {
 			s=s.substring(0, s.indexOf("\\isok"));
 			s=(s+"\\drools-spring-v2-kjar\\src\\main\\resources\\drools\\spring\\rules\\rules2.drl");
 			File f= new File(s);
-			/*FileReader fileReader = 
+			FileReader fileReader = 
 	                new FileReader(s);
 
 	            // Always wrap FileReader in BufferedReader.
@@ -66,7 +64,7 @@ public class RuleController {
 	            }   
 
 	            // Always close files.
-	            bufferedReader.close();*/
+	            bufferedReader.close();
 	           
 				/*FileInputStream fis = new FileInputStream(f);
 	            byte[] data = new byte[(int) f.length()];
@@ -105,10 +103,10 @@ public class RuleController {
 		} catch (IOException | InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		
-		
+		}	
 		return true;
 	}
 	
 }*/
+
+

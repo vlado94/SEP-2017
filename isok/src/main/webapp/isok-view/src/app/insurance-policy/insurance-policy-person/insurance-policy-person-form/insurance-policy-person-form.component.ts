@@ -93,9 +93,9 @@ export class InsurancePolicyPersonFormComponent {
         }
 
     }
-    onSubmit({value}: { value: InsurancePolicyPersonRequest }) {
+    onSubmit({value}: { value}) {
         let newPerson: InsurancePolicyPersonRequest = new InsurancePolicyPersonRequest(value.firstName, value.lastName, value.jmbg, value.passportNumber,
-            value.address, value.phone, value.contractor == 'true', value.email);
+            value.address, value.phone, value.contractor==='true', value.email);
         this.onFormSubmit.emit(newPerson);
         this.insurancePolicyPerson.reset();
     }

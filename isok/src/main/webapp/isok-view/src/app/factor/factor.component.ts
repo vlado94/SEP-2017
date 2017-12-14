@@ -101,7 +101,7 @@ export class FactorComponent implements OnInit {
             }
         }
         else {
-            this.toastr.error("Can't change factors for choosen category!", 'Error');  
+            this.toastr.error("Can't add/change factors for choosen category!", 'Error');  
         }
     }
 

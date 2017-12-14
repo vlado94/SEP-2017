@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.List;
+
+import javax.ws.rs.Consumes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.google.common.net.MediaType;
 
 import model.request.InsurancePolicyRequest;
 
@@ -84,31 +89,40 @@ public class RuleController {
 		return "greska";
 	}	
 
-	@PostMapping("/changeRules")
-	private boolean save(@RequestBody String ruleFileAsText) {
-		System.out.println("jdasjja");
+	@PostMapping(value="/changeRules")
+	private boolean save(@RequestBody RuleHelper ruleFileAsText) {
 		String s;
 		try {
 			s = new File(".").getCanonicalPath();
 			s=s.substring(0, s.indexOf("\\isok"));
 			s=(s+"\\drools-spring-v2-kjar\\src\\main\\resources\\drools\\spring\\rules\\rules2.drl");
-				Files.write(Paths.get(s), ruleFileAsText.getBytes(), StandardOpenOption.CREATE);
-				System.out.println("check1");
+				Files.write(Paths.get(s), ruleFileAsText.getS().getBytes(), StandardOpenOption.CREATE);
 				s = new File(".").getCanonicalPath();
 				s=s.substring(0, s.indexOf("\\isok"));
 				s+="\\drools-spring-v2-kjar";
-				
-				String[] cmd = { s + "mvn install" };
+				/*
+				String[] cmd = { s + "\\mvn install" };
 		        Process p = Runtime.getRuntime().exec(cmd);
 		        p.waitFor();
+				/*InvocationRequest request = new DefaultInvocationRequest();
+				request.setPomFile( new File( "/path/to/pom.xml" ) );
+				request.setGoals( Arrays.asList( "clean", "install" ) );
+
+				Invoker invoker = new DefaultInvoker();
+				invoker.execute( request );*/
+				Process p=Runtime.getRuntime().exec("cmd \\c mvn install",null,new File(s));
+				System.out.println("check1");
+		        p.waitFor();
 		        System.out.println("check2");
-		} catch (IOException | InterruptedException e1) {
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		
 		return true;
 	}
-	
 }

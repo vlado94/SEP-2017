@@ -1,3 +1,4 @@
+import { RulesHelper } from './rules.rulesHelper';
 import { Component, OnInit } from '@angular/core';
 import { RulesService } from './rules.service';
 
@@ -20,16 +21,16 @@ export class RulesComponent implements OnInit {
   }
 
   getRules() {
-     this.rulesService.getRules().subscribe(s =>
-      this.s = s);
-
+      this.rulesService.getRules().subscribe(s => this.s = s);
+      // this.rulesService.changeRules(new RulesHelper());
   }
 
   change(s) {
-    //this.rulesService.changeRules(document.getElementById('textArea1').value);
-    this.rulesService.changeRules('sasa');
-    // this.getRules();
-    alert('prosao ovo');
+    const x = new RulesHelper();
+    // x.s = document.getElementById('textArea1').value;
+    x.s = document.getElementById('textArea1').value;
+    // this.rulesService.changeRules(s);
+    this.rulesService.changeRules(x).subscribe(this.getRules());
   }
 
 }

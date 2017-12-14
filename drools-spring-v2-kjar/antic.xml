@@ -1,0 +1,3 @@
+  <artifact:mvn mavenHome="/path/to/maven-2.0.x">
+    <arg value="install"/>
+  </artifact:mvn>

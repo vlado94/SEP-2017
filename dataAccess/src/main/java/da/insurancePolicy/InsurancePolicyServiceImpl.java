@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import da.insurancePolicyWithPrice.InsurancePolicyWithPrice;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;

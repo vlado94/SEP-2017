@@ -1,5 +1,6 @@
+import { RulesHelper } from './rules.rulesHelper';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 @Injectable()
 export class RulesService {
@@ -13,9 +14,10 @@ export class RulesService {
             .map(res => res.text());
     }
 
-    changeRules(s) {
-        alert('evo ga u service');
-        return this.http.post(this.apiUrl + '/changeRules', s);
+    changeRules(s: RulesHelper) {
+        // const cpHeaders = new Headers({ 'Content-Type': ' text/plain' });
+        // const options = new RequestOptions({ headers : cpHeaders});
+        return this.http.post(this.apiUrl + '/changeRules', s).map(res => res.json());
     }
 
 }

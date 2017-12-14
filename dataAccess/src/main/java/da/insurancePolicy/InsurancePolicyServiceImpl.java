@@ -1,31 +1,16 @@
 package da.insurancePolicy;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.transaction.Transactional;
-import javax.validation.constraints.NotBlank;
 
-import org.aspectj.weaver.PoliceExtensionUse;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.pl.PESEL;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
-<<<<<<< HEAD
-=======
-
 import da.person.Person;
-import da.person.PersonRepository;
->>>>>>> 3f8783d4baaeb67c24e544dd0963e577fbef9df9
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;

@@ -18,28 +18,6 @@
 	</div>
 
 	<div class="form-group">
-		<label for="startDate" class="col-1">Do:</label>
-		<div class="col-6">
-			<input id="endDate" type="date" class="form-control"
-				formControlName="endDate">
-		</div>
-		<div
-			*ngIf="!checkDates() && !insurancePolicy.controls['endDate'].pristine && !insurancePolicy.controls['startDate'].pristine"
-			class="alert alert-danger col-6">
-
-			<div *ngIf="!checkDates()">Datum isticianja polise mora biti
-				veci od datuma početka važenja polise.</div>
-		</div>
-		<div
-			*ngIf="insurancePolicy.controls['endDate'].errors && !insurancePolicy.controls['endDate'].pristine"
-			class="alert alert-danger col-6">
-
-			<div *ngIf="insurancePolicy.controls['endDate'].errors.dateValidator">Datum
-				ne može biti manji od današnjeg datuma.</div>
-		</div>
-	</div>
-
-	<div class="form-group">
 		<label for="duration" class="col-6">Trajanje(u danima):</label>
 		<div class="col-6">
 			<input id="duration" type="text" class="form-control"
@@ -54,6 +32,10 @@
 				uneti trajanje putovanja u danima.</div>
 			<div *ngIf="insurancePolicy.controls['duration'].errors.pattern">Neispravan
 				unos. Unesite broj.</div>
+			<div
+				*ngIf="insurancePolicy.controls['duration'].errors.numberOfPersonsValidator">Trajanje
+				putvanja mora biti bar jedan dan.</div>
+
 		</div>
 	</div>
 
@@ -93,7 +75,8 @@
 				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.pattern">Neispravan
 				unos. Unesite broj.</div>
 			<div
-				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.numberOfPersonsValidator">Mora postojati bar jedan putnik.</div>
+				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.numberOfPersonsValidator">Mora
+				postojati bar jedan putnik.</div>
 		</div>
 	</div>
 
@@ -178,7 +161,11 @@
 	</div>
 	<div class="col-1 offset-5">
 		<button type="submit"
-			[disabled]="!insurancePolicy.valid || !checkNumberOfPeople() || !checkDates()"
+			[disabled]="!insurancePolicy.valid || !checkNumberOfPeople()"
 			class="btn btn-default">Dalje</button>
 	</div>
 </form>
+
+<div class="price" *ngIf="price">
+	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi : {{price}}</div>
+</div>

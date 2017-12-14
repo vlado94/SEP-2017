@@ -1,4 +1,4 @@
-package isok.isok.rules;
+/*package isok.isok.rules;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -26,3 +26,4 @@ public class RuleService {
     }
 	
 }
+*/

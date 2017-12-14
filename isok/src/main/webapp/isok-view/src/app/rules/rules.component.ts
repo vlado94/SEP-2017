@@ -27,8 +27,8 @@ export class RulesComponent implements OnInit {
 
   change(s) {
     const x = new RulesHelper();
-    x.s = document.getElementById('textArea1').value;
-    this.rulesService.changeRules(x).subscribe(x => this.getRules());
+    //x.s = document.getElementById('textArea1').value;
+    //this.rulesService.changeRules(x).subscribe(x => this.getRules());
   }
 
 }

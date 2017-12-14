@@ -1,4 +1,4 @@
-package isok.isok.rules;
+/*package isok.isok.rules;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieScanner;
@@ -21,4 +21,4 @@ public class RuleBean {
     }
 	
 }
-
+*/

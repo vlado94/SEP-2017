@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 
 @RestController
@@ -30,10 +31,10 @@ public class InsurancePolicyController {
 		return newInsuranceReq;
 	}
 	
-	@GetMapping("/calculatePrice")
-	private Integer calculatePrice(/*@RequestBody InsurancePolicyRequest obj*/) {
+	@PostMapping("/calculatePrice")
+	private Integer calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		Integer insurancePrice = restTemplate().getForObject(
 				dataccessPort.toString()+"/insurancePolicy/calculatePrice", /*obj*/Integer.class);
-		return insurancePrice;
+		return obj.getDuration();
 	}
 }

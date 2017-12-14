@@ -1,12 +1,24 @@
 <div class="row">
 
 	<div class="col-6">
-		<app-insurance-policy-person-form
-			[persons]="persons" [lista]="lista" [current]="currentPerson"
-			(toggleFormPerson)="toggleFormPerson($event)"></app-insurance-policy-person-form>
+		<app-insurance-policy-person-form 
+			[current]="currentPerson"
+			[persons]="persons"
+			(onFormSubmit)="onSubmit($event)"
+			(resetCurrent)="resetCurrent($event)"
+			></app-insurance-policy-person-form> 
 	</div>
 	<div class="col-6">
-		<app-insurance-policy-person-list [persons]="personsList"
-			(onSelectForUpdate)="onSelectForUpdate($event)"></app-insurance-policy-person-list>
+		<app-insurance-policy-person-list [persons]="persons"
+			(selectForUpdate)="setForUpdate($event)"
+			(deletePerson)="delete($event)"></app-insurance-policy-person-list>
+	</div>
+
+	<div class="col-3">
+		<button class="btn" (click)="changeTab('1')" >Nazad</button>
+	</div>
+	<div class="col-2 offset-7">
+		<button class="btn" (click)="changeTab('1')" [disabled]="!isNumberOfPersonsByAgeCorrect() || !isContractorAdded()">Dalje</button>
+
 	</div>
 </div>

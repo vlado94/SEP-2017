@@ -41,22 +41,25 @@
 					prezime.</div>
 			</div>
 		</div>
-		<div class="form-group" *ngIf="!contractorAdded">
+		<div class="form-group" *ngIf="!contractorExists() || (currentPerson != null && currentPerson.contractor)">
 			<label for="contractor" class="col-12">Ugovarač:</label>
 			<div class="col-12">
-				<label class="radio-inline radio-button">
-				<input type="radio" value="true" name="contractor" checked formControlName="contractor">Da</label>
-				 <label class="radio-inline radio-button"><input
-				type="radio" name="contractor" value="false" formControlName="contractor">Ne</label>
+				<label class="radio-inline radio-button"> <input
+					type="radio" value="true" name="contractor" checked
+					formControlName="contractor">Da
+				</label> <label class="radio-inline radio-button"><input
+					type="radio" name="contractor" value="false"
+					formControlName="contractor">Ne</label>
 			</div>
 		</div>
 
 		<div
-			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && !contractorAdded"
+			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
 			class="form-group">
 			<label for="email" class="col-12">Email ugovarača:</label>
 			<div class="col-12">
-				<input id="email" type="email" class="form-control" formControlName="email"/>
+				<input id="email" type="email" class="form-control"
+					formControlName="email" />
 			</div>
 		</div>
 
@@ -77,6 +80,9 @@
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.maxlength">Jedinstveni
 					matični broj sadrži 13 cifara.</div>
 			</div>
+			<div class="alert alert-danger"
+				*ngIf="jmbgExists() && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
+				sa unetim matičnim brojem već postoji.</div>
 		</div>
 
 		<div class="form-group">
@@ -118,29 +124,12 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="age" class="col-12">Starost:</label>
-			<div class="col-12">
-				<select id="age" class="form-control" formControlName="age">
-					<option value="">Izaberite starost</option>
-					<option *ngFor="let a of ages" value="{{a.id}}">{{a.name}}</option>
-				</select>
-			</div>
-			<div
-				*ngIf="insurancePolicyPerson.controls['age'].errors && !insurancePolicyPerson.controls['age'].pristine"
-				class="alert alert-danger">
-
-				<div *ngIf="insurancePolicyPerson.controls['age'].errors.required">Morate
-					izabrati starost korisnika polise.</div>
-			</div>
-		</div>
-
 		<div class="floatRight button">
 			<button class="btn fa fa-check " type="submit"
-				[disabled]="!insurancePolicyPerson.valid"></button>
-		</div> <div class="floatRight button">
-			<button class="btn fa fa-close " type="button"
-				(click)="closePersonForm()"></button>
+				[disabled]="!insurancePolicyPerson.valid || jmbgExists()"></button>
+		</div>
+		<div class="floatRight button">
+			<button class="btn fa fa-close" (click)="reset()"type="button"></button>
 		</div>
 	</form>
 

@@ -12,18 +12,28 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-
 
 export class InsurancePolicyComponent {
 
-    activeTab:string = '1';
-    lista: string[] = ['123', '123', '456'];
+    activeTab: string = '2';
     personsList: InsurancePolicyPersonRequest[] = [];
-    currentPerson: InsurancePolicyPersonRequest = null;
-    formPerson: boolean = false;
-
-    onSelectForUpdate(person: InsurancePolicyPersonRequest) {
-        this.currentPerson = person;
-        this.formPerson = true;
+    currentInsurancePolicy: InsurancePolicyRequest;
+    age: Age = new Age(0, 0, 0);
+    nextTab(value: string) {
+        this.activeTab = value;
     }
-
-    toggleFormPerson(value: boolean) {
-        this.formPerson = value;
+ 
+    onSubmit(insurancePolicyRequest:InsurancePolicyRequest){ 
+        this.currentInsurancePolicy = insurancePolicyRequest;
+        this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
+        this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
+        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+    }
+}
+export class Age {
+    firstCategory: number;
+    secondCategory: number;
+    thirdCategory: number;
+    constructor(firstCategory: number, secondCategory: number, thirdCategory: number) {
+        this.firstCategory = firstCategory;
+        this.secondCategory = secondCategory;
+        this.thirdCategory = thirdCategory;
     }
 }

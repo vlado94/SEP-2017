@@ -11,7 +11,8 @@
 			*ngIf="insurancePolicy.controls['startDate'].errors && !insurancePolicy.controls['startDate'].pristine"
 			class="alert alert-danger col-6">
 
-			<div *ngIf="insurancePolicy.controls['startDate'].errors.dateValidator">Datum
+			<div
+				*ngIf="insurancePolicy.controls['startDate'].errors.dateValidator">Datum
 				ne može biti manji od današnjeg datuma.</div>
 		</div>
 	</div>
@@ -62,8 +63,8 @@
 			<select id="typeOfPolicy" class="form-control"
 				formControlName="typeOfPolicy">
 				<option value="">Izaberite vrstu polise</option>
-				<option value="1">Individualna</option>
-				<option value="2">Grupna</option>
+				<option value="1">Poslovna</option>
+				<option value="2">Ne znam koja je druga</option>
 			</select>
 		</div>
 		<div
@@ -75,8 +76,7 @@
 		</div>
 	</div>
 
-	<div class="form-group"
-		*ngIf="insurancePolicy.controls['typeOfPolicy'].value == '2'">
+	<div class="form-group">
 		<label for="numberOfPersons" class="col-6">Broj putnika:</label>
 		<div class="col-6">
 			<input id="numberOfPersons" type="text" class="form-control"
@@ -88,15 +88,16 @@
 
 			<div
 				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.required">Morate
-				uneti prezime.</div>
+				uneti broj putnika.</div>
 			<div
 				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.pattern">Neispravan
 				unos. Unesite broj.</div>
+			<div
+				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.numberOfPersonsValidator">Mora postojati bar jedan putnik.</div>
 		</div>
 	</div>
 
-	<div class="form-group"
-		*ngIf="insurancePolicy.controls['typeOfPolicy'].value == '2'">
+	<div class="form-group">
 		<label for="numberOfPersonsUpTo16" class="col-6">Broj putnika
 			uzrasta do 16 godina:</label>
 		<div class="col-6">
@@ -105,8 +106,7 @@
 		</div>
 	</div>
 
-	<div class="form-group"
-		*ngIf="insurancePolicy.controls['typeOfPolicy'].value == '2'">
+	<div class="form-group">
 		<label for="numberOfPersonsBetween16And60" class="col-6">Broj
 			putnika uzrasta izmedju 16 i 60 godina:</label>
 		<div class="col-6">
@@ -114,8 +114,7 @@
 				class="form-control" formControlName="numberOfPersonsBetween16And60">
 		</div>
 	</div>
-	<div class="form-group"
-		*ngIf="insurancePolicy.controls['typeOfPolicy'].value == '2'">
+	<div class="form-group">
 		<label for="numberOfPersonsOver60" class="col-6">Broj putnika
 			uzrasta preko 60 godina:</label>
 		<div class="col-6">

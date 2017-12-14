@@ -20,10 +20,10 @@ import {InsurancePolicyPersonRequest} from '../insurance-policy-person-form/insu
     ]
 })
 export class InsurancePolicyPersonListComponent {
-    //persons: InsurancePolicyPersonRequest[] = [];
-    @Input() persons;
-    @Output() onSelectForUpdate = new EventEmitter<InsurancePolicyPersonRequest>();
 
+    @Input() persons;
+    @Output() selectForUpdate = new EventEmitter<InsurancePolicyPersonRequest>();
+    @Output() deletePerson = new EventEmitter<InsurancePolicyPersonRequest>();
     constructor(private insurancePolicyService: InsurancePolicyService) { }
 
     ngOnInit() {
@@ -31,13 +31,13 @@ export class InsurancePolicyPersonListComponent {
     }
 
     delete(person: InsurancePolicyPersonRequest) {
-        let index = this.persons.indexOf(person);
-        if (index != -1)
-            this.persons.splice(index, 1);
+        console.log("OBRISAN");
+        this.persons[0];
+        this.deletePerson.emit(person);
     }
 
     get(person: InsurancePolicyPersonRequest) {
-        this.onSelectForUpdate.emit(person);
+        this.selectForUpdate.emit(person);
     }
 
 }

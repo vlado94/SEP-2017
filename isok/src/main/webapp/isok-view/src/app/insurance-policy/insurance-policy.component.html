@@ -1,13 +1,14 @@
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">Isok</a>
-		</div>
 		<ul class="nav nav-tabs nav-justified tabs">
-			<li class="tab active"><a href="#">1</a></li>
-			<li class="tab"><a href="#">2</a></li>
-			<li class="tab"><a href="#">3</a></li>
-			<li class="tab"><a href="#">4</a></li>
+			<li class="tab"><a class="nav-link" (click)="nextTab('1')"
+				[ngClass]="{'active':activeTab==1}">1</a></li>
+			<li class="tab"><a (click)="nextTab('2')" class="nav-link"
+				[ngClass]="{'active':activeTab==2}">2</a></li>
+			<li class="tab"><a (click)="nextTab('3')" class="nav-link"
+				[ngClass]="{'active':activeTab==3}">3</a></li>
+			<li class="tab"><a (click)="nextTab('4')" class="nav-link"
+				[ngClass]="{'active':activeTab==4}">4</a></li>
 
 		</ul>
 	</div>
@@ -16,13 +17,18 @@
 	<div class="row">
 		<div class="col-12">
 			<app-insurance-policy-form [hidden]="activeTab !=='1'"
-			(onFormSubmit)="onSubmit($event)" (nextTab)="nextTab($event)"
-				></app-insurance-policy-form>
+				(onFormSubmit)="onSubmit($event)" (nextTab)="nextTab($event)"></app-insurance-policy-form>
 		</div>
 
 
 		<div class="col-12">
-			<app-insurance-policy-person [expectedNumbersByAgeCategories]="age" [hidden]="activeTab !=='2'" (nextTab)="nextTab($event)"></app-insurance-policy-person>
+			<app-insurance-policy-person [expectedNumbersByAgeCategories]="age"
+				[hidden]="activeTab !=='2'" (nextTab)="nextTab($event)"></app-insurance-policy-person>
+		</div>
+
+		<div class="col-12">
+			<app-insurance-policy-home-car [hidden]="activeTab !=='3'"
+				(nextTab)="nextTab($event)"></app-insurance-policy-home-car>
 		</div>
 
 	</div>

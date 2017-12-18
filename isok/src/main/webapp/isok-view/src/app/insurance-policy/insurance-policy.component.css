@@ -6,3 +6,12 @@
 	width:25%;
 	text-align:center;
 }
+.navbar-brand{
+	color:black;
+}
+
+.active{
+	background-color:#343a40 !important;
+	color:#868e96 !important;
+	border:none !important;
+}

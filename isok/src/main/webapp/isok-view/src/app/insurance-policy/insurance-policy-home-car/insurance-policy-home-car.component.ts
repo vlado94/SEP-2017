@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter,NgModule} from '@angular/core';
+import {Component, Input, Output, EventEmitter, NgModule} from '@angular/core';
 import {InsurancePolicyCar} from '../insurance-policy-car-form/insurance-policy-car-form.component';
 @Component({
 
@@ -15,19 +15,21 @@ import {InsurancePolicyCar} from '../insurance-policy-car-form/insurance-policy-
 
 })
 
-export class InsurancePolicyHomeCar{
-    
-    activeForm:string = null;
+export class InsurancePolicyHomeCar {
+
+    activeForm: string = null;
     @Input() insurancePolicyCar;
     @Output() insurancePolicyCarChanged = new EventEmitter<InsurancePolicyCar>();
-    
-    showForm(value){
-        this.activeForm = value;    
+
+    showForm(value) {
+        this.activeForm = value;
     }
-    
-    setInsurancePolicyCar(value){
+
+    setInsurancePolicyCar(value) {
         this.insurancePolicyCarChanged.emit(value);
-        console.log("Dodavanje osigranja automobila...");
-        console.log("Registaraska oznaka automobila: "+value.registrationNumber);    
+        if (value) {
+            console.log("Dodavanje osigranja automobila...");
+            console.log("Registaraska oznaka automobila: " + value.registrationNumber);
+        }
     }
 }

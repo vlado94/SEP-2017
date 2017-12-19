@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-4 offset-2 vertical" [hidden]="activeForm">
-		<button class="btn car-button"  (click)="showForm('2')">Kupovina
+		<button class="btn car-button" (click)="showForm('2')">Kupovina
 			osiguranja automobila</button>
 	</div>
 
@@ -10,9 +10,13 @@
 	</div>
 
 	<div class="col-12">
-		<app-insurance-policy-car-form [insurancePolicyCar]="insurancePolicyCar" (setInsurancePolicyCar)="setInsurancePolicyCar($event)" [hidden]="activeForm != '2'"></app-insurance-policy-car-form>
+		<app-insurance-policy-car-form
+			[insurancePolicyCar]="insurancePolicyCar"
+			(setInsurancePolicyCar)="setInsurancePolicyCar($event)"
+			(hideForm)="showForm($event)"
+			[hidden]="activeForm != '2'"></app-insurance-policy-car-form>
 	</div>
-	<div class = "col-12">
+	<div class="col-12">
 		<app-insurance-policy-home-form [hidden]="activeForm != '1'"></app-insurance-policy-home-form>
 	</div>
 </div>

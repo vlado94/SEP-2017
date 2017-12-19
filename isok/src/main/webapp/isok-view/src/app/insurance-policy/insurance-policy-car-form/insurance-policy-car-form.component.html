@@ -1,5 +1,5 @@
 <form [formGroup]="insurancePolicyCarForm"
-	(ngSubmit)="set(insurancePolicyCarForm)">
+	(ngSubmit)="set(insurancePolicyCarForm.value)">
 
 
 
@@ -194,9 +194,9 @@
 		<button class="btn btn-default" type="submit">Potvrdi</button>
 	</div>
 	<div class="pull-right button">
-		<button class="btn btn-default" (click)="insurancePolicyCarForm.reset()">Zatvori</button>
+		<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
 	</div>
-		<div class="pull-right button" [hidden]="!insurancePolicyCar">
+		<div class="pull-right button" [hidden]="!current">
 		<button class="btn btn-default" (click)="set(null)">Otkažite putno osiguranje</button>
 	</div>
 </form>

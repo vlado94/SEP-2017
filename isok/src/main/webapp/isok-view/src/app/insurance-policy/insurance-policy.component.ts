@@ -31,7 +31,7 @@ export class InsurancePolicyComponent {
 
     insurancePolicyCarChanged(value) {
         console.log("12334567876543456543");
-        if (value.registrationNumber != null)
+        if (value && value.registrationNumber != null)
             this.insurancePolicyCar = value;
         else {
             this.insurancePolicyCar = null;

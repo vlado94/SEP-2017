@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-form.component';
 
 import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
-
+import {InsurancePolicyCar} from './insurance-policy-car-form/insurance-policy-car-form.component';
 
 @Component({
     selector: 'app-insurance-policy',
@@ -16,15 +16,26 @@ export class InsurancePolicyComponent {
     personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
+    insurancePolicyCar: InsurancePolicyCar = null;
+
     nextTab(value: string) {
         this.activeTab = value;
     }
- 
-    onSubmit(insurancePolicyRequest:InsurancePolicyRequest){ 
+
+    onSubmit(insurancePolicyRequest: InsurancePolicyRequest) {
         this.currentInsurancePolicy = insurancePolicyRequest;
         this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
         this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
         this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+    }
+
+    insurancePolicyCarChanged(value) {
+        console.log("12334567876543456543");
+        if (value.registrationNumber != null)
+            this.insurancePolicyCar = value;
+        else {
+            this.insurancePolicyCar = null;
+        }
     }
 }
 export class Age {

@@ -24,6 +24,8 @@ import { NgModule } from '@angular/core';
 
 export class InsurancePolicyCarForm {
     insurancePolicyCarForm: FormGroup;
+    @Input() insurancePolicyCar;
+    @Output() setInsurancePolicyCar = new EventEmitter<InsurancePolicyCar>();
     constructor() {
         this.insurancePolicyCarForm = new FormGroup({
             duration: new FormControl('', [
@@ -46,10 +48,57 @@ export class InsurancePolicyCarForm {
         })
     }
 
-
+    
 
     ngOnInit() {
         this.insurancePolicyCarForm.reset();
 
     }
+    
+    set({value}: { value }){
+        var policyCar:InsurancePolicyCar = null;
+        if(value != null){ 
+           policyCar = new InsurancePolicyCar(value.duration,value.paket,value.vehicle,value.typeOfVehicle,value.year,value.registrationNumber,value.chassisNumber,value.firstName,value.lastName,value.jmbg);
+        this.setInsurancePolicyCar.emit(policyCar);
+        }else{
+            this.setInsurancePolicyCar.emit(null);
+        }
+        
+        this.insurancePolicyCarForm.reset();
+    }   
+}
+
+export class InsurancePolicyCar{
+    duration:number;
+    paket:string;
+    vehicle:string;
+    typeOfVehicle:string;
+    year:number;
+    registrationNumber:string; 
+    chassisNumber:string;
+    firstName:string;
+    lastName:string;
+    jmbg:string;
+    
+    constructor(duration:number,
+    paket:string,
+    vehicle:string,
+    typeOfVehicle:string,
+    year:number,
+    registrationNumber:string,
+    chassisNumber:string,
+    firstName:string,
+    lastName:string,
+    jmbg:string){
+        this.paket = paket;
+        this.vehicle = vehicle;
+        this.typeOfVehicle = typeOfVehicle;
+        this.year = year;
+        this.registrationNumber = registrationNumber;
+        this.chassisNumber = chassisNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.jmbg = jmbg;    
+    }
+        
 }

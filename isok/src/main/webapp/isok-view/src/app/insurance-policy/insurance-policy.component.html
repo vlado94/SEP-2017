@@ -27,7 +27,7 @@
 		</div>
 
 		<div class="col-12">
-			<app-insurance-policy-home-car [hidden]="activeTab !=='3'"
+			<app-insurance-policy-home-car [insurancePolicyCar]="insurancePolicyCar" (insurancePolicyCarChanged)="insurancePolicyCarChanged($event)" [hidden]="activeTab !=='3'"
 				(nextTab)="nextTab($event)"></app-insurance-policy-home-car>
 		</div>
 

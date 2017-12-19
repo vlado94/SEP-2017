@@ -10,7 +10,7 @@
 	</div>
 
 	<div class="col-12">
-		<app-insurance-policy-car-form [hidden]="activeForm != '2'"></app-insurance-policy-car-form>
+		<app-insurance-policy-car-form [insurancePolicyCar]="insurancePolicyCar" (setInsurancePolicyCar)="setInsurancePolicyCar($event)" [hidden]="activeForm != '2'"></app-insurance-policy-car-form>
 	</div>
 	<div class = "col-12">
 		<app-insurance-policy-home-form [hidden]="activeForm != '1'"></app-insurance-policy-home-form>

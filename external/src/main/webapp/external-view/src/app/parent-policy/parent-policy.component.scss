@@ -1,0 +1,69 @@
+
+.currently-inactive
+{
+    background: #e5f2ff;
+}
+
+.currently-active
+{
+    background : #b3d9ff;
+}
+
+.unclickable-title 
+{
+	
+    pointer-events : none;
+}
+
+ul, li{
+	left: 50px;
+}
+
+.three-column
+{
+	text-align: left;
+	color: rgba(0,0,0,0.6);
+}
+
+.three-column .fa
+{
+	display: block;
+	padding: 1em 0em;
+	color: rgba(0,0,0,1);
+	font-size: 2em;
+}
+
+.three-column .title h2
+{
+	font-weight: bold;
+	color: rgba(0,0,0,0.8);
+}
+	.three-column .title .byline
+{
+	text-align: center;
+	color: rgba(0,0,0,.5);
+}
+
+.boxA,
+	.boxB,
+	.boxC
+	{
+		width: 33%;
+	}
+
+	.boxA,
+	.boxB
+	{
+		float: left;
+		margin-right: 1em;
+	}
+	
+	.boxB
+	{
+		margin-left: 100px;
+	}
+	
+	.boxC
+	{
+		float: right;
+	}

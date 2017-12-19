@@ -1,0 +1,40 @@
+<div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class = "col-sm-12">
+
+				<div class="title unclickable-title col-sm-6">
+					<nav class="navbar navbar-default">
+						<ul class="nav navbar-nav" >
+							<li [ngClass]="{'currently-active' : active_tab==1, 'currently-inactive' : active_tab!=1}"><a href="#">Find a person</a></li>
+							<li [ngClass]="{'currently-active' : active_tab==2, 'currently-inactive' : active_tab!=2}"><a href="#">User data</a></li>
+						</ul>
+					</nav>
+				</div>
+
+				<div class="three-column">
+
+
+					<div id="tab-find" *ngIf="active_tab==1">
+						<div class="main-content">
+							<div class="container-fluid">
+								<app-policy></app-policy>
+								<a [ngClass]=" {'blue-button' : isNextAvaliable(), 'blue-button-disabled' : !isNextAvaliable()}" ng-click = "isNextAvaliable() ? nextTab() : ''">Next step</a>
+							</div>
+						</div>
+					</div>
+					<div *ngIf="active_tab==2">
+						<div class="main-content">
+							<div class="container-fluid">
+								<app-user-data></app-user-data>
+								<a [ngClass]=" {'blue-button' : isNextAvaliable(), 'blue-button-disabled' : !isNextAvaliable()}" ng-click = "isNextAvaliable() ? nextTab() : ''">Next step</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

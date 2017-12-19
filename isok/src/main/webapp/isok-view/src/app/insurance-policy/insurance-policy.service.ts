@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-form.component';
+import {InsurancePolicyCalculatePriceRequest} from './insurance-policy-form/insurance-policy-form.component';
 
 import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 
@@ -19,13 +20,13 @@ export class InsurancePolicyService {
 
     private apiUrl = `${environment.BACKEND_URL}/insurancePolicy`;
 
-    // Using Angular DI we use the HTTP service
+    // Using Angular DI we use the HTTP service 
     constructor(private http: Http) {
 
     }
 
-    calculatePrice() {
-        return this.http.get(this.apiUrl+"/calculatePrice");
+    calculatePrice(insurancePolicyCalculatePriceRequest:InsurancePolicyCalculatePriceRequest) {
+        return this.http.post(this.apiUrl+"/calculatePrice",insurancePolicyCalculatePriceRequest).map(res=>res.json());
     }
 
     create(insurancePolicy: InsurancePolicyRequest) {

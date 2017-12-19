@@ -1,4 +1,4 @@
-package isok.isok.rules;
+/*package isok.isok.rules;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -73,8 +73,8 @@ public class RuleController {
 	            // Always close files.
 	            bufferedReader.close();
 	           
-				*/FileInputStream fis = new FileInputStream(f);
-	            byte[] data = new byte[(int) f.length()];
+				FileInputStream fis = new FileInputStream(f);
+	          /*  byte[] data = new byte[(int) f.length()];
 	            fis.read(data);
 	            fis.close();
 	
@@ -114,9 +114,9 @@ public class RuleController {
 				System.out.println("check1");
 		        p.waitFor();
 		        System.out.println("check2");*/
-				MavenCli cli = new MavenCli();
+				/*MavenCli cli = new MavenCli();
 				System.out.println("before");
-				cli.doMain(new String[]{"install"}, s, System.out, System.out);
+				cli.doMain(new String[]{"install"}, s, System.out, null);
 				System.out.println("after");
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -126,6 +126,6 @@ public class RuleController {
 		
 		return true;
 	}
-}
+}*/
 
 

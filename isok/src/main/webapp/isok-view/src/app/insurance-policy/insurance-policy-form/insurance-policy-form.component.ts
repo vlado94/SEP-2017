@@ -26,8 +26,8 @@ function dateValidator(date: FormControl) {
 function numberOfPersonsValidator(num: FormControl) {
     if ((+num.value) <= 0)
         return {
-            numberOfPersonsValidator:{
-                valid: false    
+            numberOfPersonsValidator: {
+                valid: false
             }
         }
     else
@@ -60,27 +60,27 @@ export class InsurancePolicyFormComponent {
     public addPersonButton: boolean = true;
     @Output() onFormSubmit = new EventEmitter<InsurancePolicyRequest>();
     @Output() nextTab = new EventEmitter<string>();
-
+    price: string = null;
     regions: Factor[];
     sports: Factor[];
-    agesCategory:Factor[];
+    agesCategory: Factor[];
+
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 
     ngOnInit() {
-
         this.insurancePolicy = new FormGroup({
             startDate: new FormControl('', [dateValidator]),
-            endDate: new FormControl('', [dateValidator]),
             duration: new FormControl('', [
                 Validators.required,
-                Validators.pattern("[0-9]*")]),
+                Validators.pattern("[0-9]*"),
+                numberOfPersonsValidator]),
             typeOfPolicy: new FormControl(''),
             age: new FormControl(''),
             numberOfPersons: new FormControl('', [
                 Validators.required,
-                Validators.pattern("[0-9]*"),numberOfPersonsValidator]
-                ),
+                Validators.pattern("[0-9]*"), numberOfPersonsValidator]
+            ),
             numberOfPersonsUpTo16: new FormControl(''),
             numberOfPersonsBetween16And60: new FormControl(''),
             numberOfPersonsOver60: new FormControl(''),
@@ -106,9 +106,23 @@ export class InsurancePolicyFormComponent {
             .subscribe(agesCategory => {
                 this.agesCategory = agesCategory;
             })
+        this.insurancePolicy.valueChanges.subscribe(value => {
+            console.log('Form changes', value)
+            if (this.insurancePolicy.valid && this.checkNumberOfPeople()) {
+                let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
+                    value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+
+                this.insurancePolicyService.calculatePrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
+                    this.price = price;
+                })
+            } else {
+                this.price = null;
+            }
+        })
+
     }
     onSubmit({value}: { value }) {
-        let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.endDate, value.duration,
+        let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.duration,
             value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
         this.onFormSubmit.emit(insurancePolicyRequest);
         console.log('Submitting first page...');
@@ -136,7 +150,7 @@ export class InsurancePolicyFormComponent {
         return result;
     }
 
-    checkDates() {
+    /*checkDates() {
         console.log("Provera ispravnosti datuma...");
         let s = this.insurancePolicy.get('startDate').value
         let e = this.insurancePolicy.get('endDate').value
@@ -146,25 +160,53 @@ export class InsurancePolicyFormComponent {
         //console.log("Tranformisan datu");
 
         console.log("Uneti datum okoncanja putovanja:" + end);
-        if(start < end){
-            console.log("Datumi su validni");    
-        }else{
-            console.log("Datumi nisu validni");    
+        if (start < end) {
+            console.log("Datumi su validni");
+        } else {
+            console.log("Datumi nisu validni");
         }
         return start < end;
-    }
+    }*/
     //today | date:'fullDate'
 
     convertDate(d) {
         let parts = d.split('-');
-
         return new Date(+parts[0], +parts[1] - 1, parts[2]);
     }
 }
 
+export class InsurancePolicyCalculatePriceRequest {
+    startDate: string;
+    duration: number;
+    region: string;
+    sport: string;
+    amount: string;
+    typeOfPolicy: string;
+    numberOfPersons: number;
+    firstAgeCategory: number;
+    secondAgeCategory: number;
+    thirdAgeCategory: number;
+
+    constructor(startDate: string, duration: number,
+        region: string, sportId: string,
+        amountId: string, typeOfPolicy: string, numberOfPersons: number,
+        firstAgeCategory: number,
+        secondAgeCategory: number,
+        thirdAgeCategory: number) {
+        this.startDate = startDate;
+        this.duration = duration;
+        this.region = region;
+        this.sport = sportId;
+        this.amount = amountId;
+        this.numberOfPersons = numberOfPersons;
+        this.firstAgeCategory = firstAgeCategory;
+        this.secondAgeCategory = secondAgeCategory;
+        this.thirdAgeCategory = thirdAgeCategory;
+        this.typeOfPolicy = typeOfPolicy;
+    }
+}
 export class InsurancePolicyRequest {
     startDate: string;
-    endDate: string;
     duration: number;
     region: string;
     sport: string;
@@ -176,14 +218,13 @@ export class InsurancePolicyRequest {
     thirdAgeCategory: number;
 
     persons: InsurancePolicyPersonRequest[] = [];
-    constructor(startDate: string, endDate: string, duration: number,
+    constructor(startDate: string, duration: number,
         region: string, sportId: string,
         amountId: string, typeOfPolicy: string, numberOfPersons: number,
         firstAgeCategory: number,
         secondAgeCategory: number,
         thirdAgeCategory: number) {
         this.startDate = startDate;
-        this.endDate = endDate;
         this.duration = duration;
         this.region = region;
         this.sport = sportId;

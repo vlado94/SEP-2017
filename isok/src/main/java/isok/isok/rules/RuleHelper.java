@@ -1,4 +1,4 @@
-package isok.isok.rules;
+/*package isok.isok.rules;
 
 public class RuleHelper {
 	private String s;
@@ -10,4 +10,4 @@ public class RuleHelper {
 	public void setS(String s) {
 		this.s = s;
 	}
-}
+}*/

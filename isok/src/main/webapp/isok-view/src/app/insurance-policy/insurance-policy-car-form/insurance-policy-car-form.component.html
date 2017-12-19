@@ -1,0 +1,199 @@
+<form [formGroup]="insurancePolicyCarForm"
+	(ngSubmit)="onSubmit(insurancePolicyCarForm)">
+
+
+
+
+	<div class="form-group">
+		<label for="duration" class="col-12">Trajanje osiguranja:</label>
+		<div class="col-12">
+			<input id="duration" type="text" class="form-control"
+				formControlName="duration">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['duration'].errors && !insurancePolicyCarForm.controls['duration'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['duration'].errors.required">Morate
+				uneti dužinu trajanja osiguranja.</div>
+			<div
+				*ngIf="insurancePolicyCarForm.controls['duration'].errors.pattern">Morate
+				uneti ceo broj veći od 0.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="paket" class="col-12">Izaberite paket:</label>
+		<div class="col-12">
+			<select id="paket" class="form-control" formControlName="paket">
+				<option value="">Izaberite tip vozila</option>
+				<option value="1">Šlepovanje do određene kilometraže</option>
+				<option value="2">Popravka do određene cene</option>
+				<option value="3">Smeštaj u hotelu do određenog broja dana</option>
+				<option value="4">Alternativni prevoz</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['paket'].errors && !insurancePolicyCarForm.controls['paket'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicyCarForm.controls['paket'].errors.required">Morate
+				izabrati paket osiguranja.</div>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="typeOfVehicle" class="col-12">Tip vozila:</label>
+		<div class="col-12">
+			<select id="typeOfVehicle" class="form-control"
+				formControlName="typeOfVehicle">
+				<option value="">Izaberite tip vozila</option>
+				<option value="1">Teretno vozilo</option>
+				<option value="2">Priključno vozila</option>
+				<option value="3">Putničko vozilo</option>
+				<option value="4">Ostala vozila</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors && !insurancePolicyCarForm.controls['typeOfVehicle'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors.required">Morate
+				izabrati tip vozila.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="vehicle" class="col-12">Marka vozila:</label>
+		<div class="col-12">
+			<input id="vehicle" type="text" class="form-control"
+				formControlName="vehicle">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['vehicle'].errors && !insurancePolicyCarForm.controls['vehicle'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['vehicle'].errors.required">Morate
+				uneti marku vozila.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="year" class="col-12">Godište automobila:</label>
+		<div class="col-12">
+			<input id="year" type="text" class="form-control"
+				formControlName="year">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['year'].errors && !insurancePolicyCarForm.controls['year'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicyCarForm.controls['year'].errors.required">Morate
+				uneti godište automobila.</div>
+			<div *ngIf="insurancePolicyCarForm.controls['year'].errors.pattern">Unesite
+				godiunu(npr. 2016).</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="registrationNumber" class="col-12">Broj
+			registarske oznake automobila:</label>
+		<div class="col-12">
+			<input id="registrationNumber" type="text" class="form-control"
+				formControlName="registrationNumber">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors && !insurancePolicyCarForm.controls['registrationNumber'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors.required">Morate
+				uneti broj registarske oznake automobila.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="chassisNumber" class="col-12">Broj šasije:</label>
+		<div class="col-12">
+			<input id="chassisNumber" type="text" class="form-control"
+				formControlName="chassisNumber">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors && !insurancePolicyCarForm.controls['chassisNumber'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors.required">Morate
+				uneti broj šasije.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="firstName" class="col-12">Ime vlasnika:</label>
+		<div class="col-12">
+			<input id="firstName" type="text" class="form-control"
+				formControlName="firstName">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['firstName'].errors && !insurancePolicyCarForm.controls['firstName'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['firstName'].errors.required">Morate
+				uneti ime.</div>
+			<div
+				*ngIf="insurancePolicyCarForm.controls['firstName'].errors.minlength">Prekratko
+				ime.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="lastName" class="col-12">Prezime vlasnika:</label>
+		<div class="col-12">
+			<input id="lastName" type="text" class="form-control"
+				formControlName="lastName">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['lastName'].errors && !insurancePolicyCarForm.controls['lastName'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyCarForm.controls['lastName'].errors.required">Morate
+				uneti prezime.</div>
+			<div
+				*ngIf="insurancePolicyCarForm.controls['lastName'].errors.minlength">Prekratko
+				prezime.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="jmbg" class="col-12">Matični broj vlasnika
+			automobila:</label>
+		<div class="col-12">
+			<input id="jmbg" type="text" class="form-control"
+				formControlName="jmbg">
+		</div>
+		<div
+			*ngIf="insurancePolicyCarForm.controls['jmbg'].errors && !insurancePolicyCarForm.controls['jmbg'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.required">Morate
+				uneti jedinstveni matični broj.</div>
+			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.minlength">Jedinstveni
+				matični broj sadrži 13 cifara.</div>
+			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.maxlength">Jedinstveni
+				matični broj sadrži 13 cifara.</div>
+		</div>
+	</div>
+
+	<div class="pull-right button">
+		<button class="btn btn-default">Potvrdi</button>
+	</div>
+	<div class="pull-right button">
+		<button class="btn btn-default" type="submit">Otkaži</button>
+	</div>
+</form>

@@ -159,13 +159,12 @@
 				izabrati sport kojim korisnik namerava da se bavi.</div>
 		</div>
 	</div>
-	<div class="col-1 offset-5">
-		<button type="submit"
-			[disabled]="!insurancePolicy.valid || !checkNumberOfPeople()"
-			class="btn btn-default">Dalje</button>
-	</div>
+	<button type="submit"
+		[disabled]="!insurancePolicy.valid || !checkNumberOfPeople()"
+		class="btn btn-default fixed-right">Dalje</button>
 </form>
 
 <div class="price" *ngIf="price">
-	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi : {{price}}</div>
+	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi :
+		{{price}}</div>
 </div>

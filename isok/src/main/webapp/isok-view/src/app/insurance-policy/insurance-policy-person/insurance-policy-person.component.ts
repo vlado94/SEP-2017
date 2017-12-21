@@ -19,6 +19,7 @@ export class InsurancePolicyPersonComponent {
     under16: number = 0;
     between16an60: number = 0;
     over16: number = 0;
+    
     changeTab(value: string) {
         this.nextTab.emit(value);
     }

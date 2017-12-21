@@ -13,10 +13,19 @@
 		<app-insurance-policy-car-form
 			[insurancePolicyCar]="insurancePolicyCar"
 			(setInsurancePolicyCar)="setInsurancePolicyCar($event)"
-			(hideForm)="showForm($event)"
-			[hidden]="activeForm != '2'"></app-insurance-policy-car-form>
+			(hideForm)="showForm($event)" [hidden]="activeForm != '2'"></app-insurance-policy-car-form>
 	</div>
 	<div class="col-12">
-		<app-insurance-policy-home-form [hidden]="activeForm != '1'"></app-insurance-policy-home-form>
+		<app-insurance-policy-home-form
+			[insurancePolicyHome]="insurancePolicyHome"
+			(setInsurancePolicyHome)="setInsurancePolicyHome($event)"
+			(hideForm)="showForm($event)" [hidden]="activeForm != '1'"></app-insurance-policy-home-form>
 	</div>
+
+
+	<button class="btn fixed-left" (click)="changeTab('2')">Nazad</button>
+
+	<button class="btn fixed-right"  (click)="changeTab('4')">Dalje</button>
+
 </div>
+

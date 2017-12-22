@@ -3,6 +3,7 @@ import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-f
 
 import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 import {InsurancePolicyCar} from './insurance-policy-car-form/insurance-policy-car-form.component';
+import {InsurancePolicyHome} from './insurance-policy-home-form/insurance-policy-home-form.component';
 
 @Component({
     selector: 'app-insurance-policy',
@@ -17,6 +18,7 @@ export class InsurancePolicyComponent {
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
     insurancePolicyCar: InsurancePolicyCar = null;
+    insurancePolicyHome: InsurancePolicyHome = null;
 
     nextTab(value: string) {
         this.activeTab = value;
@@ -35,6 +37,15 @@ export class InsurancePolicyComponent {
             this.insurancePolicyCar = value;
         else {
             this.insurancePolicyCar = null;
+        }
+    }
+
+    insurancePolicyHomeChanged(value) {
+        console.log("12334567876543456543");
+        if (value && value.address != null)
+            this.insurancePolicyHome = value;
+        else {
+            this.insurancePolicyHome = null;
         }
     }
 }

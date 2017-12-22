@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import da.person.PersonService;
+import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.PersonRequest;
 
@@ -34,8 +35,17 @@ public class InsurancePolicyController {
 		return request;
 	}
 
-	@GetMapping("/calculatePrice")
-	public Integer calculatePrice(/*@RequestBody InsurancePolicyRequest request*/) {
+	/*Metoda za racunanje preporucene cijene polise*/
+	@PostMapping("/calculateSuggestedPrice")
+	public Double calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest request) {
+	
+		return insurancePolicyService.calculateSuggestedPrice(request);
+		
+	}
+	
+	/*Metoda za racunanje ukupne cijene polise*/
+	@PostMapping("/calculatePrice")
+	public Double calculatePriceWithPersons(@RequestBody InsurancePolicyRequest request) {
 		InsurancePolicyRequest policy = new InsurancePolicyRequest();
 		policy.setDuration(5);
 		policy.setPersons(new ArrayList<>());
@@ -48,9 +58,8 @@ public class InsurancePolicyController {
 		policy.setSport(1l);
 		policy.setAmount(15l);
 		
-		
 		double amount = insurancePolicyService.calculatePolice(policy);
-		
-		return 1;
+	
+		return 1.1;
 	}
 }

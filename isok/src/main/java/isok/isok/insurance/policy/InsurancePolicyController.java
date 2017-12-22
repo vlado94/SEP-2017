@@ -31,10 +31,11 @@ public class InsurancePolicyController {
 		return newInsuranceReq;
 	}
 	
-	@PostMapping("/calculatePrice")
-	private Integer calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
-		Integer insurancePrice = restTemplate().getForObject(
-				dataccessPort.toString()+"/insurancePolicy/calculatePrice", /*obj*/Integer.class);
-		return obj.getDuration();
+	@PostMapping("/calculateSuggestedPrice")
+	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
+		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
+		Double price = restTemplate().postForObject(
+				dataccessPort.toString()+"/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
+		return price;
 	}
 }

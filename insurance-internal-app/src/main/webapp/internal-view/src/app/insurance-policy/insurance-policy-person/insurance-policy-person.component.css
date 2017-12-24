@@ -1,0 +1,11 @@
+.fixed-left{
+	position:fixed;
+	bottom:100px;
+	left:15%;
+}
+
+.fixed-right{
+	position:fixed;
+	bottom:100px;
+	right:2%;
+}

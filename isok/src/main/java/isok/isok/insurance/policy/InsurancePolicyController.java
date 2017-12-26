@@ -2,7 +2,6 @@ package isok.isok.insurance.policy;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,23 +17,24 @@ public class InsurancePolicyController {
 
 	@Value("${dataccessPort}")
 	private String dataccessPort;
-	
+
 	@Bean
 	public RestTemplate restTemplate() {
-	    return new RestTemplate();
+		return new RestTemplate();
 	}
-	
+
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
-		InsurancePolicyRequest newInsuranceReq = restTemplate().postForObject(
-				dataccessPort.toString()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
+		InsurancePolicyRequest newInsuranceReq = restTemplate()
+				.postForObject(dataccessPort.toString() + "/insurancePolicy", obj, InsurancePolicyRequest.class);
 		return newInsuranceReq;
 	}
-	
-	@PostMapping("/calculatePrice")
-	private Integer calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
-		Integer insurancePrice = restTemplate().getForObject(
-				dataccessPort.toString()+"/insurancePolicy/calculatePrice", /*obj*/Integer.class);
-		return obj.getDuration();
+
+	@PostMapping("/calculateSuggestedPrice")
+	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
+		obj.setAmount(15l); // izbrisati nakon ispravljenog fronta
+		Double price = restTemplate().postForObject(
+				dataccessPort.toString() + "/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
+		return price;
 	}
 }

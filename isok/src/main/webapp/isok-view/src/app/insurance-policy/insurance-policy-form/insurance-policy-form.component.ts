@@ -112,7 +112,7 @@ export class InsurancePolicyFormComponent {
                 let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
                     value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
 
-                this.insurancePolicyService.calculatePrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
+                this.insurancePolicyService.calculateSuggestedPrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
                     this.price = price;
                 })
             } else {

@@ -59,28 +59,6 @@
 	</div>
 
 	<div class="form-group">
-		<label for="numberOfPersons" class="col-6">Broj putnika:</label>
-		<div class="col-6">
-			<input id="numberOfPersons" type="text" class="form-control"
-				formControlName="numberOfPersons">
-		</div>
-		<div
-			*ngIf="insurancePolicy.controls['numberOfPersons'].errors && !insurancePolicy.controls['numberOfPersons'].pristine"
-			class="alert alert-danger col-6">
-
-			<div
-				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.required">Morate
-				uneti broj putnika.</div>
-			<div
-				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.pattern">Neispravan
-				unos. Unesite broj.</div>
-			<div
-				*ngIf="insurancePolicy.controls['numberOfPersons'].errors.numberOfPersonsValidator">Mora
-				postojati bar jedan putnik.</div>
-		</div>
-	</div>
-
-	<div class="form-group">
 		<label for="numberOfPersonsUpTo16" class="col-6">Broj putnika
 			uzrasta do 16 godina:</label>
 		<div class="col-6">
@@ -108,8 +86,9 @@
 	<div class="alert alert-danger"
 		*ngIf="(!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
 		 !insurancePolicy.controls['numberOfPersonsBetween16And60'].pristine ||
-		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !insurancePolicy.controls['numberOfPersons'].pristine && !checkNumberOfPeople()">Broj
-		osoba po uzrastima, u zbiru, mora biti jednak unetom broju putnika.</div>
+		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()">
+		  	Morate uneti bar jednog putnika.
+	</div>
 	<div class="form-group">
 		<label for="duration" class="col-6">Region:</label>
 		<div class="col-6">

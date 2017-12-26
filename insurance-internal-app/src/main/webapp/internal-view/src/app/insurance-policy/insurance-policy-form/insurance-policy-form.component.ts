@@ -23,6 +23,7 @@ function dateValidator(date: FormControl) {
     else
         return null;
 }
+
 function numberOfPersonsValidator(num: FormControl) {
     if ((+num.value) <= 0)
         return {
@@ -77,10 +78,6 @@ export class InsurancePolicyFormComponent {
                 numberOfPersonsValidator]),
             typeOfPolicy: new FormControl(''),
             age: new FormControl(''),
-            numberOfPersons: new FormControl('', [
-                Validators.required,
-                Validators.pattern("[0-9]*"), numberOfPersonsValidator]
-            ),
             numberOfPersonsUpTo16: new FormControl(''),
             numberOfPersonsBetween16And60: new FormControl(''),
             numberOfPersonsOver60: new FormControl(''),
@@ -110,7 +107,7 @@ export class InsurancePolicyFormComponent {
             console.log('Form changes', value)
             if (this.insurancePolicy.valid && this.checkNumberOfPeople()) {
                 let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
-                    value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+                    value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
 
                 this.insurancePolicyService.calculateSuggestedPrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
                     this.price = price;
@@ -136,8 +133,8 @@ export class InsurancePolicyFormComponent {
         let over60: number = +this.insurancePolicy.get('numberOfPersonsOver60').value;
         let sum: number = upTo16 + between16And60 + over60;
 
-        let numOfPersons = +this.insurancePolicy.get('numberOfPersons').value;
-        if (sum == numOfPersons) {
+        //let numOfPersons = +this.insurancePolicy.get('numberOfPersons').value;
+        if (sum > 0) {
             result = true;
             console.log("Valid");
         }
@@ -182,14 +179,13 @@ export class InsurancePolicyCalculatePriceRequest {
     sport: string;
     amount: string;
     typeOfPolicy: string;
-    numberOfPersons: number;
     firstAgeCategory: number;
     secondAgeCategory: number;
     thirdAgeCategory: number;
 
     constructor(startDate: string, duration: number,
         region: string, sportId: string,
-        amountId: string, typeOfPolicy: string, numberOfPersons: number,
+        amountId: string, typeOfPolicy: string,
         firstAgeCategory: number,
         secondAgeCategory: number,
         thirdAgeCategory: number) {
@@ -198,7 +194,6 @@ export class InsurancePolicyCalculatePriceRequest {
         this.region = region;
         this.sport = sportId;
         this.amount = amountId;
-        this.numberOfPersons = numberOfPersons;
         this.firstAgeCategory = firstAgeCategory;
         this.secondAgeCategory = secondAgeCategory;
         this.thirdAgeCategory = thirdAgeCategory;

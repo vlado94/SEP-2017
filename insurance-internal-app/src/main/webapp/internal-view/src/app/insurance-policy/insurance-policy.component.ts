@@ -13,7 +13,7 @@ import {InsurancePolicyHome} from './insurance-policy-home-form/insurance-policy
 
 export class InsurancePolicyComponent {
 
-    activeTab: string = '3';
+    activeTab: string = '1';
     personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);

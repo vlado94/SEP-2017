@@ -1,0 +1,68 @@
+<div class="card">
+	<div class="card-header" data-background-color="green">
+		<h4 class="title">Edit Profile</h4>
+		<p class="category">Complete your profile</p>
+	</div>
+	<div class="card-content">
+		<form novalidate [formGroup]="insurancePolicyPersonForm" (ngSubmit)="addPersonForm()">
+			<div>
+				<div class="form-group form-black label-floating is-empty">
+					<label class="control-label">Ime</label>
+					<input type="text" class="form-control" formControlName="firstName">
+				</div>
+			</div>
+			<div>
+				<div class="form-group form-black label-floating is-empty">
+					<label class="control-label">Prezime</label>
+					<input type="text" class="form-control" formControlName="lastName">
+				</div>
+			</div>
+
+			<div class="form-group" *ngIf="!contractorExists() || (currentPerson != null && currentPerson.contractor)">
+				<label for="contractor">Ugovarač:</label>
+				<div class="col-12">
+					<div class="row radio">
+						<label class="radio-inline radio-button"> 
+							<input type="radio" value="true" name="contractor" formControlName="contractor">Da</label>
+							<label class="radio-inline radio-button">
+								<input type="radio" name="contractor" value="false" formControlName="contractor">Ne</label>
+							</div>
+						</div>
+					</div>
+
+				<div *ngIf="insurancePolicyPersonForm.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
+					class="form-group form-black label-floating is-empty">
+					<label for="email" class="control-label">Email ugovarača:</label>
+					<input id="email" type="email" class="form-control" formControlName="email" />
+
+				</div>
+
+				<div>
+					<div class="form-group form-black label-floating is-empty">
+						<label class="control-label">JMBG</label>
+						<input type="text" class="form-control" formControlName="personNo">
+					</div>
+				</div>
+				<div>
+					<div class="form-group form-black label-floating is-empty">
+						<label class="control-label">Broj pasosa</label>
+						<input type="text" class="form-control" formControlName="passportNo" >
+					</div>
+				</div>
+				<div>
+					<div class="form-group form-black label-floating is-empty">
+						<label class="control-label">Adresa</label>
+						<input type="text" class="form-control" formControlName="address">
+					</div>
+				</div>
+				<div>
+					<div class="form-group form-black label-floating is-empty">
+						<label class="control-label">Broj telefona</label>
+						<input type="text" class="form-control" formControlName="phoneNo" > 
+					</div>
+				</div>
+				<button type="submit" class="btn btn-success pull-right" [disabled]="!insurancePolicyPersonForm.valid">Dodaj osiguranika</button>
+
+			</form>
+		</div>
+	</div>

@@ -27,6 +27,11 @@ import { FooterCompComponent } from './footer-comp/footer-comp.component';
 import { UserDataService } from './user-data/user-data.service';
 import { CarComponent } from './car/car.component';
 import { HouseComponent } from './house/house.component';
+import { InsurancePolicyComponent } from './insurance-policy/insurance-policy.component';
+import { InsurancePolicyFormComponent } from './insurance-policy/insurance-policy-form/insurance-policy-form.component';
+import { InsurancePolicyPersonComponent } from './insurance-policy/insurance-policy-person/insurance-policy-person.component';
+import { InsurancePolicyPersonFormComponent } from './insurance-policy/insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
+import { InsurancePolicyPersonTableComponent } from './insurance-policy/insurance-policy-person/insurance-policy-person-table/insurance-policy-person-table.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +44,12 @@ import { HouseComponent } from './house/house.component';
     HomePageComponent,
     FooterCompComponent,
     CarComponent,
-    HouseComponent
+    HouseComponent,
+    InsurancePolicyComponent,
+    InsurancePolicyFormComponent,
+    InsurancePolicyPersonComponent,
+    InsurancePolicyPersonFormComponent,
+    InsurancePolicyPersonTableComponent
 
   ],
   imports: [BsDatepickerModule.forRoot(),

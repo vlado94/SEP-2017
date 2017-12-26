@@ -2,7 +2,9 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { NgModule } from '@angular/core';
-
+import {InsurancePolicyHomeRequest} from './insurance-policy-home-request';
+import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-calculate-price-request';
+import {InsurancePolicyService} from '../insurance-policy.service';
 
 @Component({
     selector: 'app-insurance-policy-home-form',
@@ -18,18 +20,21 @@ import { NgModule } from '@angular/core';
     declarations: [ // components for use in THIS module
     ],
     providers: [ // singleton services
-
+        InsurancePolicyService
     ]
 })
 
 export class InsurancePolicyHomeForm {
     insurancePolicyHomeForm: FormGroup;
-    @Output() setInsurancePolicyHome = new EventEmitter<InsurancePolicyHome>();
+    current: InsurancePolicyHomeRequest = null;
+
+    @Output() setInsurancePolicyHome = new EventEmitter<InsurancePolicyHomeRequest>();
 
     @Output() hideForm = new EventEmitter<string>();
-    current: InsurancePolicyHome = null;
+    @Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
+    @Input() price;
 
-    constructor() {
+    constructor(private insurancePolicyService: InsurancePolicyService) {
         this.insurancePolicyHomeForm = new FormGroup({
             duration: new FormControl('', [
                 Validators.required,
@@ -56,10 +61,21 @@ export class InsurancePolicyHomeForm {
     ngOnInit() {
         this.insurancePolicyHomeForm.reset();
 
+        this.insurancePolicyHomeForm.valueChanges.subscribe(value => {
+            if (this.insurancePolicyHomeForm.get('duration').valid && this.insurancePolicyHomeForm.get('size').valid
+                && this.insurancePolicyHomeForm.get('value').valid && this.insurancePolicyHomeForm.get('risk').valid
+                && this.insurancePolicyHomeForm.get('age').valid) {
+                let insurancePolicyHomeCalculatePriceRequest: InsurancePolicyHomeCalculatePriceRequest = new InsurancePolicyHomeCalculatePriceRequest(value.duration, value.size,
+                    value.age, value.value, value.risk);
+                this.calculatePrice.emit(insurancePolicyHomeCalculatePriceRequest);
+            } else {
+                this.calculatePrice.emit(null);
+            }
+        })
     }
 
     @Input()
-    set insurancePolicyHome(value: InsurancePolicyHome) {
+    set insurancePolicyHome(value: InsurancePolicyHomeRequest) {
         this.current = value;
         console.log("SETTOVANJE POLISE ZA KUCU");
         if (value) {
@@ -81,9 +97,9 @@ export class InsurancePolicyHomeForm {
     }
 
     set(value) {
-        var policyHome: InsurancePolicyHome = null;
+        var policyHome: InsurancePolicyHomeRequest = null;
         if (value != null) {
-            policyHome = new InsurancePolicyHome(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.jmbg);
+            policyHome = new InsurancePolicyHomeRequest(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.jmbg);
             this.setInsurancePolicyHome.emit(policyHome);
         } else {
             this.setInsurancePolicyHome.emit(null);
@@ -94,32 +110,5 @@ export class InsurancePolicyHomeForm {
 
     closeForm() {
         this.hideForm.emit(null);
-    }
-}
-
-
-
-export class InsurancePolicyHome {
-    duration: number;
-    size: string;
-    age: string;
-    value: string;
-    risk: string;
-    address: string;
-    firstName: string;
-    lastName: string;
-    jmbg: string;
-    constructor(duration: number, size: string, age: string, value: string, risk: string,
-        address: string, firstName: string, lastName: string, jmbg: string) {
-        this.duration = duration;
-        this.size = size;
-        this.age = age;
-        this.value = value;
-        this.risk = risk;
-        this.address = address;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.jmbg = jmbg;
-
     }
 }

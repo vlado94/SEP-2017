@@ -1,13 +1,15 @@
 package da.insurancePolicy;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import da.person.Person;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
@@ -288,8 +290,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			}
 			agePrices.add(agePrice);
 		}
-		
-		retVal = policy.getNumberOfPersons() * pricePerDayForSportAndRegionAndCover; 
+		int numOfPersons = policy.getFirstAgeCategory() + policy.getSecondAgeCategory() + policy.getThirdAgeCategory();
+		retVal = numOfPersons * pricePerDayForSportAndRegionAndCover; 
 		
 		for(int i = 0; i< agePrices.size(); i++) {
 			retVal += agePrices.get(i);

@@ -1,6 +1,8 @@
 import {Component, Input, Output, EventEmitter, NgModule} from '@angular/core';
-import {InsurancePolicyCar} from '../insurance-policy-car-form/insurance-policy-car-form.component';
-import {InsurancePolicyHome} from '../insurance-policy-home-form/insurance-policy-home-form.component';
+import {InsurancePolicyCarRequest} from '../insurance-policy-car-form/insurance-policy-car-request';
+import {InsurancePolicyHomeRequest} from '../insurance-policy-home-form/insurance-policy-home-request';
+import {InsurancePolicyCarCalculatePriceRequest} from '../insurance-policy-car-form/insurance-policy-car-calculate-price-request';
+import {InsurancePolicyHomeCalculatePriceRequest} from '../insurance-policy-home-form/insurance-policy-home-calculate-price-request';
 
 @Component({
 
@@ -22,15 +24,21 @@ export class InsurancePolicyHomeCar {
     activeForm: string = null;
     @Input() insurancePolicyCar;
     @Input() insurancePolicyHome;
+    @Input() carInsurancePrice;
+    @Input() homeInsurancePrice;
+    @Output() insurancePolicyCarChanged = new EventEmitter<InsurancePolicyCarRequest>();
+    @Output() insurancePolicyHomeChanged = new EventEmitter<InsurancePolicyHomeRequest>();
+    @Output() calculatePriceCar = new EventEmitter<InsurancePolicyCarCalculatePriceRequest>();
+    @Output() calculatePriceHome = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
 
-    @Output() insurancePolicyCarChanged = new EventEmitter<InsurancePolicyCar>();
-    @Output() insurancePolicyHomeChanged = new EventEmitter<InsurancePolicyHome>();
+
+
     @Output() nextTab = new EventEmitter<string>();
-    
+
     changeTab(value: string) {
         this.nextTab.emit(value);
     }
-    
+
     showForm(value) {
         this.activeForm = value;
     }
@@ -49,5 +57,12 @@ export class InsurancePolicyHomeCar {
             console.log("Dodavanje osigranja kuce...");
             console.log("Adresa kuce: " + value.address);
         }
+    }
+
+    calculatePriceCarInsurance(value) {
+        this.calculatePriceCar.emit(value);
+    }
+    calculatePriceHomeInsurance(value) {
+        this.calculatePriceHome.emit(value);
     }
 }

@@ -29,8 +29,12 @@
 		<div class="col-12">
 			<app-insurance-policy-home-car [insurancePolicyCar]="insurancePolicyCar" (insurancePolicyCarChanged)="insurancePolicyCarChanged($event)" [hidden]="activeTab !=='3'"
 				[insurancePolicyHome]="insurancePolicyHome" (insurancePolicyHomeChanged)="insurancePolicyHomeChanged($event)"
+				[carInsurancePrice]="carInsurancePrice" (calculatePriceCar)="calculateCarInsurancePrice($event)"
+				[homeInsurancePrice]="homeInsurancePrice" (calculatePriceHome)="calculateHomeInsurancePrice($event)"
 				(nextTab)="nextTab($event)"></app-insurance-policy-home-car>
 		</div>
-
+		<div class="col-12">
+			<app-insurance-policy-checkout ></app-insurance-policy-checkout>
+		</div>
 	</div>
 </div>

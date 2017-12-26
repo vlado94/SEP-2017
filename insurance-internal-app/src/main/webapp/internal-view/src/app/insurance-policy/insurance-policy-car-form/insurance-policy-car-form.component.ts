@@ -2,7 +2,9 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import { NgModule } from '@angular/core';
-
+import {InsurancePolicyCarRequest} from './insurance-policy-car-request';
+import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-calculate-price-request';
+import {InsurancePolicyService} from '../insurance-policy.service';
 
 @Component({
     selector: 'app-insurance-policy-car-form',
@@ -18,17 +20,20 @@ import { NgModule } from '@angular/core';
     declarations: [ // components for use in THIS module
     ],
     providers: [ // singleton services
-
+        InsurancePolicyService
     ]
 })
 
 export class InsurancePolicyCarForm {
     insurancePolicyCarForm: FormGroup;
-    @Output() setInsurancePolicyCar = new EventEmitter<InsurancePolicyCar>();
+    @Output() setInsurancePolicyCar = new EventEmitter<InsurancePolicyCarRequest>();
     @Output() hideForm = new EventEmitter<string>();
+    @Output() calculatePrice = new EventEmitter<InsurancePolicyCarCalculatePriceRequest>();
 
-    current: InsurancePolicyCar = null;
-    constructor() {
+    @Input() price;
+
+    current: InsurancePolicyCarRequest = null;
+    constructor(private insurancePolicyService: InsurancePolicyService) {
         this.insurancePolicyCarForm = new FormGroup({
             duration: new FormControl('', [
                 Validators.required,
@@ -53,10 +58,20 @@ export class InsurancePolicyCarForm {
     ngOnInit() {
         this.insurancePolicyCarForm.reset();
 
+        this.insurancePolicyCarForm.valueChanges.subscribe(value => {
+            console.log('Car form changes!!!!!!!!!!!!!!!!!!!!!!!', value)
+            if (this.insurancePolicyCarForm.get('duration').valid && this.insurancePolicyCarForm.get('paket').valid) {
+                let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.paket)
+                this.calculatePrice.emit(insurancePolicyCarCalculatePriceRequest);
+            } else {
+                this.calculatePrice.emit(null);
+            }
+        })
+
     }
 
     @Input()
-    set insurancePolicyCar(value: InsurancePolicyCar) {
+    set insurancePolicyCar(value: InsurancePolicyCarRequest) {
         this.current = value;
         console.log("SETTOVANJE POLISE ZA AUTO");
         if (value) {
@@ -79,9 +94,9 @@ export class InsurancePolicyCarForm {
     }
 
     set(value) {
-        var policyCar: InsurancePolicyCar = null;
+        var policyCar: InsurancePolicyCarRequest = null;
         if (value != null) {
-            policyCar = new InsurancePolicyCar(value.duration, value.paket, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
+            policyCar = new InsurancePolicyCarRequest(value.duration, value.paket, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
             this.setInsurancePolicyCar.emit(policyCar);
         } else {
             this.setInsurancePolicyCar.emit(null);
@@ -89,44 +104,8 @@ export class InsurancePolicyCarForm {
 
         this.insurancePolicyCarForm.reset();
     }
-    
-    closeForm(){
-        this.hideForm.emit(null);    
+
+    closeForm() {
+        this.hideForm.emit(null);
     }
-}
-
-export class InsurancePolicyCar {
-    duration: number;
-    paket: string;
-    vehicle: string;
-    typeOfVehicle: string;
-    year: number;
-    registrationNumber: string;
-    chassisNumber: string;
-    firstName: string;
-    lastName: string;
-    jmbg: string;
-
-    constructor(duration: number,
-        paket: string,
-        vehicle: string,
-        typeOfVehicle: string,
-        year: number,
-        registrationNumber: string,
-        chassisNumber: string,
-        firstName: string,
-        lastName: string,
-        jmbg: string) {
-        this.duration = duration;
-        this.paket = paket;
-        this.vehicle = vehicle;
-        this.typeOfVehicle = typeOfVehicle;
-        this.year = year;
-        this.registrationNumber = registrationNumber;
-        this.chassisNumber = chassisNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.jmbg = jmbg;
-    }
-
 }

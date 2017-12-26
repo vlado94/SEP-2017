@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 @RestController
 @RequestMapping("/internal/insurancePolicy")
@@ -36,5 +38,17 @@ public class InsurancePolicyController {
 		Double price = restTemplate().postForObject(
 				dataccessPort.toString()+"/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
 		return price;
+	}
+	
+	@PostMapping("/car/calculateSuggestedPrice")
+	private Integer calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
+
+		return obj.getDuration();
+	}
+	
+	@PostMapping("/home/calculateSuggestedPrice")
+	private Integer calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
+
+		return obj.getDuration();
 	}
 }

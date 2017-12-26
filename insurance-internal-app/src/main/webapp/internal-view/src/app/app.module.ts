@@ -17,7 +17,7 @@ import {InsurancePolicyPersonListComponent} from './insurance-policy/insurance-p
 import {InsurancePolicyHomeCar} from './insurance-policy/insurance-policy-home-car/insurance-policy-home-car.component';
 import {InsurancePolicyHomeForm} from './insurance-policy/insurance-policy-home-form/insurance-policy-home-form.component';
 import {InsurancePolicyCarForm} from './insurance-policy/insurance-policy-car-form/insurance-policy-car-form.component';
-
+import {InsurancePolicyCheckoutComponent} from './insurance-policy/insurance-policy-checkout/insurance-policy-checkout.component';
 import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
 
 
@@ -35,7 +35,8 @@ import { FactorService } from "./factor/factor.service";
         InsurancePolicyPersonListComponent,
         InsurancePolicyHomeCar,
         InsurancePolicyHomeForm,
-        InsurancePolicyCarForm
+        InsurancePolicyCarForm,
+        InsurancePolicyCheckoutComponent
     ],
     imports: [
         BrowserModule,

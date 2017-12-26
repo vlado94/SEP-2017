@@ -1,7 +1,6 @@
 package model.request;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,7 +11,6 @@ public class InsurancePolicyCalculatePriceRequest {
 	private Long region;
 	private Long sport;
 	private Long amount;
-	private int numberOfPersons;
     private String typeOfPolicy;
     private int firstAgeCategory;
     private int secondAgeCategory;
@@ -24,7 +22,7 @@ public class InsurancePolicyCalculatePriceRequest {
 	}
 
 	public InsurancePolicyCalculatePriceRequest(LocalDate startDate, int duration, Long region, Long sport, Long amount,
-			int numberOfPersons, String typeOfPolicy, int firstAgeCategory, int secondAgeCategory,
+			String typeOfPolicy, int firstAgeCategory, int secondAgeCategory,
 			int thirdAgeCategory) {
 		super();
 		this.startDate = startDate;
@@ -32,7 +30,6 @@ public class InsurancePolicyCalculatePriceRequest {
 		this.region = region;
 		this.sport = sport;
 		this.amount = amount;
-		this.numberOfPersons = numberOfPersons;
 		this.typeOfPolicy = typeOfPolicy;
 		this.firstAgeCategory = firstAgeCategory;
 		this.secondAgeCategory = secondAgeCategory;
@@ -69,14 +66,6 @@ public class InsurancePolicyCalculatePriceRequest {
 	}
 	public void setAmount(Long amount) {
 		this.amount = amount;
-	}
-
-	public int getNumberOfPersons() {
-		return numberOfPersons;
-	}
-
-	public void setNumberOfPersons(int numberOfPersons) {
-		this.numberOfPersons = numberOfPersons;
 	}
 
 	public String getTypeOfPolicy() {

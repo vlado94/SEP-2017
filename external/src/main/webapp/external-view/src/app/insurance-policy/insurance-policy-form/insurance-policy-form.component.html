@@ -1,0 +1,118 @@
+
+<div class="row">
+	<div class="container">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-header" data-background-color="green">
+					<h4 class="title">Edit Profile</h4>
+					<p class="category">Complete your profile</p>
+				</div>
+				<div class="card-content">
+
+					<form [formGroup]="insurancePolicyForm" (ngSubmit)="submitPolicyForm()">
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">Od</label>
+									<input type="text" class="form-control" formControlName="startDate" bsDatepicker />
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">Dana</label>
+									<input type="text" class="form-control" formControlName="duration" >
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">Od</label>
+									<input type="text" class="form-control" disabled />
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<div class="form-group form-black label-floating is-empty">
+								<label class="bmd-label-floating control-label">Tip polise</label>
+								<select class="form-control" formControlName="typeOfPolicy">
+									<option value=""></option>
+									<option value="1">Poslovna</option>
+									<option value="2">Ne znam koja je druga</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-3">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">Broj putnika</label>
+									<input type="text" class="form-control" formControlName="numberOfPersons">
+								</div>
+							</div>
+
+
+							<div class="col-sm-3">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">-16</label>
+									<input type="text" class="form-control" formControlName="numberOfPersonsUpTo16">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">16-60</label>
+									<input type="text" class="form-control" formControlName="numberOfPersonsBetween16And60">
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="form-group form-black label-floating is-empty">
+									<label class="control-label">60+</label>
+									<input type="text" class="form-control" formControlName="numberOfPersonsOver60">
+								</div>
+							</div>
+						</div>			
+
+						<div>
+							<div class="form-group form-black label-floating is-empty">
+								<label for="exampleSelect1" class="bmd-label-floating control-label">Region</label>
+								<select class="form-control" formControlName="region">
+									<option></option>
+									<option>Evropa</option>
+									<option>Azija</option>
+									<option>Severna Amerika</option>
+									<option>Juzna Amerika</option>
+									<option>Austrialija</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group form-black label-floating is-empty">
+							<label class="bmd-label-floating control-label">Iznos</label>
+							<select class="form-control" formControlName="amount">
+								<option value=""></option>
+								<option value="1">100.000,00</option>
+								<option value="2">200.000,00</option>
+								<option value="3">300.000,00</option>
+								<option value="4">400.000,00</option>
+							</select>
+						</div>
+						<div>
+							<div class="form-group form-black label-floating is-empty">
+								<label for="exampleSelect1" class="bmd-label-floating control-label">Sport</label>
+								<select class="form-control" id="exampleSelect1" formControlName="sport">
+									<option></option>
+									<option>Kosarka</option>
+									<option>Fudbal</option>
+									<option>Bocanje</option>
+								</select>
+							</div>
+						</div>
+						<div class="price" *ngIf="price">
+							<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi : {{price}}</div>
+						</div>
+						<button type="submit" [disabled]="!insurancePolicyForm.valid || !checkNumberOfPeople()" class="btn btn-default btn-success pull-right" >Dalje</button>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

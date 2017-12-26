@@ -12,7 +12,7 @@ export class ParentPolicyComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.active_tab = 2;
+		this.active_tab = 1;
 	}
 
 }

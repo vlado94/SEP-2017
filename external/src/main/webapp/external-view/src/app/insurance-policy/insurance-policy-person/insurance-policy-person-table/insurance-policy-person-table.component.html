@@ -1,0 +1,32 @@
+<div *ngIf="persons.length">
+	<div class="card">
+		<div class="card-header" data-background-color="green">
+			<h4 class="title">Simple Table</h4>
+			<p class="category">Here is a subtitle for this table</p>
+		</div>
+		<div class="card-content table-responsive">
+			<table class="table">
+				<thead class="text-success">
+					<tr>
+						<th>Ime</th>
+						<th>Prezime</th>
+						<th>JMBG</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let person of persons">
+						<td>{{person.firstName}}</td>
+						<td>{{person.lastName}}</td>
+						<td>{{person.personNo}}</td>
+						<td><button type="button" class="btn btn-success" (click)="updatePersonFromList(person)">Update</button></td>
+						<td><button type="button" class="btn btn-success" (click)="deletePersonFromList(person)">Delete</button></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+</div>

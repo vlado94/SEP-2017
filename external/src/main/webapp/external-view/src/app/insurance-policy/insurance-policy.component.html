@@ -1,0 +1,48 @@
+<div class="parallax-window" data-parallax="scroll" data-image-src="assets/img/1920x1080/01.jpg">
+	<div class="parallax-content container">
+		<h1 class="carousel-title">Product Pricing</h1>
+		<p>Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br/> enim minim estudiat veniam siad venumus dolore</p>
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="stepper">
+		<div class="stepper-steps">
+			<div [ngClass]="{'stepper-step-isActive' : active_tab==1, 'stepper-step' : active_tab!=1}">
+				<div class="stepper-stepContent">
+					<span class="stepper-stepMarker">1</span>Step Title Here
+				</div>
+			</div>
+			<div [ngClass]="{'stepper-step-isActive' : active_tab==2, 'stepper-step' : active_tab!=2}">
+				<div class="stepper-stepContent">
+					<span class="stepper-stepMarker">2</span>Step Title Here
+				</div>
+			</div>
+			<div [ngClass]="{'stepper-step-isActive' : active_tab==3, 'stepper-step' : active_tab!=3}">
+				<div class="stepper-stepContent">
+					<span class="stepper-stepMarker">3</span>Step Title Here
+				</div>
+			</div>
+			<div [ngClass]="{'stepper-step-isActive' : active_tab==4, 'stepper-step' : active_tab!=4}">
+				<div class="stepper-stepContent">
+					<span class="stepper-stepMarker">4</span>Step Title Here
+				</div>
+			</div>
+		</div>
+		<div class="stepper-content">
+			<div class="stepper-actions">
+				<div *ngIf="active_tab==1">
+					<app-insurance-policy-form (nextTab)="changeTab($event)" (savePolicyRequest)="savePolicyRequest($event)"></app-insurance-policy-form>
+				</div>
+				<div *ngIf="active_tab==2">
+					<app-insurance-policy-person (nextTab)="changeTab($event)" (previousTab)="changeTab($event)"></app-insurance-policy-person>
+				</div>
+				
+				<a href="" class="btn btn-default btn-lg btn-simple mbn">Back</a>
+				<a href=""  class="btn btn-info btn-lg btn-simple pull-right mbn">Continue</a>
+			</div>
+		</div>
+	</div>
+
+</div>

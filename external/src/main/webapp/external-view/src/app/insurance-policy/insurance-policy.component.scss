@@ -1,73 +1,4 @@
 
-.currently-inactive
-{
-    background: #e5f2ff;
-}
-
-.currently-active
-{
-    background : #b3d9ff;
-}
-
-.unclickable-title 
-{
-	
-    pointer-events : none;
-}
-
-ul, li{
-	left: 50px;
-}
-
-.three-column
-{
-	text-align: left;
-	color: rgba(0,0,0,0.6);
-}
-
-.three-column .fa
-{
-	display: block;
-	padding: 1em 0em;
-	color: rgba(0,0,0,1);
-	font-size: 2em;
-}
-
-.three-column .title h2
-{
-	font-weight: bold;
-	color: rgba(0,0,0,0.8);
-}
-	.three-column .title .byline
-{
-	text-align: center;
-	color: rgba(0,0,0,.5);
-}
-
-.boxA,
-	.boxB,
-	.boxC
-	{
-		width: 33%;
-	}
-
-	.boxA,
-	.boxB
-	{
-		float: left;
-		margin-right: 1em;
-	}
-	
-	.boxB
-	{
-		margin-left: 100px;
-	}
-	
-	.boxC
-	{
-		float: right;
-	}
-
 
 //*****************************-----*/
 $brand-primary: #2196F3; // Blue 500
@@ -107,7 +38,7 @@ $shadow-z-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0
 
 .stepper-step {
     float: left;
-    width: 33.333333333333%; // fixme: only works because there's 3 steps
+    width: 22.0%; // fixme: only works because there's 3 steps
     padding: 24px;
     cursor: pointer;
     color: rgba(0,0,0,.87);
@@ -229,29 +160,5 @@ $shadow-z-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Boilerplate for presentation only
-body {
-    background-color: $grey-200;
-    padding: 60px 0;
-    font-family: 'Roboto';
-    font-size: 14px;
-    font-weight: 400;
-}
-
-img { max-width: 100%; }
 
 

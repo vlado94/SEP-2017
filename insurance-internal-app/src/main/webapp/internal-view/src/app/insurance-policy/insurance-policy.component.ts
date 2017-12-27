@@ -1,24 +1,44 @@
-import {Component} from '@angular/core';
-import {InsurancePolicyRequest} from './insurance-policy-form/insurance-policy-form.component';
+import {Component, NgModule} from '@angular/core';
+import {InsurancePolicyRequest} from './insurance-policy-request';
 
 import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
-import {InsurancePolicyCar} from './insurance-policy-car-form/insurance-policy-car-form.component';
-import {InsurancePolicyHome} from './insurance-policy-home-form/insurance-policy-home-form.component';
-
+import {InsurancePolicyCarRequest} from './insurance-policy-car-form/insurance-policy-car-request';
+import {InsurancePolicyHomeRequest} from './insurance-policy-home-form/insurance-policy-home-request';
+import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-form/insurance-policy-car-calculate-price-request';
+import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-form/insurance-policy-home-calculate-price-request';
+import {InsurancePolicyService} from './insurance-policy.service';
 @Component({
     selector: 'app-insurance-policy',
     templateUrl: './insurance-policy.component.html',
     styleUrls: ['./insurance-policy.component.css']
 })
 
+
+@NgModule({
+    imports: [
+    ],
+    exports: [ // components that we want to make available
+    ],
+    declarations: [ // components for use in THIS module
+    ],
+    providers: [ // singleton services
+        InsurancePolicyService
+    ]
+})
 export class InsurancePolicyComponent {
 
     activeTab: string = '3';
     personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
-    insurancePolicyCar: InsurancePolicyCar = null;
-    insurancePolicyHome: InsurancePolicyHome = null;
+    insurancePolicyCar: InsurancePolicyCarRequest = null;
+    insurancePolicyHome: InsurancePolicyHomeRequest = null;
+
+    carInsurancePrice: string = null;
+    homeInsurancePrice: string = null;
+
+
+    constructor(private insurancePolicyService: InsurancePolicyService) { }
 
     nextTab(value: string) {
         this.activeTab = value;
@@ -46,6 +66,32 @@ export class InsurancePolicyComponent {
             this.insurancePolicyHome = value;
         else {
             this.insurancePolicyHome = null;
+        }
+    }
+
+    calculateHomeInsurancePrice(value) {
+        if (value != null) {
+
+            console.log("222222222222222222222222222222222222");
+            this.insurancePolicyService.calculateSuggestedPriceHome(value).subscribe(price => {
+                this.homeInsurancePrice = price;
+            })
+        } else {
+
+            this.homeInsurancePrice = null;
+        }
+    }
+
+    calculateCarInsurancePrice(value) {
+        if (value) {
+
+
+            this.insurancePolicyService.calculateSuggestedPriceCar(value).subscribe(price => {
+                this.carInsurancePrice = price;
+            })
+        } else {
+            console.log("11111111111111111111111");
+            this.carInsurancePrice = null;
         }
     }
 }

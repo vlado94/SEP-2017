@@ -1,13 +1,13 @@
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<ul class="nav nav-tabs nav-justified tabs">
-			<li class="tab"><a class="nav-link" (click)="nextTab('1')"
+			<li class="tab"><a class="nav-link" 
 				[ngClass]="{'active':activeTab==1}">1</a></li>
-			<li class="tab"><a (click)="nextTab('2')" class="nav-link"
+			<li class="tab"><a  class="nav-link"
 				[ngClass]="{'active':activeTab==2}">2</a></li>
-			<li class="tab"><a (click)="nextTab('3')" class="nav-link"
+			<li class="tab"><a  class="nav-link"
 				[ngClass]="{'active':activeTab==3}">3</a></li>
-			<li class="tab"><a (click)="nextTab('4')" class="nav-link"
+			<li class="tab"><a  class="nav-link"
 				[ngClass]="{'active':activeTab==4}">4</a></li>
 
 		</ul>
@@ -29,8 +29,12 @@
 		<div class="col-12">
 			<app-insurance-policy-home-car [insurancePolicyCar]="insurancePolicyCar" (insurancePolicyCarChanged)="insurancePolicyCarChanged($event)" [hidden]="activeTab !=='3'"
 				[insurancePolicyHome]="insurancePolicyHome" (insurancePolicyHomeChanged)="insurancePolicyHomeChanged($event)"
+				[carInsurancePrice]="carInsurancePrice" (calculatePriceCar)="calculateCarInsurancePrice($event)"
+				[homeInsurancePrice]="homeInsurancePrice" (calculatePriceHome)="calculateHomeInsurancePrice($event)"
 				(nextTab)="nextTab($event)"></app-insurance-policy-home-car>
 		</div>
-
+		<div class="col-12">
+			<app-insurance-policy-checkout ></app-insurance-policy-checkout>
+		</div>
 	</div>
 </div>

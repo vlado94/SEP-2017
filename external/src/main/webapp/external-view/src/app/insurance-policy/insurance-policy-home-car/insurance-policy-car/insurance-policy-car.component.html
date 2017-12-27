@@ -1,0 +1,84 @@
+
+<div class="row">
+	<div class="container">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-header" data-background-color="green">
+					<h4 class="title">Edit Profile</h4>
+					<p class="category">Complete your profile</p>
+				</div>
+				<div class="card-content">
+
+					<form [formGroup]="insurancePolicyCarForm" (ngSubmit)="submitPolicyForm()">
+						
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Trajanje osiguranja</label>
+							<input id="duration" type="text" class="form-control" formControlName="duration">
+						</div>
+
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Izaberite paket:</label>
+							<select id="paket" class="form-control" formControlName="paket">
+								<option></option>
+								<option value="1">Šlepovanje do određene kilometraže</option>
+								<option value="2">Popravka do određene cene</option>
+								<option value="3">Smeštaj u hotelu do određenog broja dana</option>
+								<option value="4">Alternativni prevoz</option>
+							</select>
+						</div>
+
+
+						
+						<div class="form-group form-black label-floating is-empty">
+							<label class="bmd-label-floating control-label">Tip vozila</label>
+							<select id="typeOfVehicle" class="form-control"	formControlName="typeOfVehicle">
+								<option></option>
+								<option value="1">Teretno vozilo</option>
+								<option value="2">Priključno vozila</option>
+								<option value="3">Putničko vozilo</option>
+								<option value="4">Ostala vozila</option>
+							</select>
+						</div>
+						
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Marka vozila</label>
+							<input id="vehicle" type="text" class="form-control" formControlName="vehicle">
+
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Registarska oznaka vozila</label>
+							<input id="registrationNumber" type="text" class="form-control" formControlName="registrationNumber">
+
+						</div>
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Broj sasije</label>
+							<input id="chassisNumber" type="text" class="form-control" formControlName="chassisNumber">
+
+						</div>
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Ime vlasnika</label>
+							<input id="firstName" type="text" class="form-control" formControlName="firstName">
+
+						</div>
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Preime vlasnika</label>
+							<input id="lastName" type="text" class="form-control" formControlName="lastName">
+
+						</div>
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">JMBG vlasnika</label>
+							<input id="jmbg" type="text" class="form-control" formControlName="jmbg">
+
+						</div>
+						
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

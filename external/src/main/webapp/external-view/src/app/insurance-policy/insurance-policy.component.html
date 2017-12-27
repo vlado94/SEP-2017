@@ -36,9 +36,11 @@
 					<app-insurance-policy-form (nextTab)="changeTab($event)" (savePolicyRequest)="savePolicyRequest($event)"></app-insurance-policy-form>
 				</div>
 				<div *ngIf="active_tab==2">
-					<app-insurance-policy-person (nextTab)="changeTab($event)" (previousTab)="changeTab($event)"></app-insurance-policy-person>
+					<app-insurance-policy-person (nextTab)="changeTab($event)" (previousTab)="changeTab($event)" [expectedNumbersByAgeCategories]="age"></app-insurance-policy-person>
 				</div>
-				
+				<div *ngIf="active_tab==3">
+					<app-insurance-policy-home-car (nextTab)="changeTab($event)" (previousTab)="changeTab($event)"></app-insurance-policy-home-car>
+				</div>
 				<a href="" class="btn btn-default btn-lg btn-simple mbn">Back</a>
 				<a href=""  class="btn btn-info btn-lg btn-simple pull-right mbn">Continue</a>
 			</div>

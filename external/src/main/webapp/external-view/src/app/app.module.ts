@@ -32,6 +32,8 @@ import { InsurancePolicyFormComponent } from './insurance-policy/insurance-polic
 import { InsurancePolicyPersonComponent } from './insurance-policy/insurance-policy-person/insurance-policy-person.component';
 import { InsurancePolicyPersonFormComponent } from './insurance-policy/insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 import { InsurancePolicyPersonTableComponent } from './insurance-policy/insurance-policy-person/insurance-policy-person-table/insurance-policy-person-table.component';
+import { InsurancePolicyHomeCarComponent } from './insurance-policy/insurance-policy-home-car/insurance-policy-home-car.component';
+import { InsurancePolicyCarComponent } from './insurance-policy/insurance-policy-home-car/insurance-policy-car/insurance-policy-car.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { InsurancePolicyPersonTableComponent } from './insurance-policy/insuranc
     InsurancePolicyFormComponent,
     InsurancePolicyPersonComponent,
     InsurancePolicyPersonFormComponent,
-    InsurancePolicyPersonTableComponent
+    InsurancePolicyPersonTableComponent,
+    InsurancePolicyHomeCarComponent,
+    InsurancePolicyCarComponent
 
   ],
   imports: [BsDatepickerModule.forRoot(),

@@ -1,0 +1,28 @@
+<div class="row">
+
+	<div class="col-4 offset-2" [hidden]="activeForm">
+		<button class="btn car-button" (click)="showForm('car')">Kupovina osiguranja automobila</button>
+	</div>
+
+	<div class="col-4" [hidden]="activeForm">
+		<button class="btn btn default car-button" (click)="showForm('home')">Kupovina osiguranja kuce</button>
+	</div>
+
+	<div>
+		<app-insurance-policy-car
+		[insurancePolicyCar]="insurancePolicyCar"
+		(setInsurancePolicyCar)="setInsurancePolicyCar($event)"
+		(hideForm)="showForm($event)" [hidden]="activeForm != 'car'"></app-insurance-policy-car>
+	</div>
+	
+	<!-- <div class="col-12">
+		<app-insurance-policy-home-form
+		[insurancePolicyHome]="insurancePolicyHome"
+		(setInsurancePolicyHome)="setInsurancePolicyHome($event)"
+		(hideForm)="showForm($event)" [hidden]="activeForm != 'home'"></app-insurance-policy-home-form>
+	</div> -->
+
+	<button class="btn btn-success" (click)="changePreviousTab()">Back</button>
+	<button class="btn btn-success pull-right" (click)="changeNextTab()">Next</button>
+
+</div>

@@ -4,10 +4,14 @@
 			<app-insurance-policy-person-form [currentPerson]="currentPerson" [persons]="persons" (addPerson)="addPerson($event)"></app-insurance-policy-person-form>
 		</div>
 		<div class="col-sm-6">
-			<app-insurance-policy-person-table [persons]="persons" (selectForupdate)="selectForUpdate($event)" (deletePerson)="deletePerson($event)"></app-insurance-policy-person-table>
+			<div data-spy="scroll">
+				<app-insurance-policy-person-table [persons]="persons" (selectForupdate)="selectForUpdate($event)" (deletePerson)="deletePerson($event)"></app-insurance-policy-person-table>
+			</div>
 		</div>
-		<div>
-			<button (click)="changePreviousTab()">Back button</button>
-		</div>
+		
 	</div>
+	<div>
+			<button class="btn btn-success" (click)="changePreviousTab()">Back</button>
+			<button class="btn btn-success pull-right" [disabled]="!isNumberOfPersonsByAgeCorrect() || !isContractorAdded()" (click)="changeNextTab()">Next</button>
+		</div>
 </div>

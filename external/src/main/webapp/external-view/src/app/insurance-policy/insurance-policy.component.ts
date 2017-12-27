@@ -12,11 +12,12 @@ export class InsurancePolicyComponent implements OnInit {
 	active_tab: number;
 	currentInsurancePolicy: InsurancePolicyRequest;
 	currentPerson: InsurancePolicyPersonRequest;
+	age: Age = new Age(0, 0, 0);
 
 	constructor() { }
 
 	ngOnInit() {
-		this.active_tab = 2;
+		this.active_tab = 3;
 	}
 
 	changeTab(value: number){
@@ -26,7 +27,21 @@ export class InsurancePolicyComponent implements OnInit {
 
 	savePolicyRequest(insurancePolicyRequest: InsurancePolicyRequest){
 		this.currentInsurancePolicy = insurancePolicyRequest;
+		this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
+        this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
+        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+
 	}
 
+}
 
+export class Age {
+    firstCategory: number;
+    secondCategory: number;
+    thirdCategory: number;
+    constructor(firstCategory: number, secondCategory: number, thirdCategory: number) {
+        this.firstCategory = firstCategory;
+        this.secondCategory = secondCategory;
+        this.thirdCategory = thirdCategory;
+    }
 }

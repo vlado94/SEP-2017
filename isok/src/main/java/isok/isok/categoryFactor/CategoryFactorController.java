@@ -51,7 +51,7 @@ public class CategoryFactorController {
 	@GetMapping
 	private List<CategoryFactor> findAll() {
 		ResponseEntity<CategoryFactor[]> responseEntity = restTemplate().getForEntity(
-				dataccessPort.toString()+"/categoryFactor", CategoryFactor[].class);
+				getDataccessPortHttps()+"/categoryFactor", CategoryFactor[].class);
 		CategoryFactor[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);
 	}
@@ -59,7 +59,7 @@ public class CategoryFactorController {
 	@GetMapping("/{id}")
 	private CategoryFactor findOne(@PathVariable Long id) {
         CategoryFactor quote = restTemplate().getForObject(
-        		dataccessPort.toString()+"/categoryFactor/"+id, CategoryFactor.class);
+        		getDataccessPortHttps()+"/categoryFactor/"+id, CategoryFactor.class);
 		return quote;
 	}
 	
@@ -67,7 +67,7 @@ public class CategoryFactorController {
 	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {	 
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(categoryFactor);
 		HttpEntity<CategoryFactor> updateCategoryEntity = restTemplate().exchange(
-				dataccessPort.toString()+"/categoryFactor", HttpMethod.PUT, requestEntity, CategoryFactor.class );
+				getDataccessPortHttps()+"/categoryFactor", HttpMethod.PUT, requestEntity, CategoryFactor.class );
 		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
 		return updateCategory;
 	}
@@ -76,18 +76,22 @@ public class CategoryFactorController {
 	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {
 			ResponseEntity<Boolean> retVal = restTemplate().exchange(
-					dataccessPort.toString()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class);
+					getDataccessPortHttps()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class);
 			return retVal.getBody();
 		} catch(HttpServerErrorException e) {
 			throw e;
 		}
 	}
 	
+	public String getDataccessPortHttps() {
+		return dataccessPort.replace("http", "https").toString();
+	}
+	
 	
 	@Bean
 	public RestTemplate restTemplate() {
-		/*try {
-			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+		try {
+			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());//TODO: hide password
 		    keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
 	
 		    SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
@@ -106,7 +110,6 @@ public class CategoryFactorController {
 		}
 		catch(Exception exc) {
 			return null;
-		}*/
-		return new RestTemplate();
+		}
 	}
 }

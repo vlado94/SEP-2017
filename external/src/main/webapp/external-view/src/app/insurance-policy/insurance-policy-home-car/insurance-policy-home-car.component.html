@@ -15,12 +15,12 @@
 		(hideForm)="showForm($event)" [hidden]="activeForm != 'car'"></app-insurance-policy-car>
 	</div>
 	
-	<!-- <div class="col-12">
-		<app-insurance-policy-home-form
+	<div>
+		<app-insurance-policy-home
 		[insurancePolicyHome]="insurancePolicyHome"
 		(setInsurancePolicyHome)="setInsurancePolicyHome($event)"
-		(hideForm)="showForm($event)" [hidden]="activeForm != 'home'"></app-insurance-policy-home-form>
-	</div> -->
+		(hideForm)="showForm($event)" [hidden]="activeForm != 'home'"></app-insurance-policy-home>
+	</div>
 
 	<button class="btn btn-success" (click)="changePreviousTab()">Back</button>
 	<button class="btn btn-success pull-right" (click)="changeNextTab()">Next</button>

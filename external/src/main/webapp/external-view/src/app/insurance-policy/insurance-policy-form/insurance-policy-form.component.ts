@@ -42,7 +42,7 @@ export class InsurancePolicyFormComponent implements OnInit {
 		});
 		this.insurancePolicyForm.valueChanges.subscribe(value => {
            // console.log('Form changes', value)
-            if (this.insurancePolicyForm.valid && this.checkNumberOfPeople()) {
+           if (this.insurancePolicyForm.valid && this.checkNumberOfPeople()) {
                /* let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
                     value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
 
@@ -59,8 +59,8 @@ export class InsurancePolicyFormComponent implements OnInit {
 	submitPolicyForm(){
 		let value = this.insurancePolicyForm.value;
 		let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.duration,
-            value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
-        this.savePolicyRequest.emit(insurancePolicyRequest);
+			value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+		this.savePolicyRequest.emit(insurancePolicyRequest);
 		this.nextTab.emit(2);
 	}
 
@@ -68,7 +68,7 @@ export class InsurancePolicyFormComponent implements OnInit {
 	colorTheme = 'theme-green';
 	bsConfig: Partial<BsDatepickerConfig>;
 
-		applyTheme(pop: any) {
+	applyTheme(pop: any) {
 	    // create new object on each property change
 	    // so Angular can catch object reference change
 	    this.bsConfig = Object.assign({}, { containerClass: this.colorTheme });

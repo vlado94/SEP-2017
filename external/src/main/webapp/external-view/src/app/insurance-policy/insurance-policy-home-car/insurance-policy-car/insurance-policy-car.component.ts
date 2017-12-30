@@ -10,8 +10,8 @@ import { InsurancePolicyCar } from '../policy-car';
 export class InsurancePolicyCarComponent implements OnInit {
 	insurancePolicyCarForm: FormGroup;
 	@Output() setInsurancePolicyCar = new EventEmitter<InsurancePolicyCar>();
-    @Output() hideForm = new EventEmitter<string>();
-    current: InsurancePolicyCar = null;
+	@Output() hideForm = new EventEmitter<string>();
+	current: InsurancePolicyCar = null;
 
 	constructor() { 
 		this.insurancePolicyCarForm = new FormGroup({
@@ -39,26 +39,38 @@ export class InsurancePolicyCarComponent implements OnInit {
 	}
 
 	@Input()
-    set insurancePolicyCar(value: InsurancePolicyCar) {
-        this.current = value;
-        console.log("SETTOVANJE POLISE ZA AUTO");
-        if (value) {
-            this.insurancePolicyCarForm.setValue({
-                duration: value.duration,
-                paket: value.paket,
-                vehicle: value.vehicle,
-                typeOfVehicle: value.typeOfVehicle,
-                year: value.year,
-                registrationNumber: value.registrationNumber,
-                chassisNumber: value.chassisNumber,
-                firstName: value.firstName,
-                lastName: value.lastName,
-                jmbg: value.jmbg
-            })
-        }
-        else {
-            this.insurancePolicyCarForm.reset();
-        }
+	set insurancePolicyCar(value: InsurancePolicyCar) {
+		this.current = value;
+		console.log("SETTOVANJE POLISE ZA AUTO");
+		if (value) {
+			this.insurancePolicyCarForm.setValue({
+				duration: value.duration,
+				paket: value.paket,
+				vehicle: value.vehicle,
+				typeOfVehicle: value.typeOfVehicle,
+				year: value.year,
+				registrationNumber: value.registrationNumber,
+				chassisNumber: value.chassisNumber,
+				firstName: value.firstName,
+				lastName: value.lastName,
+				jmbg: value.jmbg
+			})
+		}
+		else {
+			this.insurancePolicyCarForm.reset();
+		}
+	}
+
+	submitCar(value: InsurancePolicyCar) {
+        //var policyCar: InsurancePolicyCar = null;
+       // if (value != null) {
+       	console.log("ubacivanje polise za auto")
+       	var policyCar = new InsurancePolicyCar(value.duration, value.paket, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
+       	this.setInsurancePolicyCar.emit(policyCar);
+       /* } else {
+            this.setInsurancePolicyCar.emit(null);
+        }*/
+
     }
 
 }

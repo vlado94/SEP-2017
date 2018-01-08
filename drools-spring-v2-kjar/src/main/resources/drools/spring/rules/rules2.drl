@@ -2,6 +2,7 @@
 package drools.spring.rules
 
 import model.request.InsurancePolicyRequest;
+import java.util.ArrayList;
 
 rule "Classify Item - High Range"
     when
@@ -14,10 +15,16 @@ rule "Classify Item - High Range"
 end
 
 
-
-
-
-
-
+rule "Grupni popust ( proba, veci od 1)"
+	lock-on-active true
+	when 
+		$i : InsurancePolicyRequest(this.persons.size > 1)
+		$list : ArrayList()
+	then
+		modify($list){
+			add(new Integer(10));
+		}
+		System.out.println("10 % na kolicinu");
+end
 
 

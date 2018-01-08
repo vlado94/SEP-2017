@@ -15,6 +15,7 @@ import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
 import da.priceListItem.PriceListItemRepository;
+import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.InsurancePolicyResponce;
 import model.request.PersonRequest;
@@ -205,6 +206,98 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		response.setJmbg(person.getJmbg());
 		
 		return response;
+	}
+
+	@Override
+	public Double calculateSuggestedPrice(InsurancePolicyCalculatePriceRequest policy) {
+		
+		double retVal = 0;
+		
+		PriceList last = priceListService.findCurrent();
+		/*ide na repo*/
+		List<PriceListItem> list = (ArrayList<PriceListItem>)priceListItemRepo.findAll();
+		List<PriceListItem> usableList = new ArrayList<>();
+		for (PriceListItem item : list) {
+			if(item.getPriceList().getId() == last.getId())
+				usableList.add(item);		
+		}
+		/*ovim sam dobila aktuelne stavke cenovnika*/
+		
+		/*hardodirano da je prvo za sport*/
+		/*cena dana polise bilo gde*/
+		int day = 100;
+		double pricePerDayForSportAndRegionAndCover;
+		double sportPer = 0;
+		double coverPer = 0;
+		double regPer = 0;
+		double sportBasePrice = 0;
+		double regBasePrice = 0;
+		double coverBasePrice = 0;
+		double agePer = 0; /*fali za godine*/
+		
+		for (PriceListItem item : usableList) {
+			if(item.getFactor().getId() == policy.getRegion()) {
+				regPer = item.getPercent(); 
+				regBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+			if(item.getFactor().getId() == policy.getSport()) {
+				sportPer = item.getPercent();
+				sportBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+			if(item.getFactor().getId() == policy.getAmount()) {
+				coverPer = item.getPercent();
+				coverBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+		}
+		
+		//ispraviti cjenovnike
+		if(regPer == 0)
+			regPer = 1;
+		if(sportPer == 0)
+			sportPer = 1;
+		if(agePer == 0)
+			agePer = 1;
+		
+		double sportPrice = sportBasePrice + sportBasePrice * sportPer/100;
+		double regionPrice = regBasePrice + regBasePrice * regPer/100;
+		double coverPrice = coverBasePrice + coverBasePrice * coverPer/100;
+		pricePerDayForSportAndRegionAndCover = sportPrice + regionPrice + coverPrice;
+		
+		/*upit na repo*/
+		List<PriceListItem> ageItems = new ArrayList<PriceListItem>();
+		
+		for (PriceListItem item : usableList) {
+			if(item.getFactor().getCategory().getId() == 2) {
+				ageItems.add(item);
+			}
+		}
+		List<Double> agePrices = new ArrayList<>(); 
+		for (PriceListItem priceListItem : ageItems) {
+			double baseForAge = priceListItem.getFactor().getCategory().getBasePrice();
+			double percentForAge = priceListItem.getPercent();
+			double agePrice = baseForAge +   baseForAge * percentForAge/100; 
+			
+			if(priceListItem.getFactor().getName().equals("0-16")) {
+				if(policy.getFirstAgeCategory() != 0)
+					agePrice = agePrice * policy.getFirstAgeCategory();
+			
+			}else if(priceListItem.getFactor().getName().equals("16-60")) {
+				if(policy.getSecondAgeCategory() != 0)
+					agePrice = agePrice * policy.getSecondAgeCategory();
+			}else {
+				if(policy.getThirdAgeCategory() != 0)
+					agePrice = agePrice * policy.getThirdAgeCategory();
+			}
+			agePrices.add(agePrice);
+		}
+		int numOfPersons = policy.getFirstAgeCategory() + policy.getSecondAgeCategory() + policy.getThirdAgeCategory();
+		retVal = numOfPersons * pricePerDayForSportAndRegionAndCover; 
+		
+		for(int i = 0; i< agePrices.size(); i++) {
+			retVal += agePrices.get(i);
+		}
+		
+		return retVal * policy.getDuration();
 	}
 
 	

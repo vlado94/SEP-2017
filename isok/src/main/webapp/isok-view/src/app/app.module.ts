@@ -21,6 +21,9 @@ import { InsurancePolicyFormComponent} from './insurance-policy/insurance-policy
 import {InsurancePolicyPersonComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person.component';
 import {InsurancePolicyPersonFormComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 import {InsurancePolicyPersonListComponent} from './insurance-policy/insurance-policy-person/insurance-policy-person-list/insurance-policy-person-list.component';
+import {InsurancePolicyHomeCar} from './insurance-policy/insurance-policy-home-car/insurance-policy-home-car.component';
+import {InsurancePolicyHomeForm} from './insurance-policy/insurance-policy-home-form/insurance-policy-home-form.component'; 
+import {InsurancePolicyCarForm} from './insurance-policy/insurance-policy-car-form/insurance-policy-car-form.component';
 
 import {InsurancePolicyService} from './insurance-policy/insurance-policy.service';
 import { KeycloakService } from './keycloak/service/keycloak.service';
@@ -58,6 +61,10 @@ import { RulesService} from './rules/rules.service';
         InsurancePolicyPersonComponent,
         InsurancePolicyPersonFormComponent,
         InsurancePolicyPersonListComponent,
+        InsurancePolicyHomeCar,
+        InsurancePolicyHomeForm,
+        InsurancePolicyCarForm,
+        
         RulesComponent
     ],
     imports: [
@@ -73,7 +80,7 @@ import { RulesService} from './rules/rules.service';
         ToastModule.forRoot()
     ],
     providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER,
-      KeycloakService, RulesService],
+         KeycloakService, RulesService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

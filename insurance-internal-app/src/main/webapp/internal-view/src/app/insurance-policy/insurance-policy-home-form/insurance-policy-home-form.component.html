@@ -1,0 +1,197 @@
+<form [formGroup]="insurancePolicyHomeForm"
+	(ngSubmit)="set(insurancePolicyHomeForm.value)">
+
+
+
+
+	<div class="form-group">
+		<label for="duration" class="col-12">Trajanje osiguranja:</label>
+		<div class="col-12">
+			<input id="duration" type="text" class="form-control"
+				formControlName="duration">
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['duration'].errors && !insurancePolicyHomeForm.controls['duration'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['duration'].errors.required">Morate
+				uneti duÅ¾inu trajanja osiguranja.</div>
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['duration'].errors.pattern">Morate
+				uneti ceo broj veÄ‡i od 0.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="size" class="col-12">Povrsina stana:</label>
+		<div class="col-12">
+			<select id="size" class="form-control" formControlName="size">
+				<option value="">Izaberite kvadraturu</option>
+				<option value="1">Do 50 m2</option>
+				<option value="2">Izmedju 50m2 i 100m2</option>
+				<option value="3">Preko 100m2</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['size'].errors && !insurancePolicyHomeForm.controls['size'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicyHomeForm.controls['size'].errors.required">Morate
+				izabrati velicinu stana.</div>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="age" class="col-12">Starost stana:</label>
+		<div class="col-12">
+			<select id="age" class="form-control"
+				formControlName="age">
+				<option value="">Izaberite starost stana</option>
+				<option value="1">Do 5 godina</option>
+				<option value="2">Izmedju 5 i 15 godina</option>
+				<option value="3">Preko 15 godina</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['age'].errors && !insurancePolicyHomeForm.controls['age'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['age'].errors.required">Morate
+				izabrati starost stana.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="value" class="col-12">Procenjena vrednost stana:</label>
+		<div class="col-12">
+			<select id="value" class="form-control"
+				formControlName="value">
+				<option value="">Izaberite procenjenu starost stana</option>
+				<option value="1">Do 100.000,00 eura</option>
+				<option value="2">Izmedju 100.000,00 i 200.00,00 eura</option>
+				<option value="3">Preko 200.00,00 eura</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['value'].errors && !insurancePolicyHomeForm.controls['value'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['value'].errors.required">Morate
+				izabrati procenjenu vrednost stana.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="risk" class="col-12">Stan se osigurava od:</label>
+		<div class="col-12">
+			<select id="risk" class="form-control"
+				formControlName="risk">
+				<option value="">Izaberite od Ä�ega se stan osigurava</option>
+				<option value="1">KraÄ‘e</option>
+				<option value="2">PoÅ¾ara</option>
+				<option value="3">Poplave</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['risk'].errors && !insurancePolicyHomeForm.controls['risk'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['risk'].errors.required">Morate
+				izabrati od Ä�ega osiguravate stan.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="address" class="col-12">Adresa:</label>
+		<div class="col-12">
+			<input id="address" type="text" class="form-control"
+				formControlName="address">
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['address'].errors && !insurancePolicyHomeForm.controls['address'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['address'].errors.required">Morate
+				uneti adresu stana</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="firstName" class="col-12">Ime vlasnika:</label>
+		<div class="col-12">
+			<input id="firstName" type="text" class="form-control"
+				formControlName="firstName">
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['firstName'].errors && !insurancePolicyHomeForm.controls['firstName'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['firstName'].errors.required">Morate
+				uneti ime.</div>
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['firstName'].errors.minlength">Prekratko
+				ime.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="lastName" class="col-12">Prezime vlasnika:</label>
+		<div class="col-12">
+			<input id="lastName" type="text" class="form-control"
+				formControlName="lastName">
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['lastName'].errors && !insurancePolicyHomeForm.controls['lastName'].pristine"
+			class="alert alert-danger">
+
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['lastName'].errors.required">Morate
+				uneti prezime.</div>
+			<div
+				*ngIf="insurancePolicyHomeForm.controls['lastName'].errors.minlength">Prekratko
+				prezime.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="jmbg" class="col-12">MatiÄ�ni broj vlasnika
+			stana:</label>
+		<div class="col-12">
+			<input id="jmbg" type="text" class="form-control"
+				formControlName="jmbg">
+		</div>
+		<div
+			*ngIf="insurancePolicyHomeForm.controls['jmbg'].errors && !insurancePolicyHomeForm.controls['jmbg'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicyHomeForm.controls['jmbg'].errors.required">Morate
+				uneti jedinstveni matiÄ�ni broj.</div>
+			<div *ngIf="insurancePolicyHomeForm.controls['jmbg'].errors.minlength">Jedinstveni
+				matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
+			<div *ngIf="insurancePolicyHomeForm.controls['jmbg'].errors.maxlength">Jedinstveni
+				matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
+		</div>
+	</div>
+
+	<div class="pull-right button" >
+		<button [disabled]="!insurancePolicyHomeForm.valid" class="btn btn-default" type="submit">Potvrdi</button>
+	</div>
+	<div class="pull-right button">
+		<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
+	</div>
+		<div class="pull-right button" [hidden]="!current">
+		<button class="btn btn-default" (click)="set(null)">OtkaÅ¾ite putno osiguranje</button>
+	</div>
+</form>
+
+<div class="price" *ngIf="price">
+	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi :
+		{{price}}</div>
+</div>

@@ -1,0 +1,95 @@
+<div class="row">
+	<div class="container">
+		<div class="col-sm-6">
+			<div class="card">
+				<div class="card-header" data-background-color="green">
+					<h4 class="title">Edit Profile</h4>
+					<p class="category">Complete your profile</p>
+				</div>
+				<div class="card-content">
+
+					<form [formGroup]="insurancePolicyHomeForm" (ngSubmit)="submitHome()">
+						
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Trajanje osiguranja</label>
+							<input id="duration" type="text" class="form-control" formControlName="duration">
+						</div>
+
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Povrsina stana</label>
+							<select id="size" class="form-control" formControlName="size">
+								<option></option>
+								<option value="1">Do 50 m2</option>
+								<option value="2">Izmedju 50m2 i 100m2</option>
+								<option value="3">Preko 100m2</option>
+							</select>
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Starost stana</label>
+							<select id="age" class="form-control" formControlName="age">
+								<option value="">Izaberite starost stana</option>
+								<option value="1">Do 5 godina</option>
+								<option value="2">Izmedju 5 i 15 godina</option>
+								<option value="3">Preko 15 godina</option>
+							</select>
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Starost stana</label>
+							<select id="value" class="form-control" formControlName="value">
+								<option value="">Izaberite procenjenu starost stana</option>
+								<option value="1">Do 100.000,00 eura</option>
+								<option value="2">Izmedju 100.000,00 i 200.00,00 eura</option>
+								<option value="3">Preko 200.00,00 eura</option>
+							</select>
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Starost stana</label>
+							<select id="risk" class="form-control" formControlName="risk">
+								<option value="">Izaberite od Ä�ega se stan osigurava</option>
+								<option value="1">KraÄ‘e</option>
+								<option value="2">PoÅ¾ara</option>
+								<option value="3">Poplave</option>
+							</select>
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Adresa</label>
+							<input id="address" type="text" class="form-control" formControlName="address">
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Ime vlasnika</label>
+							<input id="firstName" type="text" class="form-control" formControlName="firstName">
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">Prezime vlasnika</label>
+							<input id="lastName" type="text" class="form-control" formControlName="lastName">
+						</div>
+
+						<div class="form-group form-black label-floating is-empty">
+							<label class="control-label">JMBG vlasnika</label>
+							<input id="jmbg" type="text" class="form-control" formControlName="jmbg">
+						</div>
+
+						<div class="pull-right button" >
+							<button [disabled]="!insurancePolicyHomeForm.valid" class="btn btn-default" type="submit">Potvrdi</button>
+						</div>
+						<div class="pull-right button">
+							<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
+						</div>
+						<div class="pull-right button" [hidden]="!current">
+							<button class="btn btn-default" (click)="set(null)">OtkaÅ¾ite putno osiguranje</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

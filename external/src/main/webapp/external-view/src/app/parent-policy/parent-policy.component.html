@@ -1,0 +1,84 @@
+<!-- <div class="main-content">
+	<div class="container-fluid">
+		<div class="row">
+			<div class = "col-sm-12">
+
+				<div class="title unclickable-title col-sm-6">
+					<nav class="navbar navbar-default">
+						<ul class="nav navbar-nav" >
+							<li [ngClass]="{'currently-active' : active_tab==1, 'currently-inactive' : active_tab!=1}"><a href="#">Find a person</a></li>
+							<li [ngClass]="{'currently-active' : active_tab==2, 'currently-inactive' : active_tab!=2}"><a href="#">User data</a></li>
+						</ul>
+					</nav>
+				</div>
+
+				<div class="three-column">
+
+
+					<div id="tab-find" *ngIf="active_tab==1">
+						<div class="main-content">
+							<div class="container-fluid">
+								<app-policy></app-policy>
+								<a [ngClass]=" {'blue-button' : isNextAvaliable(), 'blue-button-disabled' : !isNextAvaliable()}" ng-click = "isNextAvaliable() ? nextTab() : ''">Next step</a>
+							</div>
+						</div>
+					</div>
+					<div *ngIf="active_tab==2">
+						<div class="main-content">
+							<div class="container-fluid">
+								<app-user-data></app-user-data>
+								<a [ngClass]=" {'blue-button' : isNextAvaliable(), 'blue-button-disabled' : !isNextAvaliable()}" ng-click = "isNextAvaliable() ? nextTab() : ''">Next step</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+ -->
+
+ <div class="parallax-window" data-parallax="scroll" data-image-src="assets/img/1920x1080/01.jpg">
+	<div class="parallax-content container">
+		<h1 class="carousel-title">Product Pricing</h1>
+		<p>Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br/> enim minim estudiat veniam siad venumus dolore</p>
+	</div>
+</div>
+
+
+ <div class="container">
+    <div class="stepper">
+        <div class="stepper-steps">
+            <div [ngClass]="{'stepper-step-isActive' : active_tab==1, 'stepper-step' : active_tab!=1}">
+                <div class="stepper-stepContent">
+                    <span class="stepper-stepMarker">1</span>Step Title Here
+                </div>
+            </div>
+            <div [ngClass]="{'stepper-step-isActive' : active_tab==2, 'stepper-step' : active_tab!=2}">
+                <div class="stepper-stepContent">
+                    <span class="stepper-stepMarker">2</span>Step Title Here
+                </div>
+            </div>
+            <div class="stepper-step">
+                <div class="stepper-stepContent">
+                    <span class="stepper-stepMarker">3</span>Step Title Here
+                </div>
+            </div>
+        </div>
+        <div class="stepper-content">
+            <div class="stepper-actions">
+            	<div *ngIf="active_tab==1">
+            		<app-policy></app-policy>
+            	</div>
+            	<div *ngIf="active_tab==2">
+            		<app-user-data></app-user-data>
+            	</div>
+                <a href="" class="btn btn-default btn-lg btn-simple mbn">Back</a>
+                <a href="" class="btn btn-info btn-lg btn-simple pull-right mbn">Continue</a>
+            </div>
+        </div>
+    </div>
+
+</div>

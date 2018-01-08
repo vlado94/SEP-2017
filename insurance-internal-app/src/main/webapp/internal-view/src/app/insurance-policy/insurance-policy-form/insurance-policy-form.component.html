@@ -1,0 +1,149 @@
+<form class="form-horizontal" [formGroup]="insurancePolicy"
+	(ngSubmit)="onSubmit(insurancePolicy)">
+
+	<div class="form-group">
+		<label for="startDate" class="col-1">Od:</label>
+		<div class="col-6">
+			<input id="startDate" type="date" class="form-control"
+				formControlName="startDate">
+		</div>
+		<div
+			*ngIf="insurancePolicy.controls['startDate'].errors && !insurancePolicy.controls['startDate'].pristine"
+			class="alert alert-danger col-6">
+
+			<div
+				*ngIf="insurancePolicy.controls['startDate'].errors.dateValidator">Datum
+				ne može biti manji od današnjeg datuma.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="duration" class="col-6">Trajanje(u danima):</label>
+		<div class="col-6">
+			<input id="duration" type="text" class="form-control"
+				formControlName="duration">
+		</div>
+
+		<div
+			*ngIf="insurancePolicy.controls['duration'].errors && !insurancePolicy.controls['duration'].pristine"
+			class="alert alert-danger col-6">
+
+			<div *ngIf="insurancePolicy.controls['duration'].errors.required">Morate
+				uneti trajanje putovanja u danima.</div>
+			<div *ngIf="insurancePolicy.controls['duration'].errors.pattern">Neispravan
+				unos. Unesite broj.</div>
+			<div
+				*ngIf="insurancePolicy.controls['duration'].errors.numberOfPersonsValidator">Trajanje
+				putvanja mora biti bar jedan dan.</div>
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="typeOfPolicy" class="col-6">Tip polise:</label>
+		<div class="col-6">
+			<select id="typeOfPolicy" class="form-control"
+				formControlName="typeOfPolicy">
+				<option value="">Izaberite vrstu polise</option>
+				<option value="1">Poslovna</option>
+				<option value="2">Ne znam koja je druga</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicy.controls['typeOfPolicy'].errors && !insurancePolicy.controls['typeOfPolicy'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicy.controls['typeOfPolicy'].errors.required">Morate
+				izabrati tip polise koji želite da kupite.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="numberOfPersonsUpTo16" class="col-6">Broj putnika
+			uzrasta do 16 godina:</label>
+		<div class="col-6">
+			<input id="numberOfPersonsUpTo16" type="text" class="form-control"
+				formControlName="numberOfPersonsUpTo16">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="numberOfPersonsBetween16And60" class="col-6">Broj
+			putnika uzrasta izmedju 16 i 60 godina:</label>
+		<div class="col-6">
+			<input id="numberOfPersonsBetween16And60" type="text"
+				class="form-control" formControlName="numberOfPersonsBetween16And60">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="numberOfPersonsOver60" class="col-6">Broj putnika
+			uzrasta preko 60 godina:</label>
+		<div class="col-6">
+			<input id="numberOfPersonsOver60" type="text" class="form-control"
+				formControlName="numberOfPersonsOver60">
+		</div>
+	</div>
+	<div class="alert alert-danger"
+		*ngIf="(!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
+		 !insurancePolicy.controls['numberOfPersonsBetween16And60'].pristine ||
+		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()">
+		  	Morate uneti bar jednog putnika.
+	</div>
+	<div class="form-group">
+		<label for="duration" class="col-6">Region:</label>
+		<div class="col-6">
+			<select id="region" class="form-control" formControlName="region">
+				<option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
+			</select>
+		</div>
+	</div>
+
+
+	<div class="form-group">
+		<label for="amount" class="col-6">Iznos do kog se korisnici
+			osiguravaju:</label>
+		<div class="col-6">
+			<select id="amount" class="form-control" formControlName="amount">
+				<option value="">Izaberite iznos</option>
+				<option value="1">100.000,00</option>
+				<option value="2">200.000,00</option>
+				<option value="3">300.000,00</option>
+				<option value="4">400.000,00</option>
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicy.controls['amount'].errors && !insurancePolicy.controls['amount'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicy.controls['amount'].errors.required">Morate
+				izabrati iznos do kog je korisnik polise osiguran.</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="sport" class="col-6">Sport kojim se korisnik
+			namerava baviti:</label>
+		<div class="col-6">
+			<select id="sport" class="form-control" formControlName="sport">
+				<option value="">Izaberite sport</option>
+				<option *ngFor="let s of sports" value="{{s.id}}">{{s.name}}</option>
+
+			</select>
+		</div>
+		<div
+			*ngIf="insurancePolicy.controls['sport'].errors && !insurancePolicy.controls['sport'].pristine"
+			class="alert alert-danger">
+
+			<div *ngIf="insurancePolicy.controls['sport'].errors.required">Morate
+				izabrati sport kojim korisnik namerava da se bavi.</div>
+		</div>
+	</div>
+	<button type="submit"
+		[disabled]="!insurancePolicy.valid || !checkNumberOfPeople()"
+		class="btn btn-default fixed-right">Dalje</button>
+</form>
+
+<div class="price" *ngIf="price">
+	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi :
+		{{price}}</div>
+</div>

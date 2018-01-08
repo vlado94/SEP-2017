@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 rule "Classify Item - High Range"
     when
-        $i: InsurancePolicyRequest( this.duration > 6, this.amount==null)
+        $i: InsurancePolicyRequest( this.duration > 2, this.amount==null)
     then
     	modify($i){
     		setAmount((long)100000);
@@ -26,5 +26,4 @@ rule "Grupni popust ( proba, veci od 1)"
 		}
 		System.out.println("10 % na kolicinu");
 end
-
 

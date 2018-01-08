@@ -1,0 +1,87 @@
+.content-wrapper {
+	background : #eaeaea !important;
+}
+.navbar-sidenav {
+	border-top : 1px solid #ccc !important;
+}
+
+.borderDiv {
+	background : #fff;
+    border: 2px solid #ccc;
+	padding : 15px;
+	margin-bottom: 15px;
+	-webkit-box-shadow: 1px 3px 16px 1px rgba(140,140,140,1);
+	-moz-box-shadow: 1px 3px 16px 1px rgba(140,140,140,1);
+	box-shadow: 1px 3px 16px 1px rgba(140,140,140,1);
+}
+
+.btn,.btn:hover {
+	cursor : pointer;
+	border : 1px solid black !important;
+	background : #ccc;
+	color : black;	
+	padding-right : -15px;
+}
+
+.buttons button{	
+	margin-left : 10px;
+}
+
+.leftMargin {
+	margin-right : 5px;
+	margin-left : 5px;
+}
+
+.floatRight {
+	float : right;
+}
+
+
+.container-fluid {
+	padding-bottom : 10px;
+}
+
+.scroll-to-top { 
+	display : block !important;	
+}
+
+.appTable th {
+	border-bottom : 3px solid #ccc !important;
+}
+
+
+.appTable tr {
+	border-bottom : 2px solid #ccc !important;
+}
+
+.appTable {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+	cursor : pointer;
+}
+.appTable  thead {
+    flex: 0 0 auto;
+    width: calc(100% - 0.9em);
+}
+.appTable  tbody {
+    flex: 1 1 auto;
+    display: block;
+    overflow-y: scroll;
+}
+.appTable  tbody tr {
+    width: 100%;
+}
+.appTable  thead, .appTable  tbody tr {
+    display: table;
+    table-layout: fixed;
+}
+
+.table-bordered {
+    height: 200px;
+}
+
+.idColumn {
+	width : 10%;
+}

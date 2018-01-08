@@ -1,0 +1,20 @@
+.car-button{
+	height: 100px !important;
+	width:255px;
+}
+
+.vertical{
+	padding-top:20% !important;
+}
+
+.fixed-left{
+	position:fixed;
+	bottom:100px;
+	left:15%;
+}
+
+.fixed-right{
+	position:fixed;
+	bottom:100px;
+	right:2%;
+}

@@ -1,0 +1,34 @@
+<div class="row">
+	<div class="col-4 offset-2 vertical" [hidden]="activeForm">
+		<button class="btn car-button" (click)="showForm('2')">Kupovina
+			osiguranja automobila</button>
+	</div>
+
+	<div class="col-4 vertical" [hidden]="activeForm">
+		<button class="btn btn default car-button" (click)="showForm('1')">Kupovina
+			osiguranja kuce</button>
+	</div>
+
+	<div class="col-12">
+		<app-insurance-policy-car-form
+			[insurancePolicyCar]="insurancePolicyCar" [price]="carInsurancePrice"
+			(calculatePrice)="calculatePriceCarInsurance($event)"
+			(setInsurancePolicyCar)="setInsurancePolicyCar($event)"
+			(hideForm)="showForm($event)" [hidden]="activeForm != '2'"></app-insurance-policy-car-form>
+	</div>
+	<div class="col-12">
+		<app-insurance-policy-home-form
+			[insurancePolicyHome]="insurancePolicyHome"
+			[price]="homeInsurancePrice"
+			(calculatePrice)="calculatePriceHomeInsurance($event)"
+			(setInsurancePolicyHome)="setInsurancePolicyHome($event)"
+			(hideForm)="showForm($event)" [hidden]="activeForm != '1'"></app-insurance-policy-home-form>
+	</div>
+
+
+	<button class="btn fixed-left" (click)="changeTab('2')">Nazad</button>
+
+	<button class="btn fixed-right" (click)="changeTab('4')">Dalje</button>
+
+</div>
+

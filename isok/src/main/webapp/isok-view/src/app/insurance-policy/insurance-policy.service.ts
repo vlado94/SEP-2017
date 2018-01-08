@@ -25,8 +25,8 @@ export class InsurancePolicyService {
 
     }
 
-    calculatePrice(insurancePolicyCalculatePriceRequest:InsurancePolicyCalculatePriceRequest) {
-        return this.http.post(this.apiUrl+"/calculatePrice",insurancePolicyCalculatePriceRequest).map(res=>res.json());
+    calculateSuggestedPrice(insurancePolicyCalculatePriceRequest:InsurancePolicyCalculatePriceRequest) {
+        return this.http.post(this.apiUrl+"/calculateSuggestedPrice",insurancePolicyCalculatePriceRequest).map(res=>res.json());
     }
 
     create(insurancePolicy: InsurancePolicyRequest) {

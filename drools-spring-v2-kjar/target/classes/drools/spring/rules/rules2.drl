@@ -3,6 +3,9 @@ package drools.spring.rules
 
 import model.request.InsurancePolicyRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.time.LocalDate;
+import isok.isok.rules.Popust;
 
 rule "Classify Item - High Range"
     when
@@ -19,11 +22,24 @@ rule "Grupni popust ( proba, veci od 1)"
 	lock-on-active true
 	when 
 		$i : InsurancePolicyRequest(this.persons.size > 1)
-		$list : ArrayList()
+		$lista : ArrayList()
 	then
-		modify($list){
-			add(new Integer(10));
+		modify($lista){
+			add(new Popust("na kolicinu",10));
 		}
 		System.out.println("10 % na kolicinu");
 end
+
+
+rule "Popust na datum"
+	lock-on-active true
+	when
+		$i : InsurancePolicyRequest(this.getStartDate().isAfter(LocalDate.of(2018,2,2)))
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("februarski popust",11));	
+		}
+		System.out.println("11% na februar");
+end	
 

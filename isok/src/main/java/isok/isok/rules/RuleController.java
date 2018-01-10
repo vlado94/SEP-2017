@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.maven.cli.MavenCli;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ public class RuleController {
 		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",62l,false, "fjass@sdha");
 		policy.getPersons().add(person1);
 		policy.getPersons().add(person2);
-		
+		policy.setStartDate(LocalDate.of(2018, 1, 1));
 		policy.setRegion(9l);
 		policy.setSport(1l);
 		//policy.setAmount(15l);

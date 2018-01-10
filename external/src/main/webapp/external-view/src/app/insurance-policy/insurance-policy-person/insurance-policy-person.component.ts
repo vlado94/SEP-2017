@@ -10,9 +10,10 @@ export class InsurancePolicyPersonComponent implements OnInit {
 
 	@Input() expectedNumbersByAgeCategories;
 	currentPerson: InsurancePolicyPersonRequest;
-	persons: InsurancePolicyPersonRequest[] = [];
+	@Input() persons: InsurancePolicyPersonRequest[] = [];
 	@Output() nextTab = new EventEmitter<number>();
 	@Output() previousTab = new EventEmitter<number>();
+	@Output() addPerson = new EventEmitter<InsurancePolicyPersonRequest[]>();
 	under16: number = 0;
     between16an60: number = 0;
     over16: number = 0;
@@ -26,17 +27,19 @@ export class InsurancePolicyPersonComponent implements OnInit {
 
 	}
 
-	addPerson(value: InsurancePolicyPersonRequest){
+	pushPerson(value: InsurancePolicyPersonRequest){
 		this.persons.push(value);
 		this.getAgeFromPersonNo(value.personNo);
 		console.log("ubacen korisnik");
+		this.addPerson.emit(this.persons);
 		//this.isNumberOfPersonsByAgeCorrect();
 		this.increasePersonAgeCategory(this.getAgeFromPersonNo(value.personNo));
 	}
 
 	selectForUpdate(insurancePolicyPersonRequest: InsurancePolicyPersonRequest){
-		console.log("policy edit");
+		//console.log("policy edit");
 		this.currentPerson = insurancePolicyPersonRequest;
+		console.log("policy edit " + this.currentPerson);
 	}
 
 	deletePerson(insurancePolicyPersonRequest: InsurancePolicyPersonRequest){

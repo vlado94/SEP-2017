@@ -1,4 +1,3 @@
-
 <div class="row">
 	<div class="container">
 		<div class="col-sm-6">
@@ -12,7 +11,7 @@
 					<form [formGroup]="insurancePolicyCarForm" (ngSubmit)="submitCar()">
 						
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label for="duration" class="control-label">Trajanje osiguranja</label>
 							<input id="duration" type="text" class="form-control" formControlName="duration">
 							<div *ngIf="insurancePolicyCarForm.controls['duration'].errors && !insurancePolicyCarForm.controls['duration'].pristine">
@@ -23,7 +22,7 @@
 						</div>
 
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Izaberite paket:</label>
 							<select id="paket" class="form-control" formControlName="paket">
 								<option></option>
@@ -40,7 +39,7 @@
 
 
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="bmd-label-floating control-label">Tip vozila</label>
 							<select id="typeOfVehicle" class="form-control"	formControlName="typeOfVehicle">
 								<option></option>
@@ -55,7 +54,7 @@
 							</div>
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Marka vozila</label>
 							<input id="vehicle" type="text" class="form-control" formControlName="vehicle">
 							<div *ngIf="insurancePolicyCarForm.controls['vehicle'].errors && !insurancePolicyCarForm.controls['vehicle'].pristine">
@@ -65,7 +64,7 @@
 
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Godiste automobila:</label>
 							<input id="year" type="text" class="form-control" formControlName="year">
 							<div *ngIf="insurancePolicyCarForm.controls['year'].errors && !insurancePolicyCarForm.controls['year'].pristine">
@@ -76,7 +75,7 @@
 
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Registarska oznaka vozila</label>
 							<input id="registrationNumber" type="text" class="form-control" formControlName="registrationNumber">
 							<div *ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors && !insurancePolicyCarForm.controls['registrationNumber'].pristine">
@@ -85,7 +84,7 @@
 							</div>
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Broj sasije</label>
 							<input id="chassisNumber" type="text" class="form-control" formControlName="chassisNumber">
 							<div *ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors && !insurancePolicyCarForm.controls['chassisNumber'].pristine">
@@ -95,19 +94,19 @@
 
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Ime vlasnika</label>
 							<input id="firstName" type="text" class="form-control" formControlName="firstName">
 
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">Prezime vlasnika</label>
 							<input id="lastName" type="text" class="form-control" formControlName="lastName">
 
 						</div>
 
-						<div class="form-group form-black label-floating is-empty">
+						<div class="form-group form-black label-floating">
 							<label class="control-label">JMBG vlasnika</label>
 							<input id="jmbg" type="text" class="form-control" formControlName="jmbg">
 
@@ -120,7 +119,7 @@
 							<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
 						</div>
 						<div class="pull-right button" [hidden]="!current">
-							<button class="btn btn-default" (click)="set(null)">OtkaÅ¾ite putno osiguranje</button>
+							<button class="btn btn-default" (click)="set(null)">Otkazite putno osiguranje</button>
 						</div>
 
 

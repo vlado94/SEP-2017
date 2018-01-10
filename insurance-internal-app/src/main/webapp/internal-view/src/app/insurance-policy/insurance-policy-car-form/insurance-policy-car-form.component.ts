@@ -6,6 +6,9 @@ import {InsurancePolicyCarRequest} from './insurance-policy-car-request';
 import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-calculate-price-request';
 import {InsurancePolicyService} from '../insurance-policy.service';
 
+import { FactorService } from "../../factor/factor.service";
+import { Factor } from '../../factor/factor';
+
 @Component({
     selector: 'app-insurance-policy-car-form',
     templateUrl: './insurance-policy-car-form.component.html',
@@ -20,7 +23,8 @@ import {InsurancePolicyService} from '../insurance-policy.service';
     declarations: [ // components for use in THIS module
     ],
     providers: [ // singleton services
-        InsurancePolicyService
+        InsurancePolicyService,
+        FactorService
     ]
 })
 
@@ -29,11 +33,11 @@ export class InsurancePolicyCarForm {
     @Output() setInsurancePolicyCar = new EventEmitter<InsurancePolicyCarRequest>();
     @Output() hideForm = new EventEmitter<string>();
     @Output() calculatePrice = new EventEmitter<InsurancePolicyCarCalculatePriceRequest>();
-
     @Input() price;
 
+    paketi: Factor[];
     current: InsurancePolicyCarRequest = null;
-    constructor(private insurancePolicyService: InsurancePolicyService) {
+    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
         this.insurancePolicyCarForm = new FormGroup({
             duration: new FormControl('', [
                 Validators.required,
@@ -57,6 +61,8 @@ export class InsurancePolicyCarForm {
 
     ngOnInit() {
         this.insurancePolicyCarForm.reset();
+        this.insurancePolicyCarForm.controls['paket'].setValue('');
+        this.insurancePolicyCarForm.controls['typeOfVehicle'].setValue('');
 
         this.insurancePolicyCarForm.valueChanges.subscribe(value => {
             console.log('Car form changes!!!!!!!!!!!!!!!!!!!!!!!', value)
@@ -68,6 +74,10 @@ export class InsurancePolicyCarForm {
             }
         })
 
+        this.factorService.findByCategory(6)
+            .subscribe(paketi => {
+                this.paketi = paketi;
+            })
     }
 
     @Input()
@@ -90,6 +100,9 @@ export class InsurancePolicyCarForm {
         }
         else {
             this.insurancePolicyCarForm.reset();
+            this.insurancePolicyCarForm.controls['paket'].setValue('');
+            this.insurancePolicyCarForm.controls['typeOfVehicle'].setValue('');
+
         }
     }
 

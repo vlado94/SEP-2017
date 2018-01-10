@@ -67,7 +67,8 @@ export class InsurancePolicyFormComponent {
     regions: Factor[];
     sports: Factor[];
     agesCategory: Factor[];
-
+    amounts: Factor[];
+    types: Factor[];
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 
@@ -96,6 +97,7 @@ export class InsurancePolicyFormComponent {
             .subscribe(regions => {
                 this.regions = regions;
             })
+
         this.factorService.findByCategory(1)
             .subscribe(sports => {
                 this.sports = sports;
@@ -104,6 +106,16 @@ export class InsurancePolicyFormComponent {
         this.factorService.findByCategory(2)
             .subscribe(agesCategory => {
                 this.agesCategory = agesCategory;
+            })
+
+        this.factorService.findByCategory(4)
+            .subscribe(types => {
+                this.types = types;
+            })
+
+        this.factorService.findByCategory(5)
+            .subscribe(amounts => {
+                this.amounts = amounts;
             })
         this.insurancePolicy.valueChanges.subscribe(value => {
             console.log('Form changes', value)

@@ -11,7 +11,7 @@ import { InsurancePolicyHome } from '../policy-home';
 export class InsurancePolicyHomeComponent {
 
 	insurancePolicyHomeForm: FormGroup;
-	current: InsurancePolicyHome = null;
+	@Input() current: InsurancePolicyHome;
 
 	@Output() setInsurancePolicyHome = new EventEmitter<InsurancePolicyHome>();
 
@@ -45,7 +45,22 @@ export class InsurancePolicyHomeComponent {
 	}
 
 	ngOnInit() {
-	}
+	    if(this.current){
+            var value = this.current;
+            this.insurancePolicyHomeForm.setValue({
+                duration: value.duration,
+                size: value.size,
+                age: value.age,
+                risk: value.risk,
+                value: value.value,
+                address: value.address,
+                firstName: value.firstName,
+                lastName: value.lastName,
+                jmbg: value.jmbg
+            })
+        }
+    }
+
 
 	@Input()
     set insurancePolicyHome(value: InsurancePolicyHome) {
@@ -69,15 +84,16 @@ export class InsurancePolicyHomeComponent {
         }
     }
 
-    set(value) {
+    submitHome(value) {
         var policyHome: InsurancePolicyHome = null;
         if (value != null) {
             policyHome = new InsurancePolicyHome(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.jmbg);
             this.setInsurancePolicyHome.emit(policyHome);
         } else {
-            this.setInsurancePolicyHome.emit(null);
+            policyHome = this.insurancePolicyHomeForm.value;
+            this.setInsurancePolicyHome.emit(policyHome);
         }
-
+        this.hideForm.emit(null);
         this.insurancePolicyHomeForm.reset();
     }
 

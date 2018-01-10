@@ -13,7 +13,7 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 	@Output() addPerson = new EventEmitter<InsurancePolicyPersonRequest>();
 	insurancePolicyPersonForm: FormGroup;
 	contractorAdded: boolean = false;
-	@Input() currentPerson;
+    currentPerson: InsurancePolicyPersonRequest;
 
 	constructor() { }
 
@@ -45,12 +45,30 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 			email: new FormControl('', [
 				]),
 		})
-		//this.checkCurrentPerson();
 
+		//this.checkCurrentPerson();
 
 		//this.contractorExists();
 	}
 
+/*	currentPersonExist(){
+		if(this.currentPerson){
+			var value = this.currentPerson;
+			this.insurancePolicyPersonForm.setValue({
+				firstName: value.fistName,
+				lastName: value.lastName,
+				personNo: value.personNo,
+				passportNo: value.passportNo,
+				address: value.address,
+				phoneNo: value.phoneNo,
+				contractor: value.contractor.toString(),
+				email: value.email
+			})
+		}
+			console.log("current person " + this.currentPerson.value);
+
+	}
+*/
 	addPersonForm(){
 		let value = this.insurancePolicyPersonForm.value;
 		let newPerson: InsurancePolicyPersonRequest = new InsurancePolicyPersonRequest(value.firstName, value.lastName, value.personNo, value.passportNo,
@@ -78,6 +96,7 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
     @Input()
     set current(person: InsurancePolicyPersonRequest) {
         this.currentPerson = person;
+        console.log("set current" + JSON.stringify(this.currentPerson))
         if (person) {
             this.insurancePolicyPersonForm.setValue({
                 firstName: this.currentPerson.firstName,

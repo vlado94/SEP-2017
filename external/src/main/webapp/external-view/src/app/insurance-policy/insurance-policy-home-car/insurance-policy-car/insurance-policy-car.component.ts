@@ -61,7 +61,9 @@ export class InsurancePolicyCarComponent implements OnInit {
 		}
 	}
 
-	submitCar(value: InsurancePolicyCar) {
+	submitCar(value) {
+		if(!value)
+			value = this.insurancePolicyCarForm.value;
         //var policyCar: InsurancePolicyCar = null;
        // if (value != null) {
        	console.log("ubacivanje polise za auto")

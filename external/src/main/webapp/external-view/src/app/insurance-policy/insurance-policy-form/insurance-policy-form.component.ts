@@ -13,7 +13,7 @@ export class InsurancePolicyFormComponent implements OnInit {
 	insurancePolicyForm: FormGroup;
 	@Output() nextTab = new EventEmitter<number>();
 	@Output() savePolicyRequest = new EventEmitter<InsurancePolicyRequest>();
-
+	@Input() currentInsurancePolicy;
 	constructor() { }
 
 	ngOnInit() {
@@ -40,6 +40,25 @@ export class InsurancePolicyFormComponent implements OnInit {
 				Validators.required
 				]),
 		});
+
+		if(this.currentInsurancePolicy){
+			
+			var value = this.currentInsurancePolicy;
+
+			this.insurancePolicyForm.setValue({
+				startDate: value.startDate,
+				duration: value.duration,
+				typeOfPolicy: value.typeOfPolicy,
+				numberOfPersons: value.numberOfPersons,
+				numberOfPersonsUpTo16: value.firstAgeCategory,
+				numberOfPersonsBetween16And60: value.secondAgeCategory,
+				numberOfPersonsOver60: value.thirdAgeCategory,
+				region: value.region,
+				sport: value.sport,
+				amount: value.amount
+			})
+		}
+
 		this.insurancePolicyForm.valueChanges.subscribe(value => {
            // console.log('Form changes', value)
            if (this.insurancePolicyForm.valid && this.checkNumberOfPeople()) {

@@ -15,6 +15,8 @@ export class InsurancePolicyPersonTableComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
+		if(this.persons)
+			console.log("persons " + this.persons);
 	}
 
 	deletePersonFromList(person: InsurancePolicyPersonRequest){

@@ -6,13 +6,13 @@
 	<div class="card-content">
 		<form novalidate [formGroup]="insurancePolicyPersonForm" (ngSubmit)="addPersonForm()">
 			<div>
-				<div class="form-group form-black label-floating is-empty">
+				<div class="form-group form-black label-floating">
 					<label class="control-label">Ime</label>
 					<input type="text" class="form-control" formControlName="firstName">
 				</div>
 			</div>
 			<div>
-				<div class="form-group form-black label-floating is-empty">
+				<div class="form-group form-black label-floating">
 					<label class="control-label">Prezime</label>
 					<input type="text" class="form-control" formControlName="lastName">
 				</div>
@@ -31,32 +31,32 @@
 					</div>
 
 				<div *ngIf="insurancePolicyPersonForm.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
-					class="form-group form-black label-floating is-empty">
+					class="form-group form-black label-floating">
 					<label for="email" class="control-label">Email ugovarača:</label>
 					<input id="email" type="email" class="form-control" formControlName="email" />
 
 				</div>
 
 				<div>
-					<div class="form-group form-black label-floating is-empty">
+					<div class="form-group form-black label-floating">
 						<label class="control-label">JMBG</label>
 						<input type="text" class="form-control" formControlName="personNo">
 					</div>
 				</div>
 				<div>
-					<div class="form-group form-black label-floating is-empty">
+					<div class="form-group form-black label-floating">
 						<label class="control-label">Broj pasosa</label>
 						<input type="text" class="form-control" formControlName="passportNo" >
 					</div>
 				</div>
 				<div>
-					<div class="form-group form-black label-floating is-empty">
+					<div class="form-group form-black label-floating">
 						<label class="control-label">Adresa</label>
 						<input type="text" class="form-control" formControlName="address">
 					</div>
 				</div>
 				<div>
-					<div class="form-group form-black label-floating is-empty">
+					<div class="form-group form-black label-floating">
 						<label class="control-label">Broj telefona</label>
 						<input type="text" class="form-control" formControlName="phoneNo" > 
 					</div>

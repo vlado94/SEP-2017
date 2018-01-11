@@ -1,18 +1,14 @@
-/*package isok.isok.rules;
+package isok.isok.rules;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
-import java.util.Arrays;
-import java.util.List;
-
-import javax.ws.rs.Consumes;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 
 import org.apache.maven.cli.MavenCli;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.net.MediaType;
 import model.request.InsurancePolicyRequest;
+import model.request.PersonRequest;
 
 @RestController
 @RequestMapping("/rules")
@@ -40,9 +36,18 @@ public class RuleController {
 	
 	@GetMapping
 	private InsurancePolicyRequest getRule() {		
-		InsurancePolicyRequest newItem = new InsurancePolicyRequest();
-		newItem.setDuration(6);
-		InsurancePolicyRequest i2 = ruleService.getClassifiedItem(newItem);
+		InsurancePolicyRequest policy = new InsurancePolicyRequest();
+		policy.setDuration(6);
+		policy.setPersons(new ArrayList<>());
+		PersonRequest person1 = new PersonRequest("Jovan","Jovanovic","1212994156225","12563","adress","06451145",28l,false, "fjass@sdha");
+		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",62l,false, "fjass@sdha");
+		policy.getPersons().add(person1);
+		policy.getPersons().add(person2);
+		policy.setStartDate(LocalDate.of(2018, 1, 1));
+		policy.setRegion(9l);
+		policy.setSport(1l);
+		//policy.setAmount(15l);
+		InsurancePolicyRequest i2 = ruleService.getClassifiedItem(policy);
 		return i2;		
 	}	
 	
@@ -72,9 +77,9 @@ public class RuleController {
 
 	            // Always close files.
 	            bufferedReader.close();
-	           
+	           */
 				FileInputStream fis = new FileInputStream(f);
-	          /*  byte[] data = new byte[(int) f.length()];
+	            byte[] data = new byte[(int) f.length()];
 	            fis.read(data);
 	            fis.close();
 	
@@ -114,7 +119,7 @@ public class RuleController {
 				System.out.println("check1");
 		        p.waitFor();
 		        System.out.println("check2");*/
-				/*MavenCli cli = new MavenCli();
+				MavenCli cli = new MavenCli();
 				System.out.println("before");
 				cli.doMain(new String[]{"install"}, s, System.out, null);
 				System.out.println("after");
@@ -126,6 +131,6 @@ public class RuleController {
 		
 		return true;
 	}
-}*/
+}
 
 

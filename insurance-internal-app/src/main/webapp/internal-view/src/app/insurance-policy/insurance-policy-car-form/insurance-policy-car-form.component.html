@@ -4,9 +4,9 @@
 
 
 
-	<div class="form-group">
-		<label for="duration" class="col-12">Trajanje osiguranja:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="duration" class="col-3">Trajanje osiguranja:</label>
+		<div class="col-7">
 			<input id="duration" type="text" class="form-control"
 				formControlName="duration">
 		</div>
@@ -16,22 +16,19 @@
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['duration'].errors.required">Morate
-				uneti duÅ¾inu trajanja osiguranja.</div>
+				uneti dužinu trajanja osiguranja.</div>
 			<div
 				*ngIf="insurancePolicyCarForm.controls['duration'].errors.pattern">Morate
-				uneti ceo broj veÄ‡i od 0.</div>
+				uneti ceo broj veći od 0.</div>
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="paket" class="col-12">Izaberite paket:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="paket" class="col-3">Izaberite paket:</label>
+		<div class="col-7">
 			<select id="paket" class="form-control" formControlName="paket">
-				<option value="">Izaberite tip vozila</option>
-				<option value="1">Å lepovanje do odreÄ‘ene kilometraÅ¾e</option>
-				<option value="2">Popravka do odreÄ‘ene cene</option>
-				<option value="3">SmeÅ¡taj u hotelu do odreÄ‘enog broja dana</option>
-				<option value="4">Alternativni prevoz</option>
+				<option value="">Izaberite paket</option>
+				<option *ngFor="let t of paketi" value="{{t.id}}">{{t.name}}</option>
 			</select>
 		</div>
 		<div
@@ -44,15 +41,15 @@
 	</div>
 
 
-	<div class="form-group">
-		<label for="typeOfVehicle" class="col-12">Tip vozila:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="typeOfVehicle" class="col-3">Tip vozila:</label>
+		<div class="col-7">
 			<select id="typeOfVehicle" class="form-control"
 				formControlName="typeOfVehicle">
 				<option value="">Izaberite tip vozila</option>
 				<option value="1">Teretno vozilo</option>
-				<option value="2">PrikljuÄ�no vozila</option>
-				<option value="3">PutniÄ�ko vozilo</option>
+				<option value="2">Priključno vozila</option>
+				<option value="3">Putničko vozilo</option>
 				<option value="4">Ostala vozila</option>
 			</select>
 		</div>
@@ -66,9 +63,9 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="vehicle" class="col-12">Marka vozila:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="vehicle" class="col-3">Marka vozila:</label>
+		<div class="col-7">
 			<input id="vehicle" type="text" class="form-control"
 				formControlName="vehicle">
 		</div>
@@ -82,9 +79,9 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="year" class="col-12">GodiÅ¡te automobila:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="year" class="col-3">Godište automobila:</label>
+		<div class="col-7">
 			<input id="year" type="text" class="form-control"
 				formControlName="year">
 		</div>
@@ -93,16 +90,16 @@
 			class="alert alert-danger">
 
 			<div *ngIf="insurancePolicyCarForm.controls['year'].errors.required">Morate
-				uneti godiÅ¡te automobila.</div>
+				uneti godište automobila.</div>
 			<div *ngIf="insurancePolicyCarForm.controls['year'].errors.pattern">Unesite
 				godiunu(npr. 2016).</div>
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="registrationNumber" class="col-12">Broj
-			registarske oznake automobila:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="registrationNumber" class="col-3">Broj registarske
+			oznake automobila:</label>
+		<div class="col-7">
 			<input id="registrationNumber" type="text" class="form-control"
 				formControlName="registrationNumber">
 		</div>
@@ -116,9 +113,9 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="chassisNumber" class="col-12">Broj Å¡asije:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="chassisNumber" class="col-3">Broj šasije:</label>
+		<div class="col-7">
 			<input id="chassisNumber" type="text" class="form-control"
 				formControlName="chassisNumber">
 		</div>
@@ -128,13 +125,13 @@
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors.required">Morate
-				uneti broj Å¡asije.</div>
+				uneti broj šasije.</div>
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="firstName" class="col-12">Ime vlasnika:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="firstName" class="col-3">Ime vlasnika:</label>
+		<div class="col-7">
 			<input id="firstName" type="text" class="form-control"
 				formControlName="firstName">
 		</div>
@@ -151,9 +148,9 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="lastName" class="col-12">Prezime vlasnika:</label>
-		<div class="col-12">
+	<div class="form-group row">
+		<label for="lastName" class="col-3">Prezime vlasnika:</label>
+		<div class="col-7">
 			<input id="lastName" type="text" class="form-control"
 				formControlName="lastName">
 		</div>
@@ -170,10 +167,10 @@
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label for="jmbg" class="col-12">MatiÄ�ni broj vlasnika
+	<div class="form-group row">
+		<label for="jmbg" class="col-3">Matični broj vlasnika
 			automobila:</label>
-		<div class="col-12">
+		<div class="col-7">
 			<input id="jmbg" type="text" class="form-control"
 				formControlName="jmbg">
 		</div>
@@ -182,25 +179,34 @@
 			class="alert alert-danger">
 
 			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.required">Morate
-				uneti jedinstveni matiÄ�ni broj.</div>
+				uneti jedinstveni matični broj.</div>
 			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.minlength">Jedinstveni
-				matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
+				matični broj sadrži 13 cifara.</div>
 			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.maxlength">Jedinstveni
-				matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
+				matični broj sadrži 13 cifara.</div>
 		</div>
 	</div>
 
-	<div class="pull-right button" >
-		<button class="btn btn-default" type="submit">Potvrdi</button>
-	</div>
-	<div class="pull-right button">
-		<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
-	</div>
-		<div class="pull-right button" [hidden]="!current">
-		<button class="btn btn-default" (click)="set(null)">OtkaÅ¾ite putno osiguranje</button>
+	<div class="row">
+		<div class="col-10 ">
+			<div class="pull-right button">
+				<button [disabled]="!insurancePolicyCarForm.valid"
+					class="btn btn-default" type="submit">Potvrdi</button>
+			</div>
+			<div class="pull-right button">
+				<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
+			</div>
+			<div class="pull-right button" [hidden]="!current">
+				<button class="btn btn-default" (click)="set(null)">Otkažite
+					putno osiguranje</button>
+			</div>
+		</div>
 	</div>
 </form>
+
 <div class="price" *ngIf="price">
-	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi :
-		{{price}}</div>
+	<div *ngIf="price">
+		Trenutna cena osiguranja iznosi :
+		<span class="price-number">{{price}}</span>
+	</div>
 </div>

@@ -6,6 +6,9 @@ import {InsurancePolicyHomeRequest} from './insurance-policy-home-request';
 import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-calculate-price-request';
 import {InsurancePolicyService} from '../insurance-policy.service';
 
+import { FactorService } from "../../factor/factor.service";
+import { Factor } from '../../factor/factor';
+
 @Component({
     selector: 'app-insurance-policy-home-form',
     templateUrl: './insurance-policy-home-form.component.html',
@@ -20,7 +23,8 @@ import {InsurancePolicyService} from '../insurance-policy.service';
     declarations: [ // components for use in THIS module
     ],
     providers: [ // singleton services
-        InsurancePolicyService
+        InsurancePolicyService,
+        FactorService
     ]
 })
 
@@ -33,8 +37,11 @@ export class InsurancePolicyHomeForm {
     @Output() hideForm = new EventEmitter<string>();
     @Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
     @Input() price;
-
-    constructor(private insurancePolicyService: InsurancePolicyService) {
+    sizes:Factor[];
+    ages:Factor[];
+    values:Factor[];
+    risks:Factor[];
+    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
         this.insurancePolicyHomeForm = new FormGroup({
             duration: new FormControl('', [
                 Validators.required,
@@ -60,7 +67,11 @@ export class InsurancePolicyHomeForm {
     }
     ngOnInit() {
         this.insurancePolicyHomeForm.reset();
-
+            this.insurancePolicyHomeForm.controls['size'].setValue('');
+            this.insurancePolicyHomeForm.controls['age'].setValue('');
+            this.insurancePolicyHomeForm.controls['value'].setValue('');
+            this.insurancePolicyHomeForm.controls['risk'].setValue('');
+        
         this.insurancePolicyHomeForm.valueChanges.subscribe(value => {
             if (this.insurancePolicyHomeForm.get('duration').valid && this.insurancePolicyHomeForm.get('size').valid
                 && this.insurancePolicyHomeForm.get('value').valid && this.insurancePolicyHomeForm.get('risk').valid
@@ -72,6 +83,24 @@ export class InsurancePolicyHomeForm {
                 this.calculatePrice.emit(null);
             }
         })
+        
+        this.factorService.findByCategory(7)
+            .subscribe(sizes => {
+                this.sizes = sizes;
+            })
+
+        this.factorService.findByCategory(8)
+            .subscribe(ages => {
+                this.ages = ages;
+            }) 
+        this.factorService.findByCategory(9)
+            .subscribe(values => {
+                this.values = values;
+            })
+        this.factorService.findByCategory(10)
+            .subscribe(risks => {
+                this.risks = risks;
+            })                       
     }
 
     @Input()
@@ -93,6 +122,10 @@ export class InsurancePolicyHomeForm {
         }
         else {
             this.insurancePolicyHomeForm.reset();
+            this.insurancePolicyHomeForm.controls['size'].setValue('');
+            this.insurancePolicyHomeForm.controls['age'].setValue('');
+            this.insurancePolicyHomeForm.controls['value'].setValue('');
+            this.insurancePolicyHomeForm.controls['risk'].setValue('');
         }
     }
 

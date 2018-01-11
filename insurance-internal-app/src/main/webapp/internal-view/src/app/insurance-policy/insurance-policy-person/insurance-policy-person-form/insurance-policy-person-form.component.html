@@ -4,9 +4,9 @@
 	<form [formGroup]="insurancePolicyPerson"
 		(ngSubmit)="onSubmit(insurancePolicyPerson)">
 
-		<div class="form-group">
-			<label for="firstName" class="col-12">Ime:</label>
-			<div class="col-12">
+		<div class="form-group row">
+			<label for="firstName" class="col-3">Ime:</label>
+			<div class="col-9">
 				<input id="firstName" type="text" class="form-control"
 					formControlName="firstName">
 			</div>
@@ -23,9 +23,9 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="lastName" class="col-12">Prezime:</label>
-			<div class="col-12">
+		<div class="form-group row">
+			<label for="lastName" class="col-3">Prezime:</label>
+			<div class="col-9">
 				<input id="lastName" type="text" class="form-control"
 					formControlName="lastName">
 			</div>
@@ -41,9 +41,9 @@
 					prezime.</div>
 			</div>
 		</div>
-		<div class="form-group" *ngIf="!contractorExists() || (currentPerson != null && currentPerson.contractor)">
-			<label for="contractor" class="col-12">Ugovarač:</label>
-			<div class="col-12">
+		<div class="form-group row" *ngIf="!contractorExists() || (currentPerson != null && currentPerson.contractor)">
+			<label for="contractor" class="col-3">Ugovarač:</label>
+			<div class="col-9">
 				<label class="radio-inline radio-button"> <input
 					type="radio" value="true" name="contractor" checked
 					formControlName="contractor">Da
@@ -55,17 +55,17 @@
 
 		<div
 			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
-			class="form-group">
-			<label for="email" class="col-12">Email ugovarača:</label>
-			<div class="col-12">
+			class="form-group row">
+			<label for="email" class="col-3">Email ugovarača:</label>
+			<div class="col-9">
 				<input id="email" type="email" class="form-control"
 					formControlName="email" />
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="jmbg" class="col-12">Jmbg:</label>
-			<div class="col-12">
+		<div class="form-group row">
+			<label for="jmbg" class="col-3">Jmbg:</label>
+			<div class="col-9">
 				<input id="jmbg" type="text" class="form-control"
 					formControlName="jmbg">
 			</div>
@@ -82,20 +82,20 @@
 			</div>
 			<div class="alert alert-danger"
 				*ngIf="jmbgExists() && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
-				sa unetim matičnim brojem već postoji.</div>
+				sa unetim matičnim brojem veÄ‡ postoji.</div>
 		</div>
 
-		<div class="form-group">
-			<label for="passportNumber" class="col-12">Broj pasoÅ¡a:</label>
-			<div class="col-12">
+		<div class="form-group row">
+			<label for="passportNumber" class="col-3">Broj pasoša:</label>
+			<div class="col-9">
 				<input id="passportNumber" type="text" class="form-control"
 					formControlName="passportNumber">
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="address" class="col-12">Adresa:</label>
-			<div class="col-12">
+		<div class="form-group row">
+			<label for="address" class="col-3">Adresa:</label>
+			<div class="col-9">
 				<input id="address" type="text" class="form-control"
 					formControlName="address">
 			</div>
@@ -109,9 +109,9 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="phone" class="col-12">Telefon:</label>
-			<div class="col-12">
+		<div class="form-group row">
+			<label for="phone" class="col-3">Telefon:</label>
+			<div class="col-9">
 				<input id="phone" type="text" class="form-control"
 					formControlName="phone">
 			</div>

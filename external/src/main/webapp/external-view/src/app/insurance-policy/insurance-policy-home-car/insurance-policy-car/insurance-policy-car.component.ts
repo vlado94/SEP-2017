@@ -11,7 +11,7 @@ export class InsurancePolicyCarComponent implements OnInit {
 	insurancePolicyCarForm: FormGroup;
 	@Output() setInsurancePolicyCar = new EventEmitter<InsurancePolicyCar>();
 	@Output() hideForm = new EventEmitter<string>();
-	current: InsurancePolicyCar = null;
+	currentCar: InsurancePolicyCar = null;
 
 	constructor() { 
 		this.insurancePolicyCarForm = new FormGroup({
@@ -40,7 +40,7 @@ export class InsurancePolicyCarComponent implements OnInit {
 
 	@Input()
 	set insurancePolicyCar(value: InsurancePolicyCar) {
-		this.current = value;
+		this.currentCar = value;
 		console.log("SETTOVANJE POLISE ZA AUTO");
 		if (value) {
 			this.insurancePolicyCarForm.setValue({
@@ -61,18 +61,25 @@ export class InsurancePolicyCarComponent implements OnInit {
 		}
 	}
 
-	submitCar(value) {
-		if(!value)
-			value = this.insurancePolicyCarForm.value;
-        //var policyCar: InsurancePolicyCar = null;
-       // if (value != null) {
-       	console.log("ubacivanje polise za auto")
-       	var policyCar = new InsurancePolicyCar(value.duration, value.paket, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
-       	this.setInsurancePolicyCar.emit(policyCar);
-       /* } else {
-            this.setInsurancePolicyCar.emit(null);
-        }*/
+	submitCar() {
+		
+		console.log("auto value " + JSON.stringify(value))
+		var value = this.insurancePolicyCarForm.value;
+		var policyCar: InsurancePolicyCar = null;
+		var policyCar = new InsurancePolicyCar(value.duration, value.paket, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
+		this.setInsurancePolicyCar.emit(policyCar);
 
-    }
+		this.hideForm.emit(null);
+
+	}
+
+	cancelCar(){
+		this.setInsurancePolicyCar.emit(null);
+		this.hideForm.emit(null);
+	}
+
+	closeForm() {
+		this.hideForm.emit(null);
+	}
 
 }

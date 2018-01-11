@@ -11,11 +11,11 @@ import { InsurancePolicyHome } from '../policy-home';
 export class InsurancePolicyHomeComponent {
 
 	insurancePolicyHomeForm: FormGroup;
-	@Input() current: InsurancePolicyHome;
 
 	@Output() setInsurancePolicyHome = new EventEmitter<InsurancePolicyHome>();
 
 	@Output() hideForm = new EventEmitter<string>();
+    currentHome: InsurancePolicyHome = null;
 	//@Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
 	//@Input() price;
 
@@ -40,31 +40,15 @@ export class InsurancePolicyHomeComponent {
                 Validators.required,
                 Validators.minLength(13),
                 Validators.maxLength(13)
-            ]),
+                ]),
         })
 	}
 
-	ngOnInit() {
-	    if(this.current){
-            var value = this.current;
-            this.insurancePolicyHomeForm.setValue({
-                duration: value.duration,
-                size: value.size,
-                age: value.age,
-                risk: value.risk,
-                value: value.value,
-                address: value.address,
-                firstName: value.firstName,
-                lastName: value.lastName,
-                jmbg: value.jmbg
-            })
-        }
-    }
 
 
 	@Input()
     set insurancePolicyHome(value: InsurancePolicyHome) {
-        this.current = value;
+        this.currentHome = value;
         console.log("SETTOVANJE POLISE ZA KUCU");
         if (value) {
             this.insurancePolicyHomeForm.setValue({
@@ -84,17 +68,22 @@ export class InsurancePolicyHomeComponent {
         }
     }
 
-    submitHome(value) {
+    submitHome() {
+
         var policyHome: InsurancePolicyHome = null;
-        if (value != null) {
-            policyHome = new InsurancePolicyHome(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.jmbg);
-            this.setInsurancePolicyHome.emit(policyHome);
-        } else {
-            policyHome = this.insurancePolicyHomeForm.value;
-            this.setInsurancePolicyHome.emit(policyHome);
-        }
+        var value = this.insurancePolicyHomeForm.value;
+        
+        policyHome = new InsurancePolicyHome(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.jmbg);
+        this.setInsurancePolicyHome.emit(policyHome);
+        
         this.hideForm.emit(null);
-        this.insurancePolicyHomeForm.reset();
+        //this.insurancePolicyHomeForm.reset();
+    }
+
+    cancelHome(){
+        console.log("cancel home");
+        this.setInsurancePolicyHome.emit(null);
+        this.hideForm.emit(null);
     }
 
     closeForm() {

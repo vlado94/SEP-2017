@@ -7,7 +7,7 @@ export const environment = {
 	production: false,
 	KEYCLOAK_URL: 'http://localhost:8180/auth',
 	KEYCLOAK_REALM: 'isok',
-	KEYCLOAK_CLIENTID: 'insurance-frontend',
+	KEYCLOAK_CLIENTID: 'isok-frontend-employee',
 	BACKEND_URL: 'http://localhost:8082/internal'
 
 };

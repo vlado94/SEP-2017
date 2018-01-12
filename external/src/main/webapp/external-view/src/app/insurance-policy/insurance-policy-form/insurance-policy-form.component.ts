@@ -2,6 +2,10 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { InsurancePolicyRequest } from '../insurance-policy-request'
+import { FactorService } from "../../factor/factor.service";
+import { Factor } from '../../factor/factor';
+import { InsurancePolicyService } from '../insurance-policy.service';
+
 
 @Component({
 	selector: 'app-insurance-policy-form',
@@ -14,7 +18,13 @@ export class InsurancePolicyFormComponent implements OnInit {
 	@Output() nextTab = new EventEmitter<number>();
 	@Output() savePolicyRequest = new EventEmitter<InsurancePolicyRequest>();
 	@Input() currentInsurancePolicy;
-	constructor() { }
+	regions: Factor[];
+    sports: Factor[];
+    agesCategory: Factor[];
+    amounts: Factor[];
+    types: Factor[];
+
+	constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 	ngOnInit() {
 		this.insurancePolicyForm = new FormGroup({
@@ -41,7 +51,30 @@ export class InsurancePolicyFormComponent implements OnInit {
 				]),
 		});
 
-		
+		this.factorService.findByCategory(3)
+            .subscribe(regions => {
+                this.regions = regions;
+            })
+
+        this.factorService.findByCategory(1)
+            .subscribe(sports => {
+                this.sports = sports;
+            })
+
+        this.factorService.findByCategory(2)
+            .subscribe(agesCategory => {
+                this.agesCategory = agesCategory;
+            })
+
+        this.factorService.findByCategory(4)
+            .subscribe(types => {
+                this.types = types;
+            })
+
+        this.factorService.findByCategory(5)
+            .subscribe(amounts => {
+                this.amounts = amounts;
+            })
 
 		this.insurancePolicyForm.valueChanges.subscribe(value => {
            // console.log('Form changes', value)

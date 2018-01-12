@@ -20,7 +20,7 @@ export class InsurancePolicyComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		this.active_tab = 3;
+		this.active_tab = 1;
 	}
 
 	changeTab(value: number){

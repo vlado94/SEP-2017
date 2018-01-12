@@ -65,7 +65,7 @@ public class PaypalService {
 
         OAuthTokenCredential oAuthTokenCredential = new OAuthTokenCredential(clientId, clientSecret, sdkConfig);
         APIContext apiContext = new APIContext(oAuthTokenCredential.getAccessToken());
-        String token = oAuthTokenCredential.getAccessToken();
+        //String token = oAuthTokenCredential.getAccessToken();
 
         apiContext.setConfigurationMap(sdkConfig);
         payment = payment.create(apiContext);

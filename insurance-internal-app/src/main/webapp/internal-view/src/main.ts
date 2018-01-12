@@ -6,14 +6,14 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  enableProdMode();
+	enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+/*platformBrowserDynamic().bootstrapModule(AppModule)
+.catch(err => console.log(err));*/
 
-  KeycloakService.init()
-    .then(() => platformBrowserDynamic().bootstrapModule(AppModule))
-    .catch(e => {
-        console.error(e);
-    });
+KeycloakService.init()
+.then(() => platformBrowserDynamic().bootstrapModule(AppModule))
+.catch(e => {
+	console.error(e);
+});

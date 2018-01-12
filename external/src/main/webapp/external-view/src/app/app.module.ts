@@ -35,6 +35,8 @@ import { InsurancePolicyPersonTableComponent } from './insurance-policy/insuranc
 import { InsurancePolicyHomeCarComponent } from './insurance-policy/insurance-policy-home-car/insurance-policy-home-car.component';
 import { InsurancePolicyCarComponent } from './insurance-policy/insurance-policy-home-car/insurance-policy-car/insurance-policy-car.component';
 import { InsurancePolicyHomeComponent } from './insurance-policy/insurance-policy-home-car/insurance-policy-home/insurance-policy-home.component';
+import { FactorService } from './factor/factor.service';
+import { InsurancePolicyService } from './insurance-policy/insurance-policy.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,7 @@ import { InsurancePolicyHomeComponent } from './insurance-policy/insurance-polic
 RouterModule,
     AppRoutingModule
   ],
-  providers: [UserDataService],
+  providers: [UserDataService, FactorService, InsurancePolicyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

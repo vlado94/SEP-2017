@@ -1,8 +1,6 @@
 package isok.isok.rules;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>InternalView</title>
+  <title>IsokView</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,25 +14,28 @@
   <link href="/assets/ng2-toastr.min.css" rel="stylesheet" />
 
 </head>
-<body class="fixed-nav bg-dark" id="page-top">
-	<app-root></app-root>
-    
-    <script src="/assets/thema/vendor/jquery/jquery.min.js"></script>
-    <script src="/assets/thema/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/thema/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="/assets/thema/js/sb-admin.min.js"></script>
-	<script>
-	$(document).ready(function () {
-		$("#sidenavToggler").click(function(o){
-			o.preventDefault();
-			$("body").toggleClass("sidenav-toggled");
-			$(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
-			$(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
-		})
 
-		
-	});
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <app-root></app-root>
 
-	</script>
+  
+  <script src="/assets/thema/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/thema/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/thema/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/assets/thema/js/sb-admin.min.js"></script>
+  <script src="//localhost:8180/auth/js/keycloak.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("#sidenavToggler").click(function(o){
+        o.preventDefault();
+        $("body").toggleClass("sidenav-toggled");
+        $(".navbar-sidenav .nav-link-collapse").addClass("collapsed");
+        $(".navbar-sidenav .sidenav-second-level, .navbar-sidenav .sidenav-third-level").removeClass("show");
+      })
+
+      
+    });
+
+  </script>
 </body>
 </html>

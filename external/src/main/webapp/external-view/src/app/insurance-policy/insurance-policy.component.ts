@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { InsurancePolicyRequest } from './insurance-policy-request'
 import { InsurancePolicyPersonRequest } from './insurance-policy-person-request';
+import { InsurancePolicyHome } from './insurance-policy-home-car/policy-home';
+import { InsurancePolicyCar } from './insurance-policy-home-car/policy-car';
 
 @Component({
 	selector: 'app-insurance-policy',
@@ -13,7 +15,8 @@ export class InsurancePolicyComponent implements OnInit {
 	currentInsurancePolicy: InsurancePolicyRequest;
 	currentPerson: InsurancePolicyPersonRequest;
 	age: Age = new Age(0, 0, 0);
-
+	insurancePolicyHome: InsurancePolicyHome = null;
+	insurancePolicyCar: InsurancePolicyCar = null;
 	constructor() { }
 
 	ngOnInit() {
@@ -28,8 +31,8 @@ export class InsurancePolicyComponent implements OnInit {
 	savePolicyRequest(insurancePolicyRequest: InsurancePolicyRequest){
 		this.currentInsurancePolicy = insurancePolicyRequest;
 		this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
-        this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
-        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+		this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
+		this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
 
 	}
 
@@ -37,15 +40,37 @@ export class InsurancePolicyComponent implements OnInit {
 		this.currentInsurancePolicy.persons = persons;	
 	}
 
+	updatePerson(persons : InsurancePolicyPersonRequest[]){
+		console.log("update person policy component");
+		this.currentInsurancePolicy.persons = persons;
+		console.log("persons stringify " + JSON.stringify(this.currentInsurancePolicy.persons));
+	}
+
+	insurancePolicyHomeChanged(value) {
+		if (value && value.address != null)
+			this.insurancePolicyHome = value;
+		else {
+			this.insurancePolicyHome = null;
+		}
+	}
+
+	insurancePolicyCarChanged(value) {
+		if (value && value.registrationNumber != null)
+			this.insurancePolicyCar = value;
+		else {
+			this.insurancePolicyCar = null;
+		}
+	}
+
 }
 
 export class Age {
-    firstCategory: number;
-    secondCategory: number;
-    thirdCategory: number;
-    constructor(firstCategory: number, secondCategory: number, thirdCategory: number) {
-        this.firstCategory = firstCategory;
-        this.secondCategory = secondCategory;
-        this.thirdCategory = thirdCategory;
-    }
+	firstCategory: number;
+	secondCategory: number;
+	thirdCategory: number;
+	constructor(firstCategory: number, secondCategory: number, thirdCategory: number) {
+		this.firstCategory = firstCategory;
+		this.secondCategory = secondCategory;
+		this.thirdCategory = thirdCategory;
+	}
 }

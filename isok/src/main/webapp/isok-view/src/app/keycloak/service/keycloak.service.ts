@@ -94,6 +94,7 @@ export class KeycloakService {
     }
 
     getUser(): User {
+        console.log("keycloak servis " + KeycloakService.auth);
         return KeycloakService.user;
     }
 }

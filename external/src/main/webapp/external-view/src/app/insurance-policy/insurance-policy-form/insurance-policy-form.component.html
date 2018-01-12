@@ -36,8 +36,7 @@
 								<label class="bmd-label-floating control-label">Tip polise</label>
 								<select class="form-control" formControlName="typeOfPolicy">
 									<option value=""></option>
-									<option value="1">Poslovna</option>
-									<option value="2">Ne znam koja je druga</option>
+									<option *ngFor="let t of types" value="{{t.id}}">{{t.name}}</option>
 								</select>
 							</div>
 						</div>

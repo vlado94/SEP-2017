@@ -22,7 +22,7 @@ import com.paypal.base.rest.PayPalRESTException;
 @Service
 public class PaypalService {
 
-    @Value("${paypal.client.app}")
+    @Value("${paypal.client.id}")
     private String clientId;
     @Value("${paypal.client.secret}")
     private String clientSecret;
@@ -33,7 +33,9 @@ public class PaypalService {
 
     private HashMap<String, String> map = new HashMap<String, String>();
 
-    public Payment createPayment(Double total, String currency, String method, String intent, String description, String cancelUrl, String successUrl, Long requestTransactionEntityID) throws PayPalRESTException {
+    public Payment createPayment(String total, String currency, 
+    		String method, String intent, String description, String successUrl, String cancelUrl, 
+    		Long requestTransactionEntityID) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
         //amount.setTotal(String.format("%.2f", 3d));
@@ -63,11 +65,13 @@ public class PaypalService {
 
         OAuthTokenCredential oAuthTokenCredential = new OAuthTokenCredential(clientId, clientSecret, sdkConfig);
         APIContext apiContext = new APIContext(oAuthTokenCredential.getAccessToken());
+
         String token = oAuthTokenCredential.getAccessToken();
+        //System.out.println(token);;
 
         apiContext.setConfigurationMap(sdkConfig);
         payment = payment.create(apiContext);
-        //map.put(payment.getId(), token);
+        map.put(payment.getId(), token);
 /*
         PaypalCreatePaymentEntity paypalCreatePaymentEntity = new PaypalCreatePaymentEntity();
         paypalCreatePaymentEntity.setAccessToken(token);
@@ -78,7 +82,7 @@ public class PaypalService {
 */
         return payment;
     }
-/*
+    
     public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException{
         Payment payment = new Payment();
         payment.setId(paymentId);
@@ -89,10 +93,10 @@ public class PaypalService {
         Map<String, String> sdkConfig = new HashMap<>();
         sdkConfig.put("mode", mode);
 
-        //APIContext apiContext = new APIContext(paypalCreatePaymentService.findByPaymentID(paymentId).get(0).getAccessToken());//map.get(paymentId)
-        //apiContext.setConfigurationMap(sdkConfig);
+        APIContext apiContext = new APIContext(map.get(paymentId));//map.get(paymentId)
+        apiContext.setConfigurationMap(sdkConfig);
 
-        //return payment.execute(apiContext, paymentExecute);
-    }*/
+        return payment.execute(apiContext, paymentExecute);
+    }
 
 }

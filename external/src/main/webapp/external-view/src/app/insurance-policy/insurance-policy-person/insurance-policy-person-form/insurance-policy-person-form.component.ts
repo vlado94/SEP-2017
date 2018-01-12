@@ -46,29 +46,8 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 				]),
 		})
 
-		//this.checkCurrentPerson();
-
-		//this.contractorExists();
 	}
 
-/*	currentPersonExist(){
-		if(this.currentPerson){
-			var value = this.currentPerson;
-			this.insurancePolicyPersonForm.setValue({
-				firstName: value.fistName,
-				lastName: value.lastName,
-				personNo: value.personNo,
-				passportNo: value.passportNo,
-				address: value.address,
-				phoneNo: value.phoneNo,
-				contractor: value.contractor.toString(),
-				email: value.email
-			})
-		}
-			console.log("current person " + this.currentPerson.value);
-
-	}
-*/
 	addPersonForm(){
 		let value = this.insurancePolicyPersonForm.value;
 		let newPerson: InsurancePolicyPersonRequest = new InsurancePolicyPersonRequest(value.firstName, value.lastName, value.personNo, value.passportNo,
@@ -81,14 +60,13 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 	contractorExists() {
         let result = false;
         for (let person of this.persons) {
-            if (person.contractor == "true") {
-                result = true;
-            }
+        	if(person.contractor){
+	            if (person.contractor.toString() == "true") {
+	                result = true;
+	                return result;
+	            }
+	        }
         }
-       /* if (result)
-            console.log("Podaci za ugovaraca polise su uneti.")
-        else
-            console.log("Podaci za ugovaraca polise nisu uneti.")*/
 
         return result;
     }
@@ -96,18 +74,20 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
     @Input()
     set current(person: InsurancePolicyPersonRequest) {
         this.currentPerson = person;
-        console.log("set current" + JSON.stringify(this.currentPerson))
+        console.log("ajdeeeeee");
         if (person) {
-            this.insurancePolicyPersonForm.setValue({
-                firstName: this.currentPerson.firstName,
-                lastName: this.currentPerson.lastName,
-                personNo: this.currentPerson.personNo,
-                passportNo: this.currentPerson.passportNo,
-                address: this.currentPerson.address,
-                phoneNo: this.currentPerson.phoneNo,
-                contractor: this.currentPerson.contractor.toString(),
-                email: this.currentPerson.email
-            })
+        	//if(this.currentPerson.contractor)
+	            this.insurancePolicyPersonForm.setValue({
+	                firstName: this.currentPerson.firstName,
+	                lastName: this.currentPerson.lastName,
+	                personNo: this.currentPerson.personNo,
+	                passportNo: this.currentPerson.passportNo,
+	                address: this.currentPerson.address,
+	                phoneNo: this.currentPerson.phoneNo,
+	                contractor: this.currentPerson.contractor,
+	                email: this.currentPerson.email
+	            })
+	       
         }
 
     }

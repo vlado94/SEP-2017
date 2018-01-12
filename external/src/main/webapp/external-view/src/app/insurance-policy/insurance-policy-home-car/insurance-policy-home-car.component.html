@@ -9,7 +9,7 @@
 	</div>
 
 	<div>
-		<app-insurance-policy-car
+		<app-insurance-policy-car 
 		[insurancePolicyCar]="insurancePolicyCar"
 		(setInsurancePolicyCar)="setInsurancePolicyCar($event)"
 		(hideForm)="showForm($event)" [hidden]="activeForm != 'car'"></app-insurance-policy-car>
@@ -17,7 +17,7 @@
 	
 	<div>
 		<app-insurance-policy-home
-		[current]="insurancePolicyHome"
+		[insurancePolicyHome]="insurancePolicyHome"
 		(setInsurancePolicyHome)="setInsurancePolicyHome($event)"
 		(hideForm)="showForm($event)" [hidden]="activeForm != 'home'"></app-insurance-policy-home>
 	</div>

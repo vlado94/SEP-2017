@@ -32,19 +32,19 @@
 		</div>
 		<div class="stepper-content">
 			<div class="stepper-actions">
-				<div *ngIf="active_tab==1">
-					<app-insurance-policy-form (nextTab)="changeTab($event)" 
+				
+					<app-insurance-policy-form [hidden]="active_tab != 1" (nextTab)="changeTab($event)" 
 					(savePolicyRequest)="savePolicyRequest($event)" [currentInsurancePolicy]="currentInsurancePolicy"></app-insurance-policy-form>
-				</div>
-				<div *ngIf="active_tab==2">
-					<app-insurance-policy-person (nextTab)="changeTab($event)" (previousTab)="changeTab($event)" 
-					[expectedNumbersByAgeCategories]="age" (pushPerson)="addPerson($event)" 
-					[persons]="currentInsurancePolicy.persons">
+				
+					<app-insurance-policy-person [hidden]="active_tab != 2"  (nextTab)="changeTab($event)" (previousTab)="changeTab($event)" 
+					[expectedNumbersByAgeCategories]="age" (pushPerson)="addPerson($event)" (pushPerson)="updatePerson($event)">
 					</app-insurance-policy-person>
-				</div>
-				<div *ngIf="active_tab==3">
-					<app-insurance-policy-home-car (nextTab)="changeTab($event)" (previousTab)="changeTab($event)"></app-insurance-policy-home-car>
-				</div>
+				
+					<app-insurance-policy-home-car [hidden]="active_tab != 3"  (nextTab)="changeTab($event)" (previousTab)="changeTab($event)"
+						[insurancePolicyHome]="insurancePolicyHome" (insurancePolicyHomeChanged)="insurancePolicyHomeChanged($event)"
+						[insurancePolicyCar]="insurancePolicyCar" (insurancePolicyCarChanged)="insurancePolicyCarChanged($event)">
+					</app-insurance-policy-home-car>
+				
 				<a href="" class="btn btn-default btn-lg btn-simple mbn">Back</a>
 				<a href=""  class="btn btn-info btn-lg btn-simple pull-right mbn">Continue</a>
 			</div>

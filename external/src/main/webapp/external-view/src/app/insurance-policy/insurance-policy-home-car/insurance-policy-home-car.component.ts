@@ -10,7 +10,7 @@ import { InsurancePolicyHome } from './policy-home';
 export class InsurancePolicyHomeCarComponent implements OnInit {
 	activeForm: string = null;
 	@Input() insurancePolicyCar;
-
+	@Input() insurancePolicyHome;
 	/*@Output() insurancePolicyCarChanged = new EventEmitter<InsurancePolicyCar>();
     @Output() insurancePolicyHomeChanged = new EventEmitter<InsurancePolicyHome>();*/
 	@Output() nextTab = new EventEmitter<number>();

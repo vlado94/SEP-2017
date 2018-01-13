@@ -1,0 +1,12 @@
+.btn-theme {
+	border : 3px solid black;
+	opacity : 0.4;
+	color : black;
+	background : white
+}
+
+.carousel-centered p {
+	text-decoration : underline;
+	font-size : 20px;
+	color : black;
+}

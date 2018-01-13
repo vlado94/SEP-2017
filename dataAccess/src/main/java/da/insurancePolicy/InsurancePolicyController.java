@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import da.person.PersonService;
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.PersonRequest;
 
@@ -61,5 +63,20 @@ public class InsurancePolicyController {
 		double amount = insurancePolicyService.calculatePolice(policy);
 	
 		return 1.1;
+	}
+	
+	
+	@PostMapping("/calculateSuggestedPriceHome")
+	public Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest request) {
+	
+		return insurancePolicyService.calculateSuggestedPriceHome(request);
+		
+	}
+	
+	@PostMapping("/calculateSuggestedPriceCar")
+	public Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest request) {
+		
+		return insurancePolicyService.calculateSuggestedPriceCar(request);
+		
 	}
 }

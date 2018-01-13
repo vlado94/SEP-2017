@@ -16,6 +16,8 @@ import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
 import da.priceListItem.PriceListItemRepository;
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.InsurancePolicyResponce;
 import model.request.PersonRequest;
@@ -299,6 +301,119 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 		return retVal * policy.getDuration();
 	}
+	
+	
+	
+	@Override
+	public Double calculateSuggestedPriceHome(InsurancePolicyHomeCalculatePriceRequest policy) {
+		double retVal = 0;
+		PriceList last = priceListService.findCurrent();
+		//ide na repo
+		List<PriceListItem> list = (ArrayList<PriceListItem>)priceListItemRepo.findAll();
+		List<PriceListItem> usableList = new ArrayList<>();
+		for (PriceListItem item : list) {
+			if(item.getPriceList().getId() == last.getId())
+				usableList.add(item);		
+		}
+		//ovim sam dobila aktuelne stavke cenovnika
+		
+		double sizePercent = 0;
+		double sizeBasePrice = 0;
+		double agePercent = 0;
+		double ageBasePrice = 0;
+		double valuePercent = 0;
+		double valueBasePrice = 0;
+		double riskPercent = 0;
+		double riskBasePrice = 0;
+		double duration = policy.getDuration();
+		double pricePerDay = 0;
+		
+		for (PriceListItem item : usableList) {
+			if(item.getFactor().getId() == policy.getSize()) {
+				sizePercent = item.getPercent(); 
+				sizeBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+			if(item.getFactor().getId() == policy.getAge()) {
+				agePercent = item.getPercent();
+				ageBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+			if(item.getFactor().getId() == policy.getValue()) {
+				valuePercent = item.getPercent();
+				valueBasePrice = item.getFactor().getCategory().getBasePrice();
+			}if(item.getFactor().getId() == policy.getRisk()) {
+				riskPercent = item.getPercent();
+				riskBasePrice = item.getFactor().getCategory().getBasePrice();
+			}
+		}
+		double sizePrice = sizeBasePrice + sizeBasePrice * sizePercent/100;
+		double agePrice = ageBasePrice + ageBasePrice * agePercent/100;
+		double valuePrice = valueBasePrice + valueBasePrice * valuePercent/100;
+		double riskPrice = riskBasePrice + riskBasePrice * riskPercent/100;
+		pricePerDay = sizePrice + agePrice + valuePrice +  riskPrice;
+		
+		return duration * pricePerDay;
+	}
+
+	@Override
+	public Double calculateSuggestedPriceCar(InsurancePolicyCarCalculatePriceRequest request) {
+		double retVal = 0;
+		double duration = request.getDuration();
+		
+		PriceList last = priceListService.findCurrent();
+		//ide na repo
+		List<PriceListItem> list = (ArrayList<PriceListItem>)priceListItemRepo.findAll();
+		List<PriceListItem> usableList = new ArrayList<>();
+		for (PriceListItem item : list) {
+			if(item.getPriceList().getId() == last.getId())
+				usableList.add(item);		
+		}
+		double popravkaPercent = 0;
+		double popravkaBasePrice = 0;
+		double prevozPercent = 0;
+		double prevozBasePrice = 0;
+		double slepovanjePercent = 0;
+		double slepovanjeBasePrice = 0;
+		double smjestajPercent = 0;
+		double smjestajBasePrice = 0;
+		double pricePerDay = 0;
+		
+		for (PriceListItem item : usableList) {
+			if(request.getPopravka() != null) {
+				if(item.getFactor().getId() == request.getPopravka()) {
+					popravkaPercent = item.getPercent(); 
+					popravkaBasePrice = item.getFactor().getCategory().getBasePrice();
+				}
+			}
+			if(request.getPrevoz() != null) {
+				if(item.getFactor().getId() == request.getPrevoz()) {
+					prevozPercent = item.getPercent();
+					prevozBasePrice = item.getFactor().getCategory().getBasePrice();
+				}
+			}
+			if(request.getSlepovanje() != null) {
+				if(item.getFactor().getId() == request.getSlepovanje()) {
+					slepovanjePercent = item.getPercent();
+					slepovanjeBasePrice = item.getFactor().getCategory().getBasePrice();
+				}
+			}
+			if(request.getSmestaj() != null) {
+				if(item.getFactor().getId() == request.getSmestaj()) {
+					smjestajPercent = item.getPercent();
+					smjestajBasePrice = item.getFactor().getCategory().getBasePrice();
+				}
+			}
+		}
+		
+		double popravkaPrice = popravkaBasePrice + popravkaBasePrice * popravkaPercent/100;
+		double prevozPrice = prevozBasePrice + prevozBasePrice * prevozPercent/100;
+		double slepovanjePrice = slepovanjeBasePrice + slepovanjeBasePrice * slepovanjePercent/100;
+		double smjestajPrice = smjestajBasePrice + smjestajBasePrice * smjestajPercent/100;
+		pricePerDay = popravkaPrice + prevozPrice + slepovanjePrice +  smjestajPrice;
+
+		return duration * pricePerDay;
+		
+	}
+
 
 	
 }

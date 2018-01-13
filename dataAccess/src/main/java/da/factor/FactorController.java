@@ -6,6 +6,8 @@ import java.util.List;
 import javax.ws.rs.BadRequestException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +40,27 @@ public class FactorController {
 	@Autowired
 	private PriceListItemService priceListItemService;
 
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	/*privremeno ovde, bice prebaceno*/
+	public void sendMail() {
+
+		try {
+			SimpleMailMessage mail = new SimpleMailMessage();
+			mail.setTo("sepftn2017@gmail.com");
+			mail.setFrom("sepftn2017@gmail.com");
+			mail.setSubject("Test");
+			mail.setText("Test");
+			javaMailSender.send(mail);
+		} catch (Exception m) {
+			m.printStackTrace();
+		}
+	}
+	
 	@GetMapping
 	private List<FactorDTO> findAll() {
+		sendMail();
 		List<Factor> list = service.findAll();
 		
 		List<FactorDTO> retVal = new ArrayList<FactorDTO>();

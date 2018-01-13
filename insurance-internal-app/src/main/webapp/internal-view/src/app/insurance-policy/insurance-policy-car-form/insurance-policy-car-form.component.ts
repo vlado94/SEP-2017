@@ -35,15 +35,21 @@ export class InsurancePolicyCarForm {
     @Output() calculatePrice = new EventEmitter<InsurancePolicyCarCalculatePriceRequest>();
     @Input() price;
 
-    paketi: Factor[];
+    paket_selected = false;
+    slepovanje_list: Factor[];
+    popravka_list: Factor[];
+    smestaj_list: Factor[];
+    prevoz_list: Factor[];
     current: InsurancePolicyCarRequest = null;
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
         this.insurancePolicyCarForm = new FormGroup({
             duration: new FormControl('', [
                 Validators.required,
                 Validators.pattern("[0-9]*")]),
-            paket: new FormControl('', [
-                Validators.required]),
+            slepovanje: new FormControl(''),
+            popravka: new FormControl(''),
+            smestaj: new FormControl(''),
+            prevoz: new FormControl(''),
             vehicle: new FormControl('', [Validators.required]),
             typeOfVehicle: new FormControl('', [Validators.required]),
             year: new FormControl('', [Validators.required, Validators.pattern("[0-9]{4}")]),
@@ -61,22 +67,42 @@ export class InsurancePolicyCarForm {
 
     ngOnInit() {
         this.insurancePolicyCarForm.reset();
-        this.insurancePolicyCarForm.controls['paket'].setValue('');
+        this.insurancePolicyCarForm.controls['slepovanje'].setValue('');
+        this.insurancePolicyCarForm.controls['smestaj'].setValue('');
+        this.insurancePolicyCarForm.controls['popravka'].setValue('');
+        this.insurancePolicyCarForm.controls['prevoz'].setValue('');
+
         this.insurancePolicyCarForm.controls['typeOfVehicle'].setValue('');
 
         this.insurancePolicyCarForm.valueChanges.subscribe(value => {
             console.log('Car form changes!!!!!!!!!!!!!!!!!!!!!!!', value)
-            if (this.insurancePolicyCarForm.get('duration').valid && this.insurancePolicyCarForm.get('paket').valid) {
-                let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.paket)
+            if (this.insurancePolicyCarForm.get('duration').valid &&
+             (this.insurancePolicyCarForm.get('slepovanje').value != '' || this.insurancePolicyCarForm.get('popravka').value != ''
+            || this.insurancePolicyCarForm.get('prevoz').value != '' || this.insurancePolicyCarForm.get('smestaj').value != '')) {
+                let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.slepovanje,value.smestaj,value.popravka,value.prevoz)
                 this.calculatePrice.emit(insurancePolicyCarCalculatePriceRequest);
+                this.paket_selected = true;
             } else {
+                this.paket_selected = false;
                 this.calculatePrice.emit(null);
             }
         })
 
-        this.factorService.findByCategory(6)
-            .subscribe(paketi => {
-                this.paketi = paketi;
+        this.factorService.findByCategory(11)
+            .subscribe(slepovanje => {
+                this.slepovanje_list = slepovanje;
+            })
+        this.factorService.findByCategory(12)
+            .subscribe(popravka => {
+                this.popravka_list = popravka;
+            })
+        this.factorService.findByCategory(13)
+            .subscribe(smestaj => {
+                this.smestaj_list = smestaj;
+            })
+        this.factorService.findByCategory(14)
+            .subscribe(prevoz => {
+                this.prevoz_list = prevoz;
             })
     }
 
@@ -87,7 +113,10 @@ export class InsurancePolicyCarForm {
         if (value) {
             this.insurancePolicyCarForm.setValue({
                 duration: value.duration,
-                paket: value.paket,
+                slepovanje: value.slepovanje,
+                popravka: value.popravka,
+                smestaj: value.smestaj,
+                prevoz: value.prevoz,
                 vehicle: value.vehicle,
                 typeOfVehicle: value.typeOfVehicle,
                 year: value.year,
@@ -100,16 +129,18 @@ export class InsurancePolicyCarForm {
         }
         else {
             this.insurancePolicyCarForm.reset();
-            this.insurancePolicyCarForm.controls['paket'].setValue('');
             this.insurancePolicyCarForm.controls['typeOfVehicle'].setValue('');
-
+            this.insurancePolicyCarForm.controls['slepovanje'].setValue('');
+            this.insurancePolicyCarForm.controls['smestaj'].setValue('');
+            this.insurancePolicyCarForm.controls['popravka'].setValue('');
+            this.insurancePolicyCarForm.controls['prevoz'].setValue('');
         }
     }
 
     set(value) {
         var policyCar: InsurancePolicyCarRequest = null;
         if (value != null) {
-            policyCar = new InsurancePolicyCarRequest(value.duration, value.paket, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
+            policyCar = new InsurancePolicyCarRequest(value.duration, value.slepovanje, value.prevoz, value.smestaj, value.popravka, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
             this.setInsurancePolicyCar.emit(policyCar);
         } else {
             this.setInsurancePolicyCar.emit(null);

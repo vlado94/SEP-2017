@@ -1,6 +1,9 @@
 export class InsurancePolicyCarRequest {
     duration: number;
-    paket: string;
+    slepovanje: string;
+    popravka: string;
+    prevoz: string;
+    smestaj: string;
     vehicle: string;
     typeOfVehicle: string;
     year: number;
@@ -11,7 +14,10 @@ export class InsurancePolicyCarRequest {
     jmbg: string;
 
     constructor(duration: number,
-        paket: string,
+        slepovanje:string,
+        prevoz: string,
+        popravka: string,
+        smestaj: string, 
         vehicle: string,
         typeOfVehicle: string,
         year: number,
@@ -21,7 +27,10 @@ export class InsurancePolicyCarRequest {
         lastName: string,
         jmbg: string) {
         this.duration = duration;
-        this.paket = paket;
+        this.slepovanje = slepovanje;
+        this.prevoz = prevoz;
+        this.smestaj = smestaj;
+        this.popravka = popravka; 
         this.vehicle = vehicle;
         this.typeOfVehicle = typeOfVehicle;
         this.year = year;

@@ -1,11 +1,21 @@
-.button{
+.button {
 	padding: 10px;
-
 }
 
-.price{
-	padding-top:10px;
-	font-size:30px;
-	font-weight:600;
-	
+.price {
+	padding-top: 10px;
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.form-title {
+	font-size: 30px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	font-weight: 600;
+	border-bottom: 1px solid gray;
+}
+
+form {
+	padding: 30px;
 }

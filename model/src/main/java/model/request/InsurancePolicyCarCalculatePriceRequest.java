@@ -3,32 +3,54 @@ package model.request;
 public class InsurancePolicyCarCalculatePriceRequest {
 
 	private Integer duration;
-	private Long paket;
-
+	private Long slepovanje;
+	private Long popravka;
+	private Long smestaj;
+	private Long prevoz;
+	
 	public InsurancePolicyCarCalculatePriceRequest() {
 		super();
 	}
-
-	public InsurancePolicyCarCalculatePriceRequest(Integer duration, Long paket) {
+	public InsurancePolicyCarCalculatePriceRequest(Integer duration, Long slepovanje, Long popravka, Long smestaj,
+			Long prevoz) {
 		super();
 		this.duration = duration;
-		this.paket = paket;
+		this.slepovanje = slepovanje;
+		this.popravka = popravka;
+		this.smestaj = smestaj;
+		this.prevoz = prevoz;
 	}
-
 	public Integer getDuration() {
 		return duration;
 	}
-
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
-
-	public Long getPaket() {
-		return paket;
+	public Long getSlepovanje() {
+		return slepovanje;
+	}
+	public void setSlepovanje(Long slepovanje) {
+		this.slepovanje = slepovanje;
+	}
+	public Long getPopravka() {
+		return popravka;
+	}
+	public void setPopravka(Long popravka) {
+		this.popravka = popravka;
+	}
+	public Long getSmestaj() {
+		return smestaj;
+	}
+	public void setSmestaj(Long smestaj) {
+		this.smestaj = smestaj;
+	}
+	public Long getPrevoz() {
+		return prevoz;
+	}
+	public void setPrevoz(Long prevoz) {
+		this.prevoz = prevoz;
 	}
 
-	public void setPaket(Long paket) {
-		this.paket = paket;
-	}
+
 
 }

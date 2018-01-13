@@ -1,6 +1,6 @@
 <div class="row">
 
-	<div class="col-6">
+	<div class="col-12">
 		<app-insurance-policy-person-form 
 			[current]="currentPerson"
 			[persons]="persons"
@@ -8,7 +8,7 @@
 			(resetCurrent)="resetCurrent($event)"
 			></app-insurance-policy-person-form> 
 	</div>
-	<div class="col-6">
+	<div class="col-12">
 		<app-insurance-policy-person-list [persons]="persons"
 			(selectForUpdate)="setForUpdate($event)"
 			(deletePerson)="delete($event)"></app-insurance-policy-person-list>

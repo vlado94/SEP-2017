@@ -1,9 +1,53 @@
+<div class="form-title">Osiguranje automobila</div>
 <form [formGroup]="insurancePolicyCarForm"
 	(ngSubmit)="set(insurancePolicyCarForm.value)">
-
-
-
-
+	<div class="paketi-title">PAKETI</div>
+	<div class="border-paketi"></div>
+	<div class="paketi">
+		<div class="form-group row">
+			<label for="slepovanje" class="col-3">Šlepovanje do odredjene
+				kilometraže:</label>
+			<div class="col-7">
+				<select id="slepovanje" class="form-control"
+					formControlName="slepovanje">
+					<option value="">Izaberite paket</option>
+					<option *ngFor="let t of slepovanje_list" value="{{t.id}}">{{t.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="popravka" class="col-3">Popravka do odredjene
+				cene:</label>
+			<div class="col-7">
+				<select id="popravka" class="form-control"
+					formControlName="popravka">
+					<option value="">Izaberite paket</option>
+					<option *ngFor="let t of popravka_list" value="{{t.id}}">{{t.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group row">
+			<label for="smestaj" class="col-3">Smestaj do odredjenog
+				broja dana:</label>
+			<div class="col-7">
+				<select id="smestaj" class="form-control" formControlName="smestaj">
+					<option value="">Izaberite paket</option>
+					<option *ngFor="let t of smestaj_list" value="{{t.id}}">{{t.name}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group row last-paket">
+			<label for="prevoz" class="col-3">Prevoz do odredjenog broja
+				kilometara:</label>
+			<div class="col-7">
+				<select id="prevoz" class="form-control" formControlName="prevoz">
+					<option value="">Izaberite paket</option>
+					<option *ngFor="let t of prevoz_list" value="{{t.id}}">{{t.name}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="border-paketi-bottom"></div>
 	<div class="form-group row">
 		<label for="duration" class="col-3">Trajanje osiguranja:</label>
 		<div class="col-7">
@@ -22,25 +66,6 @@
 				uneti ceo broj veći od 0.</div>
 		</div>
 	</div>
-
-	<div class="form-group row">
-		<label for="paket" class="col-3">Izaberite paket:</label>
-		<div class="col-7">
-			<select id="paket" class="form-control" formControlName="paket">
-				<option value="">Izaberite paket</option>
-				<option *ngFor="let t of paketi" value="{{t.id}}">{{t.name}}</option>
-			</select>
-		</div>
-		<div
-			*ngIf="insurancePolicyCarForm.controls['paket'].errors && !insurancePolicyCarForm.controls['paket'].pristine"
-			class="alert alert-danger">
-
-			<div *ngIf="insurancePolicyCarForm.controls['paket'].errors.required">Morate
-				izabrati paket osiguranja.</div>
-		</div>
-	</div>
-
-
 	<div class="form-group row">
 		<label for="typeOfVehicle" class="col-3">Tip vozila:</label>
 		<div class="col-7">
@@ -190,7 +215,7 @@
 	<div class="row">
 		<div class="col-10 ">
 			<div class="pull-right button">
-				<button [disabled]="!insurancePolicyCarForm.valid"
+				<button [disabled]="!insurancePolicyCarForm.valid || !paket_selected"
 					class="btn btn-default" type="submit">Potvrdi</button>
 			</div>
 			<div class="pull-right button">
@@ -206,7 +231,6 @@
 
 <div class="price" *ngIf="price">
 	<div *ngIf="price">
-		Trenutna cena osiguranja iznosi :
-		<span class="price-number">{{price}}</span>
+		Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>
 	</div>
 </div>

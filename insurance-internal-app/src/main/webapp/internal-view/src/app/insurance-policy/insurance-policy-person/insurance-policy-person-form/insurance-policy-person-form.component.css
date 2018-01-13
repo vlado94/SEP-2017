@@ -1,7 +1,19 @@
-.button{
-	padding:5px;
+.button {
+	padding: 5px;
 }
 
-.radio-button{
-	padding-left:10px;
+.radio-button {
+	padding-left: 10px;
+}
+
+form {
+	padding-top: 30px;
+}
+
+.putnik-form-title {
+	font-size: 26px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	font-weight:600;
+	border-bottom:1px solid gray;
 }

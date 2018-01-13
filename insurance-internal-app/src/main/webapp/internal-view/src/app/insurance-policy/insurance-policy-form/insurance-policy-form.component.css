@@ -1,5 +1,24 @@
-.fixed-right{
-	position:fixed;
-	bottom:100px;
-	right:2%;
+.fixed-right {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
+.price {
+	padding-top: 10px;
+	font-size: 30px;
+	font-weight: 600;
+	padding-bottom:30px;
+}
+
+.form-title {
+	font-size: 30px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	font-weight: 600;
+	border-bottom: 1px solid gray;
+}
+
+form {
+	padding: 30px;
 }

@@ -1,0 +1,11 @@
+.putnik-info {
+	font-size: 26px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	font-weight:600;
+	border-bottom:1px solid gray;
+}
+
+th{
+	border:none !important;
+}

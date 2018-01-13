@@ -1,10 +1,49 @@
-.button{
+.button {
 	padding: 10px;
 }
 
-.price{
-	padding-top:10px;
-	font-size:30px;
-	font-weight:600;
-	
+.price {
+	padding-top: 10px;
+	font-size: 30px;
+	font-weight: 600;
+}
+
+.paketi-title {
+	font-size: 24px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+
+.form-title {
+	font-size: 30px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	font-weight: 600;
+	border-bottom: 1px solid gray;
+}
+
+form {
+	padding: 30px;
+}
+
+.border-paketi{
+	width:80px;
+	display:block;
+	border:1px solid black;
+}
+
+.border-paketi-bottom{
+	width:80px;
+	display:block;
+	border:1px solid black;
+	margin-bottom:20px;
+}
+
+.last-paket{
+	margin-bottom:0px !important;
+}
+
+.paketi {
+	padding-top: 30px;
+	padding-bottom: 10px;
 }

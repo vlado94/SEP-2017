@@ -1,9 +1,7 @@
+<div class="form-title">Osiguranje automobila</div>
+
 <form [formGroup]="insurancePolicyHomeForm"
 	(ngSubmit)="set(insurancePolicyHomeForm.value)">
-
-
-
-
 	<div class="form-group row">
 		<label for="duration" class="col-3">Trajanje osiguranja:</label>
 		<div class="col-7">
@@ -197,7 +195,6 @@
 
 <div class="price" *ngIf="price">
 	<div *ngIf="price">
-		Trenutna cena osiguranja iznosi :
-		<span class="price-number">{{price}}</span>
+		Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>
 	</div>
 </div>

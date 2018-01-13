@@ -1,3 +1,4 @@
+<div class="form-title">Putno osiguranje</div>
 <form class="form-horizontal" [formGroup]="insurancePolicy"
 	(ngSubmit)="onSubmit(insurancePolicy)">
 
@@ -141,6 +142,7 @@
 </form>
 
 <div class="price" *ngIf="price">
-	<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi :
-		{{price}}</div>
+	<div *ngIf="price">
+		Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>
+	</div>
 </div>

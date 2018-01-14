@@ -77,9 +77,9 @@ export class InsurancePolicyCarForm {
         this.insurancePolicyCarForm.valueChanges.subscribe(value => {
             console.log('Car form changes!!!!!!!!!!!!!!!!!!!!!!!', value)
             if (this.insurancePolicyCarForm.get('duration').valid &&
-             (this.insurancePolicyCarForm.get('slepovanje').value != '' || this.insurancePolicyCarForm.get('popravka').value != ''
-            || this.insurancePolicyCarForm.get('prevoz').value != '' || this.insurancePolicyCarForm.get('smestaj').value != '')) {
-                let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.slepovanje,value.smestaj,value.popravka,value.prevoz)
+                (this.insurancePolicyCarForm.get('slepovanje').value != '' || this.insurancePolicyCarForm.get('popravka').value != ''
+                    || this.insurancePolicyCarForm.get('prevoz').value != '' || this.insurancePolicyCarForm.get('smestaj').value != '')) {
+                let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.slepovanje, value.smestaj, value.popravka, value.prevoz)
                 this.calculatePrice.emit(insurancePolicyCarCalculatePriceRequest);
                 this.paket_selected = true;
             } else {
@@ -88,19 +88,19 @@ export class InsurancePolicyCarForm {
             }
         })
 
-        this.factorService.findByCategory(11)
+        this.factorService.findByCategory(10)
             .subscribe(slepovanje => {
                 this.slepovanje_list = slepovanje;
             })
-        this.factorService.findByCategory(12)
+        this.factorService.findByCategory(11)
             .subscribe(popravka => {
                 this.popravka_list = popravka;
             })
-        this.factorService.findByCategory(13)
+        this.factorService.findByCategory(12)
             .subscribe(smestaj => {
                 this.smestaj_list = smestaj;
             })
-        this.factorService.findByCategory(14)
+        this.factorService.findByCategory(13)
             .subscribe(prevoz => {
                 this.prevoz_list = prevoz;
             })
@@ -147,6 +147,11 @@ export class InsurancePolicyCarForm {
         }
 
         this.insurancePolicyCarForm.reset();
+        this.insurancePolicyCarForm.controls['typeOfVehicle'].setValue('');
+        this.insurancePolicyCarForm.controls['slepovanje'].setValue('');
+        this.insurancePolicyCarForm.controls['smestaj'].setValue('');
+        this.insurancePolicyCarForm.controls['popravka'].setValue('');
+        this.insurancePolicyCarForm.controls['prevoz'].setValue('');
     }
 
     closeForm() {

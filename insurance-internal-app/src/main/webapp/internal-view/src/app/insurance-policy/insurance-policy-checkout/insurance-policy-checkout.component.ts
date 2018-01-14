@@ -1,4 +1,4 @@
-import {Component, Input, NgModule} from '@angular/core';
+import {Component, Input,Output,EventEmitter ,NgModule} from '@angular/core';
 import {InsurancePolicyRequest} from '../insurance-policy-request';
 
 import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
@@ -22,7 +22,15 @@ import {InsurancePolicyHomeRequest} from '../insurance-policy-home-form/insuranc
 })
 export class InsurancePolicyCheckoutComponent {
 
-    constructor() { }
+    @Output() nextTab = new EventEmitter<string>();
+    @Input() insurancePrice;
+    @Input() carInsurancePrice;
+    @Input() homeInsurancePrice;
+    changeTab(value: string) {
+        this.nextTab.emit(value);
+    }
+
+      constructor() { }
 
 
     ngOnInit() {

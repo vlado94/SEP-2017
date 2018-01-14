@@ -48,15 +48,26 @@ public class InsurancePolicyController {
 	}
 	
 	@PostMapping("/car/calculateSuggestedPrice")
-	private Integer calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
-
-		return obj.getDuration();
+	private Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
+		obj.setSlepovanje(30l);
+		obj.setPopravka(34l);
+		obj.setSmestaj(37l);
+		obj.setPrevoz(41l);
+		Double price = restTemplate().postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, Double.class);
+		return price;
 	}
 	
 	@PostMapping("/home/calculateSuggestedPrice")
-	private Integer calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
-
-		return obj.getDuration();
+	private Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
+		obj.setSize(18l);
+		obj.setAge(22l);
+		obj.setValue(26l);
+		obj.setRisk(27l);
+		
+		Double price = restTemplate().postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+		return price;
 	}
 	
 	

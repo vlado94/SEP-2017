@@ -25,7 +25,7 @@
 
 		<div class="col-12">
 			<app-insurance-policy-person [expectedNumbersByAgeCategories]="age"
-				[hidden]="activeTab !=='2'" (nextTab)="nextTab($event)"></app-insurance-policy-person>
+				[hidden]="activeTab !=='2'" (nextTab)="nextTab($event)" (personsChanged)="personsChanged($event)"></app-insurance-policy-person>
 		</div>
 
 		<div class="col-12">
@@ -44,6 +44,7 @@
 		<div class="col-12">
 			<app-insurance-policy-checkout [hidden]="activeTab !=='4'"
 				(nextTab)="nextTab($event)"
+				[persons]="persons"
 				[insurancePrice]="policyPrice"
 				[carInsurancePrice]="carInsurancePrice"
 				[homeInsurancePrice]="homeInsurancePrice"></app-insurance-policy-checkout>

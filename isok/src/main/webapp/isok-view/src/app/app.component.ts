@@ -34,6 +34,10 @@ export class AppComponent implements OnInit {
         this.keycloakService.logout();
       }
 
+	  public mail() {
+        this.keycloakService.mail();
+      }
+
   /*public calculatePrice() {
       this.insurancePolicyService.calculatePrice().subscribe(null);
     }*/

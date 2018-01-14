@@ -75,6 +75,14 @@ export class KeycloakService {
 
         window.location.href = KeycloakService.auth.logoutUrl;
     }
+	
+	  mail() {
+        console.log('*** MAIL');
+        
+
+        window.location.href = 'http://localhost/squirrelmail/squirrelmail-webmail/src/login.php';;
+    }
+
 
     getToken(): Promise<string> {
         return new Promise<string>((resolve, reject) => {

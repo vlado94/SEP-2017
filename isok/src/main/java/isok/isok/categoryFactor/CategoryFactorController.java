@@ -14,6 +14,8 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.keycloak.representations.AccessToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
@@ -21,6 +23,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +44,10 @@ public class CategoryFactorController {
 	@Value("${dataccessPort}")
 	private String dataccessPort;
 	
+	@Autowired
+	AccessToken accessToken;
+	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@GetMapping
 	private List<CategoryFactor> findAll() {
 		ResponseEntity<CategoryFactor[]> responseEntity = restTemplate().getForEntity(
@@ -49,6 +56,7 @@ public class CategoryFactorController {
 		return  Arrays.asList(objects);
 	}
 	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@GetMapping("/{id}")
 	private CategoryFactor findOne(@PathVariable Long id) {
         CategoryFactor quote = restTemplate().getForObject(
@@ -56,15 +64,19 @@ public class CategoryFactorController {
 		return quote;
 	}
 	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@PutMapping
 	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {	 
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(categoryFactor);
 		HttpEntity<CategoryFactor> updateCategoryEntity = restTemplate().exchange(
 				getDataccessPortHttps()+"/categoryFactor", HttpMethod.PUT, requestEntity, CategoryFactor.class );
 		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
+		System.out.println("User " + accessToken.getName() + " updated category factor " + updateCategory.getName() + " to " + updateCategory.getBasePrice());
+
 		return updateCategory;
 	}
 		
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {

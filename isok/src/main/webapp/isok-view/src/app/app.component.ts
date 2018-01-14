@@ -22,17 +22,18 @@ export class AppComponent implements OnInit {
     console.log(this.profile);
   }
 
-  public isSeller(): boolean {
-    return this.keycloakService.hasAnyRole(['seller']);
+  public isPriceManagement(): boolean {
+    //console.log("keycloak " + JSON.stringify(KeycloakService.auth.authz));
+    return this.keycloakService.hasRole('price_management');
   }
 
-    /*public isAdmin(): boolean {
-        return this.keycloakService.hasAnyRole(['admin']);
-      }*/
+  /*public isAdmin(): boolean {
+    return this.keycloakService.hasAnyRole(['admin']);
+  }*/
 
-      public logout() {
-        this.keycloakService.logout();
-      }
+  public logout() {
+    this.keycloakService.logout();
+  }
 
   /*public calculatePrice() {
       this.insurancePolicyService.calculatePrice().subscribe(null);

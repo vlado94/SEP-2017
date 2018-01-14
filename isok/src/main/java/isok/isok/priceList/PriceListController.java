@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,53 +31,48 @@ import model.dto.PriceListItemDTO;
 @RequestMapping("/priceList")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PriceListController {
-	
+
 	@Value("${dataccessPort}")
 	private String dataccessPort;
-	
+
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@GetMapping("/findLast")
 	private List<PriceListItemDTO> findLast() {
-		List<PriceListItemDTO> list = Arrays.asList(restTemplate().getForEntity(
-				getDataccessPortHttps()+"/priceList/findLast", PriceListItemDTO[].class)
-				.getBody());
+		List<PriceListItemDTO> list = Arrays.asList(restTemplate()
+				.getForEntity(getDataccessPortHttps() + "/priceList/findLast", PriceListItemDTO[].class).getBody());
 		return list;
 	}
-	
+
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@PostMapping
 	private boolean save(@RequestBody List<Double> obj) {
-		boolean result = restTemplate().postForObject(
-				getDataccessPortHttps()+"/priceList", obj, boolean.class);
-		
+		boolean result = restTemplate().postForObject(getDataccessPortHttps() + "/priceList", obj, boolean.class);
+
 		return result;
 	}
-	
-	
 
 	public String getDataccessPortHttps() {
 		return dataccessPort.replace("http", "https").toString();
 	}
-	
+
 	@Bean
 	public RestTemplate restTemplate() {
 		try {
 			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-		    keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
-	
-		    SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
-		            new SSLContextBuilder()
-		                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-		                    .loadKeyMaterial(keyStore, "sep12345".toCharArray())
-		                    .build(),
-		            NoopHostnameVerifier.INSTANCE);
-	
-		    HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
-	
-		    ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-		    RestTemplate restTemplate = new RestTemplate(requestFactory);
-			
-		    return restTemplate;
-		}
-		catch(Exception exc) {
+			keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
+
+			SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
+					new SSLContextBuilder().loadTrustMaterial(null, new TrustSelfSignedStrategy())
+							.loadKeyMaterial(keyStore, "sep12345".toCharArray()).build(),
+					NoopHostnameVerifier.INSTANCE);
+
+			HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
+
+			ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+			RestTemplate restTemplate = new RestTemplate(requestFactory);
+
+			return restTemplate;
+		} catch (Exception exc) {
 			return null;
 		}
 	}

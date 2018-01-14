@@ -21,6 +21,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class FactorController {
 	@Value("${dataccessPort}")
 	private String dataccessPort;
 	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@GetMapping
 	private List<FactorDTO> findAll() {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
@@ -52,6 +54,7 @@ public class FactorController {
 		
 	}
 
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@PostMapping
 	private FactorDTO save(@RequestBody FactorDTO obj) {
 		FactorDTO newFactorDTO = restTemplate().postForObject(
@@ -60,6 +63,7 @@ public class FactorController {
 		return newFactorDTO;
 	}
 
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@GetMapping("/{id}")
 	private FactorDTO findOne(@PathVariable Long id) {
 		FactorDTO factorDTO = restTemplate().getForObject(
@@ -67,6 +71,7 @@ public class FactorController {
 		return factorDTO;
 	}
 	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@PutMapping
 	private FactorDTO update(@RequestBody FactorDTO obj) {
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(obj);
@@ -76,6 +81,7 @@ public class FactorController {
 		return updateFactorDTO;
 	}
 	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@DeleteMapping("/{id}")
 	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {
@@ -87,6 +93,7 @@ public class FactorController {
 		}
 	}
 	
+	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(

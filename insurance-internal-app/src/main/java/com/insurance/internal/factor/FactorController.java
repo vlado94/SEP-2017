@@ -6,17 +6,23 @@ import java.security.KeyStore;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.keycloak.representations.AccessToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +39,37 @@ public class FactorController {
 	
 	@Value("${dataccessPort}")
 	private String dataccessPort;
+	
+	@Autowired
+	HttpSession session;
+	
+/*	@Autowired
+	KeycloakSecurityContext context;*/
+	
+	@Autowired
+	AuthenticationManagerBuilder auth;
+	
+	@Autowired
+	AccessToken accessToken;
+	
+	/*@Autowired
+	KeycloakAuthenticationProvider provider;*/
+	@Autowired
+	HttpServletRequest request;
+	
+
+
 
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
+		//KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
+	/*	KeycloakAuthenticationProvider auth = new KeycloakAuthenticationProvider();
+		AccessToken.Access access = accessToken.getRealmAccess();
+		Set<String> roles = access.getRoles();
+		System.out.println(roles.size()); 
+		String s = session.getId();*/
+		System.out.println("first " + accessToken.getName());
+
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
 				getDataccessPortHttps()+"/factor/category/"+id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();

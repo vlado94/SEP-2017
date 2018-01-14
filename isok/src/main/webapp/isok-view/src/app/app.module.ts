@@ -41,6 +41,9 @@ import { priceListRouting } from "./price-list/price-list.routing";
 import { PriceService } from "./price-list/price.service";
 import { RulesComponent } from './rules/rules.component';
 import { RulesService} from './rules/rules.service';
+import { ResolverServiceService } from './resolver/resolver-service.service';
+import { Resolver } from './resolver/userResolver';
+import { ResolverPriceManagement } from './resolver/resolver-price-management'
 
 @NgModule({
     declarations: [
@@ -80,7 +83,7 @@ import { RulesService} from './rules/rules.service';
         ToastModule.forRoot()
     ],
     providers: [CategoryFactorService, FactorService, PriceService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER,
-         KeycloakService, RulesService],
+         KeycloakService, RulesService, ResolverServiceService, Resolver, ResolverPriceManagement],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

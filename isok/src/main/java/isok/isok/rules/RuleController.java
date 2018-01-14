@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import org.apache.maven.cli.MavenCli;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,7 @@ public class RuleController {
 		return i2;		
 	}	
 	
+	@PreAuthorize("hasRole('price_management'")
 	@GetMapping("/getRules")
 	private String getRules() {
 		String p="";
@@ -92,6 +94,7 @@ public class RuleController {
 		return "greska";
 	}	
 
+	@PreAuthorize("hasRole('price_management'")
 	@PostMapping(value="/changeRules")
 	private boolean save(@RequestBody RuleHelper ruleFileAsText) {
 		String s;

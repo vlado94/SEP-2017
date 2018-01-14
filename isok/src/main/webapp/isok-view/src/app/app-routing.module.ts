@@ -5,11 +5,15 @@ import { CategoryFactorComponent } from './category-factor/category-factor.compo
 import {InsurancePolicyComponent} from './insurance-policy/insurance-policy.component';
 import { RulesComponent } from './rules/rules.component';
 import { CommonModule } from '@angular/common';
+import { ResolverPriceManagement } from './resolver/resolver-price-management'
 
 const routes: Routes = [
     { path: 'insurancePolicy', component: InsurancePolicyComponent },
     {
-      path: 'rules', component : RulesComponent
+      path: 'rules', component : RulesComponent,
+      resolve: {
+  		resolver : ResolverPriceManagement
+  	}
     }
 ];
 

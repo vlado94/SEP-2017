@@ -26,9 +26,7 @@
 		<div class="col-7">
 			<select id="size" class="form-control" formControlName="size">
 				<option value="">Izaberite kvadraturu</option>
-				<option value="1">Do 50 m2</option>
-				<option value="2">Izmedju 50m2 i 100m2</option>
-				<option value="3">Preko 100m2</option>
+				<option *ngFor="let p of sizes" value="{{p.id}}">{{p.name}}</option>
 			</select>
 		</div>
 		<div
@@ -46,9 +44,7 @@
 		<div class="col-7">
 			<select id="age" class="form-control" formControlName="age">
 				<option value="">Izaberite starost stana</option>
-				<option value="1">Do 5 godina</option>
-				<option value="2">Izmedju 5 i 15 godina</option>
-				<option value="3">Preko 15 godina</option>
+				<option *ngFor="let p of ages" value="{{p.id}}">{{p.name}}</option>
 			</select>
 		</div>
 		<div
@@ -65,9 +61,8 @@
 		<div class="col-7">
 			<select id="value" class="form-control" formControlName="value">
 				<option value="">Izaberite procenjenu vrednost stana</option>
-				<option value="1">Do 100.000,00 eura</option>
-				<option value="2">Izmedju 100.000,00 i 200.00,00 eura</option>
-				<option value="3">Preko 200.00,00 eura</option>
+				<option *ngFor="let p of values" value="{{p.id}}">{{p.name}}</option>
+
 			</select>
 		</div>
 		<div
@@ -85,9 +80,8 @@
 		<div class="col-7">
 			<select id="risk" class="form-control" formControlName="risk">
 				<option value="">Izaberite od čega se stan osigurava</option>
-				<option value="1">Krađe</option>
-				<option value="2">Požara</option>
-				<option value="3">Poplave</option>
+				<option *ngFor="let p of risks" value="{{p.id}}">{{p.name}}</option>
+
 			</select>
 		</div>
 		<div

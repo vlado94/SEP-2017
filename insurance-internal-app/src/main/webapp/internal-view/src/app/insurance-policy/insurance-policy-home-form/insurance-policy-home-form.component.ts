@@ -37,10 +37,10 @@ export class InsurancePolicyHomeForm {
     @Output() hideForm = new EventEmitter<string>();
     @Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
     @Input() price;
-    sizes:Factor[];
-    ages:Factor[];
-    values:Factor[];
-    risks:Factor[];
+    sizes: Factor[];
+    ages: Factor[];
+    values: Factor[];
+    risks: Factor[];
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
         this.insurancePolicyHomeForm = new FormGroup({
             duration: new FormControl('', [
@@ -67,11 +67,11 @@ export class InsurancePolicyHomeForm {
     }
     ngOnInit() {
         this.insurancePolicyHomeForm.reset();
-            this.insurancePolicyHomeForm.controls['size'].setValue('');
-            this.insurancePolicyHomeForm.controls['age'].setValue('');
-            this.insurancePolicyHomeForm.controls['value'].setValue('');
-            this.insurancePolicyHomeForm.controls['risk'].setValue('');
-        
+        this.insurancePolicyHomeForm.controls['size'].setValue('');
+        this.insurancePolicyHomeForm.controls['age'].setValue('');
+        this.insurancePolicyHomeForm.controls['value'].setValue('');
+        this.insurancePolicyHomeForm.controls['risk'].setValue('');
+
         this.insurancePolicyHomeForm.valueChanges.subscribe(value => {
             if (this.insurancePolicyHomeForm.get('duration').valid && this.insurancePolicyHomeForm.get('size').valid
                 && this.insurancePolicyHomeForm.get('value').valid && this.insurancePolicyHomeForm.get('risk').valid
@@ -83,24 +83,24 @@ export class InsurancePolicyHomeForm {
                 this.calculatePrice.emit(null);
             }
         })
-        
-        this.factorService.findByCategory(7)
+
+        this.factorService.findByCategory(6)
             .subscribe(sizes => {
                 this.sizes = sizes;
             })
 
-        this.factorService.findByCategory(8)
+        this.factorService.findByCategory(7)
             .subscribe(ages => {
                 this.ages = ages;
-            }) 
-        this.factorService.findByCategory(9)
+            })
+        this.factorService.findByCategory(8)
             .subscribe(values => {
                 this.values = values;
             })
-        this.factorService.findByCategory(10)
+        this.factorService.findByCategory(9)
             .subscribe(risks => {
                 this.risks = risks;
-            })                       
+            })
     }
 
     @Input()
@@ -139,6 +139,10 @@ export class InsurancePolicyHomeForm {
         }
 
         this.insurancePolicyHomeForm.reset();
+        this.insurancePolicyHomeForm.controls['size'].setValue('');
+        this.insurancePolicyHomeForm.controls['age'].setValue('');
+        this.insurancePolicyHomeForm.controls['value'].setValue('');
+        this.insurancePolicyHomeForm.controls['risk'].setValue('');
     }
 
     closeForm() {

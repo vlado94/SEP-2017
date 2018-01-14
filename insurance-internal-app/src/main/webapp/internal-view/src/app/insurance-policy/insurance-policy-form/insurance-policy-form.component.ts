@@ -63,7 +63,10 @@ export class InsurancePolicyFormComponent {
     public addPersonButton: boolean = true;
     @Output() onFormSubmit = new EventEmitter<InsurancePolicyRequest>();
     @Output() nextTab = new EventEmitter<string>();
-    price: string = null;
+    @Output() calculatePrice = new EventEmitter<InsurancePolicyCalculatePriceRequest>();
+    @Input() price;
+
+    //price: string = null;
     regions: Factor[];
     sports: Factor[];
     agesCategory: Factor[];
@@ -122,12 +125,12 @@ export class InsurancePolicyFormComponent {
             if (this.insurancePolicy.valid && this.checkNumberOfPeople()) {
                 let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
                     value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
-
-                this.insurancePolicyService.calculateSuggestedPrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
+                this.calculatePrice.emit(insurancePolicyCalculatePriceRequest);
+                /*this.insurancePolicyService.calculateSuggestedPrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
                     this.price = price;
-                })
+                })*/
             } else {
-                this.price = null;
+                this.calculatePrice.emit(null);
             }
         })
 

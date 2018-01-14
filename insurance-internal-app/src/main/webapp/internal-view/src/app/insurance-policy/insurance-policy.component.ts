@@ -34,6 +34,7 @@ export class InsurancePolicyComponent {
     insurancePolicyCar: InsurancePolicyCarRequest = null;
     insurancePolicyHome: InsurancePolicyHomeRequest = null;
 
+    policyPrice = null;
     carInsurancePrice: string = null;
     homeInsurancePrice: string = null;
 
@@ -69,6 +70,17 @@ export class InsurancePolicyComponent {
         }
     }
 
+    calculateInsurancePolicyPrice(value) {
+        console.log("Calculating insurance policy price...")
+        if (value) {
+            this.insurancePolicyService.calculateSuggestedPrice(value).subscribe(price => {
+                this.policyPrice = price;
+            })
+        } else {
+            this.policyPrice = null;
+        }
+    }
+
     calculateHomeInsurancePrice(value) {
         if (value != null) {
 
@@ -84,8 +96,6 @@ export class InsurancePolicyComponent {
 
     calculateCarInsurancePrice(value) {
         if (value) {
-
-
             this.insurancePolicyService.calculateSuggestedPriceCar(value).subscribe(price => {
                 this.carInsurancePrice = price;
             })

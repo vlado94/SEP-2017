@@ -1,12 +1,55 @@
 <div class="row">
 
 	<div class="col-12">
-		<app-insurance-policy-person-form 
-			[current]="currentPerson"
-			[persons]="persons"
-			(onFormSubmit)="onSubmit($event)"
-			(resetCurrent)="resetCurrent($event)"
-			></app-insurance-policy-person-form> 
+		<app-insurance-policy-person-form [current]="currentPerson"
+			[persons]="persons" (onFormSubmit)="onSubmit($event)"
+			(resetCurrent)="resetCurrent($event)"></app-insurance-policy-person-form>
+	</div>
+
+	<div class="col-12">
+		<div class="putnik-info">Broj putnika</div>
+
+		<table class="table table-bordered">
+			<thead>
+				<th></th>
+				<th>Navedeni broj osoba</th>
+				<th>Trenutno uneti broj osoba</th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr>
+					<th>Do 16 godina</th>
+					<td>{{expectedNumbersByAgeCategories.firstCategory}}</td>
+					<td>{{under16}}</td>
+					<td *ngIf="expectedNumbersByAgeCategories.firstCategory == under16"><i
+						class="fa fa-check" aria-hidden="true"></i></td>
+					<td *ngIf="expectedNumbersByAgeCategories.firstCategory != under16"><i
+						class="fa fa-close" aria-hidden="true"></i></td>
+
+				</tr>
+				<tr>
+					<th>Izmedju 16 i 60 godina</th>
+
+					<td>{{expectedNumbersByAgeCategories.secondCategory}}</td>
+					<td>{{between16an60}}</td>
+					<td
+						*ngIf="expectedNumbersByAgeCategories.secondCategory == between16an60"><i
+						class="fa fa-check" aria-hidden="true"></i></td>
+					<td
+						*ngIf="expectedNumbersByAgeCategories.secondCategory != between16an60"><i
+						class="fa fa-close" aria-hidden="true"></i></td>
+				</tr>
+				<tr>
+					<th>Preko 60 godina</th>
+					<td>{{expectedNumbersByAgeCategories.thirdCategory}}</td>
+					<td>{{over16}}</td>
+					<td *ngIf="expectedNumbersByAgeCategories.thirdCategory == over16"><i
+						class="fa fa-check" aria-hidden="true"></i></td>
+					<td *ngIf="expectedNumbersByAgeCategories.thirdCategory != over16"><i
+						class="fa fa-close" aria-hidden="true"></i></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div class="col-12">
 		<app-insurance-policy-person-list [persons]="persons"
@@ -14,7 +57,7 @@
 			(deletePerson)="delete($event)"></app-insurance-policy-person-list>
 	</div>
 
-		<button class="btn fixed-left" (click)="changeTab('1')" >Nazad</button>
-		<button class="btn fixed-right" (click)="changeTab('3')" [disabled]="!isNumberOfPersonsByAgeCorrect() || !isContractorAdded()">Dalje</button>
-
+	<button class="btn fixed-left" (click)="changeTab('1')">Nazad</button>
+	<button class="btn fixed-right" (click)="changeTab('3')"
+		[disabled]="!isNumberOfPersonsByAgeCorrect() || !isContractorAdded()">Dalje</button>
 </div>

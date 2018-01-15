@@ -15,7 +15,7 @@ public class InsurancePolicyCalculatePriceRequest {
     private int firstAgeCategory;
     private int secondAgeCategory;
     private int thirdAgeCategory;
-	
+	private int numberOfPersons;
 	
 	public InsurancePolicyCalculatePriceRequest() {
 		super();
@@ -23,7 +23,7 @@ public class InsurancePolicyCalculatePriceRequest {
 
 	public InsurancePolicyCalculatePriceRequest(LocalDate startDate, int duration, Long region, Long sport, Long amount,
 			String typeOfPolicy, int firstAgeCategory, int secondAgeCategory,
-			int thirdAgeCategory) {
+			int thirdAgeCategory, int numberOfPersons) {
 		super();
 		this.startDate = startDate;
 		this.duration = duration;
@@ -34,6 +34,7 @@ public class InsurancePolicyCalculatePriceRequest {
 		this.firstAgeCategory = firstAgeCategory;
 		this.secondAgeCategory = secondAgeCategory;
 		this.thirdAgeCategory = thirdAgeCategory;
+		this.numberOfPersons = numberOfPersons;
 	}
 
 	public LocalDate getStartDate() {
@@ -98,6 +99,14 @@ public class InsurancePolicyCalculatePriceRequest {
 
 	public void setThirdAgeCategory(int thirdAgeCategory) {
 		this.thirdAgeCategory = thirdAgeCategory;
+	}
+
+	public int getNumberOfPersons() {
+		return numberOfPersons;
+	}
+
+	public void setNumberOfPersons(int numberOfPersons) {
+		this.numberOfPersons = numberOfPersons;
 	}
 
 	

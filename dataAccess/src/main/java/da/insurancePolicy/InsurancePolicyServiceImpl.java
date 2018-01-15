@@ -10,11 +10,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 import da.person.Person;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
 import da.priceListItem.PriceListItemRepository;
+import da.rules.Popust;
+import da.rules.RuleService;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
@@ -34,8 +38,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	private PriceListItemRepository priceListItemRepo;
 
 	@Autowired
-	private PriceListService priceListService;
+	private RuleService ruleService;
 
+	@Autowired
+	private PriceListService priceListService;
+	
 	@Autowired
 	private InsurancePolicyRepository insurancePolicyRepository;
 	
@@ -299,7 +306,12 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			retVal += agePrices.get(i);
 		}
 		
-		return retVal * policy.getDuration();
+		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
+		Double price = retVal * policy.getDuration();
+		System.out.println(discounts.size());
+		
+		
+		return price;
 	}
 	
 	

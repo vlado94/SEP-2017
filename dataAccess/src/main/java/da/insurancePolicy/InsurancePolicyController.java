@@ -41,6 +41,7 @@ public class InsurancePolicyController {
 	@PostMapping("/calculateSuggestedPrice")
 	public Double calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest request) {
 	
+		request.setNumberOfPersons(request.getFirstAgeCategory()+request.getSecondAgeCategory()+request.getThirdAgeCategory());
 		return insurancePolicyService.calculateSuggestedPrice(request);
 		
 	}

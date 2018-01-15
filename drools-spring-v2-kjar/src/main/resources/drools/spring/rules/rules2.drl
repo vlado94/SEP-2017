@@ -2,6 +2,7 @@
 package drools.spring.rules
 
 import model.request.InsurancePolicyRequest;
+import model.request.InsurancePolicyCalculatePriceRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
@@ -35,6 +36,32 @@ rule "Popust na datum"
 	lock-on-active true
 	when
 		$i : InsurancePolicyRequest(this.getStartDate().isAfter(LocalDate.of(2018,2,2)))
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("februarski popust",11));	
+		}
+		System.out.println("11% na februar");
+end	
+
+
+rule "Grupni popust2 ( proba, veci od 1)"
+	lock-on-active true
+	when 
+		$i : InsurancePolicyCalculatePriceRequest(this.getNumberOfPersons() > 1)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na kolicinu",10));
+		}
+		System.out.println("10 % na kolicinu");
+end
+
+
+rule "Popust na datum2"
+	lock-on-active true
+	when
+		$i : InsurancePolicyCalculatePriceRequest(this.getStartDate().isAfter(LocalDate.of(2018,2,2)))
 		$lista : ArrayList()
 	then
 		modify($lista){

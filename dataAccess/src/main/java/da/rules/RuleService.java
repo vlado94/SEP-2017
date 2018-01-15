@@ -1,4 +1,4 @@
-package isok.isok.rules;
+package da.rules;
 
 import java.util.ArrayList;
 import org.kie.api.runtime.KieContainer;
@@ -32,12 +32,12 @@ public class RuleService {
         return lista;
     }
     
-    public ArrayList<Popust> getClassifiedItem(InsurancePolicyCalculatePriceRequest request) {
+    public ArrayList<Popust> getClassifiedItem(InsurancePolicyCalculatePriceRequest i) {
     	
     	ArrayList<Popust> lista=new ArrayList();
   
         KieSession kieSession = kieContainer.newKieSession();
-        kieSession.insert(request);
+        kieSession.insert(i);
         kieSession.insert(lista);
         kieSession.fireAllRules();
         kieSession.dispose();

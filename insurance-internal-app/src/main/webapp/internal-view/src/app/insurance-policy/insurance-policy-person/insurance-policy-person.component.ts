@@ -14,12 +14,13 @@ export class InsurancePolicyPersonComponent {
     currentPerson: InsurancePolicyPersonRequest;
     persons: InsurancePolicyPersonRequest[] = [];
     @Output() nextTab = new EventEmitter<string>();
+    @Output() personsChanged = new EventEmitter<InsurancePolicyPersonRequest[]>();
     firstCategoryOfAge = 16;
     secondCategoryOfAge = 60;
     under16: number = 0;
     between16an60: number = 0;
     over16: number = 0;
-    
+
     changeTab(value: string) {
         this.nextTab.emit(value);
     }
@@ -35,12 +36,14 @@ export class InsurancePolicyPersonComponent {
             this.decreasePersonAgeCategory(ageFromUpdate);
             this.increasePersonAgeCategory(age);
             this.currentPerson = null;
-
+            this.personsChanged.emit(this.persons);
             return;
         }
         this.persons.push(value);
         console.log(this.getAgeFromJmbg(value.jmbg));
         this.increasePersonAgeCategory(age);
+        this.personsChanged.emit(this.persons);
+
     }
 
     setForUpdate(value: InsurancePolicyPersonRequest) {
@@ -55,6 +58,7 @@ export class InsurancePolicyPersonComponent {
         if (this.currentPerson == value)
             this.currentPerson = null;
         this.decreasePersonAgeCategory(this.getAgeFromJmbg(value.jmbg));
+        this.personsChanged.emit(this.persons);
     }
     resetCurrent(value: InsurancePolicyPersonRequest) {
         this.currentPerson = value;

@@ -28,7 +28,7 @@ import {InsurancePolicyService} from './insurance-policy.service';
 export class InsurancePolicyComponent {
 
     activeTab: string = '3';
-    personsList: InsurancePolicyPersonRequest[] = [];
+    //personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
     insurancePolicyCar: InsurancePolicyCarRequest = null;
@@ -37,6 +37,7 @@ export class InsurancePolicyComponent {
     policyPrice = null;
     carInsurancePrice: string = null;
     homeInsurancePrice: string = null;
+    persons: InsurancePolicyPersonRequest[] = [];
 
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }
@@ -103,6 +104,11 @@ export class InsurancePolicyComponent {
             console.log("11111111111111111111111");
             this.carInsurancePrice = null;
         }
+    }
+    
+    personsChanged(value){
+        console.log("Perons list changed")
+        this.persons = value;    
     }
 }
 export class Age {

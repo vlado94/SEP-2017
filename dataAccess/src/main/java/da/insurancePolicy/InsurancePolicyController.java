@@ -1,5 +1,6 @@
 package da.insurancePolicy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,4 +81,11 @@ public class InsurancePolicyController {
 		return insurancePolicyService.calculateSuggestedPriceCar(request);
 		
 	}
+	
+/*	@GetMapping("/x")
+	public String eo() {
+		InsurancePolicyCalculatePriceRequest i=new InsurancePolicyCalculatePriceRequest();
+		i.setStartDate(LocalDate.of(2018, 2, 5));
+		
+	}*/
 }

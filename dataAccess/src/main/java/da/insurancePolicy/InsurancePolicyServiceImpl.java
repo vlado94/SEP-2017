@@ -10,16 +10,16 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
 import da.person.Person;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
 import da.priceListItem.PriceListItemRepository;
-import da.rules.Popust;
 import da.rules.RuleService;
+import model.dto.Discount;
+import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCalculatePriceResponce;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
@@ -166,6 +166,10 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			retVal += insurencePolicy.getDuration() * responce.getPersons().get(i).getTotalPrice();
 		}
 		policy.setAmount(retVal);
+		
+		ArrayList<Popust> discounts = ruleService.getClassifiedItem(insurencePolicy);
+		InsurancePolicyCalculatePriceResponce calculatedPriceResponce =  calculatePriceWithDiscounts(discounts, retVal);//return
+		
 		return retVal;
 	}
 
@@ -308,13 +312,28 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
 		Double price = retVal * policy.getDuration();
-		System.out.println(discounts.size());
-		
-		
+		InsurancePolicyCalculatePriceResponce responce =  calculatePriceWithDiscounts(discounts, price);//return
+	
 		return price;
 	}
 	
-	
+	private InsurancePolicyCalculatePriceResponce calculatePriceWithDiscounts(ArrayList<Popust> discounts, Double basePrice ) {
+		InsurancePolicyCalculatePriceResponce responce = new InsurancePolicyCalculatePriceResponce();
+		responce.setBasePrice(basePrice);
+		ArrayList<Discount> discountsToDisplay = new ArrayList<>();
+		double totalReduction = 0;
+		for (Popust popust : discounts) {
+			Discount discount = new Discount();
+			discount.setDiscountName(popust.getNazivPopusta());
+			discount.setPercent( (int) popust.getIznosPopusta());
+			discount.setAmount(basePrice* popust.getIznosPopusta()/100);
+			totalReduction += basePrice* popust.getIznosPopusta()/100;
+			discountsToDisplay.add(discount);
+		}
+		responce.setDiscounts(discountsToDisplay);
+		responce.setFinalPrice(basePrice - totalReduction);
+		return responce;
+	}
 	
 	@Override
 	public Double calculateSuggestedPriceHome(InsurancePolicyHomeCalculatePriceRequest policy) {

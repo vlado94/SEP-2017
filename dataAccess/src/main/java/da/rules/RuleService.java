@@ -1,11 +1,13 @@
 package da.rules;
 
 import java.util.ArrayList;
+
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 
@@ -32,12 +34,12 @@ public class RuleService {
         return lista;
     }
     
-    public ArrayList<Popust> getClassifiedItem(InsurancePolicyCalculatePriceRequest i) {
+    public ArrayList<Popust> getClassifiedItem(InsurancePolicyCalculatePriceRequest request) {
     	
     	ArrayList<Popust> lista=new ArrayList();
   
         KieSession kieSession = kieContainer.newKieSession();
-        kieSession.insert(i);
+        kieSession.insert(request);
         kieSession.insert(lista);
         kieSession.fireAllRules();
         kieSession.dispose();

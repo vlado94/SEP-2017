@@ -1,4 +1,4 @@
-package da.rules;
+package model.dto;
 
 public class Popust {
 

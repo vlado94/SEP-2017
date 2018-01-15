@@ -32,6 +32,14 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+		
+<!-- 		<dependency>		 -->
+<!-- 			<groupId>isok</groupId> -->
+<!-- 			<artifactId>isok</artifactId> -->
+<!-- 			<version>0.0.1-SNAPSHOT</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jersey</artifactId>

@@ -1,4 +1,4 @@
-package isok.isok.rules;
+package model.dto;
 
 public class Popust {
 

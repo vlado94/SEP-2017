@@ -15,55 +15,64 @@
 								<div class="form-group form-black label-floating">
 									<label class="control-label">Od</label>
 									<input type="text" class="form-control" formControlName="startDate" bsDatepicker />
+									<div *ngIf="insurancePolicyForm.controls['startDate'].errors && !insurancePolicyForm.controls['startDate'].pristine">
+
+										<span class="errorClass" *ngIf="insurancePolicyForm.controls['startDate'].errors.required">Morate uneti datum pocetka osiguranja.</span>
+										<span class="errorClass" *ngIf="insurancePolicyForm.controls['startDate'].errors.dateValidator">Datum ne može biti manji od današnjeg datuma.</span>
+									</div>
 								</div>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group form-black label-floating">
-									<label class="control-label">Dana</label>
+									<label class="control-label">Broj dana</label>
 									<input type="text" class="form-control" formControlName="duration" >
+									<div *ngIf="insurancePolicyForm.controls['duration'].errors && !insurancePolicyForm.controls['duration'].pristine">
+
+										<span class="errorClass" *ngIf="insurancePolicyForm.controls['duration'].errors.required">Morate uneti broj dana.</span>
+										<span class="errorClass" *ngIf="insurancePolicyForm.controls['duration'].errors.pattern">Broj dana mora biti broj.</span>
+									</div>
 								</div>
 							</div>
 							<div class="col-sm-4">
 								<div class="form-group form-black label-floating">
-									<label class="control-label">Od</label>
-									<input type="text" class="form-control" disabled />
+									<label class="bmd-label-floating control-label">Tip polise</label>
+									<select class="form-control" formControlName="typeOfPolicy">
+										<option value=""></option>
+										<option *ngFor="let t of types" value="{{t.id}}">{{t.name}}</option>
+									</select>
+									<div *ngIf="insurancePolicyForm.controls['typeOfPolicy'].errors && !insurancePolicyForm.controls['typeOfPolicy'].pristine">
+
+										<span class="errorClass" *ngIf="insurancePolicyForm.controls['typeOfPolicy'].errors.required">Morate izabrati tip polise koji želite da kupite.</span>
+									</div>
 								</div>
 							</div>
 						</div>
 
-						<div>
-							<div class="form-group form-black label-floating">
-								<label class="bmd-label-floating control-label">Tip polise</label>
-								<select class="form-control" formControlName="typeOfPolicy">
-									<option value=""></option>
-									<option *ngFor="let t of types" value="{{t.id}}">{{t.name}}</option>
-								</select>
-							</div>
-						</div>
 						<div class="row">
 							<div class="col-sm-3">
 								<div class="form-group form-black label-floating">
 									<label class="control-label">Broj putnika</label>
-									<input type="text" class="form-control" formControlName="numberOfPersons">
-								</div>
+									<input type="text" class="form-control" disabled>
+								</div> 
+
 							</div>
 
 
 							<div class="col-sm-3">
 								<div class="form-group form-black label-floating">
-									<label class="control-label">-16</label>
+									<label class="control-label">do 16 godina</label>
 									<input type="text" class="form-control" formControlName="numberOfPersonsUpTo16">
 								</div>
 							</div>
 							<div class="col-sm-3">
 								<div class="form-group form-black label-floating">
-									<label class="control-label">16-60</label>
+									<label class="control-label">od 16 do 60 godina</label>
 									<input type="text" class="form-control" formControlName="numberOfPersonsBetween16And60">
 								</div>
 							</div>
 							<div class="col-sm-3">
 								<div class="form-group form-black label-floating">
-									<label class="control-label">60+</label>
+									<label class="control-label">više od 60 godina</label>
 									<input type="text" class="form-control" formControlName="numberOfPersonsOver60">
 								</div>
 							</div>
@@ -74,33 +83,32 @@
 								<label for="exampleSelect1" class="bmd-label-floating control-label">Region</label>
 								<select class="form-control" formControlName="region">
 									<option></option>
-									<option>Evropa</option>
-									<option>Azija</option>
-									<option>Severna Amerika</option>
-									<option>Juzna Amerika</option>
-									<option>Austrialija</option>
+									<option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
 								</select>
+								<div *ngIf="insurancePolicyForm.controls['region'].errors && !insurancePolicyForm.controls['region'].pristine">
+
+									<span class="errorClass" *ngIf="insurancePolicyForm.controls['region'].errors.required">Morate izabrati region u koji želite da putujete.</span>
+								</div>
 							</div>
 						</div>
 						<div class="form-group form-black label-floating">
 							<label class="bmd-label-floating control-label">Iznos</label>
 							<select class="form-control" formControlName="amount">
 								<option value=""></option>
-								<option value="1">100.000,00</option>
-								<option value="2">200.000,00</option>
-								<option value="3">300.000,00</option>
-								<option value="4">400.000,00</option>
+								<option *ngFor="let amount of amounts" value="{{amount.id}}">{{amount.name}}</option>
 							</select>
+							<div *ngIf="insurancePolicyForm.controls['amount'].errors && !insurancePolicyForm.controls['amount'].pristine">
+
+									<span class="errorClass" *ngIf="insurancePolicyForm.controls['amount'].errors.required">Morate izabrati iznos do kojeg želite da se osigurate.</span>
+								</div>
 						</div>
 						<div>
 							<div class="form-group form-black label-floating">
 								<label for="exampleSelect1" class="bmd-label-floating control-label">Sport</label>
 								<select class="form-control" id="exampleSelect1" formControlName="sport">
 									<option></option>
-									<option>Kosarka</option>
-									<option>Fudbal</option>
-									<option>Bocanje</option>
-								</select>
+									<option *ngFor="let s of sports" value="{{s.id}}">{{s.name}}</option>
+								</select>								
 							</div>
 						</div>
 						<div class="price" *ngIf="price">

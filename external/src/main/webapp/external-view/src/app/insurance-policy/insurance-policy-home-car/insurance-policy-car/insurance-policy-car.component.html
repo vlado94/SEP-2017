@@ -11,123 +11,159 @@
 
 					<form [formGroup]="insurancePolicyCarForm" (ngSubmit)="submitCar()">
 						
-
-						<div class="form-group form-black label-floating">
-							<label for="duration" class="control-label">Trajanje osiguranja</label>
-							<input id="duration" type="text" class="form-control" formControlName="duration">
-							<div *ngIf="insurancePolicyCarForm.controls['duration'].errors && !insurancePolicyCarForm.controls['duration'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['duration'].errors.required">Morate	uneti duzinu trajanja osiguranja.</span>
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['duration'].errors.pattern">Morate uneti ceo broj veci od 0.</span>
-							</div>
-						</div>
-
-
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Izaberite paket:</label>
-							<select id="paket" class="form-control" formControlName="paket">
-								<option></option>
-								<option value="1">Šlepovanje do određene kilometraže</option>
-								<option value="2">Popravka do određene cene</option>
-								<option value="3">Smeštaj u hotelu do određenog broja dana</option>
-								<option value="4">Alternativni prevoz</option>
-							</select>
-							<div *ngIf="insurancePolicyCarForm.controls['paket'].errors && !insurancePolicyCarForm.controls['paket'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['paket'].errors.required">Morate izabrati paket osiguranja.</span>
-							</div>
-						</div>
-
-
-
-						<div class="form-group form-black label-floating">
-							<label class="bmd-label-floating control-label">Tip vozila</label>
-							<select id="typeOfVehicle" class="form-control"	formControlName="typeOfVehicle">
-								<option></option>
-								<option value="1">Teretno vozilo</option>
-								<option value="2">Priključno vozila</option>
-								<option value="3">Putničko vozilo</option>
-								<option value="4">Ostala vozila</option>
-							</select>
-							<div *ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors && !insurancePolicyCarForm.controls['typeOfVehicle'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors.required">Morate izabrati tip vozila.</span>
-							</div>
-						</div>
-
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Marka vozila</label>
-							<input id="vehicle" type="text" class="form-control" formControlName="vehicle">
-							<div *ngIf="insurancePolicyCarForm.controls['vehicle'].errors && !insurancePolicyCarForm.controls['vehicle'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['vehicle'].errors.required">Morate uneti marku vozila.</span>
+						<fieldset>
+							<legend>Paketi:</legend>
+							<div class="paketi">
+								<div class="form-group form-black label-floating">
+									<label for="slepovanje" class="bmd-label-floating control-label">Šlepovanje do odredjene kilometraže:</label>
+									<div class="col-7">
+										<select id="slepovanje" class="form-control"
+										formControlName="slepovanje">
+										<option value=""></option>
+										<option *ngFor="let t of slepovanje_list" value="{{t.id}}">{{t.name}}</option>
+									</select>
+								</div>
 							</div>
 
-						</div>
+							<div class="form-group form-black label-floating">
+								<label for="popravka" class="bmd-label-floating control-label">Popravka do odredjene cene:</label>
+								<select id="popravka" class="form-control" formControlName="popravka">
+									<option value=""></option>
+									<option *ngFor="let t of popravka_list" value="{{t.id}}">{{t.name}}</option>
+								</select>
 
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Godiste automobila:</label>
-							<input id="year" type="text" class="form-control" formControlName="year">
-							<div *ngIf="insurancePolicyCarForm.controls['year'].errors && !insurancePolicyCarForm.controls['year'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['year'].errors.required">Morate uneti godiste automobila.</span>
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['year'].errors.pattern">Unesite godiunu(npr. 2016).</span>
 							</div>
 
-						</div>
-
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Registarska oznaka vozila</label>
-							<input id="registrationNumber" type="text" class="form-control" formControlName="registrationNumber">
-							<div *ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors && !insurancePolicyCarForm.controls['registrationNumber'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors.required">Morate uneti broj registarske oznake automobila.</span>
-							</div>
-						</div>
-
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Broj sasije</label>
-							<input id="chassisNumber" type="text" class="form-control" formControlName="chassisNumber">
-							<div *ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors && !insurancePolicyCarForm.controls['chassisNumber'].pristine">
-
-								<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors.required">Morate uneti broj sasije.</span>
+							<div class="form-group form-black label-floating">
+								<label for="smestaj" class="bmd-label-floating control-label">Smestaj do odredjenog broja dana:</label>
+								<select id="smestaj" class="form-control" formControlName="smestaj">
+									<option value=""></option>
+									<option *ngFor="let t of smestaj_list" value="{{t.id}}">{{t.name}}</option>
+								</select>
 							</div>
 
+							<div class="form-group form-black label-floating">
+								<label for="prevoz" class="bmd-label-floating control-label">Prevoz do odredjenog broja kilometara:</label>
+								<div class="col-7">
+									<select id="prevoz" class="form-control" formControlName="prevoz">
+										<option value=""></option>
+										<option *ngFor="let t of prevoz_list" value="{{t.id}}">{{t.name}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+
+					<div class="form-group form-black label-floating">
+						<label for="duration" class="control-label">Trajanje osiguranja</label>
+						<input id="duration" type="text" class="form-control" formControlName="duration">
+						<div *ngIf="insurancePolicyCarForm.controls['duration'].errors && !insurancePolicyCarForm.controls['duration'].pristine">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['duration'].errors.required">Morate	uneti duŽinu trajanja osiguranja.</span>
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['duration'].errors.pattern">Morate uneti ceo broj veci od 0.</span>
+						</div>
+					</div>
+
+					<div class="form-group form-black label-floating">
+						<label class="bmd-label-floating control-label">Tip vozila</label>
+						<select id="typeOfVehicle" class="form-control"	formControlName="typeOfVehicle">
+							<option value=""></option>
+							<option value="1">Teretno vozilo</option>
+							<option value="2">Priključno vozila</option>
+							<option value="3">Putničko vozilo</option>
+							<option value="4">Ostala vozila</option>
+						</select>
+						<div *ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors && !insurancePolicyCarForm.controls['typeOfVehicle'].pristine">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors.required">Morate izabrati tip vozila.</span>
+						</div>
+					</div>
+
+					<div class="form-group form-black label-floating">
+						<label class="control-label">Marka vozila</label>
+						<input id="vehicle" type="text" class="form-control" formControlName="vehicle">
+						<div *ngIf="insurancePolicyCarForm.controls['vehicle'].errors && !insurancePolicyCarForm.controls['vehicle'].pristine">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['vehicle'].errors.required">Morate uneti marku vozila.</span>
 						</div>
 
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Ime vlasnika</label>
-							<input id="firstName" type="text" class="form-control" formControlName="firstName">
+					</div>
 
+					<div class="form-group form-black label-floating">
+						<label class="control-label">Godiste automobila:</label>
+						<input id="year" type="text" class="form-control" formControlName="year">
+						<div *ngIf="insurancePolicyCarForm.controls['year'].errors && !insurancePolicyCarForm.controls['year'].pristine">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['year'].errors.required">Morate uneti godiste automobila.</span>
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['year'].errors.pattern">Unesite godiunu(npr. 2016).</span>
 						</div>
 
-						<div class="form-group form-black label-floating">
-							<label class="control-label">Prezime vlasnika</label>
-							<input id="lastName" type="text" class="form-control" formControlName="lastName">
+					</div>
 
+					<div class="form-group form-black label-floating">
+						<label class="control-label">Registarska oznaka vozila</label>
+						<input id="registrationNumber" type="text" class="form-control" formControlName="registrationNumber">
+						<div *ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors && !insurancePolicyCarForm.controls['registrationNumber'].pristine">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors.required">Morate uneti broj registarske oznake automobila.</span>
+						</div>
+					</div>
+
+					<div class="form-group form-black label-floating">
+						<label class="control-label">Broj sasije</label>
+						<input id="chassisNumber" type="text" class="form-control" formControlName="chassisNumber">
+						<div *ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors && !insurancePolicyCarForm.controls['chassisNumber'].pristine">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors.required">Morate uneti broj sasije.</span>
 						</div>
 
-						<div class="form-group form-black label-floating">
-							<label class="control-label">JMBG vlasnika</label>
-							<input id="jmbg" type="text" class="form-control" formControlName="jmbg">
+					</div>
 
+					<div class="form-group form-black label-floating">
+						<label class="control-label">Ime vlasnika</label>
+						<input id="firstName" type="text" class="form-control" formControlName="firstName" (blur)="displayLastNameErrors=true">
+						<div *ngIf="insurancePolicyCarForm.controls['firstName'].errors && !insurancePolicyCarForm.controls['firstName'].pristine && displayFirstNameErrors">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['firstName'].errors.required">Morate uneti ime vlasnika.</span>
 						</div>
 
-						<div class="pull-right button" >
-							<button class="btn btn-default" type="submit">Potvrdi</button>
-						</div>
-						<div class="pull-right button">
-							<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
-						</div>
-						<div class="pull-right button" [hidden]="!currentCar">
-							<button class="btn btn-default" (click)="cancelCar()">Otkazite osiguranje automobila</button>
+					</div>
+
+					<div class="form-group form-black label-floating">
+						<label class="control-label">Prezime vlasnika</label>
+						<input id="lastName" type="text" class="form-control" formControlName="lastName" (blur)="displayLastNameErrors=true">
+						<div *ngIf="insurancePolicyCarForm.controls['lastName'].errors && !insurancePolicyCarForm.controls['lastName'].pristine && displayLastNameErrors">
+
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['lastName'].errors.required">Morate uneti prezime vlasnika.</span>
 						</div>
 
+					</div>
 
-					</form>
-				</div>
+					<div class="form-group form-black label-floating">
+						<label class="control-label">JMBG vlasnika</label>
+						<input id="personNo" type="text" class="form-control" formControlName="personNo" (blur)="displayPersonNoErrors=true">
+						<div *ngIf="insurancePolicyCarForm.controls['personNo'].errors && !insurancePolicyCarForm.controls['personNo'].pristine && displayPersonNoErrors">
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['personNo'].errors.required">Morate uneti jedinstveni matični broj.</span>
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['personNo'].errors.minlength">Jedinstveni matični broj sadrži 13 cifara.</span>
+							<span class="errorClass" *ngIf="insurancePolicyCarForm.controls['personNo'].errors.maxlength">Jedinstveni matični broj sadrži 13 cifara.</span>
+						</div>
+					</div>
+
+					<div class="pull-right button" >
+						<button class="btn btn-default" type="submit">Potvrdi</button>
+					</div>
+					<div class="pull-right button">
+						<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
+					</div>
+					<div class="pull-right button" [hidden]="!currentCar">
+						<button class="btn btn-default" (click)="cancelCar()">Otkazite osiguranje automobila</button>
+					</div>
+
+
+				</form>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 

@@ -1,6 +1,9 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { InsurancePolicyHome } from '../policy-home';
+import { Factor } from '../../../factor/factor';
+import { FactorService } from "../../../factor/factor.service";
+
 
 
 @Component({
@@ -18,9 +21,13 @@ export class InsurancePolicyHomeComponent {
     currentHome: InsurancePolicyHome = null;
 	//@Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
 	//@Input() price;
+    sizes: Factor[];
+    ages: Factor[];
+    values: Factor[];
+    risks: Factor[];
 
-	constructor() { 
-		this.insurancePolicyHomeForm = new FormGroup({
+    constructor(private factorService: FactorService) { 
+        this.insurancePolicyHomeForm = new FormGroup({
             duration: new FormControl('', [
                 Validators.required,
                 Validators.pattern("[0-9]*")]),
@@ -36,17 +43,35 @@ export class InsurancePolicyHomeComponent {
                 Validators.required]),
             firstName: new FormControl('', [Validators.required]),
             lastName: new FormControl('', [Validators.required]),
-            jmbg: new FormControl('', [
+            personNo: new FormControl('', [
                 Validators.required,
                 Validators.minLength(13),
                 Validators.maxLength(13)
                 ]),
         })
-	}
+
+        this.factorService.findByCategory(6)
+            .subscribe(sizes => {
+                this.sizes = sizes;
+            })
+
+        this.factorService.findByCategory(7)
+            .subscribe(ages => {
+                this.ages = ages;
+            })
+        this.factorService.findByCategory(8)
+            .subscribe(values => {
+                this.values = values;
+            })
+        this.factorService.findByCategory(9)
+            .subscribe(risks => {
+                this.risks = risks;
+            })
+    }
 
 
 
-	@Input()
+    @Input()
     set insurancePolicyHome(value: InsurancePolicyHome) {
         this.currentHome = value;
         console.log("SETTOVANJE POLISE ZA KUCU");
@@ -60,7 +85,7 @@ export class InsurancePolicyHomeComponent {
                 address: value.address,
                 firstName: value.firstName,
                 lastName: value.lastName,
-                jmbg: value.jmbg
+                personNo: value.personNo
             })
         }
         else {
@@ -73,7 +98,7 @@ export class InsurancePolicyHomeComponent {
         var policyHome: InsurancePolicyHome = null;
         var value = this.insurancePolicyHomeForm.value;
         
-        policyHome = new InsurancePolicyHome(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.jmbg);
+        policyHome = new InsurancePolicyHome(value.duration, value.size, value.age, value.value, value.risk, value.address, value.firstName, value.lastName, value.personNo);
         this.setInsurancePolicyHome.emit(policyHome);
         
         this.hideForm.emit(null);

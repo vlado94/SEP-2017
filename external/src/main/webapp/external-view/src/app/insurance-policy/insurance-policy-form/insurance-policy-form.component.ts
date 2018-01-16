@@ -19,62 +19,53 @@ export class InsurancePolicyFormComponent implements OnInit {
 	@Output() savePolicyRequest = new EventEmitter<InsurancePolicyRequest>();
 	@Input() currentInsurancePolicy;
 	regions: Factor[];
-    sports: Factor[];
-    agesCategory: Factor[];
-    amounts: Factor[];
-    types: Factor[];
+	sports: Factor[];
+	agesCategory: Factor[];
+	amounts: Factor[];
+	types: Factor[];
 
 	constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 	ngOnInit() {
 		this.insurancePolicyForm = new FormGroup({
-			startDate: new FormControl(''),
+			startDate: new FormControl('', [dateValidator]),
 			duration: new FormControl('', [
 				Validators.required,
 				Validators.pattern("[0-9]*"),
 				numberOfPersonsValidator]),
-			typeOfPolicy: new FormControl(''),
-			//age: new FormControl(''),
-			numberOfPersons: new FormControl('', [
-				Validators.required,
-				Validators.pattern("[0-9]*"),numberOfPersonsValidator]
-				),
-			numberOfPersonsUpTo16: new FormControl(''),
-			numberOfPersonsBetween16And60: new FormControl(''),
-			numberOfPersonsOver60: new FormControl(''),
-			region: new FormControl(''),
-			sport: new FormControl('', [
-				Validators.required
-				]),
-			amount: new FormControl('', [
-				Validators.required
-				]),
+			typeOfPolicy: new FormControl('',[Validators.required]),
+			numberOfPersonsUpTo16: new FormControl('', Validators.pattern("[0-9]*")),
+			numberOfPersonsBetween16And60: new FormControl('', Validators.pattern("[0-9]*")),
+			numberOfPersonsOver60: new FormControl('', Validators.pattern("[0-9]*")),
+			region: new FormControl('', [Validators.required]),
+			sport: new FormControl(''),
+			amount: new FormControl('', [Validators.required]),
 		});
-
+		console.log("aaaaaa");
 		this.factorService.findByCategory(3)
-            .subscribe(regions => {
-                this.regions = regions;
-            })
+		.subscribe(regions => {
+			this.regions = regions;
+		})
 
-        this.factorService.findByCategory(1)
-            .subscribe(sports => {
-                this.sports = sports;
-            })
+		this.factorService.findByCategory(1)
+		.subscribe(sports => {
+			this.sports = sports;
+		})
 
-        this.factorService.findByCategory(2)
-            .subscribe(agesCategory => {
-                this.agesCategory = agesCategory;
-            })
+		this.factorService.findByCategory(2)
+		.subscribe(agesCategory => {
+			this.agesCategory = agesCategory;
+		})
 
-        this.factorService.findByCategory(4)
-            .subscribe(types => {
-                this.types = types;
-            })
+		this.factorService.findByCategory(4)
+		.subscribe(types => {
+			this.types = types;
+		})
 
-        this.factorService.findByCategory(5)
-            .subscribe(amounts => {
-                this.amounts = amounts;
-            })
+		this.factorService.findByCategory(5)
+		.subscribe(amounts => {
+			this.amounts = amounts;
+		})
 
 		this.insurancePolicyForm.valueChanges.subscribe(value => {
            // console.log('Form changes', value)
@@ -121,10 +112,8 @@ export class InsurancePolicyFormComponent implements OnInit {
 		let over60: number = +this.insurancePolicyForm.get('numberOfPersonsOver60').value;
 		let sum: number = upTo16 + between16And60 + over60;
 
-		let numOfPersons = +this.insurancePolicyForm.get('numberOfPersons').value;
-		if (sum == numOfPersons) {
+		if (sum > 0) 
 			result = true;
-		}
 
 		return result;
 	}
@@ -142,29 +131,30 @@ function dateValidator(date: FormControl) {
 		let month = input.getMonth()+1;
 		let day = input.getDate();
 		let year = input.getFullYear();
-		//let parts = input.split('-');
 
-		let inputDate = new Date(year-1, month-1, day);
+		let inputDate = new Date(year, month-1, day, 23, 59);
 		let currentDate = new Date();
-		if (inputDate > currentDate)
+		
+		if (inputDate < currentDate){
 			return {
 				dateValidator: {
-					valid: true
+					valid: false
 				}
 			}
-			else
-				return null;
+		} else {
+			return null;
 		}
 	}
+}
 
-	function numberOfPersonsValidator(num: FormControl) {
-		if ((+num.value) <= 0)
-			return {
-				numberOfPersonsValidator: {
-					valid: true
-				}
+function numberOfPersonsValidator(num: FormControl) {
+	if ((+num.value) <= 0)
+		return {
+			numberOfPersonsValidator: {
+				valid: true
 			}
-			else
-				return null;
-
 		}
+		else
+			return null;
+
+	}

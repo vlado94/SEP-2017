@@ -23,6 +23,7 @@ import {InsurancePolicyHomeRequest} from '../insurance-policy-home-form/insuranc
 export class InsurancePolicyCheckoutComponent {
 
     @Output() nextTab = new EventEmitter<string>();
+    @Input() persons;
     @Input() insurancePrice;
     @Input() carInsurancePrice;
     @Input() homeInsurancePrice;

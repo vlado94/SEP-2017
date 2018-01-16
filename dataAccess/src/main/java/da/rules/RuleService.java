@@ -1,4 +1,4 @@
-package isok.isok.rules;
+package da.rules;
 
 import java.util.ArrayList;
 

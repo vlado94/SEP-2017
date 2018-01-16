@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.dto.Popust;
 import model.request.InsurancePolicyRequest;
 import model.request.PersonRequest;
 
@@ -34,7 +35,7 @@ public class RuleController {
 	}
 	
 	@GetMapping
-	private InsurancePolicyRequest getRule() {		
+	private ArrayList<Popust> getRule() {		
 		InsurancePolicyRequest policy = new InsurancePolicyRequest();
 		policy.setDuration(6);
 		policy.setPersons(new ArrayList<>());
@@ -46,7 +47,7 @@ public class RuleController {
 		policy.setRegion(9l);
 		policy.setSport(1l);
 		//policy.setAmount(15l);
-		InsurancePolicyRequest i2 = ruleService.getClassifiedItem(policy);
+		ArrayList<Popust> i2 = ruleService.getClassifiedItem(policy);
 		return i2;		
 	}	
 	

@@ -9,3 +9,13 @@
 th{
 	border:none !important;
 }
+
+.btn{
+	margin-right:10px;
+	float:right;
+}
+
+.row-person{
+	
+	padding-top:20px !important;
+}

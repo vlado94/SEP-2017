@@ -2,7 +2,24 @@
 
 	<div class="col-12 checkout-col">
 		<div class="section-title">Putnici</div>
-		<div class="">Cena: {{insurancePrice}}</div>
+
+
+		<div class="row row-person-head">
+			<div class="col-2"><strong>Ime</strong></div>
+			<div class="col-2"><strong>Prezime</strong></div>
+			<div class="col-2"><strong>JMBG</strong></div>
+			<div class="col-2"><strong>Broj pasoša</strong></div>
+			<div class="col-2"><strong>Telefon</strong></div>
+			<div class="col-2"><strong>Email</strong></div>
+		</div>
+		<div *ngFor="let p of persons" class="row row-person">
+			<div class="col-2">{{p.firstName}}</div>
+			<div class="col-2">{{p.lastName}}</div>
+			<div class="col-2">{{p.jmbg}}</div>
+			<div class="col-2">{{p.passportNumber}}</div>
+			<div class="col-2">{{p.phone}}</div>
+			<div class="col-2">{{p.email}}</div>
+		</div>
 	</div>
 
 

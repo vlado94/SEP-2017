@@ -222,7 +222,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	}
 
 	@Override
-	public Double calculateSuggestedPrice(InsurancePolicyCalculatePriceRequest policy) {
+	public InsurancePolicyCalculatePriceResponce calculateSuggestedPrice(InsurancePolicyCalculatePriceRequest policy) {
 		
 		double retVal = 0;
 		
@@ -314,7 +314,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		Double price = retVal * policy.getDuration();
 		InsurancePolicyCalculatePriceResponce responce =  calculatePriceWithDiscounts(discounts, price);//return
 	
-		return price;
+		return responce;
 	}
 	
 	private InsurancePolicyCalculatePriceResponce calculatePriceWithDiscounts(ArrayList<Popust> discounts, Double basePrice ) {

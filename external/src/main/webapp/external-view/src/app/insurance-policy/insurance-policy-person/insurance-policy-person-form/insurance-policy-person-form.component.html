@@ -8,13 +8,23 @@
 			<div>
 				<div class="form-group form-black label-floating">
 					<label class="control-label">Ime</label>
-					<input type="text" class="form-control" formControlName="firstName">
+					<input type="text" class="form-control" formControlName="firstName" (blur)="displayFirstNameErrors=true">
+					<div *ngIf="insurancePolicyPersonForm.controls['firstName'].errors && !insurancePolicyPersonForm.controls['firstName'].pristine && displayFirstNameErrors">
+
+						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['firstName'].errors.required">Morate uneti ime osiguranika.</span>
+						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['firstName'].errors.minlength">Ime mora imati makar tri karaktera.</span>
+					</div>
 				</div>
 			</div>
 			<div>
 				<div class="form-group form-black label-floating">
 					<label class="control-label">Prezime</label>
-					<input type="text" class="form-control" formControlName="lastName">
+					<input type="text" class="form-control" formControlName="lastName" (blur)="displayLastNameErrors=true">
+					<div *ngIf="insurancePolicyPersonForm.controls['lastName'].errors && !insurancePolicyPersonForm.controls['lastName'].pristine && displayLastNameErrors">
+
+						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['lastName'].errors.required">Morate uneti prezime osiguranika.</span>
+						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['lastName'].errors.minlength">Ime mora imati makar tri karaktera.</span>
+					</div>
 				</div>
 			</div>
 
@@ -30,35 +40,56 @@
 						</div>
 					</div>
 
-				<div *ngIf="insurancePolicyPersonForm.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
+					<div *ngIf="insurancePolicyPersonForm.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
 					class="form-group form-black label-floating">
 					<label for="email" class="control-label">Email ugovarača:</label>
-					<input id="email" type="email" class="form-control" formControlName="email" />
+					<input id="email" type="text" class="form-control" formControlName="email" (blur)="displayEmailErrors=true"/>
+					<div *ngIf="insurancePolicyPersonForm.controls['email'].errors && !insurancePolicyPersonForm.controls['email'].pristine && displayEmailErrors">
+
+						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['email'].errors.required">Morate uneti email osiguranika.</span>
+						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['email'].errors.email">Neispravan mail.</span>
+					</div>
 
 				</div>
 
 				<div>
 					<div class="form-group form-black label-floating">
 						<label class="control-label">JMBG</label>
-						<input type="text" class="form-control" formControlName="personNo">
+						<input type="text" class="form-control" formControlName="personNo" (blur)="displayPersonNoErrors=true">
+						<div *ngIf="insurancePolicyPersonForm.controls['personNo'].errors && !insurancePolicyPersonForm.controls['personNo'].pristine && displayPersonNoErrors">
+							<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['personNo'].errors.required">Morate uneti jedinstveni matični broj.</span>
+							<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['personNo'].errors.minlength">Jedinstveni matični broj sadrži 13 cifara.</span>
+							<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['personNo'].errors.maxlength">Jedinstveni matični broj sadrži 13 cifara.</span>
+						</div>
+						<div *ngIf="personNoExists() && !insurancePolicyPersonForm.controls['personNo'].pristine && displayPersonNoErrors">
+							<span class="errorClass">Korisnik sa unetim matičnim brojem već postoji.</span></div>
 					</div>
 				</div>
 				<div>
 					<div class="form-group form-black label-floating">
-						<label class="control-label">Broj pasosa</label>
-						<input type="text" class="form-control" formControlName="passportNo" >
+						<label class="control-label">Broj pasoša</label>
+						<input type="text" class="form-control" formControlName="passportNo" (blur)="displayPassportNoErrors=true">
+						<div *ngIf="insurancePolicyPersonForm.controls['passportNo'].errors && !insurancePolicyPersonForm.controls['passportNo'].pristine && displayPassportNoErrors">
+							<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['passportNo'].errors.required">Morate uneti broj pasoša osiguranika.</span>
+						</div>
 					</div>
 				</div>
 				<div>
 					<div class="form-group form-black label-floating">
 						<label class="control-label">Adresa</label>
-						<input type="text" class="form-control" formControlName="address">
+						<input type="text" class="form-control" formControlName="address" (blur)="displayAdrressErrors=true">
+						<div *ngIf="insurancePolicyPersonForm.controls['address'].errors && !insurancePolicyPersonForm.controls['address'].pristine && displayAdrressErrors">
+							<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['address'].errors.required">Morate uneti adresu osiguranika.</span>
+						</div>
 					</div>
 				</div>
 				<div>
 					<div class="form-group form-black label-floating">
 						<label class="control-label">Broj telefona</label>
-						<input type="text" class="form-control" formControlName="phoneNo" > 
+						<input type="text" class="form-control" formControlName="phoneNo" (blur)="displayPhoneNoErrors=true"> 
+						<div *ngIf="insurancePolicyPersonForm.controls['phoneNo'].errors && !insurancePolicyPersonForm.controls['phoneNo'].pristine && displayPhoneNoErrors">
+							<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['phoneNo'].errors.required">Morate uneti broj telefona osiguranika.</span>
+						</div>
 					</div>
 				</div>
 				<button type="submit" class="btn btn-success pull-right" [disabled]="!insurancePolicyPersonForm.valid">Dodaj osiguranika</button>

@@ -36,73 +36,62 @@ import model.dto.FactorDTO;
 @RequestMapping("/internal/factor")
 @CrossOrigin(origins = "http://localhost:4500")
 public class FactorController {
-	
+
 	@Value("${dataccessPort}")
 	private String dataccessPort;
-	
+
 	@Autowired
 	HttpSession session;
-	
-/*	@Autowired
-	KeycloakSecurityContext context;*/
-	
+
 	@Autowired
 	AuthenticationManagerBuilder auth;
-	
+
 	@Autowired
 	AccessToken accessToken;
-	
-	/*@Autowired
-	KeycloakAuthenticationProvider provider;*/
+
 	@Autowired
 	HttpServletRequest request;
-	
-
-
 
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
-		//KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
-	/*	KeycloakAuthenticationProvider auth = new KeycloakAuthenticationProvider();
-		AccessToken.Access access = accessToken.getRealmAccess();
-		Set<String> roles = access.getRoles();
-		System.out.println(roles.size()); 
-		String s = session.getId();*/
-		System.out.println("first " + accessToken.getName());
+		// KeycloakAuthenticationProvider keycloakAuthenticationProvider =
+		// keycloakAuthenticationProvider();
+		/*
+		 * KeycloakAuthenticationProvider auth = new KeycloakAuthenticationProvider();
+		 * AccessToken.Access access = accessToken.getRealmAccess(); Set<String> roles =
+		 * access.getRoles(); System.out.println(roles.size()); String s =
+		 * session.getId();
+		 */
+		// System.out.println("first " + accessToken.getName());
 
-		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
-				getDataccessPortHttps()+"/factor/category/"+id, FactorDTO[].class);
+		ResponseEntity<FactorDTO[]> responseEntity = restTemplate()
+				.getForEntity(getDataccessPortHttps() + "/factor/category/" + id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
-		return  Arrays.asList(objects);
+		return Arrays.asList(objects);
 	}
-	
 
 	public String getDataccessPortHttps() {
 		return dataccessPort.replace("http", "https").toString();
 	}
-	
-	
+
 	@Bean
 	public RestTemplate restTemplate() {
 		try {
-			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());//TODO: hide password
-		    keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
-	
-		    SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
-		            new SSLContextBuilder()
-		                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-		                    .loadKeyMaterial(keyStore, "sep12345".toCharArray())
-		                    .build(),
-		            NoopHostnameVerifier.INSTANCE);
-	
-		    HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
-	
-		    ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-		    RestTemplate restTemplate = new RestTemplate(requestFactory);
-			
-		    return restTemplate;
-		}
-		catch(Exception exc) {
+			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());// TODO: hide password
+			keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
+
+			SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
+					new SSLContextBuilder().loadTrustMaterial(null, new TrustSelfSignedStrategy())
+							.loadKeyMaterial(keyStore, "sep12345".toCharArray()).build(),
+					NoopHostnameVerifier.INSTANCE);
+
+			HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
+
+			ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+			RestTemplate restTemplate = new RestTemplate(requestFactory);
+
+			return restTemplate;
+		} catch (Exception exc) {
 			return null;
 		}
 	}

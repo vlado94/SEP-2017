@@ -14,6 +14,7 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 	insurancePolicyPersonForm: FormGroup;
 	contractorAdded: boolean = false;
     currentPerson: InsurancePolicyPersonRequest;
+    displayErrors: boolean = false;
 
 	constructor() { }
 
@@ -32,8 +33,7 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 				Validators.minLength(13),
 				Validators.maxLength(13)
 				]),
-			passportNo: new FormControl(''),
-
+			passportNo: new FormControl('',  [Validators.required]),
 			address: new FormControl('', [
 				Validators.required
 				]),
@@ -42,9 +42,14 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 				]),
 			contractor: new FormControl('false', [
 				]),
-			email: new FormControl('', [
-				]),
+			email: new FormControl('', [Validators.required, Validators.email]),
 		})
+
+		if(this.insurancePolicyPersonForm.valid) {
+            this.displayErrors = false;
+         }
+
+		//this.displayErrors = false;
 
 	}
 
@@ -71,6 +76,11 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
         return result;
     }
 
+    displayError(){
+    	console.log(this.displayErrors)
+    	this.displayErrors = true;
+    }
+
     @Input()
     set current(person: InsurancePolicyPersonRequest) {
         this.currentPerson = person;
@@ -90,6 +100,25 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 	       
         }
 
+    }
+
+     personNoExists() {
+        let result = false;
+        let personNo = this.insurancePolicyPersonForm.get('personNo').value
+        if (personNo != '') {
+            for (let person of this.persons) {
+                if (person.personNo === personNo) {
+                    if (this.currentPerson != null) {
+                        if (personNo != this.currentPerson.personNo) {
+                            result = true;
+                        }
+                    } else {
+                        result = true;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
 }

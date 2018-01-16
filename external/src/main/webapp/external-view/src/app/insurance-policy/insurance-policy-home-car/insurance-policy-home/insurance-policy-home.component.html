@@ -13,68 +13,94 @@
 
 						<div class="form-group form-black label-floating is-empty">
 							<label class="control-label">Trajanje osiguranja</label>
-							<input id="duration" type="text" class="form-control" formControlName="duration">
+							<input id="duration" type="text" class="form-control" formControlName="duration" (blur)="displayDurationErrors=true">
+							<div *ngIf="insurancePolicyHomeForm.controls['duration'].errors && !insurancePolicyHomeForm.controls['duration'].pristine && displayDurationErrors">
+
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['duration'].errors.required">Morate uneti duŽinu trajanja osiguranja.</span>
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['duration'].errors.pattern">Morate uneti ceo broj veci od 0.</span>
+							</div>
 						</div>
 
 
 						<div class="form-group form-black label-floating is-empty">
-							<label class="control-label">Povrsina stana</label>
-							<select id="size" class="form-control" formControlName="size">
+							<label class="control-label">Površina stana</label>
+							<select id="size" class="form-control" formControlName="size" (blur)="displaySizeErrors=true">
 								<option></option>
-								<option value="1">Do 50 m2</option>
-								<option value="2">Izmedju 50m2 i 100m2</option>
-								<option value="3">Preko 100m2</option>
+								<option *ngFor="let p of sizes" value="{{p.id}}">{{p.name}}</option>								
 							</select>
+							<div *ngIf="insurancePolicyHomeForm.controls['size'].errors && !insurancePolicyHomeForm.controls['size'].pristine && displaySizeErrors">
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['size'].errors.required">Morate izabrati površinu stana.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
 							<label class="control-label">Starost stana</label>
-							<select id="age" class="form-control" formControlName="age">
-								<option value="">Izaberite starost stana</option>
-								<option value="1">Do 5 godina</option>
-								<option value="2">Izmedju 5 i 15 godina</option>
-								<option value="3">Preko 15 godina</option>
+							<select id="age" class="form-control" formControlName="age" (blur)="displayAgeErrors=true">
+								<option value=""></option>
+								<option *ngFor="let p of ages" value="{{p.id}}">{{p.name}}</option>								
 							</select>
+							<div *ngIf="insurancePolicyHomeForm.controls['age'].errors && !insurancePolicyHomeForm.controls['age'].pristine && displayAgeErrors">
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['age'].errors.required">Morate izabrati starost stana.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
-							<label class="control-label">Starost stana</label>
-							<select id="value" class="form-control" formControlName="value">
-								<option value="">Izaberite procenjenu starost stana</option>
-								<option value="1">Do 100.000,00 eura</option>
-								<option value="2">Izmedju 100.000,00 i 200.00,00 eura</option>
-								<option value="3">Preko 200.00,00 eura</option>
+							<label class="control-label">Procenjena vrednost stana</label>
+							<select id="value" class="form-control" formControlName="value" (blur)="displayValueErrors=true">
+								<option value=""></option>
+								<option *ngFor="let p of values" value="{{p.id}}">{{p.name}}</option>
 							</select>
+							<div *ngIf="insurancePolicyHomeForm.controls['value'].errors && !insurancePolicyHomeForm.controls['value'].pristine && displayValueErrors">
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['value'].errors.required">Morate izabrati vrednost stana.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
-							<label class="control-label">Starost stana</label>
-							<select id="risk" class="form-control" formControlName="risk">
-								<option value="">Izaberite od Ä�ega se stan osigurava</option>
-								<option value="1">KraÄ‘e</option>
-								<option value="2">PoÅ¾ara</option>
-								<option value="3">Poplave</option>
+							<label class="control-label">Stan se osigurava od</label>
+							<select id="risk" class="form-control" formControlName="risk" (blur)="displayRiskErrors=true">
+								<option value=""></option>
+								<option *ngFor="let p of risks" value="{{p.id}}">{{p.name}}</option>
 							</select>
+							<div *ngIf="insurancePolicyHomeForm.controls['value'].errors && !insurancePolicyHomeForm.controls['value'].pristine && displayRiskErrors">
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['value'].errors.required">Morate izabrati vrednost stana.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
 							<label class="control-label">Adresa</label>
-							<input id="address" type="text" class="form-control" formControlName="address">
+							<input id="address" type="text" class="form-control" formControlName="address" (blur)="displayAddressErrors=true">
+							<div *ngIf="insurancePolicyHomeForm.controls['address'].errors && !insurancePolicyHomeForm.controls['address'].pristine && displayAddressErrors">
+
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['address'].errors.required">Morate uneti adresu stana.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
 							<label class="control-label">Ime vlasnika</label>
-							<input id="firstName" type="text" class="form-control" formControlName="firstName">
+							<input id="firstName" type="text" class="form-control" formControlName="firstName" (blur)="displayFirstNameErrors=true">
+							<div *ngIf="insurancePolicyHomeForm.controls['firstName'].errors && !insurancePolicyHomeForm.controls['firstName'].pristine && displayFirstNameErrors">
+
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['firstName'].errors.required">Morate uneti ime vlasnika.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
 							<label class="control-label">Prezime vlasnika</label>
-							<input id="lastName" type="text" class="form-control" formControlName="lastName">
+							<input id="lastName" type="text" class="form-control" formControlName="lastName" (blur)="displayLastNameErrors=true">
+							<div *ngIf="insurancePolicyHomeForm.controls['lastName'].errors && !insurancePolicyHomeForm.controls['lastName'].pristine && displayLastNameErrors">
+
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['lastName'].errors.required">Morate uneti prezime vlasnika.</span>
+							</div>
 						</div>
 
 						<div class="form-group form-black label-floating is-empty">
 							<label class="control-label">JMBG vlasnika</label>
-							<input id="jmbg" type="text" class="form-control" formControlName="jmbg">
+							<input id="personNo" type="text" class="form-control" formControlName="personNo" (blur)="displayPersonNoErrors=true">
+							<div *ngIf="insurancePolicyHomeForm.controls['personNo'].errors && !insurancePolicyHomeForm.controls['personNo'].pristine && displayPersonNoErrors">
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['personNo'].errors.required">Morate uneti jedinstveni matični broj.</span>
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['personNo'].errors.minlength">Jedinstveni matični broj sadrži 13 cifara.</span>
+								<span class="errorClass" *ngIf="insurancePolicyHomeForm.controls['personNo'].errors.maxlength">Jedinstveni matični broj sadrži 13 cifara.</span>
+							</div>
 						</div>
 
 						<div class="pull-right button" >
@@ -84,7 +110,7 @@
 							<button class="btn btn-default" (click)="closeForm()">Zatvori</button>
 						</div>
 						<div class="pull-right button" [hidden]="!currentHome">
-							<button class="btn btn-default" (click)="cancelHome()">OtkaÅ¾ite osiguranje kuce</button>
+							<button class="btn btn-default" (click)="cancelHome()">Otkažite osiguranje kuce</button>
 						</div>
 
 					</form>

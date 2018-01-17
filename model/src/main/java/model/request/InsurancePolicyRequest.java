@@ -134,4 +134,13 @@ public class InsurancePolicyRequest {
 		this.typeOfPolicy = typeOfPolicy;
 	}
 
+	@Override
+	public String toString() {
+		return "InsurancePolicyRequest [startDate=" + startDate + ", duration=" + duration + ", region=" + region
+				+ ", sport=" + sport + ", amount=" + amount + ", typeOfPolicy=" + typeOfPolicy + ", priceSum="
+				+ priceSum + ", firstAgeCategory=" + firstAgeCategory + ", secondAgeCategory=" + secondAgeCategory
+				+ ", thirdAgeCategory=" + thirdAgeCategory + "]";
+	}
+	
+
 }

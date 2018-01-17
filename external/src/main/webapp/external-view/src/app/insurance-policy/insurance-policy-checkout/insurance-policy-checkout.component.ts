@@ -30,6 +30,7 @@ export class InsurancePolicyCheckoutComponent implements OnInit {
 
 		this.paypalService.paypal(this.currentInsurancePolicy).subscribe(data => {
                 this.goToUrl = data;
+                window.location.href = this.goToUrl;
             })
 		console.log("paypal");
 	}

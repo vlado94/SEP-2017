@@ -1,0 +1,85 @@
+<div class="row">
+	<div class = "container">
+		<div class="col-sm-9">
+			<div class="section-title">Putnici</div>
+
+			<table class="table">
+				<thead class="text-success">
+					<tr>
+						<th>Ime</th>
+						<th>Prezime</th>
+						<th>JMBG</th>
+						<th>Broj pasoša</th>
+						<th>Telefon</th>
+						<th>Email</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let person of persons">
+						<td>{{person.firstName}}</td>
+						<td>{{person.lastName}}</td>
+						<td>{{person.personNo}}</td>
+						<td>{{person.passportNo}}</td>
+						<td>{{person.phoneNo}}</td>
+						<td>{{person.email}}</td>
+						
+					</tr>
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="container" *ngIf="currentInsurancePolicy">
+		<div class="col-sm-9 checkout-col">
+			<div class="section-title" >Putno osiguranje</div>
+
+			<table class="table">
+				<thead class="text-success">
+					<tr>
+						<th>Datum</th>
+						<th>Broj dana</th>
+						<th>Tip polise</th>
+						<th>Region</th>
+						<th>Iznos osiguranja</th>
+						<th>Sport</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<td>{{currentInsurancePolicy.startDate | date:'dd/MM/yyyy'}}</td>
+					<td>{{currentInsurancePolicy.duration}}</td>
+					<td>{{currentInsurancePolicy.typeOfPolicy}}</td>
+					<td>{{currentInsurancePolicy.region}}</td>
+					<td>{{currentInsurancePolicy.amount}}</td>
+					<td>{{currentInsurancePolicy.sport}}</td>
+					
+
+				</tbody>
+			</table>
+		
+
+		</div>
+			<div class="">Cena: {{insurancePrice}}</div>
+		
+	</div>
+	<div class="container">
+		<div class="col-sm-9 checkout-col">
+			<div class="section-title">Osigaranje kuće</div>
+			<div class="">Cena: {{homeInsurancePrice}}</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="col-sm-9 checkout-col">
+			<div class="section-title">Osigaranje vozila</div>
+			<div class="">Cena: {{carInsurancePrice}}</div>
+		</div>
+	</div>
+	<div>
+		<button class="btn btn-success" (click)="changePreviousTab()">Back</button>
+		<button class="btn btn-success pull-right" (click)="paypal()">PayPal</button>
+		<button class="btn btn-success pull-right">Credit card</button>
+		
+	</div>
+
+</div>

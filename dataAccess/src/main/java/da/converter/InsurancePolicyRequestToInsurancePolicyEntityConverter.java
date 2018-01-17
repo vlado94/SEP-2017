@@ -46,16 +46,16 @@ public class InsurancePolicyRequestToInsurancePolicyEntityConverter
 		insurancePolicy.getPriceListItems().add(currentSportPrice);
 
 		for (PersonRequest p : source.getPersons()) {
-			Person person = personService.findByJmbg(p.getJmbg());
+			Person person = personService.findByJmbg(p.getPersonNo());
 			if (person == null) {
 				person = new Person();
 				person.setAddress(p.getAddress());
 				person.setContractor(p.isContractor());
 				person.setEmail(p.getEmail());
 				person.setFirstName(p.getFirstName());
-				person.setJmbg(p.getJmbg());
+				person.setJmbg(p.getPersonNo());
 				person.setLastName(p.getLastName());
-				person.setPassportNumber(p.getPassportNumber());
+				person.setPassportNumber(p.getPassportNo());
 				person.setPhone(p.getPhone());
 
 				PriceListItem currentAgePrice = priceListItemService.findByFactorIdAndPriceListId(p.getAge(),

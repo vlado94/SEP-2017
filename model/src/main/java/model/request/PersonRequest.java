@@ -3,25 +3,26 @@ package model.request;
 public class PersonRequest {
 	String firstName;
 	String lastName;
-	String jmbg;
-	String passportNumber;
+	String personNo;
+	String passportNo;
 	String address;
 	String phone;
 	Long age;
 	boolean contractor;
 	String email;
+	
 
 	public PersonRequest() {
 		super();
 	}
 
-	public PersonRequest(String firstName, String lastName, String jmbg, String passportNumber, String address,
+	public PersonRequest(String firstName, String lastName, String personNo, String passportNo, String address,
 			String phone, Long age,boolean contractor, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.jmbg = jmbg;
-		this.passportNumber = passportNumber;
+		this.personNo = personNo;
+		this.passportNo = passportNo;
 		this.address = address;
 		this.phone = phone;
 		this.age = age;
@@ -45,20 +46,20 @@ public class PersonRequest {
 		this.lastName = lastName;
 	}
 
-	public String getJmbg() {
-		return jmbg;
+	public String getPersonNo() {
+		return personNo;
 	}
 
-	public void setJmbg(String jmbg) {
-		this.jmbg = jmbg;
+	public void setPersonNo(String personNo) {
+		this.personNo = personNo;
 	}
 
-	public String getPassportNumber() {
-		return passportNumber;
+	public String getPassportNo() {
+		return passportNo;
 	}
 
-	public void setPassportNumber(String passportNumber) {
-		this.passportNumber = passportNumber;
+	public void setPassportNo(String passportNo) {
+		this.passportNo = passportNo;
 	}
 
 	public String getAddress() {
@@ -100,4 +101,5 @@ public class PersonRequest {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 }

@@ -57,7 +57,6 @@ export class InsurancePolicyCarComponent implements OnInit {
         this.insurancePolicyCarForm.controls['prevoz'].setValue('');
 
 		this.insurancePolicyCarForm.valueChanges.subscribe(value => {
-			console.log('Car form changes!!!!!!!!!!!!!!!!!!!!!!!', value)
 			if (this.insurancePolicyCarForm.controls['duration'].valid &&
 				(this.insurancePolicyCarForm.controls['slepovanje'].value != '' || this.insurancePolicyCarForm.controls['popravka'].value != ''
 					|| this.insurancePolicyCarForm.controls['prevoz'].value != '' || this.insurancePolicyCarForm.controls['smestaj'].value != '')) {

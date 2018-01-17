@@ -12,10 +12,10 @@
 					<form [formGroup]="insurancePolicyForm" (ngSubmit)="submitPolicyForm()">
 						<div class="row">
 							<div class="col-sm-4">
-								<div class="form-group form-black label-floating">
+								<div id="startDateLabel" class="form-group form-black label-floating">
 									<label class="control-label">Od</label>
-									<input type="text" class="form-control" formControlName="startDate" bsDatepicker />
-									<div *ngIf="insurancePolicyForm.controls['startDate'].errors && !insurancePolicyForm.controls['startDate'].pristine">
+									<input type="text" class="form-control" formControlName="startDate" bsDatepicker (blur)="diplayStartDateErrors=true" (input)="changedDate()" />
+									<div *ngIf="insurancePolicyForm.controls['startDate'].errors && !insurancePolicyForm.controls['startDate'].pristine && diplayStartDateErrors">
 
 										<span class="errorClass" *ngIf="insurancePolicyForm.controls['startDate'].errors.required">Morate uneti datum pocetka osiguranja.</span>
 										<span class="errorClass" *ngIf="insurancePolicyForm.controls['startDate'].errors.dateValidator">Datum ne može biti manji od današnjeg datuma.</span>
@@ -25,8 +25,8 @@
 							<div class="col-sm-4">
 								<div class="form-group form-black label-floating">
 									<label class="control-label">Broj dana</label>
-									<input type="text" class="form-control" formControlName="duration" >
-									<div *ngIf="insurancePolicyForm.controls['duration'].errors && !insurancePolicyForm.controls['duration'].pristine">
+									<input type="text" class="form-control" formControlName="duration" (blur)="diplayDurationErrors=true">
+									<div *ngIf="insurancePolicyForm.controls['duration'].errors && !insurancePolicyForm.controls['duration'].pristine && diplayDurationErrors">
 
 										<span class="errorClass" *ngIf="insurancePolicyForm.controls['duration'].errors.required">Morate uneti broj dana.</span>
 										<span class="errorClass" *ngIf="insurancePolicyForm.controls['duration'].errors.pattern">Broj dana mora biti broj.</span>
@@ -36,11 +36,11 @@
 							<div class="col-sm-4">
 								<div class="form-group form-black label-floating">
 									<label class="bmd-label-floating control-label">Tip polise</label>
-									<select class="form-control" formControlName="typeOfPolicy">
+									<select class="form-control" formControlName="typeOfPolicy" (blur)="displayTypeOfPolicy=true">
 										<option value=""></option>
 										<option *ngFor="let t of types" value="{{t.id}}">{{t.name}}</option>
 									</select>
-									<div *ngIf="insurancePolicyForm.controls['typeOfPolicy'].errors && !insurancePolicyForm.controls['typeOfPolicy'].pristine">
+									<div *ngIf="insurancePolicyForm.controls['typeOfPolicy'].errors && !insurancePolicyForm.controls['typeOfPolicy'].pristine && displayTypeOfPolicy">
 
 										<span class="errorClass" *ngIf="insurancePolicyForm.controls['typeOfPolicy'].errors.required">Morate izabrati tip polise koji želite da kupite.</span>
 									</div>
@@ -81,11 +81,11 @@
 						<div>
 							<div class="form-group form-black label-floating">
 								<label for="exampleSelect1" class="bmd-label-floating control-label">Region</label>
-								<select class="form-control" formControlName="region">
+								<select class="form-control" formControlName="region" (blur)="displayRegionErrors=true">
 									<option></option>
 									<option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
 								</select>
-								<div *ngIf="insurancePolicyForm.controls['region'].errors && !insurancePolicyForm.controls['region'].pristine">
+								<div *ngIf="insurancePolicyForm.controls['region'].errors && !insurancePolicyForm.controls['region'].pristine && displayRegionErrors">
 
 									<span class="errorClass" *ngIf="insurancePolicyForm.controls['region'].errors.required">Morate izabrati region u koji želite da putujete.</span>
 								</div>
@@ -93,11 +93,11 @@
 						</div>
 						<div class="form-group form-black label-floating">
 							<label class="bmd-label-floating control-label">Iznos</label>
-							<select class="form-control" formControlName="amount">
+							<select class="form-control" formControlName="amount" (blur)="displayAmountErrors=true">
 								<option value=""></option>
 								<option *ngFor="let amount of amounts" value="{{amount.id}}">{{amount.name}}</option>
 							</select>
-							<div *ngIf="insurancePolicyForm.controls['amount'].errors && !insurancePolicyForm.controls['amount'].pristine">
+							<div *ngIf="insurancePolicyForm.controls['amount'].errors && !insurancePolicyForm.controls['amount'].pristine && displayAmountErrors">
 
 									<span class="errorClass" *ngIf="insurancePolicyForm.controls['amount'].errors.required">Morate izabrati iznos do kojeg želite da se osigurate.</span>
 								</div>
@@ -107,6 +107,7 @@
 								<label for="exampleSelect1" class="bmd-label-floating control-label">Sport</label>
 								<select class="form-control" id="exampleSelect1" formControlName="sport">
 									<option></option>
+									<option value="no sport">Bez osiguranja za sportske</option>
 									<option *ngFor="let s of sports" value="{{s.id}}">{{s.name}}</option>
 								</select>								
 							</div>

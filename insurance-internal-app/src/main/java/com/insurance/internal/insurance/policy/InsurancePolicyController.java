@@ -1,19 +1,7 @@
 package com.insurance.internal.insurance.policy;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.security.KeyStore;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContextBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
@@ -29,32 +18,36 @@ import model.request.InsurancePolicyRequest;
 @RequestMapping("/internal/insurancePolicy")
 @CrossOrigin(origins = "http://localhost:4500")
 public class InsurancePolicyController {
+	
 	@Value("${dataccessPort}")
 	private String dataccessPort;
 	
+	@Autowired
+	RestTemplate restTemplate;
+	
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
-		InsurancePolicyRequest newInsuranceReq = restTemplate().postForObject(
+		InsurancePolicyRequest newInsuranceReq = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
 		return newInsuranceReq;
 	}
 	
 	@PostMapping("/calculateSuggestedPrice")
-	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
-		Double price = restTemplate().postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
-		return price;
+		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+		return response;
 	}
 	
 	@PostMapping("/car/calculateSuggestedPrice")
-	private Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
 		obj.setSlepovanje(30l);
 		obj.setPopravka(34l);
 		obj.setSmestaj(37l);
 		obj.setPrevoz(41l);
-		Double price = restTemplate().postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, Double.class);
+		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		return price;
 	}
 	
@@ -65,7 +58,7 @@ public class InsurancePolicyController {
 		obj.setValue(26l);
 		obj.setRisk(27l);
 		
-		Double price = restTemplate().postForObject(
+		Double price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
 		return price;
 	}
@@ -76,7 +69,7 @@ public class InsurancePolicyController {
 		return dataccessPort.replace("http", "https").toString();
 	}
 	
-	@Bean
+	/*@Bean
 	public RestTemplate restTemplate() {
 		try {
 			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());//TODO: hide password
@@ -99,5 +92,5 @@ public class InsurancePolicyController {
 		catch(Exception exc) {
 			return null;
 		}
-	}
+	}*/
 }

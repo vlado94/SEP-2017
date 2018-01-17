@@ -103,6 +103,12 @@
 							</div>
 						</div>
 
+						<div class="price" *ngIf="price">
+							<div *ngIf="price">
+								Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>
+							</div>
+						</div>
+
 						<div class="pull-right button" >
 							<button [disabled]="!insurancePolicyHomeForm.valid" class="btn btn-default" type="submit">Potvrdi</button>
 						</div>

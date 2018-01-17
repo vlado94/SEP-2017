@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { InsurancePolicyRequest } from '../insurance-policy-request'
+import { InsurancePolicyCalculatePriceRequest } from '../insurance-policy-calculate-price'
 import { FactorService } from "../../factor/factor.service";
 import { Factor } from '../../factor/factor';
 import { InsurancePolicyService } from '../insurance-policy.service';
@@ -17,7 +18,9 @@ export class InsurancePolicyFormComponent implements OnInit {
 	insurancePolicyForm: FormGroup;
 	@Output() nextTab = new EventEmitter<number>();
 	@Output() savePolicyRequest = new EventEmitter<InsurancePolicyRequest>();
+	@Output() calculatePrice = new EventEmitter<InsurancePolicyCalculatePriceRequest>();
 	@Input() currentInsurancePolicy;
+	@Input() price;
 	regions: Factor[];
 	sports: Factor[];
 	agesCategory: Factor[];
@@ -38,7 +41,7 @@ export class InsurancePolicyFormComponent implements OnInit {
 			numberOfPersonsBetween16And60: new FormControl('', Validators.pattern("[0-9]*")),
 			numberOfPersonsOver60: new FormControl('', Validators.pattern("[0-9]*")),
 			region: new FormControl('', [Validators.required]),
-			sport: new FormControl(''),
+			sport: new FormControl('', [Validators.required]),
 			amount: new FormControl('', [Validators.required]),
 		});
 		console.log("aaaaaa");
@@ -67,18 +70,26 @@ export class InsurancePolicyFormComponent implements OnInit {
 			this.amounts = amounts;
 		})
 
+
+
 		this.insurancePolicyForm.valueChanges.subscribe(value => {
            // console.log('Form changes', value)
-           if (this.insurancePolicyForm.valid && this.checkNumberOfPeople()) {
-               /* let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
-                    value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+           	if(this.insurancePolicyForm.controls['startDate'].value != "")
+				document.getElementById("startDateLabel").classList.remove('is-empty');
 
-                this.insurancePolicyService.calculatePrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
-                    this.price = price;
-                })*/
+			if(value.sport == "no sport")
+				value.sport="";
+
+           if (this.insurancePolicyForm.valid && this.checkNumberOfPeople()) {
+                let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
+                    value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+
+                this.calculatePrice.emit(insurancePolicyCalculatePriceRequest);
                 console.log("proslo");
             } else {
-                //this.price = null;
+            	this.price = null;
+                //this.calculatePrice.emit(null);
+
             }
         })
 	}
@@ -86,7 +97,7 @@ export class InsurancePolicyFormComponent implements OnInit {
 	submitPolicyForm(){
 		let value = this.insurancePolicyForm.value;
 		let insurancePolicyRequest = new InsurancePolicyRequest(value.startDate, value.duration,
-			value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersons, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
+			value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
 		this.savePolicyRequest.emit(insurancePolicyRequest);
 		this.nextTab.emit(2);
 	}
@@ -121,6 +132,13 @@ export class InsurancePolicyFormComponent implements OnInit {
 	convertDate(d) {
 		let parts = d.split('-');
 		return new Date(+parts[0], +parts[1] - 1, parts[2]);
+	}
+
+	changedDate(){
+		this.insurancePolicyForm.value['startDate']
+		if(this.insurancePolicyForm.value)
+			console.log("sss")
+			
 	}
 
 }

@@ -4,6 +4,8 @@ import { InsurancePolicyPersonRequest } from './insurance-policy-person-request'
 import { InsurancePolicyHome } from './insurance-policy-home-car/policy-home';
 import { InsurancePolicyCar } from './insurance-policy-home-car/policy-car';
 
+import { InsurancePolicyService } from './insurance-policy.service'
+
 @Component({
 	selector: 'app-insurance-policy',
 	templateUrl: './insurance-policy.component.html',
@@ -17,7 +19,11 @@ export class InsurancePolicyComponent implements OnInit {
 	age: Age = new Age(0, 0, 0);
 	insurancePolicyHome: InsurancePolicyHome = null;
 	insurancePolicyCar: InsurancePolicyCar = null;
-	constructor() { }
+	policyPrice = null;
+	carInsurancePrice = null;
+	homeInsurancePrice = null;
+
+	constructor(private insurancePolicyService: InsurancePolicyService) { }
 
 	ngOnInit() {
 		this.active_tab = 3;
@@ -61,6 +67,37 @@ export class InsurancePolicyComponent implements OnInit {
 			this.insurancePolicyCar = null;
 		}
 	}
+
+	calculateInsurancePolicyPrice(value) {
+		if (value) {
+			this.insurancePolicyService.calculateSuggestedPrice(value).subscribe(price => {
+				this.policyPrice = price;
+			})
+		} else {
+			this.policyPrice = null;
+		}
+	}
+
+	calculateCarInsurancePrice(value) {
+        if (value) {
+            this.insurancePolicyService.calculateSuggestedPriceCar(value).subscribe(price => {
+                this.carInsurancePrice = price;
+            })
+        } else {
+            this.carInsurancePrice = null;
+        }
+    }
+
+    calculateHomeInsurancePrice(value) {
+        if (value != null) {
+            this.insurancePolicyService.calculateSuggestedPriceHome(value).subscribe(price => {
+                this.homeInsurancePrice = price;
+            })
+        } else {
+
+            this.homeInsurancePrice = null;
+        }
+    }
 
 }
 

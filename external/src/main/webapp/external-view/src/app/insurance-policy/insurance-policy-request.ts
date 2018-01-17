@@ -7,7 +7,6 @@ export class InsurancePolicyRequest {
     sport: string;
     amount: string;
     typeOfPolicy: string;
-    numberOfPersons: number;
     firstAgeCategory: number;
     secondAgeCategory: number;
     thirdAgeCategory: number;
@@ -15,7 +14,7 @@ export class InsurancePolicyRequest {
     persons: InsurancePolicyPersonRequest[] = [];
     constructor(startDate: string, duration: number,
         region: string, sportId: string,
-        amountId: string, typeOfPolicy: string, numberOfPersons: number,
+        amountId: string, typeOfPolicy: string,
         firstAgeCategory: number,
         secondAgeCategory: number,
         thirdAgeCategory: number) {
@@ -24,7 +23,6 @@ export class InsurancePolicyRequest {
         this.region = region;
         this.sport = sportId;
         this.amount = amountId;
-        this.numberOfPersons = numberOfPersons;
         this.firstAgeCategory = firstAgeCategory;
         this.secondAgeCategory = secondAgeCategory;
         this.thirdAgeCategory = thirdAgeCategory;

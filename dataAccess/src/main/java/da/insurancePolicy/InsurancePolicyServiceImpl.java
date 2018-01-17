@@ -19,7 +19,7 @@ import da.rules.RuleService;
 import model.dto.Discount;
 import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponce;
+import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
@@ -71,7 +71,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	}
 
 	@Override
-	public Double calculatePolice(InsurancePolicyRequest insurencePolicy) {
+	public InsurancePolicyCalculatePriceResponse calculatePolice(InsurancePolicyRequest insurencePolicy) {
 		double retVal = 0;
 		
 		PriceList last = priceListService.findCurrent();
@@ -168,9 +168,9 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		policy.setAmount(retVal);
 		
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(insurencePolicy);
-		InsurancePolicyCalculatePriceResponce calculatedPriceResponce =  calculatePriceWithDiscounts(discounts, retVal);//return
+		InsurancePolicyCalculatePriceResponse calculatedPriceResponce =  calculatePriceWithDiscounts(discounts, retVal);//return
 		
-		return retVal;
+		return calculatedPriceResponce;
 	}
 
 	private InsurancePolicy generatePolicyFromInsurencePolicyRequest(InsurancePolicyRequest insurencePolicy, List<PriceListItem> items) {
@@ -222,7 +222,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	}
 
 	@Override
-	public InsurancePolicyCalculatePriceResponce calculateSuggestedPrice(InsurancePolicyCalculatePriceRequest policy) {
+	public InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(InsurancePolicyCalculatePriceRequest policy) {
 		
 		double retVal = 0;
 		
@@ -312,13 +312,13 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
 		Double price = retVal * policy.getDuration();
-		InsurancePolicyCalculatePriceResponce responce =  calculatePriceWithDiscounts(discounts, price);//return
+		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
 	
 		return responce;
 	}
 	
-	private InsurancePolicyCalculatePriceResponce calculatePriceWithDiscounts(ArrayList<Popust> discounts, Double basePrice ) {
-		InsurancePolicyCalculatePriceResponce responce = new InsurancePolicyCalculatePriceResponce();
+	private InsurancePolicyCalculatePriceResponse calculatePriceWithDiscounts(ArrayList<Popust> discounts, Double basePrice ) {
+		InsurancePolicyCalculatePriceResponse responce = new InsurancePolicyCalculatePriceResponse();
 		responce.setBasePrice(basePrice);
 		ArrayList<Discount> discountsToDisplay = new ArrayList<>();
 		double totalReduction = 0;
@@ -383,10 +383,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		pricePerDay = sizePrice + agePrice + valuePrice +  riskPrice;
 		
 		return duration * pricePerDay;
+		
 	}
 
 	@Override
-	public Double calculateSuggestedPriceCar(InsurancePolicyCarCalculatePriceRequest request) {
+	public InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(InsurancePolicyCarCalculatePriceRequest request) {
 		double retVal = 0;
 		double duration = request.getDuration();
 		
@@ -441,7 +442,10 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		double smjestajPrice = smjestajBasePrice + smjestajBasePrice * smjestajPercent/100;
 		pricePerDay = popravkaPrice + prevozPrice + slepovanjePrice +  smjestajPrice;
 
-		return duration * pricePerDay;
+		Double price = duration * pricePerDay;
+		ArrayList<Popust> discounts = ruleService.getClassifiedItem(request);
+		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
+		return responce;
 		
 	}
 

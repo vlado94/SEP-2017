@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 
 @Service
@@ -44,6 +45,20 @@ public class RuleService {
         kieSession.fireAllRules();
         kieSession.dispose();
         
+        return lista;
+    }
+	
+    
+  public ArrayList<Popust> getClassifiedItem(InsurancePolicyCarCalculatePriceRequest request) {
+    	
+    	ArrayList<Popust> lista=new ArrayList();
+  
+       /* KieSession kieSession = kieContainer.newKieSession();
+        kieSession.insert(request);
+        kieSession.insert(lista);
+        kieSession.fireAllRules();
+        kieSession.dispose();
+        */
         return lista;
     }
 	

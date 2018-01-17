@@ -2,7 +2,7 @@ package model.dto;
 
 public class Discount {
 
-	private int percent;
+	private Integer percent;
 	private String discountName;
 	private double amount;
 	

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import da.person.PersonService;
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponce;
+import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
@@ -51,46 +51,31 @@ public class InsurancePolicyController {
 
 	/*Metoda za racunanje preporucene cijene polise*/
 	@PostMapping("/calculateSuggestedPrice")
-	public Double calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest request) throws FileNotFoundException {
+	public InsurancePolicyCalculatePriceResponse calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest request) throws FileNotFoundException {
 	
 		request.setNumberOfPersons(request.getFirstAgeCategory()+request.getSecondAgeCategory()+request.getThirdAgeCategory());
 		
-		/*Banker banker = (Banker)httpSession.getAttribute("user");
-		long BankID = banker.getBank().getId();
-		Bank bank = bankService.findOne(BankID);
-		ExcerptForBills ex = new ExcerptForBills(bank);
-	    String outputFile ="D:\\ExcerptForBank.pdf";
-	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(ex.setBills());
-		
- 
-        Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("ItemDataSource", itemsJRBean);
-        parameters.put("BankName", bank.getName());
-        parameters.put("CurrencyCode", bank.getCurrencyCode());
-        parameters.put("bankerName", banker.getFirstname() + " " + banker.getLastname());
-    
-       JasperPrint jasperPrint = JasperFillManager.fillReport("D:\\excerptBank.jasper", parameters, new JREmptyDataSource());
-        File file = new File(outputFile);
-        OutputStream outputStream = new FileOutputStream(file);
-        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+		/*
         response.setContentType("application/pdf");
 		InputStream inputStream = new FileInputStream(file);
 		IOUtils.copy(inputStream, response.getOutputStream());*/
 		
-		InsurancePolicyCalculatePriceResponce response = insurancePolicyService.calculateSuggestedPrice(request);
+		InsurancePolicyCalculatePriceResponse response = insurancePolicyService.calculateSuggestedPrice(request);
 		
-	    String outputFile ="D:\\ExcerptForBank.pdf";
+	    String outputFile ="D:\\template_Table.pdf";
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getDiscounts());
 	    Map<String, Object> parameters = new HashMap<String, Object>();
 	    
-	    //parameters.put("ItemDataSource", itemsJRBean);
+	   parameters.put("ItemDataSource", itemsJRBean);
 	    parameters.put("BankName", "Ime banke");
         parameters.put("CurrencyCode", "kod");
-        parameters.put("bankerName", "Ime i prezime");
+       parameters.put("bankerName", "Ime i prezime");
         
         JasperPrint jasperPrint;
 		try {
+			
 			jasperPrint = JasperFillManager.fillReport("D:\\excerptBank.jasper", parameters, new JREmptyDataSource());
+			
 			 File file = new File(outputFile);
 		        OutputStream outputStream= new FileOutputStream(file);
 		        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
@@ -103,13 +88,13 @@ public class InsurancePolicyController {
 		//InputStream inputStream = new FileInputStream(file);
 		//IOUtils.copy(inputStream, response.getOutputStream());
 	    
-		return 2.3;
+		return response;
 		
 	}
 	
 	/*Metoda za racunanje ukupne cijene polise*/
 	@PostMapping("/calculatePrice")
-	public Double calculatePriceWithPersons(@RequestBody InsurancePolicyRequest request) {
+	public InsurancePolicyCalculatePriceResponse calculatePriceWithPersons(@RequestBody InsurancePolicyRequest request) {
 		InsurancePolicyRequest policy = new InsurancePolicyRequest();
 		policy.setDuration(5);
 		policy.setPersons(new ArrayList<>());
@@ -122,9 +107,9 @@ public class InsurancePolicyController {
 		policy.setSport(1l);
 		policy.setAmount(15l);
 		
-		double amount = insurancePolicyService.calculatePolice(policy);
+		InsurancePolicyCalculatePriceResponse response = insurancePolicyService.calculatePolice(policy);
 	
-		return 1.1;
+		return response;
 	}
 	
 	
@@ -138,7 +123,7 @@ public class InsurancePolicyController {
 	}
 	
 	@PostMapping("/calculateSuggestedPriceCar")
-	public Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest request) {
+	public InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest request) {
 		
 		return insurancePolicyService.calculateSuggestedPriceCar(request);
 		

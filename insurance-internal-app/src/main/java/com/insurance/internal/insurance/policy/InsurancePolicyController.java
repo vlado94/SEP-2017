@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
@@ -32,21 +33,21 @@ public class InsurancePolicyController {
 	}
 	
 	@PostMapping("/calculateSuggestedPrice")
-	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
-		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
-		return price;
+		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+		return response;
 	}
 	
 	@PostMapping("/car/calculateSuggestedPrice")
-	private Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
 		obj.setSlepovanje(30l);
 		obj.setPopravka(34l);
 		obj.setSmestaj(37l);
 		obj.setPrevoz(41l);
-		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, Double.class);
+		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		return price;
 	}
 	

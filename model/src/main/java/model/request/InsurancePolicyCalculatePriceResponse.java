@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 import model.dto.Discount;
 
-public class InsurancePolicyCalculatePriceResponce {
+public class InsurancePolicyCalculatePriceResponse {
 
 	private double basePrice;
 	private ArrayList<Discount> discounts;
 	private double finalPrice;
 	
-	public InsurancePolicyCalculatePriceResponce(double basePrice, ArrayList<Discount> discounts, double finalPrice) {
+	public InsurancePolicyCalculatePriceResponse(double basePrice, ArrayList<Discount> discounts, double finalPrice) {
 		super();
 		this.basePrice = basePrice;
 		this.discounts = discounts;
 		this.finalPrice = finalPrice;
 	}
 	
-	public InsurancePolicyCalculatePriceResponce() {
+	public InsurancePolicyCalculatePriceResponse() {
 		
 	}
 

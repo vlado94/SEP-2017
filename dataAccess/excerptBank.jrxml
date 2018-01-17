@@ -33,9 +33,9 @@
 		<queryString>
 			<![CDATA[]]>
 		</queryString>
-		<field name="bill" class="java.lang.String"/>
+		<field name="discountName" class="java.lang.String"/>
 		<field name="amount" class="java.lang.Double"/>
-		<field name="owner" class="java.lang.String"/>
+		<field name="percent" class="java.lang.Integer"/>
 	</subDataset>
 	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="BankName" class="java.lang.String"/>
@@ -97,7 +97,7 @@
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="130" height="30" uuid="dbbdcd23-41c4-4c5a-bdb9-9a0a0a294996"/>
-								<text><![CDATA[Percent]]></text>
+								<text><![CDATA[Applicant]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">
@@ -112,7 +112,7 @@
 						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="170" height="30" uuid="b2645509-3c3a-4a2c-86df-82708713ebd3"/>
-								<text><![CDATA[Discount name]]></text>
+								<text><![CDATA[Bill number]]></text>
 							</staticText>
 						</jr:tableHeader>
 						<jr:detailCell style="Table_TD" height="30">

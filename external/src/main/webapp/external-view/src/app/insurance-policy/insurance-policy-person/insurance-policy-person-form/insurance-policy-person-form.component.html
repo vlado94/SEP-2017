@@ -43,7 +43,7 @@
 					<div *ngIf="insurancePolicyPersonForm.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
 					class="form-group form-black label-floating">
 					<label for="email" class="control-label">Email ugovarača:</label>
-					<input id="email" type="text" class="form-control" formControlName="email" (blur)="displayEmailErrors=true"/>
+					<input id="email" type="email" class="form-control" formControlName="email" (blur)="displayEmailErrors=true"/>
 					<div *ngIf="insurancePolicyPersonForm.controls['email'].errors && !insurancePolicyPersonForm.controls['email'].pristine && displayEmailErrors">
 
 						<span class="errorClass" *ngIf="insurancePolicyPersonForm.controls['email'].errors.required">Morate uneti email osiguranika.</span>

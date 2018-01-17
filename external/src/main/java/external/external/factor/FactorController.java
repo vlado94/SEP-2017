@@ -12,6 +12,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
@@ -33,10 +34,13 @@ public class FactorController {
 	
 	@Value("${dataccessPort}")
 	private String dataccessPort;
+	
+	@Autowired
+	RestTemplate restTemplate;
 
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
-		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
+		ResponseEntity<FactorDTO[]> responseEntity = restTemplate.getForEntity(
 				getDataccessPortHttps()+"/factor/category/"+id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);

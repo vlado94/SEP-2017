@@ -42,7 +42,7 @@ export class InsurancePolicyPersonFormComponent implements OnInit {
 				]),
 			contractor: new FormControl('false', [
 				]),
-			email: new FormControl('', [Validators.required, Validators.email]),
+			email: new FormControl(''),
 		})
 
 		if(this.insurancePolicyPersonForm.valid) {

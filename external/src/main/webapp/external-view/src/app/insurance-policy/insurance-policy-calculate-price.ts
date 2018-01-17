@@ -1,6 +1,5 @@
-import { InsurancePolicyPersonRequest } from './insurance-policy-person-request';
 
-export class InsurancePolicyRequest {
+export class InsurancePolicyCalculatePriceRequest {
     startDate: string;
     duration: number;
     region: string;
@@ -11,7 +10,6 @@ export class InsurancePolicyRequest {
     secondAgeCategory: number;
     thirdAgeCategory: number;
 
-    persons: InsurancePolicyPersonRequest[] = [];
     constructor(startDate: string, duration: number,
         region: string, sportId: string,
         amountId: string, typeOfPolicy: string,

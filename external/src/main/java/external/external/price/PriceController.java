@@ -1,4 +1,4 @@
-package com.insurance.internal.insurance.policy;
+package external.external.price;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,11 +12,11 @@ import org.springframework.web.client.RestTemplate;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
-import model.request.InsurancePolicyRequest;
+
 @RestController
-@RequestMapping("/internal/insurancePolicy")
-@CrossOrigin(origins = "http://localhost:4500")
-public class InsurancePolicyController {
+@RequestMapping("/external/calculateSuggestedPrice")
+@CrossOrigin(origins = "http://localhost:4300")
+public class PriceController {
 	
 	@Value("${dataccessPort}")
 	private String dataccessPort;
@@ -25,21 +25,15 @@ public class InsurancePolicyController {
 	RestTemplate restTemplate;
 	
 	@PostMapping
-	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
-		InsurancePolicyRequest newInsuranceReq = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
-		return newInsuranceReq;
-	}
-	
-	@PostMapping("/calculateSuggestedPrice")
 	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
 		Double price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
+		System.out.println("cena osiguranja je: " + price);
 		return price;
 	}
 	
-	@PostMapping("/car/calculateSuggestedPrice")
+	@PostMapping("/car")
 	private Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
 		obj.setSlepovanje(30l);
 		obj.setPopravka(34l);
@@ -50,7 +44,7 @@ public class InsurancePolicyController {
 		return price;
 	}
 	
-	@PostMapping("/home/calculateSuggestedPrice")
+	@PostMapping("/home")
 	private Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
 		obj.setSize(18l);
 		obj.setAge(22l);
@@ -62,8 +56,6 @@ public class InsurancePolicyController {
 		return price;
 	}
 	
-	
-
 	public String getDataccessPortHttps() {
 		return dataccessPort.replace("http", "https").toString();
 	}
@@ -92,4 +84,5 @@ public class InsurancePolicyController {
 			return null;
 		}
 	}*/
+
 }

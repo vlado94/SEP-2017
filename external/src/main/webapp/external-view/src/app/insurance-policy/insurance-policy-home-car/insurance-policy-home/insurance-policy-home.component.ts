@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { InsurancePolicyHome } from '../policy-home';
 import { Factor } from '../../../factor/factor';
 import { FactorService } from "../../../factor/factor.service";
-
+import { InsurancePolicyHomeCalculatePriceRequest } from '../policy-home-calculate-price-request';
 
 
 @Component({
@@ -19,8 +19,9 @@ export class InsurancePolicyHomeComponent {
 
 	@Output() hideForm = new EventEmitter<string>();
     currentHome: InsurancePolicyHome = null;
+    @Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
 	//@Output() calculatePrice = new EventEmitter<InsurancePolicyHomeCalculatePriceRequest>();
-	//@Input() price;
+	@Input() price;
     sizes: Factor[];
     ages: Factor[];
     values: Factor[];
@@ -50,6 +51,31 @@ export class InsurancePolicyHomeComponent {
                 ]),
         })
 
+        
+    }
+
+    ngOnInit(){
+
+
+         this.insurancePolicyHomeForm.reset();
+        this.insurancePolicyHomeForm.controls['size'].setValue('');
+        this.insurancePolicyHomeForm.controls['age'].setValue('');
+        this.insurancePolicyHomeForm.controls['value'].setValue('');
+        this.insurancePolicyHomeForm.controls['risk'].setValue('');
+
+        this.insurancePolicyHomeForm.valueChanges.subscribe(value => {
+            if (this.insurancePolicyHomeForm.controls['duration'].valid && this.insurancePolicyHomeForm.controls['size'].valid
+                && this.insurancePolicyHomeForm.controls['value'].valid && this.insurancePolicyHomeForm.controls['risk'].valid
+                && this.insurancePolicyHomeForm.controls['age'].valid) {
+                let insurancePolicyHomeCalculatePriceRequest: InsurancePolicyHomeCalculatePriceRequest = new InsurancePolicyHomeCalculatePriceRequest(value.duration, value.size,
+                    value.age, value.value, value.risk);
+                this.calculatePrice.emit(insurancePolicyHomeCalculatePriceRequest);
+            } else {
+                this.calculatePrice.emit(null);
+            }
+        })
+
+
         this.factorService.findByCategory(6)
             .subscribe(sizes => {
                 this.sizes = sizes;
@@ -67,6 +93,7 @@ export class InsurancePolicyHomeComponent {
             .subscribe(risks => {
                 this.risks = risks;
             })
+
     }
 
 

@@ -3,6 +3,7 @@ package drools.spring.rules
 
 import model.request.InsurancePolicyRequest;
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCarCalculatePriceRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
@@ -70,3 +71,28 @@ rule "Popust na datum2"
 		}
 		System.out.println("11% na februar");
 end	
+
+
+rule "popust na kilometrazu slepa"
+	lock-on-active true
+	when
+		$c : InsurancePolicyCarCalculatePriceRequest(this.slepovanje>500)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("popust na kilometrazu slepa",3));
+		}
+		System.out.println("pogodjen popust na slep");
+end
+
+rule "cijena popravke"
+	lock-on-active true
+	when
+		$c : InsurancePolicyCarCalculatePriceRequest(this.popravka>500)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na cijenu popravke",4));
+		}
+		System.out.println("pogodjen popust na popravku");
+end

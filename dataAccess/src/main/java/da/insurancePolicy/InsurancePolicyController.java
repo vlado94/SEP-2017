@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +44,8 @@ public class InsurancePolicyController {
     @Autowired
     ConversionService conversionService;
     
+    private static Logger logger = LoggerFactory.getLogger(InsurancePolicyController.class);
+    
 	@PostMapping
 	public InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest request) {
 		InsurancePolicy entity = conversionService.convert(request, InsurancePolicy.class);
@@ -62,7 +66,7 @@ public class InsurancePolicyController {
 		
 		InsurancePolicyCalculatePriceResponse response = insurancePolicyService.calculateSuggestedPrice(request);
 		
-	    String outputFile ="D:\\template_Table.pdf";
+	    /*String outputFile ="C:\\template_Table.pdf";
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getDiscounts());
 	    Map<String, Object> parameters = new HashMap<String, Object>();
 	    
@@ -74,16 +78,17 @@ public class InsurancePolicyController {
         JasperPrint jasperPrint;
 		try {
 			
-			jasperPrint = JasperFillManager.fillReport("D:\\excerptBank.jasper", parameters, new JREmptyDataSource());
+			jasperPrint = JasperFillManager.fillReport("C:\\excerptBank.jasper", parameters, new JREmptyDataSource());
 			
 			 File file = new File(outputFile);
 		        OutputStream outputStream= new FileOutputStream(file);
 		        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+		        logger.info("kreiran PDF");
 		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   
+   */
         //response.setContentType("application/pdf");
 		//InputStream inputStream = new FileInputStream(file);
 		//IOUtils.copy(inputStream, response.getOutputStream());

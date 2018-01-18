@@ -53,12 +53,12 @@ public class RuleService {
     	
     	ArrayList<Popust> lista=new ArrayList();
   
-       /* KieSession kieSession = kieContainer.newKieSession();
+        KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(request);
         kieSession.insert(lista);
         kieSession.fireAllRules();
         kieSession.dispose();
-        */
+        
         return lista;
     }
 	

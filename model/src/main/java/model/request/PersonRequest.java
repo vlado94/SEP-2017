@@ -7,7 +7,6 @@ public class PersonRequest {
 	String passportNo;
 	String address;
 	String phone;
-	Long age;
 	boolean contractor;
 	String email;
 	
@@ -17,7 +16,7 @@ public class PersonRequest {
 	}
 
 	public PersonRequest(String firstName, String lastName, String personNo, String passportNo, String address,
-			String phone, Long age,boolean contractor, String email) {
+			String phone, boolean contractor, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -25,7 +24,6 @@ public class PersonRequest {
 		this.passportNo = passportNo;
 		this.address = address;
 		this.phone = phone;
-		this.age = age;
 		this.contractor = contractor;
 		this.email = email;
 	}
@@ -76,14 +74,6 @@ public class PersonRequest {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public Long getAge() {
-		return age;
-	}
-
-	public void setAge(Long age) {
-		this.age = age;
 	}
 
 	public boolean isContractor() {

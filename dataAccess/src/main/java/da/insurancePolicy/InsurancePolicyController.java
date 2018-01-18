@@ -19,6 +19,8 @@ import da.person.PersonService;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.PersonRequest;
@@ -98,8 +100,8 @@ public class InsurancePolicyController {
 		InsurancePolicyRequest policy = new InsurancePolicyRequest();
 		policy.setDuration(5);
 		policy.setPersons(new ArrayList<>());
-		PersonRequest person1 = new PersonRequest("Jovan","Jovanovic","1212994156225","12563","adress","06451145",28l,false, "fjass@sdha");
-		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",62l,false, "fjass@sdha");
+		PersonRequest person1 = new PersonRequest("Jovan","Jovanovic","1212994156225","12563","adress","06451145",false, "fjass@sdha");
+		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",false, "fjass@sdha");
 		policy.getPersons().add(person1);
 		policy.getPersons().add(person2);
 		
@@ -126,6 +128,14 @@ public class InsurancePolicyController {
 	public InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest request) {
 		
 		return insurancePolicyService.calculateSuggestedPriceCar(request);
+		
+	}
+	
+	
+	@PostMapping("/getCheckout")
+	public InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest request) {
+		
+		return insurancePolicyService.getCheckout(request);
 		
 	}
 	

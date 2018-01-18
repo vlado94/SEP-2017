@@ -5,14 +5,15 @@
 		(ngSubmit)="onSubmit(insurancePolicyPerson)">
 
 		<div class="form-group row">
-			<label for="firstName" class="col-3">Ime:</label>
-			<div class="col-9">
+			<label for="firstName" class="col-4">Ime:</label>
+			<div class="col-5">
 				<input id="firstName" type="text" class="form-control"
-					formControlName="firstName">
+					formControlName="firstName"
+					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['firstName'].errors && !insurancePolicyPerson.controls['firstName'].pristine}">
 			</div>
 			<div
 				*ngIf="insurancePolicyPerson.controls['firstName'].errors && !insurancePolicyPerson.controls['firstName'].pristine"
-				class="alert alert-danger">
+				class="col-5 offset-4 invalid-feedback">
 
 				<div
 					*ngIf="insurancePolicyPerson.controls['firstName'].errors.required">Morate
@@ -24,14 +25,15 @@
 		</div>
 
 		<div class="form-group row">
-			<label for="lastName" class="col-3">Prezime:</label>
-			<div class="col-9">
+			<label for="lastName" class="col-4">Prezime:</label>
+			<div class="col-5">
 				<input id="lastName" type="text" class="form-control"
-					formControlName="lastName">
+					formControlName="lastName"
+					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['lastName'].errors && !insurancePolicyPerson.controls['lastName'].pristine}">
 			</div>
 			<div
 				*ngIf="insurancePolicyPerson.controls['lastName'].errors && !insurancePolicyPerson.controls['lastName'].pristine"
-				class="alert alert-danger">
+				class="col-5 offset-4 invalid-feedback">
 
 				<div
 					*ngIf="insurancePolicyPerson.controls['lastName'].errors.required">Morate
@@ -41,9 +43,10 @@
 					prezime.</div>
 			</div>
 		</div>
-		<div class="form-group row" *ngIf="!contractorExists() || (currentPerson != null && currentPerson.contractor)">
-			<label for="contractor" class="col-3">Ugovarač:</label>
-			<div class="col-9">
+		<div class="form-group row"
+			*ngIf="!contractorExists() || (currentPerson != null && currentPerson.contractor)">
+			<label for="contractor" class="col-4">Ugovarač:</label>
+			<div class="col-5">
 				<label class="radio-inline radio-button"> <input
 					type="radio" value="true" name="contractor" checked
 					formControlName="contractor">Da
@@ -56,22 +59,23 @@
 		<div
 			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && (!contractorExists() || (currentPerson != null && currentPerson.contractor))"
 			class="form-group row">
-			<label for="email" class="col-3">Email ugovarača:</label>
-			<div class="col-9">
+			<label for="email" class="col-4">Email ugovarača:</label>
+			<div class="col-5">
 				<input id="email" type="email" class="form-control"
 					formControlName="email" />
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="jmbg" class="col-3">Jmbg:</label>
-			<div class="col-9">
+			<label for="jmbg" class="col-4">Jmbg:</label>
+			<div class="col-5">
 				<input id="jmbg" type="text" class="form-control"
-					formControlName="jmbg">
+					formControlName="jmbg"
+					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['jmbg'].errors && !insurancePolicyPerson.controls['jmbg'].pristine || jmbgExists}">
 			</div>
 			<div
 				*ngIf="insurancePolicyPerson.controls['jmbg'].errors && !insurancePolicyPerson.controls['jmbg'].pristine"
-				class="alert alert-danger">
+				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.required">Morate
 					uneti jedinstveni matični broj.</div>
@@ -80,56 +84,69 @@
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.maxlength">Jedinstveni
 					matični broj sadrži 13 cifara.</div>
 			</div>
-			<div class="alert alert-danger"
-				*ngIf="jmbgExists() && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
-				sa unetim matičnim brojem veÄ‡ postoji.</div>
+			<div class="col-5 offset-4 invalid-feedback"
+				*ngIf="jmbgExists && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
+				sa unetim matičnim brojem već postoji.</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="passportNumber" class="col-3">Broj pasoša:</label>
-			<div class="col-9">
+			<label for="passportNumber" class="col-4">Broj pasoša:</label>
+			<div class="col-5">
 				<input id="passportNumber" type="text" class="form-control"
-					formControlName="passportNumber">
+					formControlName="passportNumber"
+					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['passportNumber'].errors && !insurancePolicyPerson.controls['passportNumber'].pristine}">
 			</div>
+			<div
+				*ngIf="insurancePolicyPerson.controls['passportNumber'].errors && !insurancePolicyPerson.controls['passportNumber'].pristine"
+				class="col-5 offset-4 invalid-feedback">
+
+				<div *ngIf="insurancePolicyPerson.controls['passportNumber'].errors.required">Morate
+					uneti broj pasoša.</div>
+			</div>			
 		</div>
 
 		<div class="form-group row">
-			<label for="address" class="col-3">Adresa:</label>
-			<div class="col-9">
+			<label for="address" class="col-4">Adresa:</label>
+			<div class="col-5">
 				<input id="address" type="text" class="form-control"
-					formControlName="address">
+					formControlName="address"
+					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['address'].errors && !insurancePolicyPerson.controls['address'].pristine}">
 			</div>
 			<div
 				*ngIf="insurancePolicyPerson.controls['address'].errors && !insurancePolicyPerson.controls['address'].pristine"
-				class="alert alert-danger">
+				class="col-5 offset-4 invalid-feedback">
 
 				<div
 					*ngIf="insurancePolicyPerson.controls['address'].errors.required">Morate
-					uneti adresu.</div>
+					uneti adresu stanovanja.</div>
 			</div>
 		</div>
 
 		<div class="form-group row">
-			<label for="phone" class="col-3">Telefon:</label>
-			<div class="col-9">
+			<label for="phone" class="col-4">Telefon:</label>
+			<div class="col-5">
 				<input id="phone" type="text" class="form-control"
-					formControlName="phone">
+					formControlName="phone"
+					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['phone'].errors && !insurancePolicyPerson.controls['phone'].pristine}">
 			</div>
 			<div
 				*ngIf="insurancePolicyPerson.controls['phone'].errors && !insurancePolicyPerson.controls['phone'].pristine"
-				class="alert alert-danger">
+				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['phone'].errors.required">Morate
 					uneti broj telefona.</div>
 			</div>
 		</div>
-
-		<div class="floatRight button">
-			<button class="btn fa fa-check " type="submit"
-				[disabled]="!insurancePolicyPerson.valid || jmbgExists()"></button>
-		</div>
-		<div class="floatRight button">
-			<button class="btn fa fa-close" (click)="reset()"type="button"></button>
+		<div class="row">
+			<div class="col-9">
+				<div class="floatRight button">
+					<button class="btn fa fa-check " type="submit"
+						[disabled]="!insurancePolicyPerson.valid || jmbgExists"></button>
+				</div>
+				<div class="floatRight button">
+					<button class="btn fa fa-close" (click)="reset()" type="button"></button>
+				</div>
+			</div>
 		</div>
 	</form>
 

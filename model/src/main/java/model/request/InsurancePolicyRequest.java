@@ -8,44 +8,36 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class InsurancePolicyRequest {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate startDate;
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-	private LocalDate endDate;
 	private int duration;
 	private Long region;
 	private Long sport;
 	private Long amount;
+
+	private Long typeOfPolicy;
 	private List<PersonRequest> persons;
+
+	private Integer firstAgeCategory;
+	private Integer secondAgeCategory;
+	private Integer thirdAgeCategory;
 
 	public InsurancePolicyRequest() {
 		super();
 	}
 
-	public InsurancePolicyRequest(LocalDate startDate, LocalDate endDate, int duration, Long region, Long sport,
-			Long amount, List<PersonRequest> persons) {
+	public InsurancePolicyRequest(LocalDate startDate, int duration, Long region, Long sport, Long amount,
+			Long typeOfPolicy, List<PersonRequest> persons, Integer firstAgeCategory, Integer secondAgeCategory,
+			Integer thirdAgeCategory) {
 		super();
 		this.startDate = startDate;
-		this.endDate = endDate;
 		this.duration = duration;
 		this.region = region;
 		this.sport = sport;
 		this.amount = amount;
+		this.typeOfPolicy = typeOfPolicy;
 		this.persons = persons;
-	}
-
-	public Long getSport() {
-		return sport;
-	}
-
-	public void setSport(Long sport) {
-		this.sport = sport;
-	}
-
-	public Long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Long amount) {
-		this.amount = amount;
+		this.firstAgeCategory = firstAgeCategory;
+		this.secondAgeCategory = secondAgeCategory;
+		this.thirdAgeCategory = thirdAgeCategory;
 	}
 
 	public LocalDate getStartDate() {
@@ -54,14 +46,6 @@ public class InsurancePolicyRequest {
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
-	}
-
-	public LocalDate getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
 	}
 
 	public int getDuration() {
@@ -80,12 +64,60 @@ public class InsurancePolicyRequest {
 		this.region = region;
 	}
 
+	public Long getSport() {
+		return sport;
+	}
+
+	public void setSport(Long sport) {
+		this.sport = sport;
+	}
+
+	public Long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
+
+	public Long getTypeOfPolicy() {
+		return typeOfPolicy;
+	}
+
+	public void setTypeOfPolicy(Long typeOfPolicy) {
+		this.typeOfPolicy = typeOfPolicy;
+	}
+
 	public List<PersonRequest> getPersons() {
 		return persons;
 	}
 
 	public void setPersons(List<PersonRequest> persons) {
 		this.persons = persons;
+	}
+
+	public Integer getFirstAgeCategory() {
+		return firstAgeCategory;
+	}
+
+	public void setFirstAgeCategory(Integer firstAgeCategory) {
+		this.firstAgeCategory = firstAgeCategory;
+	}
+
+	public Integer getSecondAgeCategory() {
+		return secondAgeCategory;
+	}
+
+	public void setSecondAgeCategory(Integer secondAgeCategory) {
+		this.secondAgeCategory = secondAgeCategory;
+	}
+
+	public Integer getThirdAgeCategory() {
+		return thirdAgeCategory;
+	}
+
+	public void setThirdAgeCategory(Integer thirdAgeCategory) {
+		this.thirdAgeCategory = thirdAgeCategory;
 	}
 
 }

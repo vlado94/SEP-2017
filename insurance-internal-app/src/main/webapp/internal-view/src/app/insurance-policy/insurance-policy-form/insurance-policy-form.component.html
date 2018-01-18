@@ -1,34 +1,31 @@
 <div class="form-title">Putno osiguranje</div>
 <form class="form-horizontal" [formGroup]="insurancePolicy"
 	(ngSubmit)="onSubmit(insurancePolicy)">
-
 	<div class="form-group row">
-		<label for="startDate" class="col-3">Od:</label>
-		<div class="col-6">
+		<label for="startDate" class="col-4">Od:</label>
+		<div class="col-5">
 			<input id="startDate" type="date" class="form-control"
-				formControlName="startDate">
+				formControlName="startDate"
+				[ngClass]="{'is-invalid': insurancePolicy.controls['startDate'].errors && !insurancePolicy.controls['startDate'].pristine}">
 		</div>
 		<div
 			*ngIf="insurancePolicy.controls['startDate'].errors && !insurancePolicy.controls['startDate'].pristine"
-			class="alert alert-danger col-6">
-
+			class="invalid-feedback col-5 offset-4">
 			<div
 				*ngIf="insurancePolicy.controls['startDate'].errors.dateValidator">Datum
-				ne moûe biti manji od danaönjeg datuma.</div>
+				ne mo≈æe bti manji od dana≈°njeg datuma.</div>
 		</div>
 	</div>
-
 	<div class="form-group row">
-		<label for="duration" class="col-3">Trajanje(u danima):</label>
-		<div class="col-6">
+		<label for="duration" class="col-4">Trajanje(u danima):</label>
+		<div class="col-5">
 			<input id="duration" type="text" class="form-control"
-				formControlName="duration">
+				formControlName="duration"
+				[ngClass]="{'is-invalid': insurancePolicy.controls['duration'].errors && !insurancePolicy.controls['duration'].pristine}">
 		</div>
-
 		<div
 			*ngIf="insurancePolicy.controls['duration'].errors && !insurancePolicy.controls['duration'].pristine"
-			class="alert alert-danger col-6">
-
+			class="invalid-feedback col-5 offset-4">
 			<div *ngIf="insurancePolicy.controls['duration'].errors.required">Morate
 				uneti trajanje putovanja u danima.</div>
 			<div *ngIf="insurancePolicy.controls['duration'].errors.pattern">Neispravan
@@ -36,111 +33,111 @@
 			<div
 				*ngIf="insurancePolicy.controls['duration'].errors.numberOfPersonsValidator">Trajanje
 				putovanja mora biti bar jedan dan.</div>
-
 		</div>
 	</div>
-
 	<div class="form-group row">
-		<label for="typeOfPolicy" class="col-3">Tip polise:</label>
-		<div class="col-6">
+		<label for="typeOfPolicy" class="col-4">Tip polise:</label>
+		<div class="col-5">
 			<select id="typeOfPolicy" class="form-control"
-				formControlName="typeOfPolicy">
+				formControlName="typeOfPolicy"
+				[ngClass]="{'is-invalid': insurancePolicy.controls['typeOfPolicy'].errors && !insurancePolicy.controls['typeOfPolicy'].pristine}">
 				<option value="">Izaberite vrstu polise</option>
 				<option *ngFor="let t of types" value="{{t.id}}">{{t.name}}</option>
 			</select>
 		</div>
 		<div
 			*ngIf="insurancePolicy.controls['typeOfPolicy'].errors && !insurancePolicy.controls['typeOfPolicy'].pristine"
-			class="alert alert-danger">
-
+			class="invalid-feedback col-5 offset-4">
 			<div *ngIf="insurancePolicy.controls['typeOfPolicy'].errors.required">Morate
-				izabrati tip polise koji ûelite da kupite.</div>
+				izabrati tip polise koji ≈æelite da kupite.</div>
 		</div>
 	</div>
-
 	<div class="form-group row">
-		<label for="numberOfPersonsUpTo16" class="col-3">Broj putnika
+		<label for="numberOfPersonsUpTo16" class="col-4">Broj putnika
 			uzrasta do 16 godina:</label>
-		<div class="col-6">
+		<div class="col-5">
 			<input id="numberOfPersonsUpTo16" type="text" class="form-control"
-				formControlName="numberOfPersonsUpTo16">
-		</div>
-	</div>
-
-	<div class="form-group row">
-		<label for="numberOfPersonsBetween16And60" class="col-3">Broj
-			putnika uzrasta izmedju 16 i 60 godina:</label>
-		<div class="col-6">
-			<input id="numberOfPersonsBetween16And60" type="text"
-				class="form-control" formControlName="numberOfPersonsBetween16And60">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label for="numberOfPersonsOver60" class="col-3">Broj putnika
-			uzrasta preko 60 godina:</label>
-		<div class="col-6">
-			<input id="numberOfPersonsOver60" type="text" class="form-control"
-				formControlName="numberOfPersonsOver60">
-		</div>
-	</div>
-	<div class="alert alert-danger"
-		*ngIf="(!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
+				formControlName="numberOfPersonsUpTo16"
+				[ngClass]="{'is-invalid': (!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
 		 !insurancePolicy.controls['numberOfPersonsBetween16And60'].pristine ||
-		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()">
-		  	Morate uneti bar jednog putnika.
+		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()}">
+		</div>
 	</div>
 	<div class="form-group row">
-		<label for="duration" class="col-3">Region:</label>
-		<div class="col-6">
-			<select id="region" class="form-control" formControlName="region">
+		<label for="numberOfPersonsBetween16And60" class="col-4">Broj
+			putnika uzrasta izmedju 16 i 60 godina:</label>
+		<div class="col-5">
+			<input id="numberOfPersonsBetween16And60" type="text"
+				class="form-control" formControlName="numberOfPersonsBetween16And60"
+				[ngClass]="{'is-invalid': (!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
+		 !insurancePolicy.controls['numberOfPersonsBetween16And60'].pristine ||
+		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()}">
+		</div>
+	</div>
+	<div class="form-group row">
+		<label for="numberOfPersonsOver60" class="col-4">Broj putnika
+			uzrasta preko 60 godina:</label>
+		<div class="col-5">
+			<input id="numberOfPersonsOver60" type="text" class="form-control"
+				formControlName="numberOfPersonsOver60"
+				[ngClass]="{'is-invalid': (!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
+		 !insurancePolicy.controls['numberOfPersonsBetween16And60'].pristine ||
+		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()}">
+		</div>
+		<div class="invalid-feedback col-5 offset-4"
+			*ngIf="(!insurancePolicy.controls['numberOfPersonsUpTo16'].pristine ||
+		 !insurancePolicy.controls['numberOfPersonsBetween16And60'].pristine ||
+		  !insurancePolicy.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()">Morate
+			uneti bar jednog putnika.</div>
+	</div>
+	<div class="form-group row">
+		<label for="region" class="col-4">Region:</label>
+		<div class="col-5">
+			<select id="region" class="form-control" formControlName="region"
+				[ngClass]="{'is-invalid': insurancePolicy.controls['region'].errors && !insurancePolicy.controls['region'].pristine}">
 				<option value="">Izaberite region</option>
 				<option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
 			</select>
 		</div>
+		<div
+			*ngIf="insurancePolicy.controls['region'].errors && !insurancePolicy.controls['region'].pristine"
+			class="invalid-feedback col-5 offset-4">
+			<div *ngIf="insurancePolicy.controls['region'].errors.required">Morate
+				izabrati region u koji putujete.</div>
+		</div>
 	</div>
-
-
 	<div class="form-group row">
-		<label for="amount" class="col-3">Iznos do kog se korisnici
+		<label for="amount" class="col-4">Iznos do kog se korisnici
 			osiguravaju:</label>
-		<div class="col-6">
-			<select id="amount" class="form-control" formControlName="amount">
+		<div class="col-5">
+			<select id="amount" class="form-control" formControlName="amount"
+				[ngClass]="{'is-invalid':insurancePolicy.controls['amount'].errors && !insurancePolicy.controls['amount'].pristine}">
+			
 				<option value="">Izaberite iznos</option>
 				<option *ngFor="let amount of amounts" value="{{amount.id}}">{{amount.name}}</option>
 			</select>
 		</div>
 		<div
 			*ngIf="insurancePolicy.controls['amount'].errors && !insurancePolicy.controls['amount'].pristine"
-			class="alert alert-danger">
-
+			class="invalid-feedback col-5 offset-4">
 			<div *ngIf="insurancePolicy.controls['amount'].errors.required">Morate
 				izabrati iznos do kog je korisnik polise osiguran.</div>
 		</div>
 	</div>
-
 	<div class="form-group row">
-		<label for="sport" class="col-3">Sport kojim se korisnik
+		<label for="sport" class="col-4">Sport kojim se korisnik
 			namerava baviti:</label>
-		<div class="col-6">
+		<div class="col-5">
 			<select id="sport" class="form-control" formControlName="sport">
 				<option value="">Izaberite sport</option>
 				<option *ngFor="let s of sports" value="{{s.id}}">{{s.name}}</option>
-
 			</select>
-		</div>
-		<div
-			*ngIf="insurancePolicy.controls['sport'].errors && !insurancePolicy.controls['sport'].pristine"
-			class="alert alert-danger">
-
-			<div *ngIf="insurancePolicy.controls['sport'].errors.required">Morate
-				izabrati sport kojim korisnik namerava da se bavi.</div>
 		</div>
 	</div>
 	<button type="submit"
 		[disabled]="!insurancePolicy.valid || !checkNumberOfPeople()"
 		class="btn btn-default fixed-right">Dalje</button>
 </form>
-
 <div class="price" *ngIf="price">
 	<div *ngIf="price">
 		Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>

@@ -23,7 +23,7 @@ import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
-import model.request.InsurancePolicyResponce;
+import model.request.InsurancePolicyResponse;
 import model.request.PersonRequest;
 import model.request.PersonResponse;
 
@@ -125,7 +125,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		pricePerDayForSportAndRegion = sportPrice + regionPrice;
 		
 		InsurancePolicy policy  = insurancePolicyRepository.save(generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList));
-		InsurancePolicyResponce responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);
+		InsurancePolicyResponse responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);
 	
 		
 		/*upit na repo*/
@@ -198,8 +198,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		return policy;
 	}
 
-	private InsurancePolicyResponce generateInsurenceResponceFromPolicyRequest(InsurancePolicyRequest insurencePolicyRequest, InsurancePolicy policy) {
-		InsurancePolicyResponce responce = new InsurancePolicyResponce();
+	private InsurancePolicyResponse generateInsurenceResponceFromPolicyRequest(InsurancePolicyRequest insurencePolicyRequest, InsurancePolicy policy) {
+		InsurancePolicyResponse responce = new InsurancePolicyResponse();
 		responce.setPolicyID(policy.getId());
 		responce.setStartDate(policy.getStartDate());
 		responce.setDuration(policy.getDuration());

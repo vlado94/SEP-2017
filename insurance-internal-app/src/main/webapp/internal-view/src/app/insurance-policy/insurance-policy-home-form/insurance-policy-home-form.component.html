@@ -1,10 +1,10 @@
-<div class="form-title">Osiguranje automobila</div>
+<div class="form-title">Osiguranje kuće ili stana</div>
 
 <form [formGroup]="insurancePolicyHomeForm"
 	(ngSubmit)="set(insurancePolicyHomeForm.value)">
 	<div class="form-group row">
-		<label for="duration" class="col-3">Trajanje osiguranja:</label>
-		<div class="col-7">
+		<label for="duration" class="col-4">Trajanje osiguranja:</label>
+		<div class="col-5">
 			<input id="duration" type="text" class="form-control"
 				formControlName="duration">
 		</div>
@@ -22,8 +22,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="size" class="col-3">Povrsina stana:</label>
-		<div class="col-7">
+		<label for="size" class="col-4">Povrsina stana:</label>
+		<div class="col-5">
 			<select id="size" class="form-control" formControlName="size">
 				<option value="">Izaberite kvadraturu</option>
 				<option *ngFor="let p of sizes" value="{{p.id}}">{{p.name}}</option>
@@ -40,8 +40,8 @@
 
 
 	<div class="form-group row">
-		<label for="age" class="col-3">Starost stana:</label>
-		<div class="col-7">
+		<label for="age" class="col-4">Starost stana:</label>
+		<div class="col-5">
 			<select id="age" class="form-control" formControlName="age">
 				<option value="">Izaberite starost stana</option>
 				<option *ngFor="let p of ages" value="{{p.id}}">{{p.name}}</option>
@@ -57,8 +57,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="value" class="col-3">Procenjena vrednost stana:</label>
-		<div class="col-7">
+		<label for="value" class="col-4">Procenjena vrednost stana:</label>
+		<div class="col-5">
 			<select id="value" class="form-control" formControlName="value">
 				<option value="">Izaberite procenjenu vrednost stana</option>
 				<option *ngFor="let p of values" value="{{p.id}}">{{p.name}}</option>
@@ -76,8 +76,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="risk" class="col-3">Stan se osigurava od:</label>
-		<div class="col-7">
+		<label for="risk" class="col-4">Stan se osigurava od:</label>
+		<div class="col-5">
 			<select id="risk" class="form-control" formControlName="risk">
 				<option value="">Izaberite od čega se stan osigurava</option>
 				<option *ngFor="let p of risks" value="{{p.id}}">{{p.name}}</option>
@@ -94,8 +94,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="address" class="col-3">Adresa:</label>
-		<div class="col-7">
+		<label for="address" class="col-4">Adresa:</label>
+		<div class="col-5">
 			<input id="address" type="text" class="form-control"
 				formControlName="address">
 		</div>
@@ -110,8 +110,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="firstName" class="col-3">Ime vlasnika:</label>
-		<div class="col-7">
+		<label for="firstName" class="col-4">Ime vlasnika:</label>
+		<div class="col-5">
 			<input id="firstName" type="text" class="form-control"
 				formControlName="firstName">
 		</div>
@@ -129,8 +129,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="lastName" class="col-3">Prezime vlasnika:</label>
-		<div class="col-7">
+		<label for="lastName" class="col-4">Prezime vlasnika:</label>
+		<div class="col-5">
 			<input id="lastName" type="text" class="form-control"
 				formControlName="lastName">
 		</div>
@@ -148,8 +148,8 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="jmbg" class="col-3">Matični broj vlasnika stana:</label>
-		<div class="col-7">
+		<label for="jmbg" class="col-4">Matični broj vlasnika stana:</label>
+		<div class="col-5">
 			<input id="jmbg" type="text" class="form-control"
 				formControlName="jmbg">
 		</div>

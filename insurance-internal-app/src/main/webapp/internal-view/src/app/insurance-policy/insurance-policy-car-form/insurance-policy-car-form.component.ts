@@ -41,27 +41,59 @@ export class InsurancePolicyCarForm {
     smestaj_list: Factor[];
     prevoz_list: Factor[];
     current: InsurancePolicyCarRequest = null;
+
+    calculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = null;
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
         this.insurancePolicyCarForm = new FormGroup({
-            duration: new FormControl('', [
-                Validators.required,
-                Validators.pattern("[0-9]*")]),
-            slepovanje: new FormControl(''),
-            popravka: new FormControl(''),
-            smestaj: new FormControl(''),
-            prevoz: new FormControl(''),
-            vehicle: new FormControl('', [Validators.required]),
-            typeOfVehicle: new FormControl('', [Validators.required]),
-            year: new FormControl('', [Validators.required, Validators.pattern("[0-9]{4}")]),
-            registrationNumber: new FormControl('', [Validators.required]),
-            chassisNumber: new FormControl('', [Validators.required]),
-            firstName: new FormControl('', [Validators.required]),
-            lastName: new FormControl('', [Validators.required]),
-            jmbg: new FormControl('', [
-                Validators.required,
-                Validators.minLength(13),
-                Validators.maxLength(13)
-            ]),
+            duration: new FormControl('', {
+                
+                //updateOn: 'blur',
+                validators: [Validators.required, Validators.pattern("[0-9]*")]
+            }),
+            slepovanje: new FormControl('', {
+                //updateOn: 'blur'
+            }),
+            popravka: new FormControl('', {
+                //updateOn: 'blur'
+            }),
+            smestaj: new FormControl('', {
+                //updateOn: 'blur'
+            }),
+            prevoz: new FormControl('', {
+                //updateOn: 'blur'
+            }),
+            vehicle: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            typeOfVehicle: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            year: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required, Validators.pattern("[0-9]{4}")]
+            }),
+            registrationNumber: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            chassisNumber: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            firstName: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            lastName: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            jmbg: new FormControl('', {
+                //updateOn: 'blur',
+                validators: [Validators.required, Validators.minLength(13), Validators.maxLength(13)]
+            }),
         })
     }
 
@@ -74,16 +106,28 @@ export class InsurancePolicyCarForm {
 
         this.insurancePolicyCarForm.controls['typeOfVehicle'].setValue('');
 
-        this.insurancePolicyCarForm.valueChanges.subscribe(value => {
-            console.log('Car form changes!!!!!!!!!!!!!!!!!!!!!!!', value)
-            if (this.insurancePolicyCarForm.get('duration').valid &&
-                (this.insurancePolicyCarForm.get('slepovanje').value != '' || this.insurancePolicyCarForm.get('popravka').value != ''
-                    || this.insurancePolicyCarForm.get('prevoz').value != '' || this.insurancePolicyCarForm.get('smestaj').value != '')) {
-                let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.slepovanje, value.smestaj, value.popravka, value.prevoz)
-                this.calculatePrice.emit(insurancePolicyCarCalculatePriceRequest);
-                this.paket_selected = true;
+        this.insurancePolicyCarForm
+                .valueChanges
+                .debounceTime(1000) // wait 300ms after the last event before emitting last event
+                .distinctUntilChanged().subscribe(value => {
+            let slepovanje = this.insurancePolicyCarForm.get('slepovanje').value;
+            let popravka = this.insurancePolicyCarForm.get('popravka').value;
+            let prevoz = this.insurancePolicyCarForm.get('prevoz').value;
+            let smestaj = this.insurancePolicyCarForm.get('smestaj').value;
+
+            if (this.insurancePolicyCarForm.get('duration').valid && (slepovanje != '' || popravka != '' || prevoz != '' || smestaj != '')) {
+                let duration = this.insurancePolicyCarForm.get('duration').value;
+                if (this.calculatePriceRequest == null || duration != this.calculatePriceRequest.duration
+                    || slepovanje != this.calculatePriceRequest.slepovanje || popravka != this.calculatePriceRequest.popravka
+                    || prevoz != this.calculatePriceRequest.prevoz || smestaj != this.calculatePriceRequest.smestaj) {
+
+                    this.calculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.slepovanje, value.smestaj, value.popravka, value.prevoz);
+                    this.calculatePrice.emit(this.calculatePriceRequest);
+                    this.paket_selected = true;
+                }
             } else {
                 this.paket_selected = false;
+                this.calculatePriceRequest = null;
                 this.calculatePrice.emit(null);
             }
         })
@@ -140,7 +184,7 @@ export class InsurancePolicyCarForm {
     set(value) {
         var policyCar: InsurancePolicyCarRequest = null;
         if (value != null) {
-            policyCar = new InsurancePolicyCarRequest(value.duration, value.slepovanje, value.prevoz, value.smestaj, value.popravka, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
+            policyCar = new InsurancePolicyCarRequest(value.duration, value.slepovanje, value.prevoz, value.popravka, value.smestaj, value.vehicle, value.typeOfVehicle, value.year, value.registrationNumber, value.chassisNumber, value.firstName, value.lastName, value.jmbg);
             this.setInsurancePolicyCar.emit(policyCar);
         } else {
             this.setInsurancePolicyCar.emit(null);

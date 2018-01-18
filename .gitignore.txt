@@ -1,0 +1,1 @@
+.drools-spring-v2-kjar/target/classes/META-INF/maven/drools-spring-v2/drools-spring-v2-kjar/pom.properties

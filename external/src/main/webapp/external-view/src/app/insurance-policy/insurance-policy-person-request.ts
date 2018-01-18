@@ -4,7 +4,7 @@ export class InsurancePolicyPersonRequest {
     personNo: string;
     passportNo: string;
     address: string;
-    phoneNo: string;
+    phone: string;
     contractor: boolean;
     email: string;
     constructor(firstName: string,
@@ -12,7 +12,7 @@ export class InsurancePolicyPersonRequest {
         personNo: string,
         passportNo: string,
         address: string,
-        phoneNo: string,
+        phone: string,
         contractor: boolean,
         email: string) {
         this.lastName = lastName;
@@ -20,7 +20,7 @@ export class InsurancePolicyPersonRequest {
         this.personNo = personNo;
         this.passportNo = passportNo;
         this.address = address;
-        this.phoneNo = phoneNo;
+        this.phone = phone;
         this.contractor = contractor;
         this.email = email;
     }

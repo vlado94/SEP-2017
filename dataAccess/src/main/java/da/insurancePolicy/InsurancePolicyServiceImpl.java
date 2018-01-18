@@ -182,7 +182,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		Set<PriceListItem> itemList =  new HashSet<PriceListItem>();
 		
 		for (PersonRequest personRequest : insurencePolicy.getPersons()) {
-			Person person = new Person(personRequest.getFirstName(), personRequest.getLastName(), personRequest.getJmbg(),personRequest.getPassportNumber(),
+			Person person = new Person(personRequest.getFirstName(), personRequest.getLastName(), personRequest.getPersonNo(),personRequest.getPassportNo(),
 					personRequest.getAddress(), personRequest.getPhone(), personRequest.isContractor(), personRequest.getEmail());
 			personList.add(person);
 		}
@@ -216,7 +216,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		PersonResponse response = new PersonResponse();
 		response.setFirstName(person.getFirstName());
 		response.setLastName(person.getLastName());
-		response.setJmbg(person.getJmbg());
+		response.setJmbg(person.getPersonNo());
 		
 		return response;
 	}

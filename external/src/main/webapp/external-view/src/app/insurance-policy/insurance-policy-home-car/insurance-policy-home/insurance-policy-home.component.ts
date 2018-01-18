@@ -57,7 +57,7 @@ export class InsurancePolicyHomeComponent {
     ngOnInit(){
 
 
-         this.insurancePolicyHomeForm.reset();
+        this.insurancePolicyHomeForm.reset();
         this.insurancePolicyHomeForm.controls['size'].setValue('');
         this.insurancePolicyHomeForm.controls['age'].setValue('');
         this.insurancePolicyHomeForm.controls['value'].setValue('');

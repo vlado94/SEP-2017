@@ -83,9 +83,9 @@ export class InsurancePolicyPersonFormComponent {
                 let jmbg = selectedValue;
                 if (jmbg != '') {
                     for (let person of this.persons) {
-                        if (person.jmbg === jmbg) {
+                        if (person.personNo === jmbg) {
                             if (this.currentPerson != null) {
-                                if (jmbg != this.currentPerson.jmbg) {
+                                if (jmbg != this.currentPerson.personNo) {
                                     result = true;
                                 }
                             } else {
@@ -106,8 +106,8 @@ export class InsurancePolicyPersonFormComponent {
             this.insurancePolicyPerson.setValue({
                 firstName: this.currentPerson.firstName,
                 lastName: this.currentPerson.lastName,
-                jmbg: this.currentPerson.jmbg,
-                passportNumber: this.currentPerson.passportNumber,
+                personNo: this.currentPerson.personNo,
+                passportNo: this.currentPerson.passportNo,
                 address: this.currentPerson.address,
                 phone: this.currentPerson.phone,
                 contractor: this.currentPerson.contractor.toString(),
@@ -148,24 +148,24 @@ export class InsurancePolicyPersonFormComponent {
 export class InsurancePolicyPersonRequest {
     firstName: string;
     lastName: string;
-    jmbg: string;
-    passportNumber: string;
+    personNo: string;
+    passportNo: string;
     address: string;
     phone: string;
     contractor: boolean;
     email: string;
     constructor(firstName: string,
         lastName: string,
-        jmbg: string,
-        passportNumber: string,
+        personNo: string,
+        passportNo: string,
         address: string,
         phone: string,
         contractor: boolean,
         email: string) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.jmbg = jmbg;
-        this.passportNumber = passportNumber;
+        this.personNo = personNo;
+        this.passportNo = passportNo;
         this.address = address;
         this.phone = phone;
         this.contractor = contractor;

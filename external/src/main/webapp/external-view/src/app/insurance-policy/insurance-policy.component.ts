@@ -15,6 +15,7 @@ export class InsurancePolicyComponent implements OnInit {
 
 	active_tab: number;
 	currentInsurancePolicy: InsurancePolicyRequest;
+	persons: InsurancePolicyPersonRequest[] = [];
 	currentPerson: InsurancePolicyPersonRequest;
 	age: Age = new Age(0, 0, 0);
 	insurancePolicyHome: InsurancePolicyHome = null;
@@ -23,10 +24,11 @@ export class InsurancePolicyComponent implements OnInit {
 	carInsurancePrice = null;
 	homeInsurancePrice = null;
 
+
 	constructor(private insurancePolicyService: InsurancePolicyService) { }
 
 	ngOnInit() {
-		this.active_tab = 3;
+		this.active_tab = 1;
 	}
 
 	changeTab(value: number){
@@ -44,6 +46,8 @@ export class InsurancePolicyComponent implements OnInit {
 
 	addPerson(persons: InsurancePolicyPersonRequest[]){
 		this.currentInsurancePolicy.persons = persons;	
+		this.persons = persons;
+		console.log("osobe " + JSON.stringify(this.persons));
 	}
 
 	updatePerson(persons : InsurancePolicyPersonRequest[]){

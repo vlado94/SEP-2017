@@ -13,8 +13,8 @@ export class InsurancePolicyPersonComponent{
 	@Input() persons: InsurancePolicyPersonRequest[] = [];
 	@Output() nextTab = new EventEmitter<number>();
 	@Output() previousTab = new EventEmitter<number>();
-	@Output() addPerson = new EventEmitter<InsurancePolicyPersonRequest[]>();
-	@Output() updatePerson = new EventEmitter<InsurancePolicyPersonRequest[]>();
+	@Output() personsChanged = new EventEmitter<InsurancePolicyPersonRequest[]>();
+	//@Output() updatePerson = new EventEmitter<InsurancePolicyPersonRequest[]>();
 	under16: number = 0;
     between16an60: number = 0;
     over16: number = 0;
@@ -40,12 +40,12 @@ export class InsurancePolicyPersonComponent{
 			this.decreasePersonAgeCategory(ageFromUpdate);
             this.increasePersonAgeCategory(age);
             this.currentPerson = null;
-            this.updatePerson.emit(this.persons);
+            this.personsChanged.emit(this.persons);
             return;
 
 		}
 		this.persons.push(value);
-		this.addPerson.emit(this.persons);
+		this.personsChanged.emit(this.persons);
 		//this.isNumberOfPersonsByAgeCorrect();
 		this.increasePersonAgeCategory(this.getAgeFromPersonNo(value.personNo));
 	}

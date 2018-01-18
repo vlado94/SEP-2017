@@ -12,9 +12,9 @@ public class InsurancePolicyRequest {
 	private Long region;
 	private Long sport;
 	private Long amount;
-
 	private Long typeOfPolicy;
 	private List<PersonRequest> persons;
+	private int priceSum;
 
 	private Integer firstAgeCategory;
 	private Integer secondAgeCategory;
@@ -96,6 +96,14 @@ public class InsurancePolicyRequest {
 		this.persons = persons;
 	}
 
+	public int getPriceSum() {
+		return priceSum;
+	}
+
+	public void setPriceSum(int priceSum) {
+		this.priceSum = priceSum;
+	}
+
 	public Integer getFirstAgeCategory() {
 		return firstAgeCategory;
 	}
@@ -119,5 +127,14 @@ public class InsurancePolicyRequest {
 	public void setThirdAgeCategory(Integer thirdAgeCategory) {
 		this.thirdAgeCategory = thirdAgeCategory;
 	}
+
+	@Override
+	public String toString() {
+		return "InsurancePolicyRequest [startDate=" + startDate + ", duration=" + duration + ", region=" + region
+				+ ", sport=" + sport + ", amount=" + amount + ", typeOfPolicy=" + typeOfPolicy + ", priceSum="
+				+ priceSum + ", firstAgeCategory=" + firstAgeCategory + ", secondAgeCategory=" + secondAgeCategory
+				+ ", thirdAgeCategory=" + thirdAgeCategory + "]";
+	}
+	
 
 }

@@ -10,6 +10,7 @@ export class InsurancePolicyRequest {
     firstAgeCategory: number;
     secondAgeCategory: number;
     thirdAgeCategory: number;
+    priceSum: number;
 
     persons: InsurancePolicyPersonRequest[] = [];
     constructor(startDate: string, duration: number,

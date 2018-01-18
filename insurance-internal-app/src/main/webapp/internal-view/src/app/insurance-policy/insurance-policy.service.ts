@@ -8,6 +8,7 @@ import { of } from 'rxjs/observable/of';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {InsurancePolicyRequest} from './insurance-policy-request';
+import {InsurancePolicyCheckoutRequest} from './insurance-policy-checkout-request'; 
 import {InsurancePolicyCalculatePriceRequest} from './insurance-policy-calculate-price-request';
 import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-form/insurance-policy-car-calculate-price-request';
 import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-form/insurance-policy-home-calculate-price-request';
@@ -36,6 +37,12 @@ export class InsurancePolicyService {
 
     calculateSuggestedPriceHome(insurancePolicyHomeCalculatePriceRequest:InsurancePolicyHomeCalculatePriceRequest) {
         return this.http.post(this.apiUrl+"/home/calculateSuggestedPrice",insurancePolicyHomeCalculatePriceRequest).map(res=>res.json());
+    }
+    
+    
+    getCheckout(checkoutRequest:InsurancePolicyCheckoutRequest ){
+        return this.http.post(this.apiUrl+"/checkout",checkoutRequest)
+        .map(res=>res.json());    
     }
     
     create(insurancePolicy: InsurancePolicyRequest) {

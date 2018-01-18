@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class InsurancePolicyResponce {
+public class InsurancePolicyResponse {
 
 	private Long policyID;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -18,11 +18,11 @@ public class InsurancePolicyResponce {
 	private List<PersonResponse> persons;
 
 	
-	public InsurancePolicyResponce() {
+	public InsurancePolicyResponse() {
 		
 	}
 	
-	public InsurancePolicyResponce(Long policyID, LocalDate startDate, int duration, Long region, Long sport,
+	public InsurancePolicyResponse(Long policyID, LocalDate startDate, int duration, Long region, Long sport,
 			Long coverAmount, Double amount, List<PersonResponse> persons) {
 		super();
 		this.policyID = policyID;

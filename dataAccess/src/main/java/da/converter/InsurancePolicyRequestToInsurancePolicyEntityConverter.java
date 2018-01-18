@@ -34,7 +34,6 @@ public class InsurancePolicyRequestToInsurancePolicyEntityConverter
 	public InsurancePolicy convert(InsurancePolicyRequest source) {
 		InsurancePolicy insurancePolicy = new InsurancePolicy();
 		insurancePolicy.setDuration(source.getDuration());
-		insurancePolicy.setEndDate(source.getEndDate());
 		insurancePolicy.setStartDate(source.getStartDate());
 
 		PriceList currentPriceList = priceListService.findCurrent();

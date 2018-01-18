@@ -8,7 +8,6 @@ export class InsurancePolicyRequest {
     sport: string;
     amount: string;
     typeOfPolicy: string;
-    numberOfPersons: number;
     firstAgeCategory: number;
     secondAgeCategory: number;
     thirdAgeCategory: number;
@@ -25,7 +24,6 @@ export class InsurancePolicyRequest {
         this.region = region;
         this.sport = sportId;
         this.amount = amountId;
-        this.numberOfPersons = numberOfPersons;
         this.firstAgeCategory = firstAgeCategory;
         this.secondAgeCategory = secondAgeCategory;
         this.thirdAgeCategory = thirdAgeCategory;

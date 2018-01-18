@@ -39,7 +39,7 @@ export class InsurancePolicyPersonFormComponent {
     contractorAdded: boolean = false;
     @Output() onFormSubmit = new EventEmitter<InsurancePolicyPersonRequest>();
     @Output() resetCurrent = new EventEmitter<InsurancePolicyPersonRequest>();
-
+    jmbgExists: boolean = false;
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
 
         this.insurancePolicyPerson = new FormGroup({
@@ -56,7 +56,7 @@ export class InsurancePolicyPersonFormComponent {
                 Validators.minLength(13),
                 Validators.maxLength(13)
             ]),
-            passportNumber: new FormControl(''),
+            passportNumber: new FormControl('', [Validators.required]),
 
             address: new FormControl('', [
                 Validators.required
@@ -74,6 +74,29 @@ export class InsurancePolicyPersonFormComponent {
     ngOnInit() {
         this.insurancePolicyPerson.reset();
         this.contractorExists;
+
+
+
+        this.insurancePolicyPerson.controls['jmbg'].valueChanges.subscribe(
+            selectedValue => {
+                let result = false;
+                let jmbg = selectedValue;
+                if (jmbg != '') {
+                    for (let person of this.persons) {
+                        if (person.personNo === jmbg) {
+                            if (this.currentPerson != null) {
+                                if (jmbg != this.currentPerson.personNo) {
+                                    result = true;
+                                }
+                            } else {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+                this.jmbgExists = result;
+            }
+        );
     }
 
     @Input()
@@ -83,8 +106,8 @@ export class InsurancePolicyPersonFormComponent {
             this.insurancePolicyPerson.setValue({
                 firstName: this.currentPerson.firstName,
                 lastName: this.currentPerson.lastName,
-                jmbg: this.currentPerson.jmbg,
-                passportNumber: this.currentPerson.passportNumber,
+                personNo: this.currentPerson.personNo,
+                passportNo: this.currentPerson.passportNo,
                 address: this.currentPerson.address,
                 phone: this.currentPerson.phone,
                 contractor: this.currentPerson.contractor.toString(),
@@ -93,30 +116,11 @@ export class InsurancePolicyPersonFormComponent {
         }
 
     }
-    onSubmit({value}: { value}) {
+    onSubmit({value}: { value }) {
         let newPerson: InsurancePolicyPersonRequest = new InsurancePolicyPersonRequest(value.firstName, value.lastName, value.jmbg, value.passportNumber,
-            value.address, value.phone, value.contractor==='true', value.email);
+            value.address, value.phone, value.contractor === 'true', value.email);
         this.onFormSubmit.emit(newPerson);
         this.insurancePolicyPerson.reset();
-    }
-
-    jmbgExists() {
-        let result = false;
-        let jmbg = this.insurancePolicyPerson.get('jmbg').value
-        if (jmbg != '') {
-            for (let person of this.persons) {
-                if (person.jmbg === jmbg) {
-                    if (this.currentPerson != null) {
-                        if (jmbg != this.currentPerson.jmbg) {
-                            result = true;
-                        }
-                    } else {
-                        result = true;
-                    }
-                }
-            }
-        }
-        return result;
     }
 
     contractorExists() {
@@ -144,24 +148,24 @@ export class InsurancePolicyPersonFormComponent {
 export class InsurancePolicyPersonRequest {
     firstName: string;
     lastName: string;
-    jmbg: string;
-    passportNumber: string;
+    personNo: string;
+    passportNo: string;
     address: string;
     phone: string;
     contractor: boolean;
     email: string;
     constructor(firstName: string,
         lastName: string,
-        jmbg: string,
-        passportNumber: string,
+        personNo: string,
+        passportNo: string,
         address: string,
         phone: string,
         contractor: boolean,
         email: string) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.jmbg = jmbg;
-        this.passportNumber = passportNumber;
+        this.personNo = personNo;
+        this.passportNo = passportNo;
         this.address = address;
         this.phone = phone;
         this.contractor = contractor;

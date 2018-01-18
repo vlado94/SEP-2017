@@ -27,11 +27,11 @@ export class InsurancePolicyPersonComponent {
 
     onSubmit(value: InsurancePolicyPersonRequest) {
         console.log("Submitting in parent");
-        let age: number = this.getAgeFromJmbg(value.jmbg)
+        let age: number = this.getAgeFromJmbg(value.personNo)
         if (this.currentPerson) {
             let index = this.persons.indexOf(this.currentPerson);
             this.persons.splice(index, 1, value);
-            let ageFromUpdate: number = this.getAgeFromJmbg(this.currentPerson.jmbg)
+            let ageFromUpdate: number = this.getAgeFromJmbg(this.currentPerson.personNo)
 
             this.decreasePersonAgeCategory(ageFromUpdate);
             this.increasePersonAgeCategory(age);
@@ -40,7 +40,7 @@ export class InsurancePolicyPersonComponent {
             return;
         }
         this.persons.push(value);
-        console.log(this.getAgeFromJmbg(value.jmbg));
+        console.log(this.getAgeFromJmbg(value.personNo));
         this.increasePersonAgeCategory(age);
         this.personsChanged.emit(this.persons);
 
@@ -57,7 +57,7 @@ export class InsurancePolicyPersonComponent {
         }
         if (this.currentPerson == value)
             this.currentPerson = null;
-        this.decreasePersonAgeCategory(this.getAgeFromJmbg(value.jmbg));
+        this.decreasePersonAgeCategory(this.getAgeFromJmbg(value.personNo));
         this.personsChanged.emit(this.persons);
     }
     resetCurrent(value: InsurancePolicyPersonRequest) {

@@ -1,10 +1,8 @@
-import {Component, Input,Output,EventEmitter ,NgModule} from '@angular/core';
+import {Component, Input, Output, EventEmitter, NgModule} from '@angular/core';
 import {InsurancePolicyRequest} from '../insurance-policy-request';
 
 import {InsurancePolicyPersonRequest} from '../insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
-import {InsurancePolicyCarRequest} from '../insurance-policy-car-form/insurance-policy-car-request';
-import {InsurancePolicyHomeRequest} from '../insurance-policy-home-form/insurance-policy-home-request';
-
+import {InsurancePolicyService} from '../insurance-policy.service';
 @Component({
     selector: 'app-insurance-policy-checkout',
     templateUrl: './insurance-policy-checkout.component.html',
@@ -17,25 +15,24 @@ import {InsurancePolicyHomeRequest} from '../insurance-policy-home-form/insuranc
     ],
     declarations: [ // components for use in THIS module
     ],
-    providers: [ // singleton services
+    providers: [ 
+       InsurancePolicyService// singleton services
     ]
 })
 export class InsurancePolicyCheckoutComponent {
 
     @Output() nextTab = new EventEmitter<string>();
     @Input() persons;
-    @Input() insurancePrice;
-    @Input() carInsurancePrice;
-    @Input() homeInsurancePrice;
+    @Input() checkout; 
+
     changeTab(value: string) {
         this.nextTab.emit(value);
     }
 
-      constructor() { }
+      constructor(private insurancePolicyService: InsurancePolicyService) { }
 
 
     ngOnInit() {
-
     }
 
 

@@ -6,6 +6,8 @@ import {InsurancePolicyCarRequest} from './insurance-policy-car-form/insurance-p
 import {InsurancePolicyHomeRequest} from './insurance-policy-home-form/insurance-policy-home-request';
 import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-form/insurance-policy-car-calculate-price-request';
 import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-form/insurance-policy-home-calculate-price-request';
+import {InsurancePolicyCheckoutRequest} from './insurance-policy-checkout-request';
+
 import {InsurancePolicyService} from './insurance-policy.service';
 @Component({
     selector: 'app-insurance-policy',
@@ -38,12 +40,24 @@ export class InsurancePolicyComponent {
     carInsurancePrice: string = null;
     homeInsurancePrice: string = null;
     persons: InsurancePolicyPersonRequest[] = [];
-
+    
+    checkout: string = null;
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }
 
     nextTab(value: string) {
+        if (value === '4'){
+            this.currentInsurancePolicy.persons = this.persons;
+            var checkoutRequest:InsurancePolicyCheckoutRequest = new InsurancePolicyCheckoutRequest(this.currentInsurancePolicy,this.insurancePolicyCar,this.insurancePolicyHome);
+            this.insurancePolicyService.getCheckout(checkoutRequest).subscribe(result => {
+                this.checkout = result;
+            });
+
+        }
+        
         this.activeTab = value;
+
+
     }
 
     onSubmit(insurancePolicyRequest: InsurancePolicyRequest) {
@@ -105,10 +119,10 @@ export class InsurancePolicyComponent {
             this.carInsurancePrice = null;
         }
     }
-    
-    personsChanged(value){
+
+    personsChanged(value) {
         console.log("Perons list changed")
-        this.persons = value;    
+        this.persons = value;
     }
 }
 export class Age {

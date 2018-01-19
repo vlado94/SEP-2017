@@ -45,18 +45,10 @@ export class InsurancePolicyHomeCar {
 
     setInsurancePolicyCar(value) {
         this.insurancePolicyCarChanged.emit(value);
-        if (value) {
-            console.log("Dodavanje osigranja automobila...");
-            console.log("Registaraska oznaka automobila: " + value.registrationNumber);
-        }
     }
 
     setInsurancePolicyHome(value) {
         this.insurancePolicyHomeChanged.emit(value);
-        if (value) {
-            console.log("Dodavanje osigranja kuce...");
-            console.log("Adresa kuce: " + value.address);
-        }
     }
 
     calculatePriceCarInsurance(value) {

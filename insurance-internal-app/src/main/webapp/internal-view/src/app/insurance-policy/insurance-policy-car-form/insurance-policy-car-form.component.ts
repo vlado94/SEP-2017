@@ -153,7 +153,6 @@ export class InsurancePolicyCarForm {
     @Input()
     set insurancePolicyCar(value: InsurancePolicyCarRequest) {
         this.current = value;
-        console.log("SETTOVANJE POLISE ZA AUTO");
         if (value) {
             this.insurancePolicyCarForm.setValue({
                 duration: value.duration,

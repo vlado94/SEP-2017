@@ -2,6 +2,9 @@
 	padding: 10px;
 }
 
+.button-potvrdi{
+	padding-right:0px;
+}
 .price {
 	padding-top: 10px;
 	font-size: 30px;

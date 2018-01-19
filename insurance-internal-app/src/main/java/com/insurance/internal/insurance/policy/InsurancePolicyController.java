@@ -13,6 +13,7 @@ import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 @RestController
@@ -65,12 +66,10 @@ public class InsurancePolicyController {
 	}
 	
 	@PostMapping("/checkout")
-	private Double getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
-
-		
-		/*Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);*/
-		return (double) 27;
+	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
+		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+		return response;
 	}	
 
 	public String getDataccessPortHttps() {

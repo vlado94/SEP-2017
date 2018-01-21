@@ -2,6 +2,7 @@ package com.insurance.internal.insurance.policy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,7 @@ public class InsurancePolicyController {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@PreAuthorize("hasRole('seller')")
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
 		InsurancePolicyRequest newInsuranceReq = restTemplate.postForObject(
@@ -32,6 +34,7 @@ public class InsurancePolicyController {
 		return newInsuranceReq;
 	}
 	
+	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/calculateSuggestedPrice")
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
@@ -40,6 +43,7 @@ public class InsurancePolicyController {
 		return response;
 	}
 	
+	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/car/calculateSuggestedPrice")
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
 		obj.setSlepovanje(30l);
@@ -51,6 +55,7 @@ public class InsurancePolicyController {
 		return price;
 	}
 	
+	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/home/calculateSuggestedPrice")
 	private Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
 		obj.setSize(18l);

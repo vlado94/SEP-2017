@@ -21,11 +21,14 @@ export class AppComponent implements OnInit {
 
 	public ngOnInit(): void {
 		//this.profile = this.keycloakService.getUser();
+		if(!this.isSeller())
+			this.logout();
+
 		
 	}
 
 	public isSeller(): boolean {
-		return this.keycloakService.hasAnyRole(['seller']);
+		return this.keycloakService.hasRole('seller');
 	}
 
     /*public isAdmin(): boolean {
@@ -36,9 +39,6 @@ export class AppComponent implements OnInit {
     	this.keycloakService.logout();
     }
 	
-	 public mail() {
-    	this.keycloakService.mail();
-    }
 
   /*public calculatePrice() {
       this.insurancePolicyService.calculatePrice().subscribe(null);

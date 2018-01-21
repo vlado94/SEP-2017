@@ -19,7 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-	  "./assets/css/layout.min.css"
+	  "./assets/css/layout.min.css",
           "./assets/sass/material-dashboard.scss",
           "./assets/css/demo.css"
       ],

@@ -7,3 +7,5 @@ standalone.bat -Djboss.socket.binding.port-offset=100
 
 Insurance app pokrecemo na portu 4500, a external app na portu 4300
 
+
+external app za mobilnu aplikaciju se pokrece sa --host 0.0.0.0

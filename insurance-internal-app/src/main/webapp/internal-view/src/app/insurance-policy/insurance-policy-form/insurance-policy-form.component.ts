@@ -72,28 +72,49 @@ export class InsurancePolicyFormComponent {
     agesCategory: Factor[];
     amounts: Factor[];
     types: Factor[];
+    
+    calculatePriceRequest: InsurancePolicyCalculatePriceRequest = null;
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
 
 
     ngOnInit() {
         this.insurancePolicy = new FormGroup({
-            startDate: new FormControl('', [dateValidator]),
-            duration: new FormControl('', [
-                Validators.required,
-                Validators.pattern("[0-9]*"),
-                numberOfPersonsValidator]),
-            typeOfPolicy: new FormControl(''),
-            age: new FormControl(''),
-            numberOfPersonsUpTo16: new FormControl(''),
-            numberOfPersonsBetween16And60: new FormControl(''),
-            numberOfPersonsOver60: new FormControl(''),
-            region: new FormControl(''),
-            sport: new FormControl('', [
-                Validators.required
-            ]),
-            amount: new FormControl('', [
-                Validators.required
-            ]),
+            startDate: new FormControl('', {
+                //updateOn: 'blur',
+                validators:[dateValidator]
+            }),
+            duration: new FormControl('',{
+
+                //updateOn: 'blur',
+                validators: [Validators.required,Validators.pattern("[0-9]*"),numberOfPersonsValidator]
+            }),
+            typeOfPolicy: new FormControl('',{
+                //updateOn: 'blur',
+                validators: [Validators.required]
+            }),
+            age: new FormControl('',{
+                //updateOn: 'blur'    
+            }),
+            numberOfPersonsUpTo16: new FormControl('',{
+                //updateOn: 'blur'
+            }),
+            numberOfPersonsBetween16And60: new FormControl('',{
+               //updateOn: 'blur'
+            }),
+            numberOfPersonsOver60: new FormControl('',{
+                //updateOn: 'blur'
+            }),
+            region: new FormControl('',{
+               //updateOn: 'blur',
+               validators:[ Validators.required]
+            }),
+            sport: new FormControl('',{
+               //updateOn: 'blur'
+           }),
+            amount: new FormControl('',{
+               //updateOn: 'blur',
+               validators:[Validators.required]
+           }),
         });
 
         this.factorService.findByCategory(3)
@@ -120,16 +141,20 @@ export class InsurancePolicyFormComponent {
             .subscribe(amounts => {
                 this.amounts = amounts;
             })
-        this.insurancePolicy.valueChanges.subscribe(value => {
+        this.insurancePolicy
+            .valueChanges
+            .debounceTime(1000) // wait 300ms after the last event before emitting last event
+            .distinctUntilChanged().subscribe(value => {
             console.log('Form changes', value)
             if (this.insurancePolicy.valid && this.checkNumberOfPeople()) {
-                let insurancePolicyCalculatePriceRequest: InsurancePolicyCalculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
+                this.calculatePriceRequest = new InsurancePolicyCalculatePriceRequest(value.startDate, value.duration,
                     value.region, value.sport, value.amount, value.typeOfPolicy, +value.numberOfPersonsUpTo16, +value.numberOfPersonsBetween16And60, +value.numberOfPersonsOver60)
-                this.calculatePrice.emit(insurancePolicyCalculatePriceRequest);
+                this.calculatePrice.emit(this.calculatePriceRequest);
                 /*this.insurancePolicyService.calculateSuggestedPrice(insurancePolicyCalculatePriceRequest).subscribe(price => {
                     this.price = price;
                 })*/
             } else {
+                this.calculatePriceRequest = null;
                 this.calculatePrice.emit(null);
             }
         })
@@ -164,27 +189,8 @@ export class InsurancePolicyFormComponent {
         return result;
     }
 
-    /*checkDates() {
-        console.log("Provera ispravnosti datuma...");
-        let s = this.insurancePolicy.get('startDate').value
-        let e = this.insurancePolicy.get('endDate').value
-        let start = this.convertDate(s);
-        let end = this.convertDate(e);
-        console.log("Uneti datum pocetka putovanja:" + start);
-        //console.log("Tranformisan datu");
-
-        console.log("Uneti datum okoncanja putovanja:" + end);
-        if (start < end) {
-            console.log("Datumi su validni");
-        } else {
-            console.log("Datumi nisu validni");
-        }
-        return start < end;
-    }*/
-    //today | date:'fullDate'
-
     convertDate(d) {
         let parts = d.split('-');
         return new Date(+parts[0], +parts[1] - 1, parts[2]);
-    }
+ }
 }

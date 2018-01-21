@@ -1,3 +1,33 @@
+.invalid-feedback{
+	display:block;
+}
+.mini-title {
+	font-size: 24px;
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+
+.border-paketi{
+	width:80px;
+	display:block;
+	border:1px solid black;
+}
+
+.border-paketi-bottom{
+	width:80px;
+	display:block;
+	border:1px solid black;
+	margin-bottom:20px;
+}
+
+.col-popusti{
+	padding-top:25px;
+	padding-bottom:25px;
+}
+
+.col-right{
+	float:right !important;
+}
 .content-wrapper {
 	background : #eaeaea !important;
 }

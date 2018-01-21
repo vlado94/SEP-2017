@@ -1,23 +1,23 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { FactorService } from "../../../factor/factor.service";
 import { Factor } from '../../../factor/factor';
 
-import {InsurancePolicyService} from '../../insurance-policy.service';
-import {Age} from '../../insurance-policy.component';
+import { InsurancePolicyService } from '../../insurance-policy.service';
+import { Age } from '../../insurance-policy.component';
 
 //import {InsurancePolicyPersonRequest} from './insurance-policy-person-request';
 
-@Component({
+@Component( {
     selector: 'app-insurance-policy-person-form',
     templateUrl: './insurance-policy-person-form.component.html',
     styleUrls: ['./insurance-policy-person-form.component.css']
 
-})
-@NgModule({
+} )
+@NgModule( {
     imports: [
     ],
     exports: [ // components that we want to make available
@@ -28,10 +28,11 @@ import {Age} from '../../insurance-policy.component';
         InsurancePolicyService,
         FactorService
     ]
-})
+} )
 export class InsurancePolicyPersonFormComponent {
 
     @Input() persons;
+    @Input() contractorExists;
     insurancePolicyPerson: FormGroup;
     public submitted: boolean;
 
@@ -39,129 +40,135 @@ export class InsurancePolicyPersonFormComponent {
     contractorAdded: boolean = false;
     @Output() onFormSubmit = new EventEmitter<InsurancePolicyPersonRequest>();
     @Output() resetCurrent = new EventEmitter<InsurancePolicyPersonRequest>();
+    jmbgExists: boolean = false;
+    constructor( private insurancePolicyService: InsurancePolicyService, private factorService: FactorService ) {
 
-    constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
+        this.insurancePolicyPerson = new FormGroup( {
+            firstName: new FormControl( '', [
+                Validators.required,
+                Validators.minLength( 3 )
+            ] ),
+            lastName: new FormControl( '', [
+                Validators.required,
+                Validators.minLength( 3 )
+            ] ),
+            jmbg: new FormControl( '', [
+                Validators.required,
+                Validators.minLength( 13 ),
+                Validators.maxLength( 13 )
+            ] ),
+            passportNumber: new FormControl( '', [Validators.required] ),
 
-        this.insurancePolicyPerson = new FormGroup({
-            firstName: new FormControl('', [
-                Validators.required,
-                Validators.minLength(3)
-            ]),
-            lastName: new FormControl('', [
-                Validators.required,
-                Validators.minLength(3)
-            ]),
-            jmbg: new FormControl('', [
-                Validators.required,
-                Validators.minLength(13),
-                Validators.maxLength(13)
-            ]),
-            passportNumber: new FormControl(''),
-
-            address: new FormControl('', [
+            address: new FormControl( '', [
                 Validators.required
-            ]),
-            phone: new FormControl('', [
+            ] ),
+            phone: new FormControl( '', [
                 Validators.required
-            ]),
-            contractor: new FormControl('false', [
-            ]),
-            email: new FormControl('', [
-            ]),
-        })
+            ] ),
+            contractor: new FormControl( 'false', [
+            ] ),
+            email: new FormControl( '', [
+            ] ),
+        } )
     }
 
     ngOnInit() {
         this.insurancePolicyPerson.reset();
         this.contractorExists;
+
+
+
+        this.insurancePolicyPerson.controls['jmbg'].valueChanges.subscribe(
+            selectedValue => {
+                let result = false;
+                let jmbg = selectedValue;
+                if ( jmbg != '' ) {
+                    for ( let person of this.persons ) {
+                        if ( person.personNo === jmbg ) {
+                            if ( this.currentPerson != null ) {
+                                if ( jmbg != this.currentPerson.personNo ) {
+                                    result = true;
+                                }
+                            } else {
+                                result = true;
+                            }
+                        }
+                    }
+                }
+                this.jmbgExists = result;
+            }
+        );
+
+        this.insurancePolicyPerson.controls['contractor'].valueChanges.subscribe(
+            selectedValue => {
+                if ( selectedValue == 'false' || selectedValue == null) {
+                    this.insurancePolicyPerson.controls['email'].setValue( '' );
+                    this.insurancePolicyPerson.controls['email'].setValidators(null);
+                } 
+                else {
+                    this.insurancePolicyPerson.controls['email'].setValidators( [Validators.required, Validators.email] );
+                }
+                this.insurancePolicyPerson.controls['email'].updateValueAndValidity();
+            }
+        );
     }
 
     @Input()
-    set current(person: InsurancePolicyPersonRequest) {
+    set current( person: InsurancePolicyPersonRequest ) {
         this.currentPerson = person;
-        if (person) {
-            this.insurancePolicyPerson.setValue({
+        if ( person ) {
+            this.insurancePolicyPerson.setValue( {
                 firstName: this.currentPerson.firstName,
                 lastName: this.currentPerson.lastName,
-                jmbg: this.currentPerson.jmbg,
-                passportNumber: this.currentPerson.passportNumber,
+                jmbg: this.currentPerson.personNo,
+                passportNumber: this.currentPerson.passportNo,
                 address: this.currentPerson.address,
                 phone: this.currentPerson.phone,
                 contractor: this.currentPerson.contractor.toString(),
                 email: this.currentPerson.email
-            })
+            } )
         }
 
     }
-    onSubmit({value}: { value}) {
-        let newPerson: InsurancePolicyPersonRequest = new InsurancePolicyPersonRequest(value.firstName, value.lastName, value.jmbg, value.passportNumber,
-            value.address, value.phone, value.contractor==='true', value.email);
-        this.onFormSubmit.emit(newPerson);
+    onSubmit( { value }: { value } ) {
+        let newPerson: InsurancePolicyPersonRequest = new InsurancePolicyPersonRequest( value.firstName, value.lastName, value.jmbg, value.passportNumber,
+            value.address, value.phone, value.contractor === 'true', value.email );
+        this.onFormSubmit.emit( newPerson );
+
+        /*this.insurancePolicyPerson.controls['email'].setValue( '' );
+        this.insurancePolicyPerson.controls['email'].setValidators(null);  
+        this.insurancePolicyPerson.controls['email'].updateValueAndValidity();*/
+
         this.insurancePolicyPerson.reset();
-    }
-
-    jmbgExists() {
-        let result = false;
-        let jmbg = this.insurancePolicyPerson.get('jmbg').value
-        if (jmbg != '') {
-            for (let person of this.persons) {
-                if (person.jmbg === jmbg) {
-                    if (this.currentPerson != null) {
-                        if (jmbg != this.currentPerson.jmbg) {
-                            result = true;
-                        }
-                    } else {
-                        result = true;
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
-    contractorExists() {
-        console.log("Provera da li su uneti podaci za ugovaraca polise.")
-        let result = false;
-        for (let person of this.persons) {
-            if (!!person.contractor) {
-                result = true;
-            }
-        }
-        if (result)
-            console.log("Podaci za ugovaraca polise su uneti.")
-        else
-            console.log("Podaci za ugovaraca polise nisu uneti.")
-
-        return result;
     }
 
     reset() {
         this.insurancePolicyPerson.reset();
-        this.resetCurrent.emit(null);
+        this.resetCurrent.emit( null );
     }
 }
 
 export class InsurancePolicyPersonRequest {
     firstName: string;
     lastName: string;
-    jmbg: string;
-    passportNumber: string;
+    personNo: string;
+    passportNo: string;
     address: string;
     phone: string;
     contractor: boolean;
     email: string;
-    constructor(firstName: string,
+    constructor( firstName: string,
         lastName: string,
-        jmbg: string,
-        passportNumber: string,
+        personNo: string,
+        passportNo: string,
         address: string,
         phone: string,
         contractor: boolean,
-        email: string) {
+        email: string ) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.jmbg = jmbg;
-        this.passportNumber = passportNumber;
+        this.personNo = personNo;
+        this.passportNo = passportNo;
         this.address = address;
         this.phone = phone;
         this.contractor = contractor;

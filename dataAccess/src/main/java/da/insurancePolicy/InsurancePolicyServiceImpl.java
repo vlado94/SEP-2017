@@ -1,5 +1,6 @@
 package da.insurancePolicy;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import da.factor.Factor;
+import da.factor.FactorService;
 import da.person.Person;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
@@ -21,9 +24,13 @@ import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyCarRequest;
+import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
+import model.request.InsurancePolicyHomeRequest;
 import model.request.InsurancePolicyRequest;
-import model.request.InsurancePolicyResponce;
+import model.request.InsurancePolicyResponse;
 import model.request.PersonRequest;
 import model.request.PersonResponse;
 
@@ -42,6 +49,9 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 
 	@Autowired
 	private PriceListService priceListService;
+	
+	@Autowired
+	private FactorService factorService;
 	
 	@Autowired
 	private InsurancePolicyRepository insurancePolicyRepository;
@@ -70,6 +80,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		repository.deleteById(id);
 	}
 
+	/*servisi*/
+	
 	@Override
 	public InsurancePolicyCalculatePriceResponse calculatePolice(InsurancePolicyRequest insurencePolicy) {
 		double retVal = 0;
@@ -125,7 +137,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		pricePerDayForSportAndRegion = sportPrice + regionPrice;
 		
 		InsurancePolicy policy  = insurancePolicyRepository.save(generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList));
-		InsurancePolicyResponce responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);
+		InsurancePolicyResponse responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);
 	
 		
 		/*upit na repo*/
@@ -150,7 +162,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 				personResponce.setSportPrice(sportPrice);
 				personResponce.setRegionPrice(regionPrice);
 				personResponce.setCoverPrice(coverPrice);
-				if( person.getAge()>=Integer.parseInt(firstAge)  && person.getAge() <= Integer.parseInt(secondAge) ) {
+				
+				int age = getAgeFromJMBG(person.getPersonNo());
+				
+				
+				if( age>=Integer.parseInt(firstAge)  && age<= Integer.parseInt(secondAge) ) {
 					double baseForAge = priceListItem.getFactor().getCategory().getBasePrice();
 					double percentForAge = priceListItem.getPercent();
 					agePrice = baseForAge +   baseForAge * percentForAge/100; 
@@ -171,54 +187,6 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		InsurancePolicyCalculatePriceResponse calculatedPriceResponce =  calculatePriceWithDiscounts(discounts, retVal);//return
 		
 		return calculatedPriceResponce;
-	}
-
-	private InsurancePolicy generatePolicyFromInsurencePolicyRequest(InsurancePolicyRequest insurencePolicy, List<PriceListItem> items) {
-		InsurancePolicy policy = new InsurancePolicy();
-		policy.setStartDate(insurencePolicy.getStartDate());
-		policy.setEndDate(policy.getEndDate());
-		policy.setDuration(insurencePolicy.getDuration());
-		Set<Person> personList = new HashSet<Person>();
-		Set<PriceListItem> itemList =  new HashSet<PriceListItem>();
-		
-		for (PersonRequest personRequest : insurencePolicy.getPersons()) {
-			Person person = new Person(personRequest.getFirstName(), personRequest.getLastName(), personRequest.getPersonNo(),personRequest.getPassportNo(),
-					personRequest.getAddress(), personRequest.getPhone(), personRequest.isContractor(), personRequest.getEmail());
-			personList.add(person);
-		}
-		policy.setPersons(personList);
-		
-		for (PriceListItem item : items) {
-			if(item.getFactor().getId() == insurencePolicy.getRegion() || item.getFactor().getId() == insurencePolicy.getSport() || item.getFactor().getId() == insurencePolicy.getAmount()) {
-				itemList.add(item);
-			}
-		
-		}
-		policy.setPriceListItems(itemList);
-		return policy;
-	}
-
-	private InsurancePolicyResponce generateInsurenceResponceFromPolicyRequest(InsurancePolicyRequest insurencePolicyRequest, InsurancePolicy policy) {
-		InsurancePolicyResponce responce = new InsurancePolicyResponce();
-		responce.setPolicyID(policy.getId());
-		responce.setStartDate(policy.getStartDate());
-		responce.setDuration(policy.getDuration());
-		responce.setRegion(insurencePolicyRequest.getRegion());
-		responce.setSport(insurencePolicyRequest.getSport());
-		responce.setCoverAmount(insurencePolicyRequest.getAmount());
-		responce.setAmount(policy.getAmount());
-		responce.setPersons(new ArrayList<PersonResponse>());
-	
-		return responce;
-	}
-
-	private PersonResponse generatePersonResponseFromRequest(PersonRequest person) {
-		PersonResponse response = new PersonResponse();
-		response.setFirstName(person.getFirstName());
-		response.setLastName(person.getLastName());
-		response.setJmbg(person.getPersonNo());
-		
-		return response;
 	}
 
 	@Override
@@ -449,6 +417,159 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 	}
 
-
+	@Override
+	public InsurancePolicyCheckoutResponse getCheckout(InsurancePolicyCheckoutRequest request) {
+		/*travel*/
+		InsurancePolicyRequest travelRequest = request.getInsurancePolicyRequest();
+		InsurancePolicyCalculatePriceResponse responseForTravel = calculatePolice(travelRequest);
+		/*car*/
+		
+		InsurancePolicyCheckoutResponse response = new InsurancePolicyCheckoutResponse();
+		fillResponseWithTravelDetails(response, travelRequest ,responseForTravel);
+		double priceForCar = 0;
+		double priceForHome = 0;
+		if(request.getInsurancePolicyCarRequest() != null) {
+			InsurancePolicyCarCalculatePriceRequest carRequest = createIPCarCalculatePriceRequest(request.getInsurancePolicyCarRequest());
+			InsurancePolicyCalculatePriceResponse responseForCar = calculateSuggestedPriceCar(carRequest);
+			fillResponseWithCarDetails(response , request.getInsurancePolicyCarRequest(),responseForCar );
+			priceForCar =  responseForCar.getFinalPrice();
+		}
+		/*home*/
+		if(request.getInsurancePolicyHomeRequest() != null) {
+			InsurancePolicyHomeCalculatePriceRequest homeRequest = createIPHomeCalculatePriceRequest(request.getInsurancePolicyHomeRequest());
+			priceForHome = calculateSuggestedPriceHome(homeRequest);
+			fillResponseWithHomeDetails(response, request.getInsurancePolicyHomeRequest(), priceForHome);
+		}
+		response.setTotalPrice(responseForTravel.getFinalPrice() + priceForCar + priceForHome);
+		/*Poziv Sickove metode za popuste*/
+		
+		return response;
+	}
 	
+	/*Pomocne metode*/
+	
+	private void fillResponseWithTravelDetails(InsurancePolicyCheckoutResponse response, InsurancePolicyRequest request,InsurancePolicyCalculatePriceResponse priceAndDiscounts ) {
+		response.setStartDate(request.getStartDate());
+		response.setDurationForTravel(request.getDuration());
+		response.setRegion(getNameFromId(request.getRegion()));
+		response.setSport(getNameFromId(request.getSport()));
+		response.setAmount(request.getAmount());
+		response.setTypeOfPolicy(getNameFromId(request.getTypeOfPolicy()));
+		response.setPersons(request.getPersons());
+		response.setPriceAndDiscountsForTravel(priceAndDiscounts);
+	}
+	
+	private void fillResponseWithHomeDetails(InsurancePolicyCheckoutResponse response, InsurancePolicyHomeRequest request, double price) {
+		response.setDurationForHome(request.getDuration());
+		response.setRisk(getNameFromId(request.getRisk()));
+		response.setValue(getNameFromId(request.getValue()));
+		response.setAge(getNameFromId(request.getAge()));
+		response.setSize(getNameFromId(request.getSize()));
+		response.setAddress(request.getAddress());
+		response.setFirstNameOwnerHome(request.getFirstName());
+		response.setLastNameOwnerHome(request.getLastName());
+		response.setPriceForHome(price);
+		
+	}
+	
+	private void fillResponseWithCarDetails(InsurancePolicyCheckoutResponse response, InsurancePolicyCarRequest request, InsurancePolicyCalculatePriceResponse priceAndDiscounts) {
+		response.setDurationForCar(request.getDuration());
+		response.setPopravka(getNameFromId(request.getPopravka()));
+		response.setSlepovanje(getNameFromId(request.getSlepovanje()));
+		response.setPrevoz(getNameFromId(request.getPrevoz()));
+		response.setSmestaj(getNameFromId(request.getSmestaj()));
+		response.setTypeOfVehicle(request.getTypeOfVehicle());
+		response.setYear(request.getYear());
+		response.setRegistrationNumber(request.getRegistrationNumber());
+		response.setChassisNumber(request.getChassisNumber());
+		response.setFirstNameOwnerCar(request.getFirstName());
+		response.setLastNameOwnerCar(request.getLastName());
+		response.setPriceAndDiscountsForCar(priceAndDiscounts);
+		
+		
+	}
+	
+	private String getNameFromId(Long id) {
+		Factor categoryFactor = factorService.findOne(id);
+		return categoryFactor.getName();
+	}
+	
+	private InsurancePolicyCarCalculatePriceRequest createIPCarCalculatePriceRequest(InsurancePolicyCarRequest request) {
+		InsurancePolicyCarCalculatePriceRequest response = new InsurancePolicyCarCalculatePriceRequest();
+		response.setDuration(request.getDuration());
+		response.setPopravka(request.getPopravka());
+		response.setPrevoz(request.getPrevoz());
+		response.setSlepovanje(request.getSlepovanje());
+		response.setSmestaj(request.getSmestaj());
+		return response;
+		
+	}
+	
+	private InsurancePolicyHomeCalculatePriceRequest createIPHomeCalculatePriceRequest(InsurancePolicyHomeRequest request) {
+		InsurancePolicyHomeCalculatePriceRequest response = new InsurancePolicyHomeCalculatePriceRequest();
+		response.setDuration(request.getDuration());
+		response.setAge(request.getAge());
+		response.setRisk(request.getRisk());
+		response.setSize(request.getSize());
+		response.setValue(request.getValue());
+		return response;
+		
+	}
+
+	private InsurancePolicy generatePolicyFromInsurencePolicyRequest(InsurancePolicyRequest insurencePolicy, List<PriceListItem> items) {
+		InsurancePolicy policy = new InsurancePolicy();
+		policy.setStartDate(insurencePolicy.getStartDate());
+		policy.setEndDate(policy.getEndDate());
+		policy.setDuration(insurencePolicy.getDuration());
+		Set<Person> personList = new HashSet<Person>();
+		Set<PriceListItem> itemList =  new HashSet<PriceListItem>();
+		
+		for (PersonRequest personRequest : insurencePolicy.getPersons()) {
+			Person person = new Person(personRequest.getFirstName(), personRequest.getLastName(), personRequest.getPersonNo(),personRequest.getPassportNo(),
+					personRequest.getAddress(), personRequest.getPhone(), personRequest.isContractor(), personRequest.getEmail());
+			personList.add(person);
+		}
+		policy.setPersons(personList);
+		
+		for (PriceListItem item : items) {
+			if(item.getFactor().getId() == insurencePolicy.getRegion() || item.getFactor().getId() == insurencePolicy.getSport() || item.getFactor().getId() == insurencePolicy.getAmount()) {
+				itemList.add(item);
+			}
+		
+		}
+		policy.setPriceListItems(itemList);
+		return policy;
+	}
+	
+	private InsurancePolicyResponse generateInsurenceResponceFromPolicyRequest(InsurancePolicyRequest insurencePolicyRequest, InsurancePolicy policy) {
+		InsurancePolicyResponse responce = new InsurancePolicyResponse();
+		responce.setPolicyID(policy.getId());
+		responce.setStartDate(policy.getStartDate());
+		responce.setDuration(policy.getDuration());
+		responce.setRegion(insurencePolicyRequest.getRegion());
+		responce.setSport(insurencePolicyRequest.getSport());
+		responce.setCoverAmount(insurencePolicyRequest.getAmount());
+		responce.setAmount(policy.getAmount());
+		responce.setPersons(new ArrayList<PersonResponse>());
+	
+		return responce;
+	}
+
+	private PersonResponse generatePersonResponseFromRequest(PersonRequest person) {
+		PersonResponse response = new PersonResponse();
+		response.setFirstName(person.getFirstName());
+		response.setLastName(person.getLastName());
+		response.setJmbg(person.getPersonNo());
+		
+		return response;
+	}
+	
+	private int getAgeFromJMBG(String jmbg) {	
+		int year = Integer.parseInt("1" + jmbg.substring(4, 7));
+		LocalDateTime date = LocalDateTime.now();
+		int yearNow = date.getYear();
+		
+		int age = yearNow - year; 
+		return age;
+	}
 }

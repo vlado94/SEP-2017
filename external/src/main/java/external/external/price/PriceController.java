@@ -1,5 +1,7 @@
 package external.external.price;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
+import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 
@@ -24,13 +27,16 @@ public class PriceController {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	private static Logger logger = LoggerFactory.getLogger(PriceController.class);
+	
 	@PostMapping
 	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
-		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
-		System.out.println("cena osiguranja je: " + price);
-		return price;
+		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+		logger.info("Izracunata cena za polisu " + price.getFinalPrice());
+		System.out.println("cena osiguranja je: " + price.getFinalPrice());
+		return price.getFinalPrice();
 	}
 	
 	@PostMapping("/car")
@@ -39,9 +45,10 @@ public class PriceController {
 		obj.setPopravka(34l);
 		obj.setSmestaj(37l);
 		obj.setPrevoz(41l);
-		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, Double.class);
-		return price;
+		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
+		logger.info("Izracunata cena za auto-polisu "+price.getFinalPrice());
+		return price.getFinalPrice();
 	}
 	
 	@PostMapping("/home")
@@ -53,6 +60,7 @@ public class PriceController {
 		
 		Double price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+		logger.info("Izracunata cena za kucnu-polisu "+price);
 		return price;
 	}
 	

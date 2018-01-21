@@ -1,62 +1,99 @@
 <div class="form-title">Osiguranje automobila</div>
 <form [formGroup]="insurancePolicyCarForm"
 	(ngSubmit)="set(insurancePolicyCarForm.value)">
-	<div class="paketi-title">PAKETI</div>
+	<div class="mini-title">PAKETI</div>
 	<div class="border-paketi"></div>
 	<div class="paketi">
 		<div class="form-group row">
-			<label for="slepovanje" class="col-3">Šlepovanje do odredjene
+			<label for="slepovanje" class="col-4">Šlepovanje do odredjene
 				kilometraže:</label>
-			<div class="col-7">
+			<div class="col-5">
 				<select id="slepovanje" class="form-control"
-					formControlName="slepovanje">
-					<option value="">Izaberite paket</option>
+					formControlName="slepovanje"
+					[ngClass]="{'is-invalid':(!insurancePolicyCarForm.controls['smestaj'].pristine || !insurancePolicyCarForm.controls['prevoz'].pristine
+						 	|| !insurancePolicyCarForm.controls['popravka'].pristine || !insurancePolicyCarForm.controls['slepovanje'].pristine)
+						&& insurancePolicyCarForm.controls['smestaj'].value == ''
+						&& insurancePolicyCarForm.controls['popravka'].value == ''
+						&& insurancePolicyCarForm.controls['prevoz'].value == ''
+						&& insurancePolicyCarForm.controls['slepovanje'].value == ''}">
+					<option value=''>Izaberite paket</option>
 					<option *ngFor="let t of slepovanje_list" value="{{t.id}}">{{t.name}}</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="popravka" class="col-3">Popravka do odredjene
+			<label for="popravka" class="col-4">Popravka do odredjene
 				cene:</label>
-			<div class="col-7">
+			<div class="col-5">
 				<select id="popravka" class="form-control"
-					formControlName="popravka">
-					<option value="">Izaberite paket</option>
+					formControlName="popravka"
+					[ngClass]="{'is-invalid':(!insurancePolicyCarForm.controls['smestaj'].pristine || !insurancePolicyCarForm.controls['prevoz'].pristine
+					 	|| !insurancePolicyCarForm.controls['popravka'].pristine || !insurancePolicyCarForm.controls['slepovanje'].pristine)
+					&& insurancePolicyCarForm.controls['smestaj'].value == ''
+					&& insurancePolicyCarForm.controls['popravka'].value == ''
+					&& insurancePolicyCarForm.controls['prevoz'].value == ''
+					&& insurancePolicyCarForm.controls['slepovanje'].value == ''}">
+					<option value=''>Izaberite paket</option>
 					<option *ngFor="let t of popravka_list" value="{{t.id}}">{{t.name}}</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="smestaj" class="col-3">Smestaj do odredjenog
+			<label for="smestaj" class="col-4">Smestaj do odredjenog
 				broja dana:</label>
-			<div class="col-7">
-				<select id="smestaj" class="form-control" formControlName="smestaj">
-					<option value="">Izaberite paket</option>
+			<div class="col-5">
+				<select id="smestaj" class="form-control" formControlName="smestaj"
+					[ngClass]="{'is-invalid':(!insurancePolicyCarForm.controls['smestaj'].pristine || !insurancePolicyCarForm.controls['prevoz'].pristine
+					 	|| !insurancePolicyCarForm.controls['popravka'].pristine || !insurancePolicyCarForm.controls['slepovanje'].pristine)
+					&& insurancePolicyCarForm.controls['smestaj'].value == ''
+					&& insurancePolicyCarForm.controls['popravka'].value == ''
+					&& insurancePolicyCarForm.controls['prevoz'].value == ''
+					&& insurancePolicyCarForm.controls['slepovanje'].value == ''}">
+					<option value=''>Izaberite paket</option>
 					<option *ngFor="let t of smestaj_list" value="{{t.id}}">{{t.name}}</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group row last-paket">
-			<label for="prevoz" class="col-3">Prevoz do odredjenog broja
+			<label for="prevoz" class="col-4">Prevoz do odredjenog broja
 				kilometara:</label>
-			<div class="col-7">
-				<select id="prevoz" class="form-control" formControlName="prevoz">
-					<option value="">Izaberite paket</option>
+			<div class="col-5">
+				<select id="prevoz" class="form-control" formControlName="prevoz"
+					[ngClass]="{'is-invalid':(!insurancePolicyCarForm.controls['smestaj'].pristine || !insurancePolicyCarForm.controls['prevoz'].pristine
+					 	|| !insurancePolicyCarForm.controls['popravka'].pristine || !insurancePolicyCarForm.controls['slepovanje'].pristine)
+					&& insurancePolicyCarForm.controls['smestaj'].value == ''
+					&& insurancePolicyCarForm.controls['popravka'].value == ''
+					&& insurancePolicyCarForm.controls['prevoz'].value == ''
+					&& insurancePolicyCarForm.controls['slepovanje'].value == ''}">
+					<option value=''>Izaberite paket</option>
 					<option *ngFor="let t of prevoz_list" value="{{t.id}}">{{t.name}}</option>
 				</select>
+			</div>
+			<div
+				*ngIf="(!insurancePolicyCarForm.controls['smestaj'].pristine || !insurancePolicyCarForm.controls['prevoz'].pristine
+				 	|| !insurancePolicyCarForm.controls['popravka'].pristine || !insurancePolicyCarForm.controls['slepovanje'].pristine)
+				&& insurancePolicyCarForm.controls['smestaj'].value == ''
+				&& insurancePolicyCarForm.controls['popravka'].value == ''
+				&& insurancePolicyCarForm.controls['prevoz'].value == ''
+				&& insurancePolicyCarForm.controls['slepovanje'].value == '' "
+				class="invalid-feedback col-5 offset-4">
+
+				<div>Morate izabrati neki od ponudjenih paketa.</div>
 			</div>
 		</div>
 	</div>
 	<div class="border-paketi-bottom"></div>
 	<div class="form-group row">
-		<label for="duration" class="col-3">Trajanje osiguranja:</label>
-		<div class="col-7">
+		<label for="duration" class="col-4">Trajanje osiguranja:</label>
+		<div class="col-5">
 			<input id="duration" type="text" class="form-control"
-				formControlName="duration">
+				formControlName="duration"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['duration'].errors && !insurancePolicyCarForm.controls['duration'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['duration'].errors && !insurancePolicyCarForm.controls['duration'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['duration'].errors.required">Morate
@@ -67,10 +104,12 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		<label for="typeOfVehicle" class="col-3">Tip vozila:</label>
-		<div class="col-7">
+		<label for="typeOfVehicle" class="col-4">Tip vozila:</label>
+		<div class="col-5">
 			<select id="typeOfVehicle" class="form-control"
-				formControlName="typeOfVehicle">
+				formControlName="typeOfVehicle"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['typeOfVehicle'].errors && !insurancePolicyCarForm.controls['typeOfVehicle'].pristine}">
+
 				<option value="">Izaberite tip vozila</option>
 				<option value="1">Teretno vozilo</option>
 				<option value="2">Priključno vozila</option>
@@ -80,7 +119,7 @@
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors && !insurancePolicyCarForm.controls['typeOfVehicle'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors.required">Morate
@@ -89,14 +128,16 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="vehicle" class="col-3">Marka vozila:</label>
-		<div class="col-7">
+		<label for="vehicle" class="col-4">Marka vozila:</label>
+		<div class="col-5">
 			<input id="vehicle" type="text" class="form-control"
-				formControlName="vehicle">
+				formControlName="vehicle"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['vehicle'].errors && !insurancePolicyCarForm.controls['vehicle'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['vehicle'].errors && !insurancePolicyCarForm.controls['vehicle'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['vehicle'].errors.required">Morate
@@ -105,14 +146,16 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="year" class="col-3">Godište automobila:</label>
-		<div class="col-7">
+		<label for="year" class="col-4">Godište automobila:</label>
+		<div class="col-5">
 			<input id="year" type="text" class="form-control"
-				formControlName="year">
+				formControlName="year"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['year'].errors && !insurancePolicyCarForm.controls['year'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['year'].errors && !insurancePolicyCarForm.controls['year'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div *ngIf="insurancePolicyCarForm.controls['year'].errors.required">Morate
 				uneti godište automobila.</div>
@@ -122,15 +165,17 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="registrationNumber" class="col-3">Broj registarske
+		<label for="registrationNumber" class="col-4">Broj registarske
 			oznake automobila:</label>
-		<div class="col-7">
+		<div class="col-5">
 			<input id="registrationNumber" type="text" class="form-control"
-				formControlName="registrationNumber">
+				formControlName="registrationNumber"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['registrationNumber'].errors && !insurancePolicyCarForm.controls['registrationNumber'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors && !insurancePolicyCarForm.controls['registrationNumber'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['registrationNumber'].errors.required">Morate
@@ -139,14 +184,16 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="chassisNumber" class="col-3">Broj šasije:</label>
-		<div class="col-7">
+		<label for="chassisNumber" class="col-4">Broj šasije:</label>
+		<div class="col-5">
 			<input id="chassisNumber" type="text" class="form-control"
-				formControlName="chassisNumber">
+				formControlName="chassisNumber"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['chassisNumber'].errors && !insurancePolicyCarForm.controls['chassisNumber'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors && !insurancePolicyCarForm.controls['chassisNumber'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['chassisNumber'].errors.required">Morate
@@ -155,14 +202,16 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="firstName" class="col-3">Ime vlasnika:</label>
-		<div class="col-7">
+		<label for="firstName" class="col-4">Ime vlasnika:</label>
+		<div class="col-5">
 			<input id="firstName" type="text" class="form-control"
-				formControlName="firstName">
+				formControlName="firstName"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['firstName'].errors && !insurancePolicyCarForm.controls['firstName'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['firstName'].errors && !insurancePolicyCarForm.controls['firstName'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['firstName'].errors.required">Morate
@@ -174,14 +223,15 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="lastName" class="col-3">Prezime vlasnika:</label>
-		<div class="col-7">
+		<label for="lastName" class="col-4">Prezime vlasnika:</label>
+		<div class="col-5">
 			<input id="lastName" type="text" class="form-control"
-				formControlName="lastName">
+				formControlName="lastName"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['lastName'].errors && !insurancePolicyCarForm.controls['lastName'].pristine}">
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['lastName'].errors && !insurancePolicyCarForm.controls['lastName'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div
 				*ngIf="insurancePolicyCarForm.controls['lastName'].errors.required">Morate
@@ -193,15 +243,17 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="jmbg" class="col-3">Matični broj vlasnika
+		<label for="jmbg" class="col-4">Matični broj vlasnika
 			automobila:</label>
-		<div class="col-7">
+		<div class="col-5">
 			<input id="jmbg" type="text" class="form-control"
-				formControlName="jmbg">
+				formControlName="jmbg"
+				[ngClass]="{'is-invalid':insurancePolicyCarForm.controls['jmbg'].errors && !insurancePolicyCarForm.controls['jmbg'].pristine}">
+
 		</div>
 		<div
 			*ngIf="insurancePolicyCarForm.controls['jmbg'].errors && !insurancePolicyCarForm.controls['jmbg'].pristine"
-			class="alert alert-danger">
+			class="invalid-feedback col-5 offset-4">
 
 			<div *ngIf="insurancePolicyCarForm.controls['jmbg'].errors.required">Morate
 				uneti jedinstveni matični broj.</div>
@@ -213,9 +265,10 @@
 	</div>
 
 	<div class="row">
-		<div class="col-10 ">
-			<div class="pull-right button">
-				<button [disabled]="!insurancePolicyCarForm.valid || !paket_selected"
+		<div class="col-9 ">
+			<div class="pull-right button button-potvrdi">
+				<button
+					[disabled]="!insurancePolicyCarForm.valid || !paket_selected"
 					class="btn btn-default" type="submit">Potvrdi</button>
 			</div>
 			<div class="pull-right button">
@@ -229,8 +282,27 @@
 	</div>
 </form>
 
-<div class="price" *ngIf="price">
-	<div *ngIf="price">
-		Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>
+<div class="row price" *ngIf="price">
+	<div class="col-6">Osnovna cena osiguranja iznosi :</div>
+	<div class="price-number col-6 col-right">{{price.basePrice}}</div>
+	<div class="col-12">
+		<div class="mini-title">Popusti</div>
+	</div>
+	<div class="col-12">
+		<div class="border-paketi"></div>
+	</div>
+	<div class="col-12 col-popusti">
+		<div class="row" *ngFor="let d of price.discounts">
+			<div class="col-4">{{d.discountName}}</div>
+			<div class="col-4">{{d.percent}}%</div>
+			<div class="col-4 col-right">{{d.amount}} din</div>
+		</div>
+	</div>
+	<div class="col-6">Trenutna konačna cena osiguranja iznosi :</div>
+	<div class="price-number col-6 col-right">{{price.finalPrice}}</div>
+</div>
+<div class="row">
+	<div class="col-12">
+		<div class="border-paketi-bottom"></div>
 	</div>
 </div>

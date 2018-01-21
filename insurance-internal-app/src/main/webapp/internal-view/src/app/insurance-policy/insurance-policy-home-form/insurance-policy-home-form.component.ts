@@ -41,6 +41,7 @@ export class InsurancePolicyHomeForm {
     ages: Factor[];
     values: Factor[];
     risks: Factor[];
+    calculatePriceRequest: InsurancePolicyHomeCalculatePriceRequest = null;
     constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) {
         this.insurancePolicyHomeForm = new FormGroup({
             duration: new FormControl('', [
@@ -72,17 +73,25 @@ export class InsurancePolicyHomeForm {
         this.insurancePolicyHomeForm.controls['value'].setValue('');
         this.insurancePolicyHomeForm.controls['risk'].setValue('');
 
-        this.insurancePolicyHomeForm.valueChanges.subscribe(value => {
-            if (this.insurancePolicyHomeForm.get('duration').valid && this.insurancePolicyHomeForm.get('size').valid
-                && this.insurancePolicyHomeForm.get('value').valid && this.insurancePolicyHomeForm.get('risk').valid
-                && this.insurancePolicyHomeForm.get('age').valid) {
-                let insurancePolicyHomeCalculatePriceRequest: InsurancePolicyHomeCalculatePriceRequest = new InsurancePolicyHomeCalculatePriceRequest(value.duration, value.size,
-                    value.age, value.value, value.risk);
-                this.calculatePrice.emit(insurancePolicyHomeCalculatePriceRequest);
-            } else {
-                this.calculatePrice.emit(null);
-            }
-        })
+        this.insurancePolicyHomeForm
+            .valueChanges
+            .debounceTime(1000) // wait 300ms after the last event before emitting last event
+            .distinctUntilChanged()
+            .subscribe(value => {
+                console.log("12345");
+                if (this.insurancePolicyHomeForm.get('duration').valid && this.insurancePolicyHomeForm.get('size').valid
+                    && this.insurancePolicyHomeForm.get('value').valid && this.insurancePolicyHomeForm.get('risk').valid
+                    && this.insurancePolicyHomeForm.get('age').valid) {
+                    if (this.calculatePriceRequest == null || value.duration != this.calculatePriceRequest.duration || value.size != this.calculatePriceRequest.size
+                        || value.age != this.calculatePriceRequest.age || value.value != this.calculatePriceRequest.value || value.risk != this.calculatePriceRequest.risk) {
+                        this.calculatePriceRequest = new InsurancePolicyHomeCalculatePriceRequest(value.duration, value.size, value.age, value.value, value.risk);
+                        this.calculatePrice.emit(this.calculatePriceRequest);
+                    }
+                } else {
+                    this.calculatePriceRequest = null;
+                    this.calculatePrice.emit(null);
+                }
+            })
 
         this.factorService.findByCategory(6)
             .subscribe(sizes => {

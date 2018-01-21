@@ -2,6 +2,8 @@ package external.external.paypal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
+import external.external.price.PriceController;
 import model.request.InsurancePolicyRequest;
 
 @RestController
@@ -27,6 +30,8 @@ public class PaypalController {
 	@Autowired
 	HttpServletRequest request;
 	
+	private static Logger logger = LoggerFactory.getLogger(PaypalController.class);
+	
 	@PostMapping
 	private String paypal(@RequestBody InsurancePolicyRequest insurancePolicyRequest) {
 		String successUrl = URLUtils.getBaseURl(request) + "/external/paypal/execute";
@@ -35,7 +40,7 @@ public class PaypalController {
 		try {
 			payment = paypalService.createPayment("3.00", "USD","paypal", "sale", "Opis paymenta", 
 					successUrl, "https://www.b92.net/", 1l, insurancePolicyRequest);
-			
+			logger.info("Kreiran payment " + payment.getId());
 			for(Links links : payment.getLinks()){
 			    if(links.getRel().equals("approval_url")){
 			        //responsTransactionEntity.setUrl(links.getHref());
@@ -60,6 +65,7 @@ public class PaypalController {
 		String payerId=(String) request.getParameter("PayerID");
 		InsurancePolicyRequest insurancePolicyRequest = paypalService.getInsuranceMap(paymentId);
 		System.out.println(insurancePolicyRequest.toString());
+		logger.info("Izvrsen payment " + paymentId);
 		try {
 			paypalService.executePayment(paymentId, payerId);
 		} catch (PayPalRESTException e) {

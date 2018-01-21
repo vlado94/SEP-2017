@@ -13,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 @RestController
@@ -68,7 +70,12 @@ public class InsurancePolicyController {
 		return price;
 	}
 	
-	
+	@PostMapping("/checkout")
+	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
+		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+		return response;
+	}	
 
 	public String getDataccessPortHttps() {
 		return dataccessPort.replace("http", "https").toString();

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ import da.person.PersonService;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.PersonRequest;
@@ -42,6 +46,8 @@ public class InsurancePolicyController {
     @Autowired
     ConversionService conversionService;
     
+    private static Logger logger = LoggerFactory.getLogger(InsurancePolicyController.class);
+    
 	@PostMapping
 	public InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest request) {
 		InsurancePolicy entity = conversionService.convert(request, InsurancePolicy.class);
@@ -62,7 +68,7 @@ public class InsurancePolicyController {
 		
 		InsurancePolicyCalculatePriceResponse response = insurancePolicyService.calculateSuggestedPrice(request);
 		
-	    String outputFile ="D:\\template_Table.pdf";
+	    /*String outputFile ="C:\\template_Table.pdf";
 	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getDiscounts());
 	    Map<String, Object> parameters = new HashMap<String, Object>();
 	    
@@ -74,16 +80,17 @@ public class InsurancePolicyController {
         JasperPrint jasperPrint;
 		try {
 			
-			jasperPrint = JasperFillManager.fillReport("D:\\excerptBank.jasper", parameters, new JREmptyDataSource());
+			jasperPrint = JasperFillManager.fillReport("C:\\excerptBank.jasper", parameters, new JREmptyDataSource());
 			
 			 File file = new File(outputFile);
 		        OutputStream outputStream= new FileOutputStream(file);
 		        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+		        logger.info("kreiran PDF");
 		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-   
+   */
         //response.setContentType("application/pdf");
 		//InputStream inputStream = new FileInputStream(file);
 		//IOUtils.copy(inputStream, response.getOutputStream());
@@ -98,8 +105,8 @@ public class InsurancePolicyController {
 		InsurancePolicyRequest policy = new InsurancePolicyRequest();
 		policy.setDuration(5);
 		policy.setPersons(new ArrayList<>());
-		PersonRequest person1 = new PersonRequest("Jovan","Jovanovic","1212994156225","12563","adress","06451145",28l,false, "fjass@sdha");
-		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",62l,false, "fjass@sdha");
+		PersonRequest person1 = new PersonRequest("Jovan","Jovanovic","1212994156225","12563","adress","06451145",false, "fjass@sdha");
+		PersonRequest person2 = new PersonRequest("Milan","Milanovic","1906994156225","85952","adress","06451145",false, "fjass@sdha");
 		policy.getPersons().add(person1);
 		policy.getPersons().add(person2);
 		
@@ -126,6 +133,14 @@ public class InsurancePolicyController {
 	public InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest request) {
 		
 		return insurancePolicyService.calculateSuggestedPriceCar(request);
+		
+	}
+	
+	
+	@PostMapping("/getCheckout")
+	public InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest request) {
+		
+		return insurancePolicyService.getCheckout(request);
 		
 	}
 	

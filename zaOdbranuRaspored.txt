@@ -1,0 +1,16 @@
+		Vladimir Stanojevic 		Danilo Acimovic		Olja Miljatovic		Danilo Dimitrijevic		Nikola Smiljanic		Nebojsa Basaric		Luka Sicar
+
+ip:		1111						1111				1111				1111					1111					1111				1111
+
+
+
+
+
+
+
+
+			Vladimir	Danilo A	Olja	Danilo D	Nikola		Nebojsa		Luka
+
+unosi ip:		
+pokrece:	DataAccess	Internal	Mail	External	JavaCard	Mobilnu		Isok
+																	Placanje

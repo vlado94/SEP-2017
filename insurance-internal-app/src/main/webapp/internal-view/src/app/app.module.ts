@@ -27,6 +27,7 @@ import { KEYCLOAK_HTTP_PROVIDER } from './keycloak/service/keycloak.http';
 import { KeycloakService } from './keycloak/service/keycloak.service';
 import { ResolverServiceService } from './resolver/resolver-service.service';
 import { Resolver } from './resolver/user-resolver';
+import { InsurancePolicyPinComponent } from './insurance-policy/insurance-policy-pin/insurance-policy-pin.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,8 @@ import { Resolver } from './resolver/user-resolver';
         InsurancePolicyHomeCar,
         InsurancePolicyHomeForm,
         InsurancePolicyCarForm,
-        InsurancePolicyCheckoutComponent
+        InsurancePolicyCheckoutComponent,
+        InsurancePolicyPinComponent
     ],
     imports: [
         BrowserModule,

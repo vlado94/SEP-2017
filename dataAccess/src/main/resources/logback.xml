@@ -2,7 +2,7 @@
 
 <configuration>
 
-	<property name="DEV_HOME" value="C:/Users/Vladimir/Desktop/logging.log" />
+	<property name="DEV_HOME" value="D:/logging.log" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">

@@ -1,6 +1,9 @@
 package com.insurance.internal.insurance.policy;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -141,6 +144,17 @@ public class InsurancePolicyController {
 			
 		System.out.println(APDU_PIN);
 			
+		try(FileWriter fw = new FileWriter("D:\\JavaCard33\\samples\\classic_applets\\Wallet\\"
+			+ "wallet.scr", true);
+				
+		BufferedWriter bw = new BufferedWriter(fw);
+	    PrintWriter out = new PrintWriter(bw))
+		    {
+				out.println(APDU_PIN);
+			} catch (IOException e) {
+		     //exception handling left as an exercise for the reader
+			}
+       
 			
 		return response;
 	}

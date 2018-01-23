@@ -25,10 +25,10 @@
 			(hideForm)="showForm($event)" [hidden]="activeForm != '1'"></app-insurance-policy-home-form>
 	</div>
 
+	<div class="col-12">
+		<button class="btn float-left" (click)="changeTab('2')"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
 
-	<button class="btn fixed-left" (click)="changeTab('2')">Nazad</button>
-
-	<button class="btn fixed-right" (click)="changeTab('4')">Dalje</button>
-
+		<button class="btn float-right" (click)="changeTab('4')"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+	</div>
 </div>
 

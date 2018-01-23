@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -119,6 +120,7 @@ public class InsurancePolicyController {
 		}
 	}*/
 	
+
 	@GetMapping("/checkPin/{pin}")
 	private Boolean doCheck(@PathVariable int pin) throws IOException {
 		//dodati i parametar korisnika ciju cemo karticu pokrenuti
@@ -159,6 +161,20 @@ public class InsurancePolicyController {
 		     //exception handling left as an exercise for the reader
 			}
        
+		
+		ProcessBuilder builder1 = new ProcessBuilder(
+	            "cmd.exe", "/c", "cd \"D:\\JavaCard33\\bin\" && cref");
+	    builder1.redirectErrorStream(true);
+	    Process p1;
+		p1 = builder1.start();
+		
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		ProcessBuilder builder = new ProcessBuilder(
 	            "cmd.exe", "/c", "cd \"D:\\JavaCard33\\samples\\classic_applets\\Wallet\\applet\" && ant all");
 	    builder.redirectErrorStream(true);

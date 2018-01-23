@@ -25,6 +25,8 @@ import { FactorService } from "./factor/factor.service";
 
 import { KEYCLOAK_HTTP_PROVIDER } from './keycloak/service/keycloak.http';
 import { KeycloakService } from './keycloak/service/keycloak.service';
+import { ResolverServiceService } from './resolver/resolver-service.service';
+import { Resolver } from './resolver/user-resolver';
 
 @NgModule({
     declarations: [
@@ -48,7 +50,7 @@ import { KeycloakService } from './keycloak/service/keycloak.service';
         HttpModule
 
     ],
-    providers: [FactorService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService],
+    providers: [FactorService, InsurancePolicyService, KEYCLOAK_HTTP_PROVIDER, KeycloakService, ResolverServiceService, Resolver],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

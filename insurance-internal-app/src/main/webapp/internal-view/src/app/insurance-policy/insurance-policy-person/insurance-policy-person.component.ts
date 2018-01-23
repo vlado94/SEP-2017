@@ -15,6 +15,8 @@ export class InsurancePolicyPersonComponent {
     persons: InsurancePolicyPersonRequest[] = [];
     @Output() nextTab = new EventEmitter<string>();
     @Output() personsChanged = new EventEmitter<InsurancePolicyPersonRequest[]>();
+    contractorExists:boolean = false;
+    isNumberOfPersonsByAgeCorrect:boolean = false;
     firstCategoryOfAge = 16;
     secondCategoryOfAge = 60;
     under16: number = 0;
@@ -26,9 +28,14 @@ export class InsurancePolicyPersonComponent {
     }
 
     onSubmit(value: InsurancePolicyPersonRequest) {
-        console.log("Submitting in parent");
+        if(value.contractor){
+            this.contractorExists = true;
+        }
         let age: number = this.getAgeFromJmbg(value.personNo)
         if (this.currentPerson) {
+            if(this.currentPerson.contractor && !value.contractor){
+                this.contractorExists = false;
+            }
             let index = this.persons.indexOf(this.currentPerson);
             this.persons.splice(index, 1, value);
             let ageFromUpdate: number = this.getAgeFromJmbg(this.currentPerson.personNo)
@@ -37,12 +44,14 @@ export class InsurancePolicyPersonComponent {
             this.increasePersonAgeCategory(age);
             this.currentPerson = null;
             this.personsChanged.emit(this.persons);
+            
+            this.isNumberOfPersonsByAgeCorrect = this.isNumberOfPersonsCorrect();
             return;
         }
         this.persons.push(value);
-        console.log(this.getAgeFromJmbg(value.personNo));
         this.increasePersonAgeCategory(age);
         this.personsChanged.emit(this.persons);
+        this.isNumberOfPersonsByAgeCorrect = this.isNumberOfPersonsCorrect();
 
     }
 
@@ -53,11 +62,15 @@ export class InsurancePolicyPersonComponent {
     delete(value: InsurancePolicyPersonRequest) {
         let index = this.persons.indexOf(value);
         if (index != -1) {
+            if(value.contractor){
+                this.contractorExists = false;
+            }
             this.persons.splice(index, 1);
         }
         if (this.currentPerson == value)
             this.currentPerson = null;
         this.decreasePersonAgeCategory(this.getAgeFromJmbg(value.personNo));
+        this.isNumberOfPersonsByAgeCorrect = this.isNumberOfPersonsCorrect();
         this.personsChanged.emit(this.persons);
     }
     resetCurrent(value: InsurancePolicyPersonRequest) {
@@ -80,36 +93,24 @@ export class InsurancePolicyPersonComponent {
     increasePersonAgeCategory(age: number) {
         if (age < this.firstCategoryOfAge) {
             this.under16++;
-            console.log("Dodat korisnik ispod 16 godina")
-            console.log("Trenutan broj korisnika ispod 16 godina: " + this.under16);
         } else if (this.firstCategoryOfAge < age && age < this.secondCategoryOfAge) {
             this.between16an60++;
-            console.log("Dodat korisnik izmedju 16 i 60 godina")
-            console.log("Trenutan broj korisnika izmedju 16 i 60 godina: " + this.between16an60);
         } else if (age > this.secondCategoryOfAge) {
             this.over16++;
-            console.log("Dodat korisnik preko 60 godina")
-            console.log("Trenutan broj korisnika preko 60: " + this.over16);
         }
     }
 
     decreasePersonAgeCategory(age: number) {
         if (age < this.firstCategoryOfAge) {
             this.under16--;
-            console.log("Obrisan korisnik ispod 16 godina")
-            console.log("Trenutan broj korisnika ispod 16 godina: " + this.under16);
         } else if (this.firstCategoryOfAge < age && age < this.secondCategoryOfAge) {
             this.between16an60--;
-            console.log("Obrisan korisnik izmedju 16 i 60 godina")
-            console.log("Trenutan broj korisnika izmedju 16 i 60 godina: " + this.between16an60);
         } else if (age > this.secondCategoryOfAge) {
             this.over16--;
-            console.log("Obrisan korisnik preko 60 godina")
-            console.log("Trenutan broj korisnika preko 60: " + this.over16);
         }
     }
 
-    isNumberOfPersonsByAgeCorrect() {
+    isNumberOfPersonsCorrect() {
         console.log("Provera broja korisnika po godinama...")
         let result: boolean = false;
         if (this.under16 == this.expectedNumbersByAgeCategories.firstCategory && this.between16an60 == this.expectedNumbersByAgeCategories.secondCategory && this.over16 == this.expectedNumbersByAgeCategories.thirdCategory) {
@@ -124,13 +125,4 @@ export class InsurancePolicyPersonComponent {
         return result;
     }
 
-    isContractorAdded() {
-        let result: boolean = false;
-        for (let person of this.persons) {
-            if (person.contractor) {
-                result = true;
-            }
-        }
-        return result;
-    }
 }

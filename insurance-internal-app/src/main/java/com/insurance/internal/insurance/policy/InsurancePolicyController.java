@@ -1,9 +1,15 @@
 package com.insurance.internal.insurance.policy;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,4 +111,37 @@ public class InsurancePolicyController {
 			return null;
 		}
 	}*/
+	
+	@GetMapping("/checkPin/{pin}")
+	private Boolean doCheck(@PathVariable int pin) throws IOException {
+		//dodati i parametar korisnika ciju cemo karticu pokrenuti
+			
+		ArrayList<String> pinStr=new ArrayList<>();
+		boolean response=true;//init
+		LinkedList<Integer> stack = new LinkedList<Integer>();
+			
+		while (pin > 0)
+		{
+		    stack.push( pin % 10 );
+		    pin = pin / 10;
+		}
+		
+		while (!stack.isEmpty())
+		{
+			pinStr.add(Integer.toString(stack.pop()));		
+		}
+			
+		String APDU_PIN="0x80 0x20 0x00 0x00 0x05";
+		for(int i=0;i<5;i++)
+		{
+			APDU_PIN+=" 0x0"+ pinStr.get(i);
+		}
+		
+		APDU_PIN+=" 0x7F;";
+			
+		System.out.println(APDU_PIN);
+			
+			
+		return response;
+	}
 }

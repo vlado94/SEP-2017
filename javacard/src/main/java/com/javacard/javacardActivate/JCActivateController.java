@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/activateJC")
+@CrossOrigin(origins = "http://localhost:4500")
 public class JCActivateController {
 
 	@GetMapping("/checkPin/{pin}")
@@ -41,12 +43,12 @@ public class JCActivateController {
 		}
 			
 		String APDU_PIN="0x80 0x20 0x00 0x00 0x05";
-		for(int i=0;i<5;i++)
+		for(int i=0;i<4;i++)
 		{
 			APDU_PIN+=" 0x0"+ pinStr.get(i);
 		}
 		
-		APDU_PIN+=" 0x7F;";
+		APDU_PIN+=" 0x03 0x7F;";
 			
 		System.out.println(APDU_PIN);
 			

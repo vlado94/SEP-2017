@@ -2,6 +2,7 @@ package com.insurance.internal.insurance.policy;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -191,7 +192,36 @@ public class InsurancePolicyController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
-	    
+	    FileInputStream in = new FileInputStream("D:\\JavaCard33\\samples\\classic_applets\\Wallet\\applet\\default.output");
+		BufferedReader br = new BufferedReader(new InputStreamReader(in));
+		 
+		  String strLine = null, tmp;
+		 
+		  while ((tmp = br.readLine()) != null)
+		  {
+		     strLine = tmp;
+		  }
+		 
+		  String lastLine = strLine;
+		  System.out.println("LAST APDU");
+		  System.out.println(lastLine);
+		  String wrongPinResponse="SW1: 63";
+		  String correctPinResponse="SW1: 90";
+		 
+		  
+		if(lastLine.toLowerCase().contains(wrongPinResponse.toLowerCase()))
+		{
+		    System.out.println("WRONG PIN");  
+			response=false;
+		}
+		if(lastLine.toLowerCase().contains(correctPinResponse.toLowerCase()))
+		{
+			System.out.println("CORRECT PIN");
+			response=true;
+		}
+		in.close();
+		
 		return response;
+		
 	}
 }

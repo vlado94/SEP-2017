@@ -1,8 +1,11 @@
 package com.insurance.internal.insurance.policy;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -155,7 +158,40 @@ public class InsurancePolicyController {
 		     //exception handling left as an exercise for the reader
 			}
        
+		ProcessBuilder builder = new ProcessBuilder(
+	            "cmd.exe", "/c", "cd \"D:\\JavaCard33\\samples\\classic_applets\\Wallet\\applet\" && ant all");
+	    builder.redirectErrorStream(true);
+	    Process p;
 			
+		p = builder.start();
+			
+	    BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	    String line;
+	    while (true)
+	    {
+	       line = r.readLine();
+	       if (line == null) { break; }
+	       System.out.println(line);
+	    }
+	        
+	    //read output
+	    BufferedReader reader;
+	    try {
+	    	reader = new BufferedReader(new FileReader(
+			"D:\\JavaCard33\\samples\\classic_applets\\Wallet\\applet\\default.output"));
+			String line1 = reader.readLine();
+			while (line1 != null)
+			{
+				System.out.println(line1);
+				// read next line
+				line1 = reader.readLine();
+			}
+				reader.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+	    
 		return response;
 	}
 }

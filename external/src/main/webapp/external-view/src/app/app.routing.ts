@@ -5,18 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { InsurancePolicyComponent } from './insurance-policy/insurance-policy.component';
-import { ParentPolicyComponent } from './parent-policy/parent-policy.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { UserDataComponent } from './user-data/user-data.component';
-import { CarComponent } from './car/car.component';
+
 
 
 const routes: Routes =[
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'policy',   component: InsurancePolicyComponent },
-    { path: 'parentPolicy', component: ParentPolicyComponent},
-    { path: 'user-data', component: UserDataComponent},
-    { path: 'car', component: CarComponent},
     { path: '',  component: HomePageComponent}
 ];
 

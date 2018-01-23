@@ -60,8 +60,8 @@ class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		super.configure(http);
 		http.csrf().disable()
-			.authorizeRequests().antMatchers("/internal/*").
-			hasRole("seller").anyRequest().permitAll();
+			.authorizeRequests().antMatchers("/internal/*").hasRole("seller").
+			anyRequest().permitAll();
 	}
 
 	@Bean

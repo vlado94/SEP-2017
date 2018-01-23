@@ -2,17 +2,16 @@
 	padding: 10px;
 }
 
+.button-potvrdi{
+	padding-right:0px;
+}
 .price {
 	padding-top: 10px;
 	font-size: 30px;
 	font-weight: 600;
 }
 
-.paketi-title {
-	font-size: 24px;
-	padding-top: 30px;
-	padding-bottom: 10px;
-}
+
 
 .form-title {
 	font-size: 30px;
@@ -24,19 +23,6 @@
 
 form {
 	padding: 30px;
-}
-
-.border-paketi{
-	width:80px;
-	display:block;
-	border:1px solid black;
-}
-
-.border-paketi-bottom{
-	width:80px;
-	display:block;
-	border:1px solid black;
-	margin-bottom:20px;
 }
 
 .last-paket{

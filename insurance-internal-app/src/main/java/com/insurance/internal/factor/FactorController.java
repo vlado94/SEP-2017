@@ -22,6 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,17 +42,12 @@ public class FactorController {
 	private String dataccessPort;
 
 	@Autowired
-	HttpSession session;
-
-	@Autowired
-	AuthenticationManagerBuilder auth;
-
-	@Autowired
 	AccessToken accessToken;
-
+	
 	@Autowired
-	HttpServletRequest request;
+	RestTemplate restTemplate;
 
+	@PreAuthorize("hasRole('seller')")
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		// KeycloakAuthenticationProvider keycloakAuthenticationProvider =
@@ -64,7 +60,7 @@ public class FactorController {
 		 */
 		// System.out.println("first " + accessToken.getName());
 
-		ResponseEntity<FactorDTO[]> responseEntity = restTemplate()
+		ResponseEntity<FactorDTO[]> responseEntity = restTemplate
 				.getForEntity(getDataccessPortHttps() + "/factor/category/" + id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
 		return Arrays.asList(objects);
@@ -74,7 +70,7 @@ public class FactorController {
 		return dataccessPort.replace("http", "https").toString();
 	}
 
-	@Bean
+	/*@Bean
 	public RestTemplate restTemplate() {
 		try {
 			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());// TODO: hide password
@@ -94,6 +90,6 @@ public class FactorController {
 		} catch (Exception exc) {
 			return null;
 		}
-	}
+	}*/
 
 }

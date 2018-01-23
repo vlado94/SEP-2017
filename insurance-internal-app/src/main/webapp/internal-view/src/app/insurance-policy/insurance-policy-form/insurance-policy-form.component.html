@@ -8,6 +8,13 @@
 				formControlName="startDate"
 				[ngClass]="{'is-invalid': insurancePolicy.controls['startDate'].errors && !insurancePolicy.controls['startDate'].pristine}">
 		</div>
+		<!-- 
+			*/*//////////////////***************************
+		 -->
+		<!-- 
+			*/*//////////////////***************************
+		 -->
+
 		<div
 			*ngIf="insurancePolicy.controls['startDate'].errors && !insurancePolicy.controls['startDate'].pristine"
 			class="invalid-feedback col-5 offset-4">
@@ -112,7 +119,7 @@
 		<div class="col-5">
 			<select id="amount" class="form-control" formControlName="amount"
 				[ngClass]="{'is-invalid':insurancePolicy.controls['amount'].errors && !insurancePolicy.controls['amount'].pristine}">
-			
+
 				<option value="">Izaberite iznos</option>
 				<option *ngFor="let amount of amounts" value="{{amount.id}}">{{amount.name}}</option>
 			</select>
@@ -134,12 +141,31 @@
 			</select>
 		</div>
 	</div>
+	<div class="row price" *ngIf="price">
+		<div class="col-6">Osnovna cena osiguranja iznosi :</div>
+		<div class="price-number col-6 col-right">{{price.basePrice}}</div>
+		<div class="col-12">
+			<div class="mini-title">Popusti</div>
+		</div>
+		<div class="col-12">
+			<div class="border-paketi"></div>
+		</div>
+		<div class="col-12 col-popusti">
+			<div class="row" *ngFor="let d of price.discounts">
+				<div class="col-4">{{d.discountName}}</div>
+				<div class="col-4">{{d.percent}}%</div>
+				<div class="col-4 col-right">{{d.amount}} din</div>
+			</div>
+		</div>
+		<div class="col-6">Trenutna konačna cena osiguranja iznosi :</div>
+		<div class="price-number col-6 col-right">{{price.finalPrice}}</div>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="border-paketi-bottom"></div>
+		</div>
+	</div>
 	<button type="submit"
 		[disabled]="!insurancePolicy.valid || !checkNumberOfPeople()"
 		class="btn btn-default fixed-right">Dalje</button>
 </form>
-<div class="price" *ngIf="price">
-	<div *ngIf="price">
-		Trenutna cena osiguranja iznosi : <span class="price-number">{{price}}</span>
-	</div>
-</div>

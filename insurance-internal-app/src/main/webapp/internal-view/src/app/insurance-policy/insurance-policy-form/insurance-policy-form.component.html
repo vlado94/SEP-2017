@@ -26,7 +26,7 @@
 	<div class="form-group row">
 		<label for="duration" class="col-4">Trajanje(u danima):</label>
 		<div class="col-5">
-			<input id="duration" type="text" class="form-control"
+			<input name="duration" type="text" class="form-control"
 				formControlName="duration"
 				[ngClass]="{'is-invalid': insurancePolicy.controls['duration'].errors && !insurancePolicy.controls['duration'].pristine}">
 		</div>

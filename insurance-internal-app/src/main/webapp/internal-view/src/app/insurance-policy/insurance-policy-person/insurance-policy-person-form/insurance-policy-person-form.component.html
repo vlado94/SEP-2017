@@ -7,7 +7,7 @@
 		<div class="form-group row">
 			<label for="firstName" class="col-4">Ime:</label>
 			<div class="col-5">
-				<input id="firstName" type="text" class="form-control"
+				<input name="firstName" type="text" class="form-control"
 					formControlName="firstName"
 					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['firstName'].errors && !insurancePolicyPerson.controls['firstName'].pristine}">
 			</div>
@@ -27,7 +27,7 @@
 		<div class="form-group row">
 			<label for="lastName" class="col-4">Prezime:</label>
 			<div class="col-5">
-				<input id="lastName" type="text" class="form-control"
+				<input  name ="lastName" type="text" class="form-control"
 					formControlName="lastName"
 					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['lastName'].errors && !insurancePolicyPerson.controls['lastName'].pristine}">
 			</div>
@@ -45,7 +45,7 @@
 		</div>
 		<div class="form-group row"
 			*ngIf="!contractorExists || (currentPerson != null && currentPerson.contractor)">
-			<label for="contractor" class="col-4">Ugovarač:</label>
+			<label for="contractor" class="col-4">UgovaraÄ�:</label>
 			<div class="col-5">
 				<label class="radio-inline radio-button"> <input
 					type="radio" value="true" name="contractor" checked
@@ -59,7 +59,7 @@
 		<div
 			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && (!contractorExists || (currentPerson != null && currentPerson.contractor))"
 			class="form-group row">
-			<label for="email" class="col-4">Email ugovarača:</label>
+			<label for="email" class="col-4">Email ugovaraÄ�a:</label>
 			<div class="col-5">
 				<input id="email" type="email" class="form-control"
 					formControlName="email" />
@@ -70,14 +70,14 @@
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['email'].errors.required">Morate
-					uneti email ugovarača polise.</div>
+					uneti email ugovaraÄ�a polise.</div>
 			</div>				
 		</div>
 
 		<div class="form-group row">
 			<label for="jmbg" class="col-4">Jmbg:</label>
 			<div class="col-5">
-				<input id="jmbg" type="text" class="form-control"
+				<input name="jmbg" type="text" class="form-control"
 					formControlName="jmbg"
 					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['jmbg'].errors && !insurancePolicyPerson.controls['jmbg'].pristine || jmbgExists}">
 			</div>
@@ -86,15 +86,15 @@
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.required">Morate
-					uneti jedinstveni matični broj.</div>
+					uneti jedinstveni matiÄ�ni broj.</div>
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.minlength">Jedinstveni
-					matični broj sadrži 13 cifara.</div>
+					matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.maxlength">Jedinstveni
-					matični broj sadrži 13 cifara.</div>
+					matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
 			</div>
 			<div class="col-5 offset-4 invalid-feedback"
 				*ngIf="jmbgExists && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
-				sa unetim matičnim brojem već postoji.</div>
+				sa unetim matiÄ�nim brojem veÄ‡ postoji.</div>
 		</div>
 
 		<div class="form-group row">
@@ -109,14 +109,14 @@
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['passportNumber'].errors.required">Morate
-					uneti broj pasoša.</div>
+					uneti broj pasoÅ¡a.</div>
 			</div>			
 		</div>
 
 		<div class="form-group row">
 			<label for="address" class="col-4">Adresa:</label>
 			<div class="col-5">
-				<input id="address" type="text" class="form-control"
+				<input name="address" type="text" class="form-control"
 					formControlName="address"
 					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['address'].errors && !insurancePolicyPerson.controls['address'].pristine}">
 			</div>

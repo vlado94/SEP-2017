@@ -23,8 +23,7 @@ export class InsurancePolicyCheckoutComponent {
 
     @Output() nextTab = new EventEmitter<string>();
     @Input() persons;
-    @Input() checkout; 
-
+    checkoutVar = null;
     changeTab(value: string) {
         this.nextTab.emit(value);
     }
@@ -36,6 +35,11 @@ export class InsurancePolicyCheckoutComponent {
     }
 
 
+    @Input()
+    set checkout(value){
+        this.checkoutVar = value;
+        console.log(value);
+    }; 
 
 
 }

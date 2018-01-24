@@ -564,8 +564,14 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		return response;
 	}
 	
-	private int getAgeFromJMBG(String jmbg) {	
-		int year = Integer.parseInt("1" + jmbg.substring(4, 7));
+	private int getAgeFromJMBG(String jmbg) {
+		String agePersonNo = jmbg.substring(4, 7);
+		int year = 0;
+		if(agePersonNo.startsWith("0")) {
+			year = Integer.parseInt("2" + agePersonNo);
+		}else {
+			year = Integer.parseInt("1" + agePersonNo);
+		}
 		LocalDateTime date = LocalDateTime.now();
 		int yearNow = date.getYear();
 		

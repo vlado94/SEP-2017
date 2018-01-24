@@ -22,17 +22,17 @@ import da.rules.RuleService;
 import model.dto.Discount;
 import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCarRequest;
 import model.request.InsurancePolicyCheckoutRequest;
-import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyHomeRequest;
 import model.request.InsurancePolicyRequest;
-import model.request.InsurancePolicyResponse;
 import model.request.PersonRequest;
-import model.request.PersonResponse;
+import model.response.InsurancePolicyCalculatePriceResponse;
+import model.response.InsurancePolicyCheckoutResponse;
+import model.response.InsurancePolicyResponse;
+import model.response.PersonResponse;
 
 @Service
 @Transactional
@@ -453,7 +453,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		response.setDurationForTravel(request.getDuration());
 		response.setRegion(getNameFromId(request.getRegion()));
 		response.setSport(getNameFromId(request.getSport()));
-		response.setAmount(request.getAmount());
+		response.setAmount(getNameFromId(request.getAmount()));
 		response.setTypeOfPolicy(getNameFromId(request.getTypeOfPolicy()));
 		response.setPersons(request.getPersons());
 		response.setPriceAndDiscountsForTravel(priceAndDiscounts);

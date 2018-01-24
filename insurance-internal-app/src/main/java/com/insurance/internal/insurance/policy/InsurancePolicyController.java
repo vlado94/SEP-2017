@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCheckoutRequest;
-import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
+import model.response.InsurancePolicyCalculatePriceResponse;
+import model.response.InsurancePolicyCheckoutResponse;
 @RestController
 @RequestMapping("/internal/insurancePolicy")
 @CrossOrigin(origins = "http://localhost:4500")

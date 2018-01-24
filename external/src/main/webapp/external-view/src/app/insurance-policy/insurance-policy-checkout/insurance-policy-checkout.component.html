@@ -100,6 +100,43 @@
 	<div class="container">
 		<div class="col-sm-9 checkout-col">
 			<div class="section-title">Osigaranje vozila</div>
+			<table class="table">
+				<thead class="text-success">
+					<tr>
+						<th>Šlepovanje</th>
+						<th>Popravka do cene</th>
+						<th>Smeštaj</th>
+						<th>Prevoz</th>
+						<th>Broj dana</th>
+						<th>Tip vozila</th>
+						<th>Marka</th>
+						<th>Godište</th>
+						<th>Registarska oznaka</th>
+						<th>Broj šasije</th>
+						<th>Ime</th>
+						<th>Prezime</th>
+						<th>JMBG vlasnika</th>
+						
+						
+					</tr>
+				</thead>
+				<tbody>
+					<td>{{checkoutVar.slepovanje}}</td>
+					<td>{{checkoutVar.popravka}}</td>
+					<td>{{checkoutVar.smestaj}}</td>
+					<td>{{checkoutVar.prevoz}}</td>
+					<td>{{checkoutVar.durationForCar}}</td>
+					<td>{{checkoutVar.typeOfVehicle}}</td>
+					<td>{{checkoutVar.durationForCar}}</td>
+					<td>{{checkoutVar.year}}</td>
+					<td>{{checkoutVar.registrationNumber}}</td>
+					<td>{{checkoutVar.sasija}}</td>
+					<td>{{checkoutVar.firstNameOwnerCar}}</td>
+					<td>{{checkoutVar.lastNameOwnerCar}}</td>
+					<td>{{checkoutVar.lastNameOwnerCar}}</td>
+					
+				</tbody>
+			</table>
 			<div class="">Cena: {{carInsurancePrice}}</div>
 		</div>
 	</div>

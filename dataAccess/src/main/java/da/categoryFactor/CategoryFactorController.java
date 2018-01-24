@@ -1,6 +1,17 @@
 package da.categoryFactor;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.BadRequestException;
 
@@ -55,4 +66,6 @@ public class CategoryFactorController {
 			throw new BadRequestException();
 		}
 	}
+	
+	
 }

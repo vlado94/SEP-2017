@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
+import model.response.InsurancePolicyCalculatePriceResponse;
 
 @RestController
 @RequestMapping("/external/calculateSuggestedPrice")

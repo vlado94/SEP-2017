@@ -178,13 +178,13 @@ export class InsurancePolicyFormComponent {
         //let numOfPersons = +this.insurancePolicy.get('numberOfPersons').value;
         if (sum > 0) {
             result = true;
-            console.log("Valid");
+            //console.log("Valid");
         }
-        if (result)
+        /*if (result)
             console.log("Valid");
 
         else
-            console.log("Invalid");
+            console.log("Invalid");*/
 
         return result;
     }

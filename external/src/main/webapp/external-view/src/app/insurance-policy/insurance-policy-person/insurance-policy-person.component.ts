@@ -17,7 +17,7 @@ export class InsurancePolicyPersonComponent{
 	//@Output() updatePerson = new EventEmitter<InsurancePolicyPersonRequest[]>();
 	under16: number = 0;
     between16an60: number = 0;
-    over16: number = 0;
+    over60: number = 0;
     firstCategoryOfAge = 16;
     secondCategoryOfAge = 60;
 	
@@ -89,7 +89,7 @@ export class InsurancePolicyPersonComponent{
 		} else if (this.firstCategoryOfAge < age && age < this.secondCategoryOfAge) {
 			this.between16an60++;
 		} else if (age > this.secondCategoryOfAge) {
-			this.over16++;
+			this.over60++;
 		}
 	}
 
@@ -99,14 +99,14 @@ export class InsurancePolicyPersonComponent{
         } else if (this.firstCategoryOfAge < age && age < this.secondCategoryOfAge) {
             this.between16an60--;
         } else if (age > this.secondCategoryOfAge) {
-            this.over16--;
+            this.over60--;
         }
     }
 
     isNumberOfPersonsByAgeCorrect() {
         
         let result: boolean = false;
-        if (this.under16 == this.expectedNumbersByAgeCategories.firstCategory && this.between16an60 == this.expectedNumbersByAgeCategories.secondCategory && this.over16 == this.expectedNumbersByAgeCategories.thirdCategory) {
+        if (this.under16 == this.expectedNumbersByAgeCategories.firstCategory && this.between16an60 == this.expectedNumbersByAgeCategories.secondCategory && this.over60 == this.expectedNumbersByAgeCategories.thirdCategory) {
             result = true;
             return result;
         }

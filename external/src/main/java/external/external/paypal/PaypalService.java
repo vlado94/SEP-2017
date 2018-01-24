@@ -42,7 +42,7 @@ public class PaypalService {
         Amount amount = new Amount();
         amount.setCurrency(currency);
         //amount.setTotal(String.format("%.2f", 3d));
-        amount.setTotal("3.00");
+        amount.setTotal(total);
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
         transaction.setAmount(amount);

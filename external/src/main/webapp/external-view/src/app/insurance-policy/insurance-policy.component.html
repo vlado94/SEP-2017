@@ -36,7 +36,8 @@
 				<app-insurance-policy-form [hidden]="active_tab != 1" (nextTab)="changeTab($event)" [price]="policyPrice"
 				(savePolicyRequest)="savePolicyRequest($event)" [currentInsurancePolicy]="currentInsurancePolicy" (calculatePrice)="calculateInsurancePolicyPrice($event)"></app-insurance-policy-form>
 				
-				<app-insurance-policy-person [hidden]="active_tab != 2"  (nextTab)="changeTab($event)" (previousTab)="changeTab($event)" 
+				<app-insurance-policy-person [hidden]="active_tab != 2"  (nextTab)="changeTab($event)" 
+				(previousTab)="changeTab($event)" 
 				[expectedNumbersByAgeCategories]="age" (personsChanged)="addPerson($event)">
 				</app-insurance-policy-person>
 
@@ -52,7 +53,8 @@
 					[insurancePrice]="policyPrice"
 					[carInsurancePrice]="carInsurancePrice"
 					[homeInsurancePrice]="homeInsurancePrice"
-					[currentInsurancePolicy]="currentInsurancePolicy">
+					[currentInsurancePolicy]="currentInsurancePolicy"
+					[checkout]="checkout">
 					
 				</app-insurance-policy-checkout>
 			</div>

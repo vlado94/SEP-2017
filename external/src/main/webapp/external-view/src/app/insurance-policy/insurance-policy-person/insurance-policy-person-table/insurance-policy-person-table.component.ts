@@ -9,6 +9,10 @@ import { InsurancePolicyPersonRequest } from "../../insurance-policy-person-requ
 export class InsurancePolicyPersonTableComponent implements OnInit {
 
 	@Input() persons;
+	@Input() expectedNumbersByAgeCategories;
+	@Input() under16;
+	@Input() between16an60;
+	@Input() over60;
 	@Output() deletePerson = new EventEmitter<InsurancePolicyPersonRequest>();
 	@Output() selectForupdate = new EventEmitter<InsurancePolicyPersonRequest>();
 

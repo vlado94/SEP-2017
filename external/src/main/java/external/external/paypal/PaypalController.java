@@ -38,7 +38,9 @@ public class PaypalController {
 		System.out.println("successurl " + successUrl);
 		Payment payment;
 		try {
-			payment = paypalService.createPayment("3.00", "USD","paypal", "sale", "Opis paymenta", 
+			float price = insurancePolicyRequest.getPriceSum() / 100;
+			System.out.println("price " + price);
+			payment = paypalService.createPayment(Float.toString(price), "USD","paypal", "sale", "Opis paymenta", 
 					successUrl, "https://www.b92.net/", 1l, insurancePolicyRequest);
 			logger.info("Kreiran payment " + payment.getId());
 			for(Links links : payment.getLinks()){

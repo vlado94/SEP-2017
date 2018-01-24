@@ -13,7 +13,7 @@ public class InsurancePolicyCarRequest {
 	private String chassisNumber;
 	private String firstName;
 	private String lastName;
-	private String jmbg;
+	private String personNo;
 
 	public InsurancePolicyCarRequest() {
 		super();
@@ -35,7 +35,7 @@ public class InsurancePolicyCarRequest {
 		this.chassisNumber = chassisNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.jmbg = jmbg;
+		this.personNo = jmbg;
 	}
 
 	public Integer getDuration() {
@@ -134,12 +134,12 @@ public class InsurancePolicyCarRequest {
 		this.lastName = lastName;
 	}
 
-	public String getJmbg() {
-		return jmbg;
+	public String getPersonNo() {
+		return personNo;
 	}
 
-	public void setJmbg(String jmbg) {
-		this.jmbg = jmbg;
+	public void setPersonNo(String jmbg) {
+		this.personNo = jmbg;
 	}
 
 }

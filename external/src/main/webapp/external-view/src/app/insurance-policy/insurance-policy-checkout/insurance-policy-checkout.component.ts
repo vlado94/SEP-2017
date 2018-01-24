@@ -8,19 +8,33 @@ import { PaypalService } from './paypal.service';
 })
 export class InsurancePolicyCheckoutComponent implements OnInit {
 
-	@Output() nextTab = new EventEmitter<string>();
+	@Output() nextTab = new EventEmitter<number>();
 	@Input() persons;
 	@Input() insurancePrice;
 	@Input() carInsurancePrice;
 	@Input() homeInsurancePrice;
 	@Input() currentInsurancePolicy;
+	checkoutVar = null;
 	sum: number = 0;
 	goToUrl: string = null;
 
 	constructor(private paypalService: PaypalService) { }
 
 	ngOnInit() {
+		
 	}
+
+	changePreviousTab(){
+		this.nextTab.emit(3);
+	}
+
+	@Input()
+	set checkout(value){
+		if(value){
+			this.checkoutVar = value;
+			console.log("checkout " + JSON.stringify(this.checkoutVar));
+		}
+	}; 
 
 	paypal(){
 		//console.log(this.insurancePrice + this.carInsurancePrice + this.homeInsurancePrice);
@@ -29,9 +43,9 @@ export class InsurancePolicyCheckoutComponent implements OnInit {
 		this.currentInsurancePolicy.priceSum = this.sum;
 
 		this.paypalService.paypal(this.currentInsurancePolicy).subscribe(data => {
-                this.goToUrl = data;
-                window.location.href = this.goToUrl;
-            })
+			this.goToUrl = data;
+			window.location.href = this.goToUrl;
+		})
 		console.log("paypal");
 	}
 

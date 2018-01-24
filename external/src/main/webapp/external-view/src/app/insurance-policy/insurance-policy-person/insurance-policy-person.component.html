@@ -6,7 +6,10 @@
 		</div>
 		<div class="col-sm-6">
 			<div data-spy="scroll">
-				<app-insurance-policy-person-table [persons]="persons" (selectForupdate)="selectForUpdate($event)" (deletePerson)="deletePerson($event)"></app-insurance-policy-person-table>
+				<app-insurance-policy-person-table [persons]="persons" (selectForupdate)="selectForUpdate($event)" 
+				[expectedNumbersByAgeCategories]="expectedNumbersByAgeCategories"
+				[under16]="under16" [between16an60]="between16an60" [over60]="over60"
+				(deletePerson)="deletePerson($event)"></app-insurance-policy-person-table>
 			</div>
 		</div>
 		

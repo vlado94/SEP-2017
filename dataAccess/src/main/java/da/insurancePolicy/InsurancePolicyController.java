@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import da.insurancePolicyFinal.InsurancePolicyFinal;
+import da.insurancePolicyFinal.InsurancePolicyFinalService;
 import da.person.PersonService;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
@@ -46,6 +48,9 @@ public class InsurancePolicyController {
     @Autowired
     ConversionService conversionService;
     
+    
+    @Autowired
+    InsurancePolicyFinalService insurancePolicyFinalService;
     private static Logger logger = LoggerFactory.getLogger(InsurancePolicyController.class);
     
 	@PostMapping
@@ -139,8 +144,12 @@ public class InsurancePolicyController {
 	
 	@PostMapping("/getCheckout")
 	public InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest request) {
+
+		InsurancePolicyCheckoutResponse response = insurancePolicyService.getCheckout(request);
+		InsurancePolicyFinal insurancePolicyFinal = conversionService.convert(response, InsurancePolicyFinal.class);
 		
-		return insurancePolicyService.getCheckout(request);
+		insurancePolicyFinalService.save(insurancePolicyFinal);
+		return response;
 		
 	}
 	

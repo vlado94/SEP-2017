@@ -42,13 +42,13 @@ public class JCActivateController {
 			pinStr.add(Integer.toString(stack.pop()));		
 		}
 			
-		String APDU_PIN="0x80 0x20 0x00 0x00 0x05";
+		String APDU_PIN="0x80 0x20 0x00 0x00 0x04";
 		for(int i=0;i<4;i++)
 		{
 			APDU_PIN+=" 0x0"+ pinStr.get(i);
 		}
 		
-		APDU_PIN+=" 0x03 0x7F;";
+		APDU_PIN+=" 0x7F;";
 			
 		System.out.println(APDU_PIN);
 			

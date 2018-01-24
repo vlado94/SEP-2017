@@ -1,52 +1,54 @@
 <div class="col-md-8 col-md-offset-2 cont">
-	<div class=row card>
-		<div class="col-md-4 card1">
-		<div class="row img">
-		
-		</div>
-		<div class="row total">
-			<label class="totalLbl">T O T A L : 0.00</label>
-		</div>
-		</div>
-		<div class="col-md-8 card2">
-			<div class="row">
-				<div class="form-group">
-					<label>IME NOSIOCA:</label>
-					<input type="text" class="form-control" placeholder="IME NOSIOCA">
-				</div>
+	<div class="row card">
+		<form [formGroup]="myForm" novalidate (ngSubmit)="submitCardDataForm()">
+			<div class="col-md-4 card1">
+			<div class="row img">
+			
 			</div>
-			<div class="row">
-				<div class="form-group">
-					<label>BROJ KARTICE:</label>
-					<input type="text" class="form-control" placeholder="BROJ KARTICE">
-				</div>
+			<div class="row total">
+				<label class="totalLbl">T O T A L : 0.00</label>
 			</div>
-			<div class="row">
-				<div class="col-md-7 nopaddingL">
+			</div>
+			<div class="col-md-8 card2">
+				<div class="row">
 					<div class="form-group">
-						<label>DATUM ISTEKA:</label>
-						<input type="text" class="form-control" placeholder="DATUM ISTEKA">
+						<label>IME NOSIOCA:</label>
+						<input type="text" class="form-control" formControlName="holderName" placeholder="IME NOSIOCA">
 					</div>
 				</div>
-				<div class="col-md-5 nopaddingR nopaddingL">
+				<div class="row">
 					<div class="form-group">
-						<label>CVV2 KOD:</label>
-						<input type="text" class="form-control" placeholder="CVV2 KOD">
+						<label>BROJ KARTICE:</label>
+						<input type="text" class="form-control" formControlName="cardNum" placeholder="BROJ KARTICE">
 					</div>
 				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col-md-4 nopaddingL">
-					<button class="btn">PLATI</button>
+				<div class="row">
+					<div class="col-md-7 nopaddingL">
+						<div class="form-group">
+							<label>DATUM ISTEKA:</label>
+							<input type="text" class="form-control" formControlName="expDate" placeholder="DATUM ISTEKA">
+						</div>
+					</div>
+					<div class="col-md-5 nopaddingR nopaddingL">
+						<div class="form-group">
+							<label>CVV2 KOD:</label>
+							<input type="text" class="form-control" formControlName="cvv2" placeholder="CVV2 KOD">
+						</div>
+					</div>
 				</div>
-				<div class="col-md-8 cancel">
-					<a>ODUSTANI</a>
+				
+				<div class="row">
+					<div class="col-md-4 nopaddingL">
+						<button type="submit" class="btn">PLATI</button>
+					</div>
+					<div class="col-md-8 cancel">
+						<a>ODUSTANI</a>
+					</div>
 				</div>
+				
+				
+				
 			</div>
-			
-			
-			
-		</div>
+		</form>
 	</div>
 </div>

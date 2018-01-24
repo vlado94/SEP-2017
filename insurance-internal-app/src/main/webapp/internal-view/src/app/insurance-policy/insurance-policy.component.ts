@@ -29,7 +29,7 @@ import {InsurancePolicyService} from './insurance-policy.service';
 })
 export class InsurancePolicyComponent {
 
-    activeTab: string = '3';
+    activeTab: string = '1';
     //personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
@@ -37,11 +37,11 @@ export class InsurancePolicyComponent {
     insurancePolicyHome: InsurancePolicyHomeRequest = null;
 
     policyPrice = null;
-    carInsurancePrice: string = null;
-    homeInsurancePrice: string = null;
+    carInsurancePrice = null;
+    homeInsurancePrice = null;
     persons: InsurancePolicyPersonRequest[] = [];
     
-    checkout: string = null;
+    checkout = null;
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }
 
@@ -68,7 +68,6 @@ export class InsurancePolicyComponent {
     }
 
     insurancePolicyCarChanged(value) {
-        console.log("12334567876543456543");
         if (value && value.registrationNumber != null)
             this.insurancePolicyCar = value;
         else {
@@ -77,7 +76,6 @@ export class InsurancePolicyComponent {
     }
 
     insurancePolicyHomeChanged(value) {
-        console.log("12334567876543456543");
         if (value && value.address != null)
             this.insurancePolicyHome = value;
         else {
@@ -86,7 +84,6 @@ export class InsurancePolicyComponent {
     }
 
     calculateInsurancePolicyPrice(value) {
-        console.log("Calculating insurance policy price...")
         if (value) {
             this.insurancePolicyService.calculateSuggestedPrice(value).subscribe(price => {
                 this.policyPrice = price;
@@ -99,7 +96,6 @@ export class InsurancePolicyComponent {
     calculateHomeInsurancePrice(value) {
         if (value != null) {
 
-            console.log("222222222222222222222222222222222222");
             this.insurancePolicyService.calculateSuggestedPriceHome(value).subscribe(price => {
                 this.homeInsurancePrice = price;
             })
@@ -115,13 +111,11 @@ export class InsurancePolicyComponent {
                 this.carInsurancePrice = price;
             })
         } else {
-            console.log("11111111111111111111111");
             this.carInsurancePrice = null;
         }
     }
 
     personsChanged(value) {
-        console.log("Perons list changed")
         this.persons = value;
     }
 }

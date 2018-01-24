@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
+<<<<<<< HEAD
 
 	<property name="DEV_HOME" value="D:/logging.log" />
+=======
+	<property name="DEV_HOME" value="C:/Users/Vladimir/Desktop/logging.log" />
+>>>>>>> 02c4ab0dbce1a685044631d80468d7b0eeb9c8ae
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">

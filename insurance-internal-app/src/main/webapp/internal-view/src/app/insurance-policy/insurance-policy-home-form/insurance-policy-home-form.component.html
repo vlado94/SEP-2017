@@ -1,11 +1,11 @@
-<div class="form-title">Osiguranje kuće ili stana</div>
+<div class="form-title">Osiguranje kuÄ‡e ili stana</div>
 
 <form [formGroup]="insurancePolicyHomeForm"
 	(ngSubmit)="set(insurancePolicyHomeForm.value)">
 	<div class="form-group row">
 		<label for="duration" class="col-4">Trajanje osiguranja:</label>
 		<div class="col-5">
-			<input id="duration" type="text" class="form-control"
+			<input name="duration" type="text" class="form-control"
 				formControlName="duration"
 				[ngClass]="{'is-invalid':insurancePolicyHomeForm.controls['duration'].errors && !insurancePolicyHomeForm.controls['duration'].pristine}">
 
@@ -89,7 +89,7 @@
 			<select id="risk" class="form-control" formControlName="risk"
 				[ngClass]="{'is-invalid':insurancePolicyHomeForm.controls['risk'].errors && !insurancePolicyHomeForm.controls['risk'].pristine}">
 
-				<option value="">Izaberite od čega se stan osigurava</option>
+				<option value="">Izaberite od Ä�ega se stan osigurava</option>
 				<option *ngFor="let p of risks" value="{{p.id}}">{{p.name}}</option>
 
 			</select>
@@ -106,7 +106,7 @@
 	<div class="form-group row">
 		<label for="address" class="col-4">Adresa:</label>
 		<div class="col-5">
-			<input id="address" type="text" class="form-control"
+			<input name="address" type="text" class="form-control"
 				formControlName="address"
 				[ngClass]="{'is-invalid':insurancePolicyHomeForm.controls['address'].errors && !insurancePolicyHomeForm.controls['address'].pristine}">
 
@@ -124,7 +124,7 @@
 	<div class="form-group row">
 		<label for="firstName" class="col-4">Ime vlasnika:</label>
 		<div class="col-5">
-			<input id="firstName" type="text" class="form-control"
+			<input name="firstName" type="text" class="form-control"
 				formControlName="firstName"
 				[ngClass]="{'is-invalid':insurancePolicyHomeForm.controls['firstName'].errors && !insurancePolicyHomeForm.controls['firstName'].pristine}">
 
@@ -145,7 +145,7 @@
 	<div class="form-group row">
 		<label for="lastName" class="col-4">Prezime vlasnika:</label>
 		<div class="col-5">
-			<input id="lastName" type="text" class="form-control"
+			<input name="lastName" type="text" class="form-control"
 				formControlName="lastName"
 				[ngClass]="{'is-invalid':insurancePolicyHomeForm.controls['lastName'].errors && !insurancePolicyHomeForm.controls['lastName'].pristine}">
 
@@ -164,9 +164,9 @@
 	</div>
 
 	<div class="form-group row">
-		<label for="jmbg" class="col-4">Matični broj vlasnika stana:</label>
+		<label for="jmbg" class="col-4">MatiÄ�ni broj vlasnika stana:</label>
 		<div class="col-5">
-			<input id="jmbg" type="text" class="form-control"
+			<input name="jmbg" type="text" class="form-control"
 				formControlName="jmbg"
 				[ngClass]="{'is-invalid':insurancePolicyHomeForm.controls['jmbg'].errors && !insurancePolicyHomeForm.controls['jmbg'].pristine}">
 
@@ -179,7 +179,7 @@
 				uneti jedinstveni matični broj.</div>
 			<div
 				*ngIf="insurancePolicyHomeForm.controls['jmbg'].errors.minlength">Jedinstveni
-				matični broj sadrži 13 cifara.</div>
+				matiÄ�ni broj sadrži 13 cifara.</div>
 			<div
 				*ngIf="insurancePolicyHomeForm.controls['jmbg'].errors.maxlength">Jedinstveni
 				matični broj sadrži 13 cifara.</div>

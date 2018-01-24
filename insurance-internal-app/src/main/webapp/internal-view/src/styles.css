@@ -20,6 +20,15 @@
 	margin-bottom:20px;
 }
 
+.fixed-left-currency{
+	position:absolute;
+	left: -12px;
+}
+
+.navigation-button{
+	margin-top:40px;
+}
+
 .col-popusti{
 	padding-top:25px;
 	padding-bottom:25px;

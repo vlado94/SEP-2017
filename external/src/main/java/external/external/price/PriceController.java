@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCheckoutRequest;
-import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
+import model.response.InsurancePolicyCalculatePriceResponse;
+import model.response.InsurancePolicyCheckoutResponse;
 
 @RestController
 @RequestMapping("/external/calculateSuggestedPrice")
@@ -68,7 +68,7 @@ public class PriceController {
 	
 	@PostMapping("/checkout")
 	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
-		System.out.println("aaaaaaaaaaaaaaaaaaa");
+	
 		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
 		return response;

@@ -2,7 +2,8 @@
 
 	<div class="col-12">
 		<app-insurance-policy-person-form [current]="currentPerson"
-			[persons]="persons" [contractorExists]="contractorExists" (onFormSubmit)="onSubmit($event)"
+			[persons]="persons" [contractorExists]="contractorExists"
+			(onFormSubmit)="onSubmit($event)"
 			(resetCurrent)="resetCurrent($event)"></app-insurance-policy-person-form>
 	</div>
 
@@ -56,8 +57,13 @@
 			(selectForUpdate)="setForUpdate($event)"
 			(deletePerson)="delete($event)"></app-insurance-policy-person-list>
 	</div>
-
-	<button class="btn fixed-left" (click)="changeTab('1')">Nazad</button>
-	<button class="btn fixed-right" (click)="changeTab('3')"
-		[disabled]="!isNumberOfPersonsByAgeCorrect || !contractorExists">Dalje</button>
+	<div class="col-12">
+		<button class="btn float-left navigation-button" (click)="changeTab('1')">
+			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+		</button>
+		<button class="btn float-right navigation-button" (click)="changeTab('3')"
+			[disabled]="!isNumberOfPersonsByAgeCorrect || !contractorExists">
+			<i class="fa fa-arrow-right" aria-hidden="true"></i>
+		</button>
+	</div>
 </div>

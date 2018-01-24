@@ -57,15 +57,43 @@
 
 				</tbody>
 			</table>
-		
+
 
 		</div>
-			<div class="">Cena: {{insurancePrice}}</div>
+		<div class="">Cena: {{insurancePrice}}</div>
 		
 	</div>
 	<div class="container">
 		<div class="col-sm-9 checkout-col">
 			<div class="section-title">Osigaranje kuće</div>
+			<table class="table">
+				<thead class="text-success">
+					<tr>
+						<th>Broj dana</th>
+						<th>Povrsina</th>
+						<th>Starost</th>
+						<th>Vrednost</th>
+						<th>Osiguranje od</th>
+						<th>Adresa</th>
+						<th>Ime</th>
+						<th>Prezime</th>
+						<th>JMBG vlasnika</th>
+						
+						
+					</tr>
+				</thead>
+				<tbody>
+					<td>{{checkoutVar.durationForHome}}</td>
+					<td>{{checkoutVar.size}}</td>
+					<td>{{checkoutVar.age}}</td>
+					<td>{{checkoutVar.value}}</td>
+					<td>{{checkoutVar.address}}</td>
+					<td>{{checkoutVar.firstNameOwnerHome}}</td>
+					<td>{{checkoutVar.lastNameOwnerHome}}</td>
+					<td>{{checkoutVar.lastNameOwnerHome}}</td>
+					
+				</tbody>
+			</table>
 			<div class="">Cena: {{homeInsurancePrice}}</div>
 		</div>
 	</div>

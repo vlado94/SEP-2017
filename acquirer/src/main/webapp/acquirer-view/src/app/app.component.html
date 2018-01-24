@@ -1,6 +1,6 @@
 <div class="col-md-8 col-md-offset-2 cont">
-	<div class=row card>
-		<form (ngSubmit)="submitCardDataForm()">
+	<div class="row card">
+		<form [formGroup]="myForm" novalidate (ngSubmit)="submitCardDataForm()">
 			<div class="col-md-4 card1">
 			<div class="row img">
 			

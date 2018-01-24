@@ -4,8 +4,7 @@
 		<div class="col-sm-6">
 			<div class="card">
 				<div class="card-header" data-background-color="green">
-					<h4 class="title">Edit Profile</h4>
-					<p class="category">Complete your profile</p>
+					<h4 class="title">Unesite podatke o osiguranju</h4>
 				</div>
 				<div class="card-content">
 
@@ -76,12 +75,17 @@
 									<input type="text" class="form-control" formControlName="numberOfPersonsOver60">
 								</div>
 							</div>
+							<div 
+							*ngIf="(!insurancePolicyForm.controls['numberOfPersonsUpTo16'].pristine ||
+							!insurancePolicyForm.controls['numberOfPersonsBetween16And60'].pristine ||
+							!insurancePolicyForm.controls['numberOfPersonsOver60'].pristine) && !checkNumberOfPeople()"><span class="errorClass">Morate uneti bar jednog putnika.</span></div>
 						</div>			
 
 						<div>
 							<div class="form-group form-black label-floating">
 								<label for="exampleSelect1" class="bmd-label-floating control-label">Region</label>
-								<select class="form-control" formControlName="region" (blur)="displayRegionErrors=true">
+								<select class="form-control" formControlName="region" 
+								(blur)="displayRegionErrors=true">
 									<option></option>
 									<option *ngFor="let region of regions" value="{{region.id}}">{{region.name}}</option>
 								</select>
@@ -93,14 +97,15 @@
 						</div>
 						<div class="form-group form-black label-floating">
 							<label class="bmd-label-floating control-label">Iznos</label>
-							<select class="form-control" formControlName="amount" (blur)="displayAmountErrors=true">
+							<select class="form-control" formControlName="amount" 
+							(blur)="displayAmountErrors=true">
 								<option value=""></option>
 								<option *ngFor="let amount of amounts" value="{{amount.id}}">{{amount.name}}</option>
 							</select>
 							<div *ngIf="insurancePolicyForm.controls['amount'].errors && !insurancePolicyForm.controls['amount'].pristine && displayAmountErrors">
 
-									<span class="errorClass" *ngIf="insurancePolicyForm.controls['amount'].errors.required">Morate izabrati iznos do kojeg želite da se osigurate.</span>
-								</div>
+								<span class="errorClass" *ngIf="insurancePolicyForm.controls['amount'].errors.required">Morate izabrati iznos do kojeg želite da se osigurate.</span>
+							</div>
 						</div>
 						<div>
 							<div class="form-group form-black label-floating">

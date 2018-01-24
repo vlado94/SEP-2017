@@ -14,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 
 @RestController
@@ -62,6 +64,14 @@ public class PriceController {
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
 		logger.info("Izracunata cena za kucnu-polisu "+price);
 		return price;
+	}
+	
+	@PostMapping("/checkout")
+	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
+		System.out.println("aaaaaaaaaaaaaaaaaaa");
+		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+		return response;
 	}
 	
 	public String getDataccessPortHttps() {

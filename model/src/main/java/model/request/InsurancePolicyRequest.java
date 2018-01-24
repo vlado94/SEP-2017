@@ -14,7 +14,7 @@ public class InsurancePolicyRequest {
 	private Long amount;
 	private Long typeOfPolicy;
 	private List<PersonRequest> persons;
-	private int priceSum;
+	private float priceSum;
 
 	private Integer firstAgeCategory;
 	private Integer secondAgeCategory;
@@ -96,7 +96,7 @@ public class InsurancePolicyRequest {
 		this.persons = persons;
 	}
 
-	public int getPriceSum() {
+	public float getPriceSum() {
 		return priceSum;
 	}
 

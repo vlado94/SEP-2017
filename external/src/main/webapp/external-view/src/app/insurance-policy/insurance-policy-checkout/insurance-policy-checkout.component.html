@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="checkoutVar">
 	<div class = "container">
 		<div class="col-sm-9">
 			<div class="section-title">Putnici</div>
@@ -21,7 +21,7 @@
 						<td>{{person.lastName}}</td>
 						<td>{{person.personNo}}</td>
 						<td>{{person.passportNo}}</td>
-						<td>{{person.phoneNo}}</td>
+						<td>{{person.phone}}</td>
 						<td>{{person.email}}</td>
 						
 					</tr>
@@ -47,12 +47,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<td>{{currentInsurancePolicy.startDate | date:'dd/MM/yyyy'}}</td>
-					<td>{{currentInsurancePolicy.duration}}</td>
-					<td>{{currentInsurancePolicy.typeOfPolicy}}</td>
-					<td>{{currentInsurancePolicy.region}}</td>
-					<td>{{currentInsurancePolicy.amount}}</td>
-					<td>{{currentInsurancePolicy.sport}}</td>
+					<td>{{checkoutVar.startDate | date:'dd/MM/yyyy'}}</td>
+					<td>{{checkoutVar.durationForTravel}}</td>
+					<td>{{checkoutVar.typeOfPolicy}}</td>
+					<td>{{checkoutVar.region}}</td>
+					<td>{{checkoutVar.amount}}</td>
+					<td>{{checkoutVar.sport}}</td>
 					
 
 				</tbody>

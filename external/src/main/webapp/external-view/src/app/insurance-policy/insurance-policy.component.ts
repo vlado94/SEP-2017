@@ -5,6 +5,8 @@ import { InsurancePolicyHome } from './insurance-policy-home-car/policy-home';
 import { InsurancePolicyCar } from './insurance-policy-home-car/policy-car';
 
 import { InsurancePolicyService } from './insurance-policy.service'
+import { InsurancePolicyCheckoutRequest } from './insurance-policy-checkout-request';
+
 
 @Component({
 	selector: 'app-insurance-policy',
@@ -23,6 +25,8 @@ export class InsurancePolicyComponent implements OnInit {
 	policyPrice = null;
 	carInsurancePrice = null;
 	homeInsurancePrice = null;
+    checkout: string = null;
+
 
 
 	constructor(private insurancePolicyService: InsurancePolicyService) { }
@@ -34,6 +38,14 @@ export class InsurancePolicyComponent implements OnInit {
 	changeTab(value: number){
 		console.log("promeni tab")
 		this.active_tab = value;
+		if (value == 4){
+            this.currentInsurancePolicy.persons = this.persons;
+            var checkoutRequest:InsurancePolicyCheckoutRequest = new InsurancePolicyCheckoutRequest(this.currentInsurancePolicy,this.insurancePolicyCar,this.insurancePolicyHome);
+            this.insurancePolicyService.getCheckout(checkoutRequest).subscribe(result => {
+                this.checkout = result;
+            });
+
+        }
 	}
 
 	savePolicyRequest(insurancePolicyRequest: InsurancePolicyRequest){

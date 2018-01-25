@@ -34,4 +34,6 @@ export class InsurancePolicyService {
         return this.http.post(this.apiUrl+"/calculateSuggestedPrice/checkout",checkoutRequest)
         .map(res=>res.json());    
     }
+
+   
 }

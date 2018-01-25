@@ -14,8 +14,13 @@ export class PaypalService {
 
 	constructor(private http: Http) { }
 
-	paypal(currentInsurancePolicy:InsurancePolicyRequest) : Observable<string> {
+	paypal(currentInsurancePolicy:any) : Observable<string> {
 		return this.http.post(this.apiUrl+"/paypal",currentInsurancePolicy).map(res=>res.text());
 	}
+
+	 sendToAcquirer(checkoutVar: any){
+    	return this.http.post(this.apiUrl+"/acquirer", checkoutVar)
+    		.map(res=>res.json());
+    }
 
 }

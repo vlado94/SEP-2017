@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sep.acquirer.model.PaymentRequest;
+import com.sep.acquirer.paymentRequest.PaymentRequest;
 
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4600")
 public class PaymentController {
 
 	@GetMapping("/test")

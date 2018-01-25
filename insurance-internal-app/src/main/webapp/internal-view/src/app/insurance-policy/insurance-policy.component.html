@@ -26,7 +26,7 @@
 
 
 		<div class="col-12">
-			<app-insurance-policy-person [expectedNumbersByAgeCategories]="age"
+			<app-insurance-policy-person [age]="age"
 				[hidden]="activeTab !=='2'" (nextTab)="nextTab($event)" (personsChanged)="personsChanged($event)"></app-insurance-policy-person>
 		</div>
 

@@ -10,7 +10,7 @@ import {InsurancePolicyPersonRequest} from './insurance-policy-person-form/insur
 
 export class InsurancePolicyPersonComponent {
 
-    @Input() expectedNumbersByAgeCategories;
+    expectedNumbersByAgeCategories;
     currentPerson: InsurancePolicyPersonRequest;
     persons: InsurancePolicyPersonRequest[] = [];
     @Output() nextTab = new EventEmitter<string>();
@@ -27,6 +27,14 @@ export class InsurancePolicyPersonComponent {
         this.nextTab.emit(value);
     }
 
+    
+    @Input()
+    set age(value){
+        this.expectedNumbersByAgeCategories = value;
+        this.isNumberOfPersonsByAgeCorrect = this.isNumberOfPersonsCorrect();
+    };
+
+    
     onSubmit(value: InsurancePolicyPersonRequest) {
         if(value.contractor){
             this.contractorExists = true;
@@ -116,11 +124,6 @@ export class InsurancePolicyPersonComponent {
         if (this.under16 == this.expectedNumbersByAgeCategories.firstCategory && this.between16an60 == this.expectedNumbersByAgeCategories.secondCategory && this.over16 == this.expectedNumbersByAgeCategories.thirdCategory) {
             result = true;
         }
-        if (result) {
-            console.log("Broj korisnika po godinama se poklapa sa unetim brojem korisnika po godinama...")
-
-        } else
-            console.log("Broj korisnika po godinama se ne poklapa sa unetim brojem korisnika po godinama...")
 
         return result;
     }

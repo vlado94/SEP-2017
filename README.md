@@ -9,3 +9,5 @@ Insurance app pokrecemo na portu 4500, a external app na portu 4300
 
 
 external app za mobilnu aplikaciju se pokrece sa --host 0.0.0.0
+
+acquirer app pokrecemo na portu 4600

@@ -16,8 +16,9 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
-import external.external.price.PriceController;
+import model.request.InsurancePolicyCheckoutRequest;
 import model.request.InsurancePolicyRequest;
+import model.response.InsurancePolicyCheckoutResponse;
 
 @RestController
 @RequestMapping("/external/paypal")
@@ -32,16 +33,16 @@ public class PaypalController {
 	
 	private static Logger logger = LoggerFactory.getLogger(PaypalController.class);
 	
-	@PostMapping
-	private String paypal(@RequestBody InsurancePolicyRequest insurancePolicyRequest) {
+	@PostMapping 
+	private String paypal(@RequestBody InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse) {
 		String successUrl = URLUtils.getBaseURl(request) + "/external/paypal/execute";
 		System.out.println("successurl " + successUrl);
 		Payment payment;
 		try {
-			float price = insurancePolicyRequest.getPriceSum() / 100;
+			double price = insurancePolicyCheckoutResponse.getTotalPrice() / 100;
 			System.out.println("price " + price);
-			payment = paypalService.createPayment(Float.toString(price), "USD","paypal", "sale", "Opis paymenta", 
-					successUrl, "https://www.b92.net/", 1l, insurancePolicyRequest);
+			payment = paypalService.createPayment(Double.toString(price), "USD","paypal", "sale", "Opis paymenta", 
+					successUrl, "https://www.b92.net/", 1l, insurancePolicyCheckoutResponse);
 			logger.info("Kreiran payment " + payment.getId());
 			for(Links links : payment.getLinks()){
 			    if(links.getRel().equals("approval_url")){
@@ -65,8 +66,8 @@ public class PaypalController {
 		String token=(String) request.getParameter("token");
 		String paymentId=(String) request.getParameter("paymentId");
 		String payerId=(String) request.getParameter("PayerID");
-		InsurancePolicyRequest insurancePolicyRequest = paypalService.getInsuranceMap(paymentId);
-		System.out.println(insurancePolicyRequest.toString());
+		InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse = paypalService.getInsuranceMap(paymentId);
+		System.out.println(insurancePolicyCheckoutResponse.toString());
 		logger.info("Izvrsen payment " + paymentId);
 		try {
 			paypalService.executePayment(paymentId, payerId);

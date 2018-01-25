@@ -146,9 +146,9 @@ public class InsurancePolicyController {
 	public InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest request) {
 
 		InsurancePolicyCheckoutResponse response = insurancePolicyService.getCheckout(request);
-		InsurancePolicyFinal insurancePolicyFinal = conversionService.convert(response, InsurancePolicyFinal.class);
+		/*InsurancePolicyFinal insurancePolicyFinal = conversionService.convert(response, InsurancePolicyFinal.class);
 		
-		insurancePolicyFinalService.save(insurancePolicyFinal);
+		insurancePolicyFinalService.save(insurancePolicyFinal);*/
 		return response;
 		
 	}

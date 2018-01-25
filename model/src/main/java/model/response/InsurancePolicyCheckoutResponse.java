@@ -9,7 +9,7 @@ import model.request.PersonRequest;
 public class InsurancePolicyCheckoutResponse {
   /*travel*/
 	private LocalDate startDate;
-	private int durationForTravel;
+	private Integer durationForTravel;
 	private String region;
 	private String sport;
 	private String amount;
@@ -52,7 +52,7 @@ public class InsurancePolicyCheckoutResponse {
 	}
 	
 	
-	public InsurancePolicyCheckoutResponse(LocalDate startDate, int durationForTravel, String region, String sport,
+	public InsurancePolicyCheckoutResponse(LocalDate startDate, Integer durationForTravel, String region, String sport,
 			String amount, String typeOfPolicy, List<PersonRequest> persons,
 			InsurancePolicyCalculatePriceResponse priceAndDiscountsForTravel, Integer durationForHome, String risk,
 			String value, String age, String size, String address, String firstNameOwnerHome, String lastNameOwnerHome,
@@ -104,12 +104,12 @@ public class InsurancePolicyCheckoutResponse {
 	}
 
 
-	public int getDurationForTravel() {
+	public Integer getDurationForTravel() {
 		return durationForTravel;
 	}
 
 
-	public void setDurationForTravel(int durationForTravel) {
+	public void setDurationForTravel(Integer durationForTravel) {
 		this.durationForTravel = durationForTravel;
 	}
 

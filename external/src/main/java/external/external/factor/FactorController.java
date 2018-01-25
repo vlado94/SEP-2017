@@ -52,7 +52,7 @@ public class FactorController {
 	}
 	
 	
-	@Bean
+	/*@Bean
 	public RestTemplate restTemplate() {
 		try {
 			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());//TODO: hide password
@@ -75,6 +75,6 @@ public class FactorController {
 		catch(Exception exc) {
 			return null;
 		}
-	}
+	}*/
 
 }

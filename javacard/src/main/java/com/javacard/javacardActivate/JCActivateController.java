@@ -27,7 +27,7 @@ public class JCActivateController {
 	private Boolean doCheck(@PathVariable int pin) throws IOException {
 		//dodati i parametar korisnika ciju cemo karticu pokrenuti
 		
-		int id=2;
+		int id=1;
 		String finalDestination="";
 		
 		if(id==1)
@@ -58,6 +58,7 @@ public class JCActivateController {
 		int pinCounter=0;
 		String wrongPinResponse="SW1: 63";
 		String correctPinResponse="SW1: 90";
+		String validationComand="INS: 20";
 		ArrayList<String> pinStr=new ArrayList<>();
 		boolean response=true;//init
 		LinkedList<Integer> stack = new LinkedList<Integer>();
@@ -144,20 +145,31 @@ public class JCActivateController {
 			{
 				System.out.println(line1);
 				
-				if(line1.toLowerCase().contains(wrongPinResponse.toLowerCase()))
+				if(line1.toLowerCase().contains(validationComand.toLowerCase()))
 				{
-					++pinCounter;
-				      
+					if(line1.toLowerCase().contains(wrongPinResponse.toLowerCase()))
+					{
+						++pinCounter;
+					}
+					else
+					{
+						pinCounter=0;
+					} 
+					
 					if(pinCounter==3)
 					{
 						//////
 						// ukoliko je 3 puta za redom pogresen pin
-						// vracamo da je kartica blokirana
+						// ubaciti deo d se u bazi promeni da je kartica boliranaa 
 						//////
 						cardBlocked = true;
 						System.out.println("3 neuspesna pokusaja,kartica je blokirana");
 					}
-					cardBlocked=false;
+					else
+					{
+						cardBlocked=false;
+					}
+					
 				}
 				
 				// read next line

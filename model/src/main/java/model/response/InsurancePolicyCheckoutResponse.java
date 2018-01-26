@@ -26,7 +26,7 @@ public class InsurancePolicyCheckoutResponse {
 	private String address;
 	private String firstNameOwnerHome;
 	private String lastNameOwnerHome;
-	//private String jmbgOwnerHome;
+	private String jmbgOwnerHome;
 	private Double priceForHome;
 	
 	/*car*/
@@ -41,7 +41,8 @@ public class InsurancePolicyCheckoutResponse {
 	private String chassisNumber;
 	private String firstNameOwnerCar;
 	private String lastNameOwnerCar;
-	//private String jmbgOwnerCar;
+	private String jmbgOwnerCar;
+	private String carBrand;
 	private InsurancePolicyCalculatePriceResponse priceAndDiscountsForCar;
 	
 	
@@ -392,7 +393,35 @@ public class InsurancePolicyCheckoutResponse {
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
-	
+
+
+	public String getJmbgOwnerHome() {
+		return jmbgOwnerHome;
+	}
+
+
+	public void setJmbgOwnerHome(String jmbgOwnerHome) {
+		this.jmbgOwnerHome = jmbgOwnerHome;
+	}
+
+
+	public String getJmbgOwnerCar() {
+		return jmbgOwnerCar;
+	}
+
+
+	public void setJmbgOwnerCar(String jmbgOwnerCar) {
+		this.jmbgOwnerCar = jmbgOwnerCar;
+	}
+
+
+	public String getCarBrand() {
+		return carBrand;
+	}
+
+
+	public void setCarBrand(String carBrand) {
+		this.carBrand = carBrand;
+	}
 	
 }

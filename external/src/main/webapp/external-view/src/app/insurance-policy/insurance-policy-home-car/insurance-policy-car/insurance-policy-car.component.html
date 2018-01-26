@@ -68,10 +68,10 @@
 						<label class="bmd-label-floating control-label">Tip vozila</label>
 						<select id="typeOfVehicle" class="form-control"	formControlName="typeOfVehicle" (blur)="displayTypeOfVehicleErrors=true">
 							<option value=""></option>
-							<option value="1">Teretno vozilo</option>
-							<option value="2">Priključno vozila</option>
-							<option value="3">Putničko vozilo</option>
-							<option value="4">Ostala vozila</option>
+							<option value="Teretno vozilo">Teretno vozilo</option>
+							<option value="Priključno vozilo">Priključno vozilo</option>
+							<option value="Putničko vozilo">Putničko vozilo</option>
+							<option value="Ostala vozila">Ostala vozila</option>
 						</select>
 						<div *ngIf="insurancePolicyCarForm.controls['typeOfVehicle'].errors && !insurancePolicyCarForm.controls['typeOfVehicle'].pristine && displayTypeOfVehicleErrors">
 

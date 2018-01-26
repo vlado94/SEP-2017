@@ -35,6 +35,7 @@ import { FactorService } from './factor/factor.service';
 import { InsurancePolicyService } from './insurance-policy/insurance-policy.service';
 import { InsurancePolicyCheckoutComponent } from './insurance-policy/insurance-policy-checkout/insurance-policy-checkout.component';
 import { PaypalService } from './insurance-policy/insurance-policy-checkout/paypal.service';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { PaypalService } from './insurance-policy/insurance-policy-checkout/payp
     InsurancePolicyHomeCarComponent,
     InsurancePolicyCarComponent,
     InsurancePolicyHomeComponent,
-    InsurancePolicyCheckoutComponent
+    InsurancePolicyCheckoutComponent,
+    AboutComponent
 
   ],
   imports: [BsDatepickerModule.forRoot(),

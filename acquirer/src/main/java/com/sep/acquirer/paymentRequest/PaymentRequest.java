@@ -7,7 +7,7 @@ public class PaymentRequest {
 	private String cardNum;
 	private String expDate;
 	private String cvv2;
-	private String policyPrice;
+	private double policyPrice;
 	private String policyID;
 
 	public PaymentRequest() {
@@ -15,7 +15,7 @@ public class PaymentRequest {
 	}
 	
 	
-	public PaymentRequest(String holderName, String cardNum, String expDate, String cvv2, String policyPrice,
+	public PaymentRequest(String holderName, String cardNum, String expDate, String cvv2, double policyPrice,
 			String policyID) {
 		super();
 		this.holderName = holderName;
@@ -53,12 +53,12 @@ public class PaymentRequest {
 	}
 
 
-	public String getPolicyPrice() {
+	public double getPolicyPrice() {
 		return policyPrice;
 	}
 
 
-	public void setPolicyPrice(String policyPrice) {
+	public void setPolicyPrice(double policyPrice) {
 		this.policyPrice = policyPrice;
 	}
 

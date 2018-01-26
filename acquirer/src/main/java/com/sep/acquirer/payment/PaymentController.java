@@ -42,7 +42,10 @@ public class PaymentController {
 	@PostMapping("/pay")
 	private void Pay(HttpServletResponse httpServletResponse, @RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
-		Bank bank = bankService.findByAccountNumber(paymentRequest.getCardNum());
+		String bankCode = "";
+		if(paymentRequest.getCardNum().length()>3)
+			bankCode = paymentRequest.getCardNum().substring(0, 3);
+		Bank bank = bankService.findByCode(bankCode);
 		if(bank != null) {
 			if(bank.getPort().equals(port))
 				transactionService.submitPayment(paymentRequest);

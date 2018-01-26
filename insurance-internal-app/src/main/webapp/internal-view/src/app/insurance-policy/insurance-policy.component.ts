@@ -29,7 +29,7 @@ import {InsurancePolicyService} from './insurance-policy.service';
 })
 export class InsurancePolicyComponent {
 
-    activeTab: string = '1';
+    activeTab: string = '3';
     //personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);

@@ -2,6 +2,12 @@ package com.sep.acquirer.bank;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
+@Service
+@Transactional
 public class BankServiceImpl implements BankService {
 
 	@Override

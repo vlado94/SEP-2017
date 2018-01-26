@@ -181,6 +181,36 @@ public class JCActivateController {
 				e.printStackTrace();
 			}	
 	    
+	    //////////////////
+	    //reader aplet source-a
+	    //////////////////
+	    BufferedReader reader2;
+	    try {
+	    	reader2 = new BufferedReader(new FileReader(
+			"C:\\JavaCard33\\samples\\"
+			+ "classic_applets\\"+finalDestination+"\\wallet.scr"));
+			String line1 = reader2.readLine();
+			String[] temp;
+			while (line1 != null)
+			{
+				
+				
+				if(line1.contains("PAN"))
+				{
+					temp=line1.split(" ");
+					System.out.println("PAN PAN PAN PAN PAN");
+					System.out.println(temp[1]);
+				}
+				
+				// read next line
+				line1 = reader2.readLine();
+			}
+				reader2.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+	    
 	    
 	    ///////////
 	    //citanje poslednje komande

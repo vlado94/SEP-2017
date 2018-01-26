@@ -2,10 +2,16 @@ package com.sep.acquirer.transaction;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sep.acquirer.paymentRequest.PaymentRequest;
 
 
-
+@Service
+@Transactional
 public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
@@ -34,5 +40,14 @@ public class TransactionServiceImpl implements TransactionService {
 	public void delete(Long id) {
 		repository.delete(id);
 	}
+
+	@Override
+	public boolean submitPayment(PaymentRequest paymentRequest) {
+		// TODO Auto-generated method stub
+		System.out.println(paymentRequest );
+		return false;
+	}
+	
+	
 
 }

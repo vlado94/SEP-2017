@@ -1,5 +1,7 @@
 package com.sep.acquirer.payment;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,13 +40,15 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/pay")
-	private void Pay(@RequestBody PaymentRequest paymentRequest) {
+	private void Pay(HttpServletResponse httpServletResponse, @RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
 		Bank bank = bankService.findByAccountNumber(paymentRequest.getCardNum());
-		if(bank.getPort().equals(port))
-			transactionService.submitPayment(paymentRequest);
-		else
-			System.out.println("REDIRECT, TODO");
+		if(bank != null) {
+			if(bank.getPort().equals(port))
+				transactionService.submitPayment(paymentRequest);
+			else
+				System.out.println("HTTP CLIENT TO ANOTHER BANK");
+		}
 	}
 	
 	

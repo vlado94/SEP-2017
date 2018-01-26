@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.sep.acquirer.bank.Bank;
 import com.sep.acquirer.bank.BankService;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
@@ -47,8 +45,10 @@ public class PaymentController {
 			bankCode = paymentRequest.getCardNum().substring(0, 3);
 		Bank bank = bankService.findByCode(bankCode);
 		if(bank != null) {
-			if(bank.getPort().equals(port))
-				transactionService.submitPayment(paymentRequest);
+			if(bank.getPort().equals(port)) {
+				if(transactionService.submitPayment(paymentRequest))
+					System.out.println("SUCCESFUL PAYMENT");
+			}
 			else
 				System.out.println("HTTP CLIENT TO ANOTHER BANK");
 		}

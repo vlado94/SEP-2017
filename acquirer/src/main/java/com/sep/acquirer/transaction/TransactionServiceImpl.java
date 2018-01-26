@@ -1,8 +1,5 @@
 package com.sep.acquirer.transaction;
 
-import static org.mockito.Matchers.doubleThat;
-
-import java.util.Currency;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,7 +7,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sep.acquirer.bank.BankRepository;
 import com.sep.acquirer.bankMember.BankMember;
 import com.sep.acquirer.bankMember.BankMemberRepository;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
@@ -52,14 +48,37 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public boolean submitPayment(PaymentRequest paymentRequest) {
 		
-		//first 3 are bank code
-		String accountNumber = paymentRequest.getCardNum().substring(3);
+		if(this.checkRequestData(paymentRequest)) {
+			
+			BankMember member = memberRepository.findByBillNumber(Double.parseDouble(paymentRequest.getCardNum()));
+			if(member != null) {
+				
+				double curentAmount = member.getAmount();
+				member.setAmount(curentAmount - paymentRequest.getPolicyPrice());
+				
+				if( memberRepository.save(member) != null)
+				{	//Save transaction if member amount is updated
+					Transaction transaction = new Transaction();
+					transaction.setAmount(paymentRequest.getPolicyPrice());
+					transaction.setBank(member.getBank());
+					transaction.setBankMember(member);
+					repository.save(transaction);
+				}
+				
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkRequestData(PaymentRequest paymentRequest) {
 		
-		BankMember member = memberRepository.findByCardNumber(accountNumber);
-		if(member != null) {
-			double curentAmount = member.getAmount();
-			member.setAmount(curentAmount - paymentRequest.getPolicyPrice());
-			memberRepository.save(member);
+		BankMember member = memberRepository.findByBillNumber(Double.parseDouble(paymentRequest.getCardNum()));
+		if(member != null){																		//TODO: DO MORE CHECKING
+			if(member.getAmount() >= paymentRequest.getPolicyPrice() && member.isValid() && member.getBillNumber() > 0) {
+				return true;
+			}
 		}
 		
 		return false;

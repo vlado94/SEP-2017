@@ -26,8 +26,11 @@ public class JCActivateController {
 	@GetMapping("/checkPin/{pin}")
 	private Boolean doCheck(@PathVariable int pin) throws IOException {
 		//dodati i parametar korisnika ciju cemo karticu pokrenuti
+
 		//Treba da prihvatis PinRequestObjekat iz modela. vidi sta sve ima od podataka i kako da rukujes sa njima
-		int id=2;
+
+		
+		int id=1;
 		String finalDestination="";
 		
 		if(id==1)
@@ -58,6 +61,7 @@ public class JCActivateController {
 		int pinCounter=0;
 		String wrongPinResponse="SW1: 63";
 		String correctPinResponse="SW1: 90";
+		String validationComand="INS: 20";
 		ArrayList<String> pinStr=new ArrayList<>();
 		boolean response=true;//init
 		LinkedList<Integer> stack = new LinkedList<Integer>();
@@ -144,26 +148,67 @@ public class JCActivateController {
 			{
 				System.out.println(line1);
 				
-				if(line1.toLowerCase().contains(wrongPinResponse.toLowerCase()))
+				if(line1.toLowerCase().contains(validationComand.toLowerCase()))
 				{
-					++pinCounter;
-				      
+					if(line1.toLowerCase().contains(wrongPinResponse.toLowerCase()))
+					{
+						++pinCounter;
+					}
+					else
+					{
+						pinCounter=0;
+					} 
+					
 					if(pinCounter==3)
 					{
 						//////
 						// ukoliko je 3 puta za redom pogresen pin
-						// vracamo da je kartica blokirana
+						// ubaciti deo d se u bazi promeni da je kartica boliranaa 
 						//////
 						cardBlocked = true;
 						System.out.println("3 neuspesna pokusaja,kartica je blokirana");
 					}
-					cardBlocked=false;
+					else
+					{
+						cardBlocked=false;
+					}
+					
 				}
 				
 				// read next line
 				line1 = reader.readLine();
 			}
 				reader.close();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+	    
+	    //////////////////
+	    //reader aplet source-a
+	    //////////////////
+	    BufferedReader reader2;
+	    try {
+	    	reader2 = new BufferedReader(new FileReader(
+			"C:\\JavaCard33\\samples\\"
+			+ "classic_applets\\"+finalDestination+"\\wallet.scr"));
+			String line1 = reader2.readLine();
+			String[] temp;
+			while (line1 != null)
+			{
+				
+				
+				if(line1.contains("PAN"))
+				{
+					temp=line1.split(" ");
+					System.out.println("PAN PAN PAN PAN PAN");
+					System.out.println(temp[1]);
+				}
+				
+				// read next line
+				line1 = reader2.readLine();
+			}
+				reader2.close();
 				
 			} catch (IOException e) {
 				e.printStackTrace();

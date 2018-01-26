@@ -3,7 +3,7 @@
 		<div class="card-header" data-background-color="green">
 			<h4 class="title">Dodati osiguranici</h4>
 			<p class="category">Broj osoba do 16 godina: {{under16}}/{{expectedNumbersByAgeCategories.firstCategory}}
-				<i *ngIf=expectedNumbersByAgeCategories.firstCategory != under16 class="fa fa-close" aria-hidden="true"></i>
+				<i *ngIf="expectedNumbersByAgeCategories.firstCategory != under16" class="fa fa-close" aria-hidden="true"></i>
 				<i *ngIf="expectedNumbersByAgeCategories.firstCategory == under16" class="fa fa-check" aria-hidden="true"></i>
 			</p>
 			<p class="category">Broj osoba između 16 i 60: {{between16an60}}/{{expectedNumbersByAgeCategories.secondCategory}}
@@ -11,7 +11,7 @@
 				<i *ngIf="expectedNumbersByAgeCategories.secondCategory == between16an60" class="fa fa-check" aria-hidden="true"></i>
 			</p>
 			<p class="category">Broj osoba preko 60 godina: {{over60}}/{{expectedNumbersByAgeCategories.thirdCategory}}
-				<i *ngIf=expectedNumbersByAgeCategories.thirdCategory != over60 class="fa fa-close" aria-hidden="true"></i>
+				<i *ngIf="expectedNumbersByAgeCategories.thirdCategory != over60" class="fa fa-close" aria-hidden="true"></i>
 				<i *ngIf="expectedNumbersByAgeCategories.thirdCategory == over60" class="fa fa-check" aria-hidden="true"></i>
 			</p>
 

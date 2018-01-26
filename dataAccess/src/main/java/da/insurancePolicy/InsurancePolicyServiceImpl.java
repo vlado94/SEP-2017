@@ -468,22 +468,37 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		response.setAddress(request.getAddress());
 		response.setFirstNameOwnerHome(request.getFirstName());
 		response.setLastNameOwnerHome(request.getLastName());
+		response.setJmbgOwnerHome(request.getPersonNo());
 		response.setPriceForHome(price);
 		
 	}
 	
 	private void fillResponseWithCarDetails(InsurancePolicyCheckoutResponse response, InsurancePolicyCarRequest request, InsurancePolicyCalculatePriceResponse priceAndDiscounts) {
 		response.setDurationForCar(request.getDuration());
-		response.setPopravka(getNameFromId(request.getPopravka()));
-		response.setSlepovanje(getNameFromId(request.getSlepovanje()));
-		response.setPrevoz(getNameFromId(request.getPrevoz()));
-		response.setSmestaj(getNameFromId(request.getSmestaj()));
+		if(request.getPopravka() != null)
+			response.setPopravka(getNameFromId(request.getPopravka()));
+		else
+			response.setPopravka("nije odabrano");
+		if(request.getSlepovanje() != null)
+			response.setSlepovanje(getNameFromId(request.getSlepovanje()));
+		else
+			response.setSlepovanje("nije odabrano");
+		if(request.getPrevoz() != null)
+			response.setPrevoz(getNameFromId(request.getPrevoz()));
+		else
+			response.setPrevoz("nije odabrano");
+		if(request.getSmestaj() != null)
+			response.setSmestaj(getNameFromId(request.getSmestaj()));
+		else
+			response.setSmestaj("nije odabrano");
 		response.setTypeOfVehicle(request.getTypeOfVehicle());
 		response.setYear(request.getYear());
 		response.setRegistrationNumber(request.getRegistrationNumber());
 		response.setChassisNumber(request.getChassisNumber());
 		response.setFirstNameOwnerCar(request.getFirstName());
 		response.setLastNameOwnerCar(request.getLastName());
+		response.setJmbgOwnerCar(request.getPersonNo());
+		response.setCarBrand(request.getVehicle());
 		response.setPriceAndDiscountsForCar(priceAndDiscounts);
 		
 		

@@ -1,13 +1,14 @@
 <div class="container">
 
+	<p>Total price: {{totalPrice}}</p>
+
 	<form novalidate [formGroup]="pinForm" (ngSubmit)="submitPin()">
 
 		
 		<div class="form-group">
 			<div class="col-5">
 				<select id="cardHolder" class="form-control" formControlName="cardHolder" placeholder="kredita kartica" required>
-					<option value="">Izaberite karticu</option>
-					<option value="ppppp">ppppp</option>
+					<option *ngFor="let bankMmeber of bankMembers" value="{{bankMmeber.id}}">{{bankMmeber.name}}</option>
 				</select>
 			
 			</div>

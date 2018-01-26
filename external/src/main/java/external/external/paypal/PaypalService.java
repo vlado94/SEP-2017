@@ -19,6 +19,7 @@ import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
 import model.request.InsurancePolicyRequest;
+import model.response.InsurancePolicyCheckoutResponse;
 
 @Service
 public class PaypalService {
@@ -34,11 +35,11 @@ public class PaypalService {
 
     private HashMap<String, String> map = new HashMap<String, String>();
     
-    private HashMap<String, InsurancePolicyRequest> insuranceMap = new HashMap<String, InsurancePolicyRequest>();
+    private HashMap<String, InsurancePolicyCheckoutResponse> insuranceMap = new HashMap<String, InsurancePolicyCheckoutResponse>();
 
     public Payment createPayment(String total, String currency, 
     		String method, String intent, String description, String successUrl, String cancelUrl, 
-    		Long requestTransactionEntityID, InsurancePolicyRequest insurancePolicyRequest) throws PayPalRESTException {
+    		Long requestTransactionEntityID, InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
         //amount.setTotal(String.format("%.2f", 3d));
@@ -76,7 +77,7 @@ public class PaypalService {
         apiContext.setConfigurationMap(sdkConfig);
         payment = payment.create(apiContext);
         map.put(payment.getId(), token);
-        insuranceMap.put(payment.getId(), insurancePolicyRequest);
+        insuranceMap.put(payment.getId(), insurancePolicyCheckoutResponse);
 /*
         PaypalCreatePaymentEntity paypalCreatePaymentEntity = new PaypalCreatePaymentEntity();
         paypalCreatePaymentEntity.setAccessToken(token);
@@ -104,11 +105,11 @@ public class PaypalService {
         return payment.execute(apiContext, paymentExecute);
     }
 
-	public InsurancePolicyRequest getInsuranceMap(String paymentId) {
+	public InsurancePolicyCheckoutResponse getInsuranceMap(String paymentId) {
 		return insuranceMap.get(paymentId);
 	}
 
-	public void setInsuranceMap(HashMap<String, InsurancePolicyRequest> insuranceMap) {
+	public void setInsuranceMap(HashMap<String, InsurancePolicyCheckoutResponse> insuranceMap) {
 		this.insuranceMap = insuranceMap;
 	}
     

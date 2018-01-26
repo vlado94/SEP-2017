@@ -40,6 +40,7 @@ export class InsurancePolicyComponent {
     carInsurancePrice = null;
     homeInsurancePrice = null;
     persons: InsurancePolicyPersonRequest[] = [];
+    totalPrice: number;
     
     checkout = null;
 
@@ -51,6 +52,7 @@ export class InsurancePolicyComponent {
             var checkoutRequest:InsurancePolicyCheckoutRequest = new InsurancePolicyCheckoutRequest(this.currentInsurancePolicy,this.insurancePolicyCar,this.insurancePolicyHome);
             this.insurancePolicyService.getCheckout(checkoutRequest).subscribe(result => {
                 this.checkout = result;
+                this.totalPrice = this.checkout.totalPrice;
             });
 
         }

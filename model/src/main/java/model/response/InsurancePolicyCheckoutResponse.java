@@ -9,7 +9,7 @@ import model.request.PersonRequest;
 public class InsurancePolicyCheckoutResponse {
   /*travel*/
 	private LocalDate startDate;
-	private int durationForTravel;
+	private Integer durationForTravel;
 	private String region;
 	private String sport;
 	private String amount;
@@ -26,7 +26,7 @@ public class InsurancePolicyCheckoutResponse {
 	private String address;
 	private String firstNameOwnerHome;
 	private String lastNameOwnerHome;
-	//private String jmbgOwnerHome;
+	private String jmbgOwnerHome;
 	private Double priceForHome;
 	
 	/*car*/
@@ -41,7 +41,8 @@ public class InsurancePolicyCheckoutResponse {
 	private String chassisNumber;
 	private String firstNameOwnerCar;
 	private String lastNameOwnerCar;
-	//private String jmbgOwnerCar;
+	private String jmbgOwnerCar;
+	private String carBrand;
 	private InsurancePolicyCalculatePriceResponse priceAndDiscountsForCar;
 	
 	
@@ -52,7 +53,7 @@ public class InsurancePolicyCheckoutResponse {
 	}
 	
 	
-	public InsurancePolicyCheckoutResponse(LocalDate startDate, int durationForTravel, String region, String sport,
+	public InsurancePolicyCheckoutResponse(LocalDate startDate, Integer durationForTravel, String region, String sport,
 			String amount, String typeOfPolicy, List<PersonRequest> persons,
 			InsurancePolicyCalculatePriceResponse priceAndDiscountsForTravel, Integer durationForHome, String risk,
 			String value, String age, String size, String address, String firstNameOwnerHome, String lastNameOwnerHome,
@@ -104,12 +105,12 @@ public class InsurancePolicyCheckoutResponse {
 	}
 
 
-	public int getDurationForTravel() {
+	public Integer getDurationForTravel() {
 		return durationForTravel;
 	}
 
 
-	public void setDurationForTravel(int durationForTravel) {
+	public void setDurationForTravel(Integer durationForTravel) {
 		this.durationForTravel = durationForTravel;
 	}
 
@@ -392,7 +393,35 @@ public class InsurancePolicyCheckoutResponse {
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	
-	
+
+
+	public String getJmbgOwnerHome() {
+		return jmbgOwnerHome;
+	}
+
+
+	public void setJmbgOwnerHome(String jmbgOwnerHome) {
+		this.jmbgOwnerHome = jmbgOwnerHome;
+	}
+
+
+	public String getJmbgOwnerCar() {
+		return jmbgOwnerCar;
+	}
+
+
+	public void setJmbgOwnerCar(String jmbgOwnerCar) {
+		this.jmbgOwnerCar = jmbgOwnerCar;
+	}
+
+
+	public String getCarBrand() {
+		return carBrand;
+	}
+
+
+	public void setCarBrand(String carBrand) {
+		this.carBrand = carBrand;
+	}
 	
 }

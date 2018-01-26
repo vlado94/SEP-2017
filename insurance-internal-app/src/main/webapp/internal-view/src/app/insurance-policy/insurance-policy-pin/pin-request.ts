@@ -1,9 +1,11 @@
 export class PinRequest {
-    cardHolder: string;
+    cardHolder: number;
+    totalPrice: number;
     pin: number;
 
-    constructor(cardHolder: string, pin: number) {
+    constructor(cardHolder: number, totalPrice:number, pin: number) {
         this.cardHolder = cardHolder,
+        this.totalPrice = totalPrice;
         this.pin = pin
     }
 }

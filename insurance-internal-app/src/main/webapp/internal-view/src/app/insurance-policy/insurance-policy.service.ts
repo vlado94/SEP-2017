@@ -51,8 +51,12 @@ export class InsurancePolicyService {
     }
 
     pin(pinRequest: PinRequest){
-        return this.http.get('http://localhost:8086/activateJC/checkPin/' + pinRequest.pin)
+        return this.http.get('http://localhost:8086/activateJC/checkPin/' + pinRequest)
             .map(res=>res.json());
+    }
+
+    bankMembers(){
+        return this.http.get(this.apiUrl+"/bankMember").map(res=>res.json());
     }
 
 }

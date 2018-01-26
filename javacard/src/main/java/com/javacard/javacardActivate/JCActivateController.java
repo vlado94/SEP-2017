@@ -26,7 +26,7 @@ public class JCActivateController {
 	@GetMapping("/checkPin/{pin}")
 	private Boolean doCheck(@PathVariable int pin) throws IOException {
 		//dodati i parametar korisnika ciju cemo karticu pokrenuti
-		
+		//Treba da prihvatis PinRequestObjekat iz modela. vidi sta sve ima od podataka i kako da rukujes sa njima
 		int id=2;
 		String finalDestination="";
 		

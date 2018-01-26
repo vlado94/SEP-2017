@@ -1,17 +1,7 @@
-package da.bankMember;
+package model.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+public class BankMemberDTO {
 
-import da.bank.Bank;
-
-@Entity
-public class BankMember {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String name;
@@ -24,20 +14,9 @@ public class BankMember {
 
 	private boolean valid;
 
-	public BankMember() {
+	public BankMemberDTO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	@ManyToOne
-	private Bank bank;
-
-	public Bank getBank() {
-		return bank;
-	}
-
-	public void setBank(Bank bank) {
-		this.bank = bank;
 	}
 
 	public Long getId() {

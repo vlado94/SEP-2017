@@ -126,7 +126,7 @@ export class InsurancePolicyHomeForm {
                 address: value.address,
                 firstName: value.firstName,
                 lastName: value.lastName,
-                jmbg: value.jmbg
+                jmbg: value.personNo
             })
         }
         else {

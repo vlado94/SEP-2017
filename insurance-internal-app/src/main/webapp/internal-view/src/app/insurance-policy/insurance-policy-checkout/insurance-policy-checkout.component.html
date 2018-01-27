@@ -2,91 +2,182 @@
 
 	<div class="col-12 checkout-col">
 		<div class="section-title">Putnici</div>
+		<table class="table">
+			<thead class="">
+				<tr>
+					<th>Ime</th>
+					<th>Prezime</th>
+					<th>JMBG</th>
+					<th>Broj pasoša</th>
+					<th>Telefon</th>
+					<th>Email</th>
 
-
-		<div class="row row-person-head">
-			<div class="col-2">
-				<strong>Ime</strong>
-			</div>
-			<div class="col-2">
-				<strong>Prezime</strong>
-			</div>
-			<div class="col-2">
-				<strong>JMBG</strong>
-			</div>
-			<div class="col-2">
-				<strong>Broj pasoÅ¡a</strong>
-			</div>
-			<div class="col-2">
-				<strong>Telefon</strong>
-			</div>
-			<div class="col-2">
-				<strong>Email</strong>
-			</div>
-		</div>
-		<div *ngFor="let p of checkoutVar.persons" class="row row-person">
-			<div class="col-2">{{p.firstName}}</div>
-			<div class="col-2">{{p.lastName}}</div>
-			<div class="col-2">{{p.personNo}}</div>
-			<div class="col-2">{{p.passportNo}}</div>
-			<div class="col-2">{{p.phone}}</div>
-			<div class="col-2">{{p.email}}</div>
-		</div>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let person of checkoutVar.persons">
+					<td>{{person.firstName}}</td>
+					<td>{{person.lastName}}</td>
+					<td>{{person.personNo}}</td>
+					<td>{{person.passportNo}}</td>
+					<td>{{person.phone}}</td>
+					<td>{{person.email}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
+	<div class="col-12" *ngIf="checkoutVar.priceAndDiscountsForCar">
+
+		<div class="section-title">Podaci o osiguranju automobila</div>
+		<table class="table">
+			<thead class="">
+				<tr>
+					<th>Vlasnik</th>
+					<th>Trajanje osiguranja</th>
+					<th>Paketi</th>
+					<th>Tip vozila</th>
+					<th>Godište vozila</th>
+					<th>Registarska oznaka</th>
+					<th>Broj šasije</th>
 
 
-	<div class="col-6">Osnovna cena osiguranja iznosi :</div>
-	<div class="price-number col-3 float-right">
-		<span class="float-right">{{checkoutVar.priceAndDiscountsForTravel.basePrice}}</span>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{checkoutVar.firstNameOwnerCar}}
+						{{checkoutVar.lastNameOwnerCar}}</td>
+					<td>{{checkoutVar.durationForCar}}</td>
+					<td><span *ngIf="checkoutVar.slepovanje">{{checkoutVar.slepovanje}}</span>
+						<span *ngIf="checkoutVar.popravka">,
+							{{checkoutVar.popravka}}</span> <span *ngIf="checkoutVar.prevoz">,
+							{{checkoutVar.prevoz}}</span> <span *ngIf="checkoutVar.smestaj">,
+							{{checkoutVar.smestaj}}</span></td>
+					<td>{{checkoutVar.typeOfVehicle}}</td>
+					<td>{{checkoutVar.year}}</td>
+					<td>{{checkoutVar.registrationNumber}}</td>
+					<td>{{checkoutVar.chassisNumber}}</td>
+
+				</tr>
+			</tbody>
+		</table>
 	</div>
-	<div class="col-1">
-		<span class="fixed-left-currency">din</span>
+	<div class="col-12" *ngIf="checkoutVar.priceAndDiscountsForCar">
+
+		<div class="section-title">Podaci o osiguranju kuće</div>
+		<table class="table">
+			<thead class="">
+				<tr>
+					<th>Vlasnik</th>
+					<th>Trajanje osiguranja</th>
+					<th>Rizik</th>
+					<th>Vrednost nekretnine</th>
+					<th>Starost</th>
+					<th>Kvadratura</th>
+					<th>Adresa</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{checkoutVar.firstNameOwnerHome}}
+						{{checkoutVar.lastNameOwnerHome}}</td>
+					<td>{{checkoutVar.durationForHome}}</td>
+					<td>{{checkoutVar.risk}}</td>
+					<td>{{checkoutVar.value}}</td>
+					<td>{{checkoutVar.age}}</td>
+					<td>{{checkoutVar.size}}</td>
+					<td>{{checkoutVar.address}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<div class="col-12">
-		<div class="mini-title">Popusti</div>
+		<div class="section-title">Osnovne cene</div>
+
+		<table class="table">
+			<thead class="">
+				<tr>
+					<th>Osnovna cena osiguranja(bez dodatnih osiguranja)</th>
+					<th *ngIf="checkoutVar.priceAndDiscountsForCar">Osnovna cena
+						osiguranja za automobil</th>
+					<th *ngIf="checkoutVar.priceForHome">Osnovna cena osiguranja
+						za kucu</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{checkoutVar.priceAndDiscountsForTravel.basePrice}} din</td>
+					<td *ngIf="checkoutVar.priceAndDiscountsForCar">{{checkoutVar.priceAndDiscountsForCar.basePrice}}</td>
+					<td *ngIf="checkoutVar.priceForHome">{{checkoutVar.priceForHome}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- <div class="col-12">
+		<div
+			*ngIf="checkoutVar.priceAndDiscountsForTravel && checkoutVar.priceAndDiscountsForTravel.discounts.length == 0 && checkoutVar.priceAndDiscountsForCar && checkoutVar.priceAndDiscountsForCar.discounts.length == 0">
+			Nije ostvaren ni jedan popust !</div>
+	</div> -->
+	<div class="col-12 col-popusti"
+		*ngIf="(checkoutVar.priceAndDiscountsForTravel && checkoutVar.priceAndDiscountsForTravel.discounts.length > 0) || (checkoutVar.priceAndDiscountsForCar && checkoutVar.priceAndDiscountsForCar.discounts.length > 0)">
+
+		<div class="section-title">Popusti</div>
+		<table class="table">
+			<thead class="">
+				<tr>
+					<th>Popust</th>
+					<th>Procenat</th>
+					<th>Iznos u dinarima</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ng-container *ngIf="checkoutVar.priceAndDiscountsForTravel">
+				<tr
+					*ngFor="let d of checkoutVar.priceAndDiscountsForTravel.discounts">
+					<td>{{d.discountName}}</td>
+					<td>{{d.percent}}%</td>
+					<td>{{d.amount}}</td>
+				</tr>
+				</ng-container>
+
+				<ng-container *ngIf="checkoutVar.priceAndDiscountsForCar">
+				<tr *ngFor="let d of checkoutVar.priceAndDiscountsForCar.discounts">
+					<td>{{d.discountName}}</td>
+					<td>{{d.percent}}%</td>
+					<td>{{d.amount}}</td>
+				</tr>
+				</ng-container>
+			</tbody>
+		</table>
 	</div>
 	<div class="col-12">
-		<div class="border-paketi"></div>
-	</div>
-	<div class="col-12 col-popusti">
-		<div *ngIf="checkoutVar.priceAndDiscountsForTravel && checkoutVar.priceAndDiscountsForTravel.discounts.length == 0">Nije ostvaren ni jedan popust !</div>
-		<div class="row" *ngFor="let d of checkoutVar.priceAndDiscountsForTravel.discounts">
-			<div class="col-3">{{d.discountName}}</div>
-			<div class="col-3">{{d.percent}}%</div>
-			<div class="col-3 float-right">
-				<span class="float-right">{{d.amount}}</span>
-			</div>
-			<div class="col-1">
-				<span class="fixed-left-currency">din</span>
-			</div>
-		</div>
+		<div class="section-title">Finalne cene</div>
+		<table class="table">
+			<thead class="">
+				<tr>
+					<th>Konačna cena osiguranja(bez dodatnih osiguranja)</th>
+					<th *ngIf="checkoutVar.priceAndDiscountsForCar">Konačna cena
+						osiguranja za automobil</th>
+					<th *ngIf="checkoutVar.priceForHome">Konačna cena osiguranja
+						za kucu</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{checkoutVar.priceAndDiscountsForTravel.finalPrice}} din</td>
+					<td *ngIf="checkoutVar.priceAndDiscountsForCar">{{checkoutVar.priceAndDiscountsForCar.finalPrice}}</td>
+					<td *ngIf="checkoutVar.priceForHome">{{checkoutVar.priceForHome}}</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div class="col-12">
-		<div class="border-paketi-bottom"></div>
+		<button class="btn float-left navigation-button"
+			(click)="changeTab('3')">
+			<i class="fa fa-arrow-left" aria-hidden="true"></i>
+		</button>
+		<button class="btn float-right navigation-button"
+			(click)="changeTab('5')">Nastavi na plaćanje</button>
 	</div>
-
-	<div class="col-6">Konačna cena osiguranja iznosi :</div>
-	<div class="price-number col-3">
-		<span class="float-right">{{checkoutVar.priceAndDiscountsForTravel.finalPrice}}</span>
-	</div>
-	<div class="col-1">
-		<span class="fixed-left-currency">din</span>
-	</div>
-
-	<div class="col-12 checkout-col">
-		<div class="section-title">Osigaranje kuće</div>
-		<div class="">Cena: {{checkoutVar.priceForHome}}</div>
-	</div>
-
-
-	<div class="col-12 checkout-col">
-		<div class="section-title">Osigaranje vozila</div>
-		<div class="">Cena: {{insurancePrice}}</div>
-	</div>
-
-	<button class="btn fixed-left" (click)="changeTab('3')">Nazad</button>
-	<button class="btn fixed-right" (click)="changeTab('5')">Nastavi
-		na plaćanje</button>
-
 </div>

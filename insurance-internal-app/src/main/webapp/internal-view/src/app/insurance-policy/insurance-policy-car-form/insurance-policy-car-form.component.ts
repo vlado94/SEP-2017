@@ -167,7 +167,7 @@ export class InsurancePolicyCarForm {
                 chassisNumber: value.chassisNumber,
                 firstName: value.firstName,
                 lastName: value.lastName,
-                jmbg: value.jmbg
+                jmbg: value.personNo
             })
         }
         else {

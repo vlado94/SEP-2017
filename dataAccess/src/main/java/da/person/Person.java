@@ -1,6 +1,8 @@
 package da.person;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -33,11 +35,11 @@ public class Person {
 	private Boolean contractor;
 	private String email;
 
-	@ManyToOne
-	private PriceListItem age;
-
 	@ManyToMany(mappedBy="persons")
 	private Set<InsurancePolicy> policies = new HashSet<InsurancePolicy>();
+	
+	@ManyToMany(mappedBy="persons")
+	private List<InsurancePolicy> policiesFinal = new ArrayList<InsurancePolicy>();
 	
 	public Person() {
 		super();
@@ -140,14 +142,6 @@ public class Person {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public PriceListItem getAge() {
-		return age;
-	}
-
-	public void setAge(PriceListItem age) {
-		this.age = age;
 	}
 
 	public Set<InsurancePolicy> getPolicies() {

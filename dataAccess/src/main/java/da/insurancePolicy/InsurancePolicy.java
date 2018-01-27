@@ -42,8 +42,7 @@ public class InsurancePolicy {
 	private Set<PriceListItem> priceListItems = new HashSet<PriceListItem>();
 
 	private Double amount;
-	
-	
+
 	public InsurancePolicy() {
 		super();
 	}
@@ -110,6 +109,5 @@ public class InsurancePolicy {
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
-
 
 }

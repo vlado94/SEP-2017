@@ -56,7 +56,7 @@
 	<parameter name="VlasnikPrezime" class="java.lang.String"/>
 	<parameter name="Datum1" class="java.time.LocalDate"/>
 	<parameter name="Datum2" class="java.time.LocalDate"/>
-	<parameter name="VelicinaPokrica" class="java.lang.Long"/>
+	<parameter name="VelicinaPokrica" class="java.lang.String"/>
 	<parameter name="Sport" class="java.lang.String"/>
 	<parameter name="Region" class="java.lang.String"/>
 	<parameter name="CijenaOsiguranjaKuca" class="java.lang.Double"/>

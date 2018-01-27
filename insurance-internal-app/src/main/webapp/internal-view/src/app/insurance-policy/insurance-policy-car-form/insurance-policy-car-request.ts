@@ -11,7 +11,7 @@ export class InsurancePolicyCarRequest {
     chassisNumber: string;
     firstName: string;
     lastName: string;
-    jmbg: string;
+    personNo: string;
 
     constructor(duration: number,
         slepovanje:string,
@@ -25,7 +25,7 @@ export class InsurancePolicyCarRequest {
         chassisNumber: string,
         firstName: string,
         lastName: string,
-        jmbg: string) {
+        personNo: string) {
         this.duration = duration;
         this.slepovanje = slepovanje;
         this.prevoz = prevoz;
@@ -38,6 +38,6 @@ export class InsurancePolicyCarRequest {
         this.chassisNumber = chassisNumber;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.jmbg = jmbg;
+        this.personNo = personNo;
     }
 }

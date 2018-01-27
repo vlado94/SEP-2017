@@ -12,6 +12,10 @@ $shadow-z-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0
 
 // Module - Stepper (style structure based on http://maintainablecss.com)
 
+.image-class {
+    background:url("../../assets/img/1920x1080/01.jpg");
+}
+
 .stepper {
     background-color: #fff;
     margin-bottom: 90px;
@@ -38,7 +42,7 @@ $shadow-z-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0
 
 .stepper-step {
     float: left;
-    width: 22.0%; // fixme: only works because there's 3 steps
+    width: 25.0%; // fixme: only works because there's 3 steps
     padding: 24px;
     cursor: pointer;
     color: rgba(0,0,0,.87);
@@ -80,7 +84,7 @@ $shadow-z-1: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0
 
 .stepper-step-isActive {
 	float: left;
-    width: 33.333333333333%; // fixme: only works because there's 3 steps
+    width: 25.0%;
     padding: 24px;
     cursor: pointer;
     color: rgba(0,0,0,.87);

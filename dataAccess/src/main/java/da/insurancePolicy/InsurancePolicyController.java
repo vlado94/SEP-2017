@@ -22,13 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import da.person.PersonService;
 import model.dto.Discount;
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCheckoutRequest;
-import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.request.PersonRequest;
+import model.response.InsurancePolicyCalculatePriceResponse;
+import model.response.InsurancePolicyCheckoutResponse;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -217,7 +217,7 @@ public class InsurancePolicyController {
 		response.setDurationForTravel(12);
 		response.setRegion("Evropa");
 		response.setSport("Skijanje");
-		response.setAmount(10000l);
+		response.setAmount("do 10000");
 		response.setTypeOfPolicy("indiv");
 		
 

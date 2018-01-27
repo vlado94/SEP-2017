@@ -37,11 +37,12 @@ export class InsurancePolicyComponent {
     insurancePolicyHome: InsurancePolicyHomeRequest = null;
 
     policyPrice = null;
-    carInsurancePrice: string = null;
-    homeInsurancePrice: string = null;
+    carInsurancePrice = null;
+    homeInsurancePrice = null;
     persons: InsurancePolicyPersonRequest[] = [];
+    totalPrice: number;
     
-    checkout: string = null;
+    checkout = null;
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }
 
@@ -51,6 +52,7 @@ export class InsurancePolicyComponent {
             var checkoutRequest:InsurancePolicyCheckoutRequest = new InsurancePolicyCheckoutRequest(this.currentInsurancePolicy,this.insurancePolicyCar,this.insurancePolicyHome);
             this.insurancePolicyService.getCheckout(checkoutRequest).subscribe(result => {
                 this.checkout = result;
+                this.totalPrice = this.checkout.totalPrice;
             });
 
         }
@@ -62,13 +64,14 @@ export class InsurancePolicyComponent {
 
     onSubmit(insurancePolicyRequest: InsurancePolicyRequest) {
         this.currentInsurancePolicy = insurancePolicyRequest;
-        this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
+        let newAge:Age = new Age(insurancePolicyRequest.firstAgeCategory, insurancePolicyRequest.secondAgeCategory,insurancePolicyRequest.thirdAgeCategory);
+        this.age = newAge;
+        /*this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
         this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
-        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;*/
     }
 
     insurancePolicyCarChanged(value) {
-        console.log("12334567876543456543");
         if (value && value.registrationNumber != null)
             this.insurancePolicyCar = value;
         else {
@@ -77,7 +80,6 @@ export class InsurancePolicyComponent {
     }
 
     insurancePolicyHomeChanged(value) {
-        console.log("12334567876543456543");
         if (value && value.address != null)
             this.insurancePolicyHome = value;
         else {
@@ -86,7 +88,6 @@ export class InsurancePolicyComponent {
     }
 
     calculateInsurancePolicyPrice(value) {
-        console.log("Calculating insurance policy price...")
         if (value) {
             this.insurancePolicyService.calculateSuggestedPrice(value).subscribe(price => {
                 this.policyPrice = price;
@@ -99,7 +100,6 @@ export class InsurancePolicyComponent {
     calculateHomeInsurancePrice(value) {
         if (value != null) {
 
-            console.log("222222222222222222222222222222222222");
             this.insurancePolicyService.calculateSuggestedPriceHome(value).subscribe(price => {
                 this.homeInsurancePrice = price;
             })
@@ -115,13 +115,11 @@ export class InsurancePolicyComponent {
                 this.carInsurancePrice = price;
             })
         } else {
-            console.log("11111111111111111111111");
             this.carInsurancePrice = null;
         }
     }
 
     personsChanged(value) {
-        console.log("Perons list changed")
         this.persons = value;
     }
 }

@@ -7,9 +7,9 @@ export class InsurancePolicyHomeRequest {
     address: string;
     firstName: string;
     lastName: string;
-    jmbg: string;
+    personNo: string;
     constructor(duration: number, size: string, age: string, value: string, risk: string,
-        address: string, firstName: string, lastName: string, jmbg: string) {
+        address: string, firstName: string, lastName: string, personNo: string) {
         this.duration = duration;
         this.size = size;
         this.age = age;
@@ -18,7 +18,7 @@ export class InsurancePolicyHomeRequest {
         this.address = address;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.jmbg = jmbg;
+        this.personNo = personNo;
 
     }
 }

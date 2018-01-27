@@ -22,17 +22,17 @@ import da.rules.RuleService;
 import model.dto.Discount;
 import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
-import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCarRequest;
 import model.request.InsurancePolicyCheckoutRequest;
-import model.request.InsurancePolicyCheckoutResponse;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyHomeRequest;
 import model.request.InsurancePolicyRequest;
-import model.request.InsurancePolicyResponse;
 import model.request.PersonRequest;
-import model.request.PersonResponse;
+import model.response.InsurancePolicyCalculatePriceResponse;
+import model.response.InsurancePolicyCheckoutResponse;
+import model.response.InsurancePolicyResponse;
+import model.response.PersonResponse;
 
 @Service
 @Transactional
@@ -453,7 +453,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		response.setDurationForTravel(request.getDuration());
 		response.setRegion(getNameFromId(request.getRegion()));
 		response.setSport(getNameFromId(request.getSport()));
-		response.setAmount(request.getAmount());
+		response.setAmount(getNameFromId(request.getAmount()));
 		response.setTypeOfPolicy(getNameFromId(request.getTypeOfPolicy()));
 		response.setPersons(request.getPersons());
 		response.setPriceAndDiscountsForTravel(priceAndDiscounts);
@@ -468,22 +468,37 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		response.setAddress(request.getAddress());
 		response.setFirstNameOwnerHome(request.getFirstName());
 		response.setLastNameOwnerHome(request.getLastName());
+		response.setJmbgOwnerHome(request.getPersonNo());
 		response.setPriceForHome(price);
 		
 	}
 	
 	private void fillResponseWithCarDetails(InsurancePolicyCheckoutResponse response, InsurancePolicyCarRequest request, InsurancePolicyCalculatePriceResponse priceAndDiscounts) {
 		response.setDurationForCar(request.getDuration());
-		response.setPopravka(getNameFromId(request.getPopravka()));
-		response.setSlepovanje(getNameFromId(request.getSlepovanje()));
-		response.setPrevoz(getNameFromId(request.getPrevoz()));
-		response.setSmestaj(getNameFromId(request.getSmestaj()));
+		if(request.getPopravka() != null)
+			response.setPopravka(getNameFromId(request.getPopravka()));
+		else
+			response.setPopravka("nije odabrano");
+		if(request.getSlepovanje() != null)
+			response.setSlepovanje(getNameFromId(request.getSlepovanje()));
+		else
+			response.setSlepovanje("nije odabrano");
+		if(request.getPrevoz() != null)
+			response.setPrevoz(getNameFromId(request.getPrevoz()));
+		else
+			response.setPrevoz("nije odabrano");
+		if(request.getSmestaj() != null)
+			response.setSmestaj(getNameFromId(request.getSmestaj()));
+		else
+			response.setSmestaj("nije odabrano");
 		response.setTypeOfVehicle(request.getTypeOfVehicle());
 		response.setYear(request.getYear());
 		response.setRegistrationNumber(request.getRegistrationNumber());
 		response.setChassisNumber(request.getChassisNumber());
 		response.setFirstNameOwnerCar(request.getFirstName());
 		response.setLastNameOwnerCar(request.getLastName());
+		response.setJmbgOwnerCar(request.getPersonNo());
+		response.setCarBrand(request.getVehicle());
 		response.setPriceAndDiscountsForCar(priceAndDiscounts);
 		
 		
@@ -564,8 +579,14 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		return response;
 	}
 	
-	private int getAgeFromJMBG(String jmbg) {	
-		int year = Integer.parseInt("1" + jmbg.substring(4, 7));
+	private int getAgeFromJMBG(String jmbg) {
+		String agePersonNo = jmbg.substring(4, 7);
+		int year = 0;
+		if(agePersonNo.startsWith("0")) {
+			year = Integer.parseInt("2" + agePersonNo);
+		}else {
+			year = Integer.parseInt("1" + agePersonNo);
+		}
 		LocalDateTime date = LocalDateTime.now();
 		int yearNow = date.getYear();
 		

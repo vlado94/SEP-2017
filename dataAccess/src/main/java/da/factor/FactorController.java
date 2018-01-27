@@ -3,11 +3,16 @@ package da.factor;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.ws.rs.BadRequestException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.MailParseException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,21 +46,24 @@ public class FactorController {
 	private PriceListItemService priceListItemService;
 
 	@Autowired
-	private JavaMailSender javaMailSender;
+	private JavaMailSender mailSender;
+	
 	
 	/*privremeno ovde, bice prebaceno*/
 	public void sendMail() {
-
-		try {
-			SimpleMailMessage mail = new SimpleMailMessage();
-			mail.setTo("sepftn2017@gmail.com");
-			mail.setFrom("sepftn2017@gmail.com");
-			mail.setSubject("Test");
-			mail.setText("Test");
-			javaMailSender.send(mail);
-		} catch (Exception m) {
-			m.printStackTrace();
-		}
+		 try{
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			helper.setFrom("sepftn2017@gmail.com");
+			helper.setTo("sepftn2017@gmail.com");
+			helper.setSubject("Osiguranje");
+			helper.setText("Uplacena vam je polisa osigranja. Srdacan pozdrav.");
+			FileSystemResource file = new FileSystemResource("D:\\todoSEP.txt");
+			helper.addAttachment(file.getFilename(), file);
+			 mailSender.send(message);
+		 }catch (MessagingException e) {
+			   throw new MailParseException(e);
+		 }
 	}
 	
 	@GetMapping

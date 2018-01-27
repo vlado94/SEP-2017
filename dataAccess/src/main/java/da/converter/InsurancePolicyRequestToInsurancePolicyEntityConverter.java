@@ -1,7 +1,5 @@
 package da.converter;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -59,16 +57,16 @@ public class InsurancePolicyRequestToInsurancePolicyEntityConverter
 				person.setPassportNumber(p.getPassportNo());
 				person.setPhone(p.getPhone());
 
-				PriceListItem currentAgePrice = priceListItemService.findByFactorIdAndPriceListId((long) getAgeFromJMBG(p.getPersonNo()),
+				/*PriceListItem currentAgePrice = priceListItemService.findByFactorIdAndPriceListId((long) getAgeFromJMBG(p.getPersonNo()),
 						currentPriceList.getId());
-				person.setAge(currentAgePrice);
+				person.setAge(currentAgePrice);*/
 			}
 			insurancePolicy.getPersons().add(person);
 		}
 		return insurancePolicy;
 	}
 
-	private int getAgeFromJMBG(String jmbg) {	
+	/*private int getAgeFromJMBG(String jmbg) {	
 		
 		int year = Integer.parseInt(jmbg.substring(4, 7));
 		LocalDateTime date = LocalDateTime.now();
@@ -76,5 +74,5 @@ public class InsurancePolicyRequestToInsurancePolicyEntityConverter
 		
 		int age = yearNow - year; 
 		return age;
-	}
+	}*/
 }

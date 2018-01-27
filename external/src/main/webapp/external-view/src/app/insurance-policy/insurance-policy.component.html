@@ -1,4 +1,4 @@
-<div class="parallax-window" data-parallax="scroll" data-image-src="assets/img/1920x1080/01.jpg">
+<div class="parallax-window image-class" data-parallax="scroll">
 	<div class="parallax-content container">
 		<h1 class="carousel-title">Product Pricing</h1>
 		<p>Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br/> enim minim estudiat veniam siad venumus dolore</p>
@@ -11,22 +11,22 @@
 		<div class="stepper-steps">
 			<div [ngClass]="{'stepper-step-isActive' : active_tab==1, 'stepper-step' : active_tab!=1}">
 				<div class="stepper-stepContent">
-					<span class="stepper-stepMarker">1</span>Step Title Here
+					<span class="stepper-stepMarker">1</span>Podaci o polisi
 				</div>
 			</div>
 			<div [ngClass]="{'stepper-step-isActive' : active_tab==2, 'stepper-step' : active_tab!=2}">
 				<div class="stepper-stepContent">
-					<span class="stepper-stepMarker">2</span>Step Title Here
+					<span class="stepper-stepMarker">2</span>Osobe
 				</div>
 			</div>
 			<div [ngClass]="{'stepper-step-isActive' : active_tab==3, 'stepper-step' : active_tab!=3}">
 				<div class="stepper-stepContent">
-					<span class="stepper-stepMarker">3</span>Step Title Here
+					<span class="stepper-stepMarker">3</span>Dodatno
 				</div>
 			</div>
 			<div [ngClass]="{'stepper-step-isActive' : active_tab==4, 'stepper-step' : active_tab!=4}">
 				<div class="stepper-stepContent">
-					<span class="stepper-stepMarker">4</span>Step Title Here
+					<span class="stepper-stepMarker">4</span>Prikaz polise
 				</div>
 			</div>
 		</div>
@@ -36,7 +36,8 @@
 				<app-insurance-policy-form [hidden]="active_tab != 1" (nextTab)="changeTab($event)" [price]="policyPrice"
 				(savePolicyRequest)="savePolicyRequest($event)" [currentInsurancePolicy]="currentInsurancePolicy" (calculatePrice)="calculateInsurancePolicyPrice($event)"></app-insurance-policy-form>
 				
-				<app-insurance-policy-person [hidden]="active_tab != 2"  (nextTab)="changeTab($event)" (previousTab)="changeTab($event)" 
+				<app-insurance-policy-person [hidden]="active_tab != 2"  (nextTab)="changeTab($event)" 
+				(previousTab)="changeTab($event)" 
 				[expectedNumbersByAgeCategories]="age" (personsChanged)="addPerson($event)">
 				</app-insurance-policy-person>
 
@@ -52,7 +53,8 @@
 					[insurancePrice]="policyPrice"
 					[carInsurancePrice]="carInsurancePrice"
 					[homeInsurancePrice]="homeInsurancePrice"
-					[currentInsurancePolicy]="currentInsurancePolicy">
+					[currentInsurancePolicy]="currentInsurancePolicy"
+					[checkout]="checkout">
 					
 				</app-insurance-policy-checkout>
 			</div>

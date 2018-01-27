@@ -7,6 +7,8 @@ import { InsurancePolicyCarCalculatePriceRequest } from './insurance-policy-home
 import { InsurancePolicyHomeCalculatePriceRequest } from './insurance-policy-home-car/policy-home-calculate-price-request';
 
 import { environment } from '../../environments/environment';
+import { InsurancePolicyCheckoutRequest } from './insurance-policy-checkout-request';
+
 
 
 @Injectable()
@@ -27,4 +29,11 @@ export class InsurancePolicyService {
 	calculateSuggestedPriceHome(insurancePolicyHomeCalculatePriceRequest:InsurancePolicyHomeCalculatePriceRequest) {
         return this.http.post(this.apiUrl+"/calculateSuggestedPrice/home",insurancePolicyHomeCalculatePriceRequest).map(res=>res.json());
     }
+
+    getCheckout(checkoutRequest:InsurancePolicyCheckoutRequest ){
+        return this.http.post(this.apiUrl+"/calculateSuggestedPrice/checkout",checkoutRequest)
+        .map(res=>res.json());    
+    }
+
+   
 }

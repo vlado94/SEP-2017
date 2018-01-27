@@ -12,7 +12,7 @@ import {InsurancePolicyCheckoutRequest} from './insurance-policy-checkout-reques
 import {InsurancePolicyCalculatePriceRequest} from './insurance-policy-calculate-price-request';
 import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-form/insurance-policy-car-calculate-price-request';
 import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-form/insurance-policy-home-calculate-price-request';
-
+import { PinRequest } from './insurance-policy-pin/pin-request'
 import {InsurancePolicyPersonRequest} from './insurance-policy-person/insurance-policy-person-form/insurance-policy-person-form.component';
 
 import { environment } from '../../environments/environment';
@@ -50,8 +50,13 @@ export class InsurancePolicyService {
             .map(res => res.json());
     }
 
+    pin(pinRequest: PinRequest){
+        return this.http.get('http://localhost:8086/activateJC/checkPin/' + pinRequest)
+            .map(res=>res.json());
+    }
 
-
-
+    bankMembers(){
+        return this.http.get(this.apiUrl+"/bankMember").map(res=>res.json());
+    }
 
 }

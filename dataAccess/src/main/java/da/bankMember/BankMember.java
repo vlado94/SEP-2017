@@ -13,18 +13,25 @@ public class BankMember {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
-	
+
 	private double amount;
-	
+
 	private double cardNumber;
 
 	private double billNumber;
 
+	private boolean valid;
+
+	public BankMember() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@ManyToOne
 	private Bank bank;
-	
+
 	public Bank getBank() {
 		return bank;
 	}
@@ -72,4 +79,13 @@ public class BankMember {
 	public void setBillNumber(double billNumber) {
 		this.billNumber = billNumber;
 	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+
 }

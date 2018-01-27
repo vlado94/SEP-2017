@@ -10,7 +10,7 @@ public class InsurancePolicyHomeRequest {
 	private String address;
 	private String firstName;
 	private String lastName;
-	private String jmbg;
+	private String personNo;
 
 	public InsurancePolicyHomeRequest() {
 		super();
@@ -27,7 +27,7 @@ public class InsurancePolicyHomeRequest {
 		this.address = address;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.jmbg = jmbg;
+		this.personNo = jmbg;
 	}
 
 	public Integer getDuration() {
@@ -94,12 +94,12 @@ public class InsurancePolicyHomeRequest {
 		this.lastName = lastName;
 	}
 
-	public String getJmbg() {
-		return jmbg;
+	public String getPersonNo() {
+		return personNo;
 	}
 
-	public void setJmbg(String jmbg) {
-		this.jmbg = jmbg;
+	public void setPersonNo(String jmbg) {
+		this.personNo = jmbg;
 	}
 
 }

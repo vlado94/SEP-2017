@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration>
-
-	<property name="DEV_HOME" value="C:\\Users\\Vladimir\\Desktop\\logging.log" />
-
+	<property name="DEV_HOME" value="src/main/resources/logging.log" />
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>
@@ -22,6 +20,10 @@
 	<logger name="da.insurancePolicy" level="INFO">
 		<appender-ref ref="FILE" />
 	</logger>
+	<logger name="da.factor" level="INFO">
+		<appender-ref ref="FILE" />
+	</logger>
+	
 	<root level="info">
 		<appender-ref ref="STDOUT" />
 	</root>

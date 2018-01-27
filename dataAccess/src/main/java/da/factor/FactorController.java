@@ -7,6 +7,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.ws.rs.BadRequestException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailParseException;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import da.categoryFactor.CategoryFactorService;
+import da.insurancePolicy.InsurancePolicyController;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
@@ -48,6 +51,8 @@ public class FactorController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	private static Logger logger = LoggerFactory.getLogger(FactorController.class);
+	
 	
 	/*privremeno ovde, bice prebaceno*/
 	public void sendMail() {
@@ -68,7 +73,7 @@ public class FactorController {
 	
 	@GetMapping
 	private List<FactorDTO> findAll() {
-		sendMail();
+		//sendMail();
 		List<Factor> list = service.findAll();
 		
 		List<FactorDTO> retVal = new ArrayList<FactorDTO>();
@@ -110,6 +115,8 @@ public class FactorController {
 		Factor f = Factor.getObj(obj);
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO updateFactor = service.save(f).getDTO();
+		System.out.println("usao u updat faktora");
+		logger.info("Update faktora " + updateFactor.getName());
 		return updateFactor;
 	}
 	

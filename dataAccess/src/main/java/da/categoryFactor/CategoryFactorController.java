@@ -35,7 +35,7 @@ public class CategoryFactorController {
 	@Autowired
 	private CategoryFactorService service;
 
-	private static Logger logger = LoggerFactory.getLogger(InsurancePolicyController.class);
+	private static Logger logger = LoggerFactory.getLogger(CategoryFactorController.class);
 	
 	@GetMapping
 	private List<CategoryFactor> findAll() {

@@ -11,35 +11,36 @@ import { InsurancePolicyService } from './insurance-policy/insurance-policy.serv
 })
 export class AppComponent implements OnInit {
 
-	profile: User;
-  title = 'app';
+  	profile: User;
+    title = 'app';
 
-  constructor(private keycloakService: KeycloakService,private insurancePolicyService: InsurancePolicyService) {
-  }
+    constructor(private keycloakService: KeycloakService,private insurancePolicyService: InsurancePolicyService) {
+    }
 
-  public ngOnInit(): void {
-    this.profile = this.keycloakService.getUser();
-    console.log(this.profile);
-  }
+    public ngOnInit(): void {
+      this.profile = this.keycloakService.getUser();
+      console.log(this.profile);
+    }
 
-  public isPriceManagement(): boolean {
-    //console.log("keycloak " + JSON.stringify(KeycloakService.auth.authz));
-    return this.keycloakService.hasRole('price_management');
-  }
+    public isPriceManagement(): boolean {
+      //console.log("keycloak " + JSON.stringify(KeycloakService.auth.authz));
+      return this.keycloakService.hasRole('price_management');
+    }
 
-  /*public isAdmin(): boolean {
-    return this.keycloakService.hasAnyRole(['admin']);
-  }*/
+    public isSeller(): boolean {
+      return this.keycloakService.hasRole('seller');
+    }
 
-  public logout() {
-    this.keycloakService.logout();
-  }
+    public logout() {
+      this.keycloakService.logout();
+    }
 
-	  public mail() {
-        this.keycloakService.mail();
-      }
+    public mail() {
+      this.keycloakService.mail();
+    }
 
-  /*public calculatePrice() {
-      this.insurancePolicyService.calculatePrice().subscribe(null);
-    }*/
-  }
+    public internal() {
+      window.location.href= "http://localhost:4500";
+    }
+
+}

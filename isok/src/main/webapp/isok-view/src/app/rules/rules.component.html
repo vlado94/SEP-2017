@@ -1,9 +1,10 @@
-<p>
-  rules works!
-  
-  
-  <textarea id="textArea1" rows="20" cols="80" [(ngModel)]="s"></textarea>
-  <button (click)='this.change(s)'>Sacuvaj izmene</button>
-  <button >Nazad</button>
-  
-</p>
+<div align="center">
+	<div class="container">
+	<h2>Izmena pravila</h2>
+	<div>
+		<textarea id="textArea1" rows="20" cols="80" [(ngModel)]="s"></textarea>
+	</div>
+	<button class="btn fa fa-check" title="Save rules" (click)='this.change(s)'></button>
+	</div>
+</div>
+

@@ -40,10 +40,7 @@
 				routerLinkActive="active"> <i class="fa fa-fw fa-file-text"></i>
 					<span class="nav-link-text">Polisa osiguranja</span>
 			</a></li>
-			<li class="nav-item" data-toggle="tooltip" data-placement="right"
-				title="Faktori"><a class="nav-link" (click) = "calculatePrice()" > <i class="fa fa-fw fa-dashboard"></i>
-					<span class="nav-link-text">Test</span>
-			</a></li>
+			
 		</ul>
 		<ul class="navbar-nav sidenav-toggler">
 			<li class="nav-item"><a class="nav-link text-center"
@@ -56,6 +53,11 @@
 			</a></li>
 		</ul>
 		<ul class="navbar-nav ml-auto">
+			<li class="nav-item" *ngIf="isSeller()">
+				<a class="nav-link" data-toggle="modal" data-target="#exampleModal" (click)="internal()"> 
+					<i class="fa fa-fw fa-hand-o-right"></i>Internal
+				</a>
+			</li>
 		<li class="nav-item"><a class="nav-link" data-toggle="modal"
 				data-target="#exampleModal" (click)="mail()"> <i class="fa fa-fw fa-envelope"></i>E-mail
 			</a></li>

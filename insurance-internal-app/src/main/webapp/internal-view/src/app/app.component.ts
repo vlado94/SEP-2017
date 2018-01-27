@@ -31,15 +31,14 @@ export class AppComponent implements OnInit {
 		return this.keycloakService.hasRole('seller');
 	}
 
-    /*public isAdmin(): boolean {
-        return this.keycloakService.hasAnyRole(['admin']);
-    }*/
-
     public logout() {
     	this.keycloakService.logout();
     }
-    
-  
+
+    public isok() {
+    	window.location.href = "http://localhost:4200";
+    }
+
 
   /*public calculatePrice() {
       this.insurancePolicyService.calculatePrice().subscribe(null);

@@ -1,0 +1,40 @@
+[INFO ]2018-01-27 18:46:25 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:25 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:28 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:28 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:28 isok.isok.factor.FactorController - Expect factors
+[INFO ]2018-01-27 18:46:28 isok.isok.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-27 18:46:28 isok.isok.factor.FactorController - Factors are listed
+[INFO ]2018-01-27 18:46:28 isok.isok.factor.FactorController - Category is found
+[INFO ]2018-01-27 18:46:44 isok.isok.factor.FactorController - Expect factors
+[INFO ]2018-01-27 18:46:44 isok.isok.factor.FactorController - Expect factor id 6
+[INFO ]2018-01-27 18:46:44 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:44 isok.isok.factor.FactorController - Factor with id 6 is found
+[INFO ]2018-01-27 18:46:44 isok.isok.factor.FactorController - Factors are listed
+[INFO ]2018-01-27 18:46:44 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:46 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:46 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:48 isok.isok.factor.FactorController - Expect factors
+[INFO ]2018-01-27 18:46:48 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:48 isok.isok.factor.FactorController - Factors are listed
+[INFO ]2018-01-27 18:46:48 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:48 isok.isok.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-27 18:46:48 isok.isok.factor.FactorController - Category is found
+[INFO ]2018-01-27 18:46:53 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:53 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:54 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:54 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:54 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:46:54 isok.isok.factor.FactorController - Expect category factor id 1
+[INFO ]2018-01-27 18:46:54 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:46:54 isok.isok.factor.FactorController - Category factor with 1 is found
+[INFO ]2018-01-27 18:47:18 isok.isok.factor.FactorController - Expect factors
+[INFO ]2018-01-27 18:47:18 isok.isok.factor.FactorController - Expect category factors
+[INFO ]2018-01-27 18:47:18 isok.isok.factor.FactorController - Category factors are listed
+[INFO ]2018-01-27 18:47:18 isok.isok.factor.FactorController - Factors are listed
+[INFO ]2018-01-27 18:52:11 isok.isok.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-27 18:52:11 isok.isok.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-27 18:52:11 isok.isok.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-27 18:52:12 isok.isok.factor.FactorController - Category is found
+[INFO ]2018-01-27 18:52:12 isok.isok.factor.FactorController - Category is found
+[INFO ]2018-01-27 18:52:12 isok.isok.factor.FactorController - Category is found

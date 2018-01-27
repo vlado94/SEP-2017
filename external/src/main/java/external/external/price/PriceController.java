@@ -35,7 +35,7 @@ public class PriceController {
 	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Izracunata cena za polisu " + price.getFinalPrice());
 		System.out.println("cena osiguranja je: " + price.getFinalPrice());
 		return price.getFinalPrice();
@@ -48,7 +48,7 @@ public class PriceController {
 		obj.setSmestaj(37l);
 		obj.setPrevoz(41l);
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
+				dataccessPort+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Izracunata cena za auto-polisu "+price.getFinalPrice());
 		return price.getFinalPrice();
 	}
@@ -61,7 +61,7 @@ public class PriceController {
 		obj.setRisk(27l);
 		
 		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+				dataccessPort+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
 		logger.info("Izracunata cena za kucnu-polisu "+price);
 		return price;
 	}
@@ -70,12 +70,8 @@ public class PriceController {
 	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
 	
 		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+				dataccessPort+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
 		return response;
-	}
-	
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
 	}
 	
 	/*@Bean

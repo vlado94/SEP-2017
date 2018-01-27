@@ -23,21 +23,16 @@ public class BankMemberController {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	@Value("${dataccessPort}")
-	private String dataccessPort;
+	@Value("${acquirerPort}")
+	private String acquirerPort;
 	
 	@PreAuthorize("hasRole('seller')")
 	@GetMapping
 	public List<BankMemberDTO> findAll(){
 		
 		ResponseEntity<BankMemberDTO[]> responseEntity = restTemplate
-				.getForEntity(getDataccessPortHttps() + "/bankMember", BankMemberDTO[].class);
+				.getForEntity(acquirerPort + "/bankMember", BankMemberDTO[].class);
 		BankMemberDTO[] objects = responseEntity.getBody();
-		return Arrays.asList(objects);
-		
-	}
-
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
+		return Arrays.asList(objects);		
 	}
 }

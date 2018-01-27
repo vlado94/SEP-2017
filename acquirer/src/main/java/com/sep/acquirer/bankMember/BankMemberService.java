@@ -1,4 +1,4 @@
-package da.bankMember;
+package com.sep.acquirer.bankMember;
 
 import java.util.List;
 

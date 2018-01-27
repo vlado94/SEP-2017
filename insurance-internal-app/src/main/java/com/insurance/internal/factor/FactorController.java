@@ -61,13 +61,9 @@ public class FactorController {
 		// System.out.println("first " + accessToken.getName());
 
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate
-				.getForEntity(getDataccessPortHttps() + "/factor/category/" + id, FactorDTO[].class);
+				.getForEntity(dataccessPort + "/factor/category/" + id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
 		return Arrays.asList(objects);
-	}
-
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
 	}
 
 	/*@Bean

@@ -47,7 +47,7 @@ public class FactorController {
 	@GetMapping
 	private List<FactorDTO> findAll() {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
-				getDataccessPortHttps()+"/factor", FactorDTO[].class);
+				dataccessPort+"/factor", FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
 		List<FactorDTO> list =  Arrays.asList(objects);
 		return list;
@@ -58,7 +58,7 @@ public class FactorController {
 	@PostMapping
 	private FactorDTO save(@RequestBody FactorDTO obj) {
 		FactorDTO newFactorDTO = restTemplate().postForObject(
-				getDataccessPortHttps()+"/factor", obj, FactorDTO.class);
+				dataccessPort+"/factor", obj, FactorDTO.class);
 		
 		return newFactorDTO;
 	}
@@ -67,7 +67,7 @@ public class FactorController {
 	@GetMapping("/{id}")
 	private FactorDTO findOne(@PathVariable Long id) {
 		FactorDTO factorDTO = restTemplate().getForObject(
-				getDataccessPortHttps()+"/factor/"+id, FactorDTO.class);
+				dataccessPort+"/factor/"+id, FactorDTO.class);
 		return factorDTO;
 	}
 	
@@ -76,7 +76,7 @@ public class FactorController {
 	private FactorDTO update(@RequestBody FactorDTO obj) {
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(obj);
 		HttpEntity<FactorDTO> updateFactorEntity = restTemplate().exchange(
-				getDataccessPortHttps()+"/factor", HttpMethod.PUT, requestEntity, FactorDTO.class );
+				dataccessPort+"/factor", HttpMethod.PUT, requestEntity, FactorDTO.class );
 		FactorDTO updateFactorDTO  =  updateFactorEntity.getBody();
 		return updateFactorDTO;
 	}
@@ -86,7 +86,7 @@ public class FactorController {
 	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {
 			ResponseEntity<Boolean> retVal = restTemplate().exchange(
-					getDataccessPortHttps()+"/factor/"+id, HttpMethod.DELETE, null, Boolean.class);
+					dataccessPort+"/factor/"+id, HttpMethod.DELETE, null, Boolean.class);
 			return retVal.getBody();
 		} catch(HttpServerErrorException e) {
 			throw e;
@@ -97,14 +97,9 @@ public class FactorController {
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate().getForEntity(
-				getDataccessPortHttps()+"/factor/category/"+id, FactorDTO[].class);
+				dataccessPort+"/factor/category/"+id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);
-	}
-	
-
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
 	}
 	
 	@Bean

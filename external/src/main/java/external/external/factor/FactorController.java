@@ -41,16 +41,10 @@ public class FactorController {
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate.getForEntity(
-				getDataccessPortHttps()+"/factor/category/"+id, FactorDTO[].class);
+				dataccessPort+"/factor/category/"+id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);
 	}
-	
-
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
-	}
-	
 	
 	/*@Bean
 	public RestTemplate restTemplate() {

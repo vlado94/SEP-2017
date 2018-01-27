@@ -1,4 +1,4 @@
-package da.bankMember;
+package com.sep.acquirer.bankMember;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class BankMemberServiceImpl implements BankMemberService{
 
 	@Override
 	public BankMember findById(Long id) {
-		return repository.findById(id).get();
+		return repository.findOne(id);
 	}
 
 	@Override
@@ -31,8 +31,7 @@ public class BankMemberServiceImpl implements BankMemberService{
 
 	@Override
 	public void delete(Long id) {
-		repository.deleteById(id);
-		
+		repository.delete(id);		
 	}
 
 }

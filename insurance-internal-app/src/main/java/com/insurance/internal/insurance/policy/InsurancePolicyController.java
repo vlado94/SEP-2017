@@ -1,24 +1,10 @@
 
 package com.insurance.internal.insurance.policy;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,7 +33,7 @@ public class InsurancePolicyController {
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
 		InsurancePolicyRequest newInsuranceReq = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
+				dataccessPort+"/insurancePolicy", obj, InsurancePolicyRequest.class);
 		return newInsuranceReq;
 	}
 	
@@ -56,7 +42,7 @@ public class InsurancePolicyController {
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		//obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
 		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
 		return response;
 	}
 	
@@ -68,7 +54,7 @@ public class InsurancePolicyController {
 		//obj.setSmestaj(37l);
 		//obj.setPrevoz(41l);
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
+				dataccessPort+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		return price;
 	}
 	
@@ -81,21 +67,17 @@ public class InsurancePolicyController {
 		//obj.setRisk(27l);
 		
 		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+				dataccessPort+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
 		return price;
 	}
 	
 	@PostMapping("/checkout")
 	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
 		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+				dataccessPort+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
 		return response;
 	}	
 
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
-	}
-	
 	/*@Bean
 	public RestTemplate restTemplate() {
 		try {

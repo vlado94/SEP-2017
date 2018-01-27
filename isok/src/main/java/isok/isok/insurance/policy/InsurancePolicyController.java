@@ -35,7 +35,7 @@ public class InsurancePolicyController {
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
 		InsurancePolicyRequest newInsuranceReq = restTemplate()
-				.postForObject(getDataccessPortHttps() + "/insurancePolicy", obj, InsurancePolicyRequest.class);
+				.postForObject(dataccessPort + "/insurancePolicy", obj, InsurancePolicyRequest.class);
 		return newInsuranceReq;
 	}
 
@@ -43,13 +43,8 @@ public class InsurancePolicyController {
 	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		obj.setAmount(15l); // izbrisati nakon ispravljenog fronta
 		Double price = restTemplate().postForObject(
-				getDataccessPortHttps() + "/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
+				dataccessPort + "/insurancePolicy/calculateSuggestedPrice", obj, Double.class);
 		return price;
-	}
-	
-
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
 	}
 	
 	@Bean

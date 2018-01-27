@@ -39,20 +39,16 @@ public class PriceListController {
 	@GetMapping("/findLast")
 	private List<PriceListItemDTO> findLast() {
 		List<PriceListItemDTO> list = Arrays.asList(restTemplate()
-				.getForEntity(getDataccessPortHttps() + "/priceList/findLast", PriceListItemDTO[].class).getBody());
+				.getForEntity(dataccessPort + "/priceList/findLast", PriceListItemDTO[].class).getBody());
 		return list;
 	}
 
 	@PreAuthorize("hasAnyRole('seller','price_management')")
 	@PostMapping
 	private boolean save(@RequestBody List<Double> obj) {
-		boolean result = restTemplate().postForObject(getDataccessPortHttps() + "/priceList", obj, boolean.class);
+		boolean result = restTemplate().postForObject(dataccessPort + "/priceList", obj, boolean.class);
 
 		return result;
-	}
-
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
 	}
 
 	@Bean

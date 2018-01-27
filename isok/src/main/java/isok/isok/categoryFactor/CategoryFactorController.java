@@ -51,7 +51,7 @@ public class CategoryFactorController {
 	@GetMapping
 	private List<CategoryFactor> findAll() {
 		ResponseEntity<CategoryFactor[]> responseEntity = restTemplate().getForEntity(
-				getDataccessPortHttps()+"/categoryFactor", CategoryFactor[].class);
+				dataccessPort+"/categoryFactor", CategoryFactor[].class);
 		CategoryFactor[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);
 	}
@@ -60,7 +60,7 @@ public class CategoryFactorController {
 	@GetMapping("/{id}")
 	private CategoryFactor findOne(@PathVariable Long id) {
         CategoryFactor quote = restTemplate().getForObject(
-        		getDataccessPortHttps()+"/categoryFactor/"+id, CategoryFactor.class);
+        		dataccessPort+"/categoryFactor/"+id, CategoryFactor.class);
 		return quote;
 	}
 	
@@ -69,7 +69,7 @@ public class CategoryFactorController {
 	private CategoryFactor update(@RequestBody CategoryFactor categoryFactor) {	 
 		HttpEntity<?> requestEntity = new HttpEntity<Object>(categoryFactor);
 		HttpEntity<CategoryFactor> updateCategoryEntity = restTemplate().exchange(
-				getDataccessPortHttps()+"/categoryFactor", HttpMethod.PUT, requestEntity, CategoryFactor.class );
+				dataccessPort+"/categoryFactor", HttpMethod.PUT, requestEntity, CategoryFactor.class );
 		CategoryFactor updateCategory  =  updateCategoryEntity.getBody();
 		System.out.println("User " + accessToken.getName() + " updated category factor " + updateCategory.getName() + " to " + updateCategory.getBasePrice());
 
@@ -81,18 +81,13 @@ public class CategoryFactorController {
 	private boolean delete(@PathVariable Long id) throws BadRequestException{
 		try {
 			ResponseEntity<Boolean> retVal = restTemplate().exchange(
-					getDataccessPortHttps()+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class);
+					dataccessPort+"/categoryFactor/"+id, HttpMethod.DELETE, null, Boolean.class);
 			return retVal.getBody();
 		} catch(HttpServerErrorException e) {
 			throw e;
 		}
 	}
-	
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
-	}
-	
-	
+
 	@Bean
 	public RestTemplate restTemplate() {
 		try {

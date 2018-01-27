@@ -27,14 +27,9 @@ public class AcquirerController {
 	@PostMapping
 	private InsurancePolicyFinalDTO saveInsurancePolicy(@RequestBody InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse) {
 		ResponseEntity<InsurancePolicyFinalDTO> responseEntity = restTemplate.postForEntity(
-				getDataccessPortHttps()+"/insurancePolicyFinal", insurancePolicyCheckoutResponse, InsurancePolicyFinalDTO.class);
+				dataccessPort+"/insurancePolicyFinal", insurancePolicyCheckoutResponse, InsurancePolicyFinalDTO.class);
 		InsurancePolicyFinalDTO insurancePolicyFinal = responseEntity.getBody();
 		System.out.println(insurancePolicyFinal.toString());
 		return insurancePolicyFinal;
 	}
-	
-	public String getDataccessPortHttps() {
-		return dataccessPort.replace("http", "https").toString();
-	}
-
 }

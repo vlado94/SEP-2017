@@ -8,7 +8,7 @@ public class BankMemberDTO {
 
 	private double amount;
 
-	private double cardNumber;
+	private String cardNumber;
 
 	private double billNumber;
 
@@ -43,11 +43,11 @@ public class BankMemberDTO {
 		this.amount = amount;
 	}
 
-	public double getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
-	public void setCardNumber(double cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 

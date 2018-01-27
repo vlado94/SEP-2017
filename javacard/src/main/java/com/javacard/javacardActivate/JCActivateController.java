@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import model.request.PinRequest;
+
 @RestController
 @RequestMapping("/activateJC")
 @CrossOrigin(origins = "http://localhost:4500")
 public class JCActivateController {
 
-	@GetMapping("/checkPin/{pin}")
-	private Boolean doCheck(@PathVariable int pin) throws IOException {
-		//dodati i parametar korisnika ciju cemo karticu pokrenuti
-
-		//Treba da prihvatis PinRequestObjekat iz modela. vidi sta sve ima od podataka i kako da rukujes sa njima
-
+	@GetMapping("/checkPin/{obj}")
+	private Boolean doCheck(@PathVariable PinRequest obj) throws IOException {
 		
-		int id=1;
+		int pin=obj.getPin();
+		Long id=obj.getCardHolder();
+		
 		String finalDestination="";
 		
 		if(id==1)
@@ -67,10 +67,6 @@ public class JCActivateController {
 		LinkedList<Integer> stack = new LinkedList<Integer>();
 		
 		
-		
-		
-	    
-	    
 		while (pin > 0)
 		{
 		    stack.push( pin % 10 );

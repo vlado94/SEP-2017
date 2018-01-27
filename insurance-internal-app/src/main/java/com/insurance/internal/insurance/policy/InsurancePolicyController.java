@@ -1,5 +1,7 @@
 package com.insurance.internal.insurance.policy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,32 +30,40 @@ public class InsurancePolicyController {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	private static Logger logger = LoggerFactory.getLogger(InsurancePolicyController.class);
+	
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
+		logger.info("Create insurance policy");
 		InsurancePolicyRequest newInsuranceReq = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
+		logger.info("Insurance policy is created");
 		return newInsuranceReq;
 	}
 	
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/calculateSuggestedPrice")
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
-		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
+		//obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
+		logger.info("Calculate price for insurance policy");
 		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+		logger.info("Price is calculated and price is " + response.getFinalPrice());
 		return response;
 	}
 	
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/car/calculateSuggestedPrice")
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
-		obj.setSlepovanje(30l);
+		/*obj.setSlepovanje(30l);
 		obj.setPopravka(34l);
 		obj.setSmestaj(37l);
-		obj.setPrevoz(41l);
+		obj.setPrevoz(41l);*/
+		logger.info("Calculate price for insurance policy car");
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
+		logger.info("Price is calculated and price is " + price.getFinalPrice());
 		return price;
 	}
 	
@@ -64,9 +74,10 @@ public class InsurancePolicyController {
 		obj.setAge(22l);
 		obj.setValue(26l);
 		obj.setRisk(27l);
-		
+		logger.info("Calculate price for insurance policy home");
 		Double price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+		logger.info("Price is calculated and price is " + price);
 		return price;
 	}
 	

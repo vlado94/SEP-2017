@@ -28,6 +28,11 @@
 		</ul>
 
 		<ul class="navbar-nav ml-auto">
+			<li class="nav-item" *ngIf="isSeller()">
+				<a class="nav-link" data-toggle="modal" data-target="#exampleModal" (click)="isok()"> 
+					<i class="fa fa-fw fa-hand-o-right"></i>ISOK
+				</a>
+			</li>
 		<li class="nav-item"><a class="nav-link" data-toggle="modal"
 				data-target="#exampleModal" (click)="mail()"> <i class="fa fa-fw fa-envelope"></i>E-mail
 			</a></li>

@@ -38,6 +38,10 @@ export class AppComponent implements OnInit {
     public logout() {
     	this.keycloakService.logout();
     }
+
+    public isok() {
+    	window.location.href = "http://localhost:4200";
+    }
 	
 
   /*public calculatePrice() {

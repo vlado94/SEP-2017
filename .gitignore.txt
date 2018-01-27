@@ -4,6 +4,6 @@ dataAccess/src/main/resources/logging.log
 
 external/src/main/resources/logging.log
 
-insurance-internal-app/src/mian/logging.log
+insurance-internal-app/src/main/resources/logging.log
 
 isok/src/main/resources/logging.log

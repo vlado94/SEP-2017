@@ -15,5 +15,7 @@ public interface TransactionService {
 	public void delete(Long id);
 	
 	public boolean submitPayment(PaymentRequest paymentRequest);
+	
+	public boolean checkRequestData(PaymentRequest paymentRequest);
 
 }

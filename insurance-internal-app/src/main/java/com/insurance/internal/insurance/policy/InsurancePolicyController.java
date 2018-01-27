@@ -1,3 +1,4 @@
+
 package com.insurance.internal.insurance.policy;
 
 import org.slf4j.Logger;
@@ -19,103 +20,76 @@ import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
 import model.response.InsurancePolicyCalculatePriceResponse;
 import model.response.InsurancePolicyCheckoutResponse;
+
 @RestController
 @RequestMapping("/internal/insurancePolicy")
 @CrossOrigin(origins = "http://localhost:4500")
 public class InsurancePolicyController {
-	
+
 	@Value("${dataccessPort}")
 	private String dataccessPort;
-	
+
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	private static Logger logger = LoggerFactory.getLogger(InsurancePolicyController.class);
-	
+
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping
 	private InsurancePolicyRequest create(@RequestBody InsurancePolicyRequest obj) {
 		logger.info("Create insurance policy");
-		InsurancePolicyRequest newInsuranceReq = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy", obj, InsurancePolicyRequest.class);
+		InsurancePolicyRequest newInsuranceReq = restTemplate
+				.postForObject(getDataccessPortHttps() + "/insurancePolicy", obj, InsurancePolicyRequest.class);
 		logger.info("Insurance policy is created");
 		return newInsuranceReq;
 	}
-	
+
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/calculateSuggestedPrice")
-	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
-		//obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(
+			@RequestBody InsurancePolicyCalculatePriceRequest obj) {
+
 		logger.info("Calculate price for insurance policy");
 		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+				getDataccessPortHttps() + "/insurancePolicy/calculateSuggestedPrice", obj,
+				InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Price is calculated and price is " + response.getFinalPrice());
 		return response;
 	}
-	
+
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/car/calculateSuggestedPrice")
-	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
-		/*obj.setSlepovanje(30l);
-		obj.setPopravka(34l);
-		obj.setSmestaj(37l);
-		obj.setPrevoz(41l);*/
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(
+			@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
+
 		logger.info("Calculate price for insurance policy car");
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
+				getDataccessPortHttps() + "/insurancePolicy/calculateSuggestedPriceCar", obj,
+				InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Price is calculated and price is " + price.getFinalPrice());
 		return price;
 	}
-	
+
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/home/calculateSuggestedPrice")
 	private Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
-		obj.setSize(18l);
-		obj.setAge(22l);
-		obj.setValue(26l);
-		obj.setRisk(27l);
+
 		logger.info("Calculate price for insurance policy home");
 		Double price = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+				getDataccessPortHttps() + "/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
 		logger.info("Price is calculated and price is " + price);
 		return price;
 	}
-	
+
 	@PostMapping("/checkout")
 	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
 		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
-				getDataccessPortHttps()+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+				getDataccessPortHttps() + "/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
 		return response;
-	}	
+	}
 
 	public String getDataccessPortHttps() {
 		return dataccessPort.replace("http", "https").toString();
 	}
-	
-	/*@Bean
-	public RestTemplate restTemplate() {
-		try {
-			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());//TODO: hide password
-		    keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
-	
-		    SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
-		            new SSLContextBuilder()
-		                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-		                    .loadKeyMaterial(keyStore, "sep12345".toCharArray())
-		                    .build(),
-		            NoopHostnameVerifier.INSTANCE);
-	
-		    HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
-	
-		    ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-		    RestTemplate restTemplate = new RestTemplate(requestFactory);
-			
-		    return restTemplate;
-		}
-		catch(Exception exc) {
-			return null;
-		}
-	}*/
-	
 
 }

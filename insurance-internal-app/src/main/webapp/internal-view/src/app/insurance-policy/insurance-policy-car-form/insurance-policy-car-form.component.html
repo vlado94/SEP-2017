@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="smestaj" class="col-4">Smestaj do odredjenog
+			<label for="smestaj" class="col-4">Smeštaj do odredjenog
 				broja dana:</label>
 			<div class="col-5">
 				<select id="smestaj" class="form-control" formControlName="smestaj"
@@ -280,36 +280,74 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="row price" *ngIf="price">
-		<div class="col-6">Osnovna cena osiguranja iznosi :</div>
-		<div class="price-number col-3 float-right"><span class="float-right">{{price.basePrice}}</span></div>
-		<div class="col-1"><span class="fixed-left-currency">din</span></div>
-		
-		<div class="col-12">
-			<div class="mini-title">Popusti</div>
-		</div>
-		<div class="col-12">
-			<div class="border-paketi"></div>
-		</div>
-		<div class="col-12 col-popusti">
-			<div *ngIf="price && price.discounts.length == 0">Trenutno nema nikakvih popusta !</div>
-			<div class="row" *ngFor="let d of price.discounts">
-				<div class="col-3">{{d.discountName}}</div>
-				<div class="col-3">{{d.percent}}%</div>
-				<div class="col-3 float-right"><span class="float-right">{{d.amount}}</span></div>
-				<div class="col-1"><span class="fixed-left-currency">din</span></div>
-			</div>
-		</div>
-		<div class="col-12">
-			<div class="border-paketi-bottom"></div>
-		</div>
 
-		<div class="col-6">Trenutna konačna cena osiguranja iznosi :</div>
-		<div class="price-number col-3"><span class="float-right">{{price.finalPrice}}</span></div>
-		<div class="col-1"><span class="fixed-left-currency">din</span></div>
+	<div class="row price" *ngIf="price">
+		<div class="col-12 col-popusti">
+			<table class="table">
+				<thead class="">
+					<tr>
+						<th></th>
+						<th></th>
+						<th>Osnovna cena iznosi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<ng-container *ngIf="price">
+					<tr>
+						<td></td>
+						<td></td>
+						<td>{{price.basePrice}}</td>
+					</tr>
+					</ng-container>
+				</tbody>
+				<thead class="">
+					<tr>
+						<th>Popust</th>
+						<th>% od osnovne cene</th>
+						<th>Iznos u popusta dinarima</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<ng-container *ngIf="(price && price.discounts.length == 0)">
+					<tr>
+						<td></td>
+						<td></td>
+						<td> <span
+							*ngIf="(price && price.discounts.length == 0)">Trenutno
+								nije ostvaren ni jedan popust ! </span></td>
+					</tr>
+					</ng-container>
+					<ng-container *ngIf="(price && price.discounts.length > 0)">
+					<tr *ngFor="let d of price.discounts">
+						<td>{{d.discountName}}</td>
+						<td>{{d.percent}}%</td>
+						<td>{{d.amount}}</td>
+					</tr>
+					</ng-container>
+
+				</tbody>
+
+				<thead class="">
+					<tr>
+						<th></th>
+						<th></th>
+						<th>Konačna cena iznosi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<ng-container *ngIf="price">
+					<tr>
+						<td></td>
+						<td></td>
+						<td>{{price.finalPrice}}</td>
+					</tr>
+					</ng-container>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	
+
 </form>
 
 

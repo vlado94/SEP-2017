@@ -45,7 +45,7 @@
 		</div>
 		<div class="form-group row"
 			*ngIf="!contractorExists || (currentPerson != null && currentPerson.contractor)">
-			<label for="contractor" class="col-4">UgovaraÄ�:</label>
+			<label for="contractor" class="col-4">Ugovarač:</label>
 			<div class="col-5">
 				<label class="radio-inline radio-button"> <input
 					type="radio" value="true" name="contractor" checked
@@ -59,7 +59,7 @@
 		<div
 			*ngIf="insurancePolicyPerson.controls['contractor'].value == 'true' && (!contractorExists || (currentPerson != null && currentPerson.contractor))"
 			class="form-group row">
-			<label for="email" class="col-4">Email ugovaraÄ�a:</label>
+			<label for="email" class="col-4">Email ugovarača:</label>
 			<div class="col-5">
 				<input id="email" type="email" class="form-control"
 					formControlName="email" />
@@ -70,7 +70,7 @@
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['email'].errors.required">Morate
-					uneti email ugovaraÄ�a polise.</div>
+					uneti email ugovarača polise.</div>
 			</div>				
 		</div>
 
@@ -86,15 +86,15 @@
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.required">Morate
-					uneti jedinstveni matiÄ�ni broj.</div>
+					uneti jedinstveni matični broj.</div>
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.minlength">Jedinstveni
-					matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
+					matični broj sadrži 13 cifara.</div>
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.maxlength">Jedinstveni
-					matiÄ�ni broj sadrÅ¾i 13 cifara.</div>
+					matični broj sadrži 13 cifara.</div>
 			</div>
 			<div class="col-5 offset-4 invalid-feedback"
 				*ngIf="jmbgExists && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
-				sa unetim matiÄ�nim brojem veÄ‡ postoji.</div>
+				sa unetim matičnim brojem veći postoji.</div>
 		</div>
 
 		<div class="form-group row">
@@ -109,7 +109,7 @@
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['passportNumber'].errors.required">Morate
-					uneti broj pasoÅ¡a.</div>
+					uneti broj pasoša.</div>
 			</div>			
 		</div>
 

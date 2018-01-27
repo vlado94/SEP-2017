@@ -19,13 +19,14 @@ public class BankMember {
 	
 	private double amount;
 	
-	private double cardNumber;
+	private String cardNumber;
 
 	private double billNumber;
-
+	
+	private boolean valid;
+	
 	@ManyToOne
 	private Bank bank;
-	
 	
 	
 	public BankMember() {
@@ -64,11 +65,11 @@ public class BankMember {
 		this.amount = amount;
 	}
 
-	public double getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
-	public void setCardNumber(double cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
 
@@ -79,4 +80,14 @@ public class BankMember {
 	public void setBillNumber(double billNumber) {
 		this.billNumber = billNumber;
 	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
+	}
+	
+	
 }

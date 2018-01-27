@@ -15,22 +15,24 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import model.request.PinRequest;
 
 @RestController
 @RequestMapping("/activateJC")
 @CrossOrigin(origins = "http://localhost:4500")
 public class JCActivateController {
 
-	@GetMapping("/checkPin/{pin}")
-	private Boolean doCheck(@PathVariable int pin) throws IOException {
-		//dodati i parametar korisnika ciju cemo karticu pokrenuti
-
-		//Treba da prihvatis PinRequestObjekat iz modela. vidi sta sve ima od podataka i kako da rukujes sa njima
-
+	@PostMapping("/checkPin")
+	private Boolean doCheck(@RequestBody PinRequest obj) throws IOException {
 		
-		int id=1;
+		int pin=obj.getPin();
+		Long id=obj.getCardHolder();
+		
 		String finalDestination="";
 		
 		if(id==1)
@@ -49,6 +51,7 @@ public class JCActivateController {
 		{
 			finalDestination="Wallet3";
 		}
+		
 		if(id==5)
 		{
 			finalDestination="Wallet4";
@@ -63,14 +66,10 @@ public class JCActivateController {
 		String correctPinResponse="SW1: 90";
 		String validationComand="INS: 20";
 		ArrayList<String> pinStr=new ArrayList<>();
-		boolean response=true;//init
+		boolean response=true;//Knit
 		LinkedList<Integer> stack = new LinkedList<Integer>();
 		
 		
-		
-		
-	    
-	    
 		while (pin > 0)
 		{
 		    stack.push( pin % 10 );

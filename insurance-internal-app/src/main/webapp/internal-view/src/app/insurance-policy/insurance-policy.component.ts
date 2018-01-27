@@ -29,7 +29,7 @@ import {InsurancePolicyService} from './insurance-policy.service';
 })
 export class InsurancePolicyComponent {
 
-    activeTab: string = '1';
+    activeTab: string = '3';
     //personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
@@ -64,9 +64,11 @@ export class InsurancePolicyComponent {
 
     onSubmit(insurancePolicyRequest: InsurancePolicyRequest) {
         this.currentInsurancePolicy = insurancePolicyRequest;
-        this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
+        let newAge:Age = new Age(insurancePolicyRequest.firstAgeCategory, insurancePolicyRequest.secondAgeCategory,insurancePolicyRequest.thirdAgeCategory);
+        this.age = newAge;
+        /*this.age.firstCategory = insurancePolicyRequest.firstAgeCategory;
         this.age.secondCategory = insurancePolicyRequest.secondAgeCategory;
-        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;
+        this.age.thirdCategory = insurancePolicyRequest.thirdAgeCategory;*/
     }
 
     insurancePolicyCarChanged(value) {

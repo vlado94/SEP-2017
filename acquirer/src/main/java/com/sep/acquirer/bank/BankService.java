@@ -15,6 +15,6 @@ public interface BankService {
 
 	public void delete(Long id);
 	
-	public Bank findByAccountNumber(String accountNumber);
+	Bank findByCode(String code);
 	
 }

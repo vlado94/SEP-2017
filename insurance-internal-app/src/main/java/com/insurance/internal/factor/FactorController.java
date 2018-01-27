@@ -42,7 +42,7 @@ public class FactorController {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate
 				.getForEntity(getDataccessPortHttps() + "/factor/category/" + id, FactorDTO[].class);
 		FactorDTO[] objects = responseEntity.getBody();
-		logger.info("Category is found");
+		logger.info("Category with id " + id + " is found");
 		return Arrays.asList(objects);
 	}
 

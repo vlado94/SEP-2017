@@ -19,10 +19,10 @@
 			</Pattern>
 		</encoder>
 	</appender>
-	<logger name="com.insurance.factor" level="INFO">
+	<logger name="com.insurance.internal.factor" level="INFO">
 		<appender-ref ref="FILE" />
 	</logger>
-	<logger name="com.insurance.insurance.policy" level="INFO">
+	<logger name="com.insurance.internal.insurance.policy" level="INFO">
 		<appender-ref ref="FILE" />
 	</logger>
 

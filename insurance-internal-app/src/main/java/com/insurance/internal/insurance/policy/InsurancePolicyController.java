@@ -53,7 +53,11 @@ public class InsurancePolicyController {
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/calculateSuggestedPrice")
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
-		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
+		/*InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
+		 double d = restTemplate.postForObject(
+					getDataccessPortHttps()+"/insurancePolicy/getPDF", 1, Double.class);
+		*/
+		
 		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
 		return response;
@@ -62,10 +66,10 @@ public class InsurancePolicyController {
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/car/calculateSuggestedPrice")
 	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
-		obj.setSlepovanje(30l);
-		obj.setPopravka(34l);
-		obj.setSmestaj(37l);
-		obj.setPrevoz(41l);
+		//obj.setSlepovanje(30l);
+		//obj.setPopravka(34l);
+		//obj.setSmestaj(37l);
+		//obj.setPrevoz(41l);
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		return price;
@@ -74,10 +78,10 @@ public class InsurancePolicyController {
 	@PreAuthorize("hasRole('seller')")
 	@PostMapping("/home/calculateSuggestedPrice")
 	private Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
-		obj.setSize(18l);
-		obj.setAge(22l);
-		obj.setValue(26l);
-		obj.setRisk(27l);
+		//obj.setSize(18l);
+		//obj.setAge(22l);
+		//obj.setValue(26l);
+		//obj.setRisk(27l);
 		
 		Double price = restTemplate.postForObject(
 				getDataccessPortHttps()+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
@@ -94,6 +98,17 @@ public class InsurancePolicyController {
 	public String getDataccessPortHttps() {
 		return dataccessPort.replace("http", "https").toString();
 	}
+	
+	
+	@GetMapping("/getPDF")
+	private double getPDF() {
+		System.out.print("he");
+		 double d = restTemplate.postForObject(
+				getDataccessPortHttps()+"/insurancePolicy/getPDF", 1, Double.class);
+		 return d;
+		
+	}	
+
 	
 	/*@Bean
 	public RestTemplate restTemplate() {

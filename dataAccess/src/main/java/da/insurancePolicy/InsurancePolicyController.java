@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import da.person.PersonService;
+import model.dto.Discount;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCalculatePriceResponse;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
@@ -58,43 +61,9 @@ public class InsurancePolicyController {
 	/*Metoda za racunanje preporucene cijene polise*/
 	@PostMapping("/calculateSuggestedPrice")
 	public InsurancePolicyCalculatePriceResponse calculatePrice(@RequestBody InsurancePolicyCalculatePriceRequest request) throws FileNotFoundException {
-	
 		request.setNumberOfPersons(request.getFirstAgeCategory()+request.getSecondAgeCategory()+request.getThirdAgeCategory());
-		
-		/*
-        response.setContentType("application/pdf");
-		InputStream inputStream = new FileInputStream(file);
-		IOUtils.copy(inputStream, response.getOutputStream());*/
-		
 		InsurancePolicyCalculatePriceResponse response = insurancePolicyService.calculateSuggestedPrice(request);
 		
-	    /*String outputFile ="C:\\template_Table.pdf";
-	    JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getDiscounts());
-	    Map<String, Object> parameters = new HashMap<String, Object>();
-	    
-	   parameters.put("ItemDataSource", itemsJRBean);
-	    parameters.put("BankName", "Ime banke");
-        parameters.put("CurrencyCode", "kod");
-       parameters.put("bankerName", "Ime i prezime");
-        
-        JasperPrint jasperPrint;
-		try {
-			
-			jasperPrint = JasperFillManager.fillReport("C:\\excerptBank.jasper", parameters, new JREmptyDataSource());
-			
-			 File file = new File(outputFile);
-		        OutputStream outputStream= new FileOutputStream(file);
-		        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-		        logger.info("kreiran PDF");
-		} catch (JRException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   */
-        //response.setContentType("application/pdf");
-		//InputStream inputStream = new FileInputStream(file);
-		//IOUtils.copy(inputStream, response.getOutputStream());
-	    
 		return response;
 		
 	}
@@ -123,10 +92,8 @@ public class InsurancePolicyController {
 	@PostMapping("/calculateSuggestedPriceHome")
 	public Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest request) {
 	
-		
-		
 		return insurancePolicyService.calculateSuggestedPriceHome(request);
-		
+	
 	}
 	
 	@PostMapping("/calculateSuggestedPriceCar")
@@ -144,10 +111,175 @@ public class InsurancePolicyController {
 		
 	}
 	
+	
+	
+	@PostMapping("/getPDF")
+	public double getPDF(@RequestBody double d) throws FileNotFoundException {
+		
+			InsurancePolicyCheckoutResponse response = generate();
+			String outputFile ="C:\\Users\\Olja\\Desktop\\TravelPolicy.pdf";
+			 Map<String, Object> parameters = new HashMap<String, Object>();
+		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getPersons());
+	   
+	    
+	    for (PersonRequest personRequest : response.getPersons()) {
+			if(personRequest.isContractor()) {
+				parameters.put("OsiguravacIme", personRequest.getFirstName());
+				parameters.put("OsiguravacPrezime", personRequest.getLastName());
+				parameters.put("OsiguravacJMBG", personRequest.getPersonNo());
+				parameters.put("OsiguravacPasos", personRequest.getPassportNo());
+				
+			}
+		}
+	   parameters.put("Datum1", response.getStartDate());
+	   parameters.put("Datum2", response.getStartDate());
+	   parameters.put("Sport", response.getSport());
+	   parameters.put("VelicinaPokrica", response.getAmount());
+	   parameters.put("Region", response.getRegion());
+	   parameters.put("CijenaOsiguranja", response.getPriceAndDiscountsForTravel().getBasePrice());
+	   
+	   Double suma = Double.valueOf(0);
+	   for (Discount discount : response.getPriceAndDiscountsForTravel().getDiscounts()) {
+		   suma += discount.getAmount();
+	   }
+	   
+	   parameters.put("Popust",suma);
+	   parameters.put("Naplata",  Double.valueOf(response.getPriceAndDiscountsForTravel().getFinalPrice()));
+	   parameters.put("ItemDataSource", itemsJRBean);
+	  
+  
+/*	   parameters.put("TipAutomobila", response.getTypeOfVehicle());
+	    parameters.put("RegistracioniBroj", response.getRegistrationNumber());
+	   parameters.put("GodisteAutomobila", response.getYear());
+	   parameters.put("BrojSasije", response.getChassisNumber());
+	   
+	   parameters.put("VlasnikAutoIme", response.getFirstNameOwnerCar());
+		parameters.put("VlasnikAutoPrezime", response.getLastNameOwnerCar());
+		
+		parameters.put("TrajanjeAuto", response.getDurationForCar());
+		parameters.put("Slepanje", response.getSlepovanje());
+		parameters.put("Prevoz", response.getPrevoz());
+		parameters.put("Popravka", response.getPopravka());	
+		parameters.put("Smestaj", response.getSmestaj());
+		parameters.put("CijenaZaAuto", response.getPriceAndDiscountsForCar().getBasePrice());
+		Double suma1 = Double.valueOf(0);
+		   for (Discount discount : response.getPriceAndDiscountsForCar().getDiscounts()) {
+			   suma1 += discount.getAmount();
+		   }
+		  parameters.put("PopustAuto", suma1);
+		  
+		  parameters.put("NaplataAuto", response.getPriceAndDiscountsForTravel().getFinalPrice());*/
+		  parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForCar().getFinalPrice()+ response.getPriceAndDiscountsForTravel().getFinalPrice());
+		  
+/*	   parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForCar().getFinalPrice()+ response.getPriceForHome());
+		parameters.put("VlasnikIme", response.getFirstNameOwnerHome());
+		parameters.put("VlasnikPrezime", response.getLastNameOwnerHome());
+		parameters.put("Adresa", response.getAddress());
+		parameters.put("TrajanjeOsiguranja",response.getDurationForHome());
+		parameters.put("Rizik",response.getRisk());
+		parameters.put("Vrijednost", response.getValue());
+		parameters.put("Godiste", response.getAge());
+		parameters.put("CijenaOsiguranjaKuca", response.getPriceForHome());
+		parameters.put("Velicina", response.getSize());
+*/
+		
+	     JasperPrint jasperPrint;
+			try {
+				
+				jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\TravelPolicy.jasper", parameters, new JREmptyDataSource());
+				
+				 File file = new File(outputFile);
+			        OutputStream outputStream= new FileOutputStream(file);
+			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+			        logger.info("kreiran PDF");
+			} catch (JRException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+		return 2.3;
+
+		
+		
+	}
 /*	@GetMapping("/x")
 	public String eo() {
 		InsurancePolicyCalculatePriceRequest i=new InsurancePolicyCalculatePriceRequest();
 		i.setStartDate(LocalDate.of(2018, 2, 5));
 		
 	}*/
+
+	/*pomocna metoda */
+	private InsurancePolicyCheckoutResponse generate() {
+		InsurancePolicyCheckoutResponse response = new InsurancePolicyCheckoutResponse();
+		LocalDate date1 = LocalDate.parse("2017-02-03");
+		response.setStartDate(date1);
+		response.setDurationForTravel(12);
+		response.setRegion("Evropa");
+		response.setSport("Skijanje");
+		response.setAmount(10000l);
+		response.setTypeOfPolicy("indiv");
+		
+
+		InsurancePolicyCalculatePriceResponse r = new InsurancePolicyCalculatePriceResponse();
+		r.setBasePrice(24.2);
+		Discount d1 = new Discount(2, "Popust na kolicinu", 12.4);
+		Discount d2 = new Discount(3, "Popust na datum", 340);
+		ArrayList<Discount> discounts = new ArrayList<Discount>();
+		discounts.add(d1);
+		discounts.add(d2);
+		r.setFinalPrice(325.23);
+		r.setDiscounts(discounts);
+		response.setPriceAndDiscountsForTravel(r);
+		
+		PersonRequest p1 = new PersonRequest("Olja", "Miljatovic", "1432994189229","5325325","adresa1",
+				"0640148217", true, "fefw@iehef.com");
+		PersonRequest p2 = new PersonRequest("Sasa", "Miljatovic", "1812994185454","5325325","adresa1",
+				"0640148217", false, "fefw@iehef.com");
+		PersonRequest p3 = new PersonRequest("Sanja", "Miljatovic", "1812444489229","5325325","adresa1",
+				"0640148217", false, "fefw@iehef.com");
+		List<PersonRequest> persons = new ArrayList<PersonRequest>();
+		persons.add(p1);
+		persons.add(p2);
+		persons.add(p3);
+		response.setPersons(persons);
+	
+		response.setTotalPrice(34234.26);
+		
+		
+		response.setDurationForHome(24);
+		response.setRisk("Rizik 1");
+		response.setValue("234 metara");
+		response.setAge("2015");
+		response.setSize("32442");
+		response.setAddress("adresa 1");
+		response.setFirstNameOwnerHome("Olja");
+		response.setLastNameOwnerHome("Miljatovic");
+		response.setPriceForHome(324.32);
+		
+		/*car  */		
+		
+		response.setDurationForCar(12);
+		response.setSlepovanje("safni");
+		response.setPopravka("fafa");
+		response.setPrevoz("fafa");
+		response.setSmestaj("fasfa");
+		response.setFirstNameOwnerCar("Vladimir");
+		response.setLastNameOwnerCar("Stanojevic");
+		response.setTypeOfVehicle("fsafa");
+		response.setYear(2016);
+		response.setRegistrationNumber("341414");
+		response.setChassisNumber("e34234");
+		Discount dis1 = new Discount(2, "popust 1", 2.2);
+		Discount dis2 = new Discount(2, "popust 2", 2.2);
+		ArrayList<Discount> list = new ArrayList<Discount>();
+		list.add(dis1);
+		list.add(dis2);
+		InsurancePolicyCalculatePriceResponse dis = new InsurancePolicyCalculatePriceResponse();
+		dis.setBasePrice(23.4);
+		dis.setDiscounts(list);
+		dis.setFinalPrice(234.4);
+		response.setPriceAndDiscountsForCar(dis);
+		return response;
+	}
 }

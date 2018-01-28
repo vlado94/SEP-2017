@@ -27,7 +27,8 @@ public class InsurancePolicyCarFinal {
 	private String chassisNumber;
 	private String firstNameOwnerCar;
 	private String lastNameOwnerCar;
-	
+	private String carBrand;
+	private String jmbgOwnerCar;
 	@OneToOne(cascade = CascadeType.ALL)
 	private InsurancePolicyPrice price;
 	
@@ -112,6 +113,19 @@ public class InsurancePolicyCarFinal {
 	public void setPrice(InsurancePolicyPrice price) {
 		this.price = price;
 	}
+	public String getCarBrand() {
+		return carBrand;
+	}
+	public void setCarBrand(String carBrand) {
+		this.carBrand = carBrand;
+	}
+	public String getJmbgOwnerCar() {
+		return jmbgOwnerCar;
+	}
+	public void setJmbgOwnerCar(String jmbgOwnerCar) {
+		this.jmbgOwnerCar = jmbgOwnerCar;
+	}
+	
 	
 	
 }

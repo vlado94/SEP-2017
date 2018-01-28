@@ -10,6 +10,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.converter.Converter;
 
 import da.converter.InsurancePolicyCheckoutResponseToInsurancePolicyFinal;
+import da.converter.InsurancePolicyFinalToInsurancePolicyCheckoutResponse;
 import da.converter.InsurancePolicyRequestToInsurancePolicyEntityConverter;
 
 @ConfigurationPropertiesBinding 
@@ -19,6 +20,7 @@ public class ConversionConfig {
 		Set<Converter> converters = new HashSet<Converter>();
 		converters.add(new InsurancePolicyRequestToInsurancePolicyEntityConverter());
 		converters.add(new InsurancePolicyCheckoutResponseToInsurancePolicyFinal());
+		converters.add(new InsurancePolicyFinalToInsurancePolicyCheckoutResponse());
 		return converters;
 	}
 	

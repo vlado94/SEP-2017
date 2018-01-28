@@ -36,6 +36,7 @@ public class InsurancePolicyCheckoutResponseToInsurancePolicyFinal
 		insurancePolicyCarFinal.setChassisNumber(source.getChassisNumber());
 		insurancePolicyCarFinal.setDurationForCar(source.getDurationForCar());
 		insurancePolicyCarFinal.setFirstNameOwnerCar(source.getFirstNameOwnerCar());
+		insurancePolicyCarFinal.setJmbgOwnerCar(source.getJmbgOwnerCar());
 		insurancePolicyCarFinal.setLastNameOwnerCar(source.getLastNameOwnerCar());
 		insurancePolicyCarFinal.setPopravka(source.getPopravka());
 		insurancePolicyCarFinal.setPrevoz(source.getPrevoz());
@@ -74,7 +75,7 @@ public class InsurancePolicyCheckoutResponseToInsurancePolicyFinal
 		insurancePolicyHomeFinal.setRisk(source.getRisk());
 		insurancePolicyHomeFinal.setSize(source.getSize());
 		insurancePolicyHomeFinal.setValue(source.getValue());
-
+		insurancePolicyHomeFinal.setJmbgOwnerHome(source.getJmbgOwnerCar());
 		insurancePolicyFinal.setInsurancePolicyHome(insurancePolicyHomeFinal);
 		/////////////////
 

@@ -10,10 +10,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.MailParseException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +53,8 @@ public class InsurancePolicyController {
 	@Autowired
 	private PersonService personService;
 
+	@Autowired
+	private JavaMailSender mailSender;
     @Autowired
     ConversionService conversionService;
     
@@ -117,17 +126,19 @@ public class InsurancePolicyController {
 	public double getPDF(@RequestBody double d) throws FileNotFoundException {
 		
 			InsurancePolicyCheckoutResponse response = generate();
-			String outputFile ="C:\\Users\\Olja\\Desktop\\TravelPolicy.pdf";
+			JasperPrint jasperPrint;
+			
 			 Map<String, Object> parameters = new HashMap<String, Object>();
 		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getPersons());
 	   
-	    
+	    String mailOfContractor = null;
 	    for (PersonRequest personRequest : response.getPersons()) {
 			if(personRequest.isContractor()) {
 				parameters.put("OsiguravacIme", personRequest.getFirstName());
 				parameters.put("OsiguravacPrezime", personRequest.getLastName());
 				parameters.put("OsiguravacJMBG", personRequest.getPersonNo());
 				parameters.put("OsiguravacPasos", personRequest.getPassportNo());
+				mailOfContractor = personRequest.getEmail();
 				
 			}
 		}
@@ -147,59 +158,114 @@ public class InsurancePolicyController {
 	   parameters.put("Naplata",  Double.valueOf(response.getPriceAndDiscountsForTravel().getFinalPrice()));
 	   parameters.put("ItemDataSource", itemsJRBean);
 	  
-  
-/*	   parameters.put("TipAutomobila", response.getTypeOfVehicle());
-	    parameters.put("RegistracioniBroj", response.getRegistrationNumber());
-	   parameters.put("GodisteAutomobila", response.getYear());
-	   parameters.put("BrojSasije", response.getChassisNumber());
-	   
-	   parameters.put("VlasnikAutoIme", response.getFirstNameOwnerCar());
-		parameters.put("VlasnikAutoPrezime", response.getLastNameOwnerCar());
+		String outputFile;
 		
-		parameters.put("TrajanjeAuto", response.getDurationForCar());
-		parameters.put("Slepanje", response.getSlepovanje());
-		parameters.put("Prevoz", response.getPrevoz());
-		parameters.put("Popravka", response.getPopravka());	
-		parameters.put("Smestaj", response.getSmestaj());
-		parameters.put("CijenaZaAuto", response.getPriceAndDiscountsForCar().getBasePrice());
-		Double suma1 = Double.valueOf(0);
-		   for (Discount discount : response.getPriceAndDiscountsForCar().getDiscounts()) {
-			   suma1 += discount.getAmount();
-		   }
-		  parameters.put("PopustAuto", suma1);
-		  
-		  parameters.put("NaplataAuto", response.getPriceAndDiscountsForTravel().getFinalPrice());*/
-		  parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForCar().getFinalPrice()+ response.getPriceAndDiscountsForTravel().getFinalPrice());
-		  
-/*	   parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForCar().getFinalPrice()+ response.getPriceForHome());
-		parameters.put("VlasnikIme", response.getFirstNameOwnerHome());
-		parameters.put("VlasnikPrezime", response.getLastNameOwnerHome());
-		parameters.put("Adresa", response.getAddress());
-		parameters.put("TrajanjeOsiguranja",response.getDurationForHome());
-		parameters.put("Rizik",response.getRisk());
-		parameters.put("Vrijednost", response.getValue());
-		parameters.put("Godiste", response.getAge());
-		parameters.put("CijenaOsiguranjaKuca", response.getPriceForHome());
-		parameters.put("Velicina", response.getSize());
-*/
-		
-	     JasperPrint jasperPrint;
-			try {
+		if(response.getDurationForHome() == null && response.getDurationForCar() == null) {
+			outputFile ="C:\\Users\\Olja\\Desktop\\TravelPolicy.pdf";
+			  parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForTravel().getFinalPrice());
+		}else if(response.getDurationForHome() == null && response.getDurationForCar() != null) {
+			outputFile ="C:\\Users\\Olja\\Desktop\\CarPolicy.pdf";
+			parameters.put("TipAutomobila", response.getTypeOfVehicle());
+		    parameters.put("RegistracioniBroj", response.getRegistrationNumber());
+		   parameters.put("GodisteAutomobila", response.getYear());
+		   parameters.put("BrojSasije", response.getChassisNumber());
+		   
+		   parameters.put("VlasnikAutoIme", response.getFirstNameOwnerCar());
+			parameters.put("VlasnikAutoPrezime", response.getLastNameOwnerCar());
+			
+			parameters.put("TrajanjeAuto", response.getDurationForCar());
+			parameters.put("Slepanje", response.getSlepovanje());
+			parameters.put("Prevoz", response.getPrevoz());
+			parameters.put("Popravka", response.getPopravka());	
+			parameters.put("Smestaj", response.getSmestaj());
+			parameters.put("CijenaZaAuto", response.getPriceAndDiscountsForCar().getBasePrice());
+			Double suma1 = Double.valueOf(0);
+			   for (Discount discount : response.getPriceAndDiscountsForCar().getDiscounts()) {
+				   suma1 += discount.getAmount();
+			   }
+			  parameters.put("PopustAuto", suma1);
+			  
+			  parameters.put("NaplataAuto", response.getPriceAndDiscountsForTravel().getFinalPrice());
+			  parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForCar().getFinalPrice()+ response.getPriceAndDiscountsForTravel().getFinalPrice());
+		}else if(response.getDurationForHome() != null && response.getDurationForCar() == null) {
+			outputFile ="C:\\Users\\Olja\\Desktop\\HomePolicy.pdf";
+			
+			parameters.put("VlasnikIme", response.getFirstNameOwnerHome());
+			parameters.put("VlasnikPrezime", response.getLastNameOwnerHome());
+			parameters.put("Adresa", response.getAddress());
+			parameters.put("TrajanjeOsiguranja",response.getDurationForHome());
+			parameters.put("Rizik",response.getRisk());
+			parameters.put("Vrijednost", response.getValue());
+			parameters.put("Godiste", response.getAge());
+			parameters.put("CijenaOsiguranjaKuca", response.getPriceForHome());
+			parameters.put("Velicina", response.getSize());
+			parameters.put("UkupnoZaNaplatu", response.getPriceForHome()+ response.getPriceAndDiscountsForTravel().getFinalPrice());
+		}else {
+				outputFile ="C:\\Users\\Olja\\Desktop\\HomeCarPolicy.pdf";
+				parameters.put("TipAutomobila", response.getTypeOfVehicle());
+			    parameters.put("RegistracioniBroj", response.getRegistrationNumber());
+			   parameters.put("GodisteAutomobila", response.getYear());
+			   parameters.put("BrojSasije", response.getChassisNumber());
+			   
+			   parameters.put("VlasnikAutoIme", response.getFirstNameOwnerCar());
+				parameters.put("VlasnikAutoPrezime", response.getLastNameOwnerCar());
 				
-				jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\TravelPolicy.jasper", parameters, new JREmptyDataSource());
+				parameters.put("TrajanjeAuto", response.getDurationForCar());
+				parameters.put("Slepanje", response.getSlepovanje());
+				parameters.put("Prevoz", response.getPrevoz());
+				parameters.put("Popravka", response.getPopravka());	
+				parameters.put("Smestaj", response.getSmestaj());
+				parameters.put("CijenaZaAuto", response.getPriceAndDiscountsForCar().getBasePrice());
+				Double suma1 = Double.valueOf(0);
+				   for (Discount discount : response.getPriceAndDiscountsForCar().getDiscounts()) {
+					   suma1 += discount.getAmount();
+				   }
+				  parameters.put("PopustAuto", suma1);
+				  
+				  parameters.put("NaplataAuto", response.getPriceAndDiscountsForTravel().getFinalPrice());
+					parameters.put("VlasnikIme", response.getFirstNameOwnerHome());
+					parameters.put("VlasnikPrezime", response.getLastNameOwnerHome());
+					parameters.put("Adresa", response.getAddress());
+					parameters.put("TrajanjeOsiguranja",response.getDurationForHome());
+					parameters.put("Rizik",response.getRisk());
+					parameters.put("Vrijednost", response.getValue());
+					parameters.put("Godiste", response.getAge());
+					parameters.put("CijenaOsiguranjaKuca", response.getPriceForHome());
+					parameters.put("Velicina", response.getSize());
+					parameters.put("UkupnoZaNaplatu", response.getPriceForHome()+ response.getPriceAndDiscountsForTravel().getFinalPrice() + response.getPriceAndDiscountsForCar().getFinalPrice());
+		}
+
+		
+	     
+			try {
+				if(response.getDurationForHome() == null && response.getDurationForCar() == null) {
+					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\TravelPolicy.jasper", parameters, new JREmptyDataSource());
+				}else if(response.getDurationForHome() == null && response.getDurationForCar() != null) {
+					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\CarPolicy.jasper", parameters, new JREmptyDataSource());
+				}else if(response.getDurationForHome() != null && response.getDurationForCar() == null) {
+					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\HomePolicy.jasper", parameters, new JREmptyDataSource());
+				}else {
+					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\HomeCarPolicy.jasper", parameters, new JREmptyDataSource());
+				}
+			
 				
 				 File file = new File(outputFile);
 			        OutputStream outputStream= new FileOutputStream(file);
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
+			        
+			        sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
+			        sendMail("sepftn2017@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	
+		
 		return 2.3;
 
 		
+
 		
 	}
 /*	@GetMapping("/x")
@@ -209,7 +275,7 @@ public class InsurancePolicyController {
 		
 	}*/
 
-	/*pomocna metoda */
+	/*pomocna metoda NE BRISATI!!!*/
 	private InsurancePolicyCheckoutResponse generate() {
 		InsurancePolicyCheckoutResponse response = new InsurancePolicyCheckoutResponse();
 		LocalDate date1 = LocalDate.parse("2017-02-03");
@@ -233,7 +299,7 @@ public class InsurancePolicyController {
 		response.setPriceAndDiscountsForTravel(r);
 		
 		PersonRequest p1 = new PersonRequest("Olja", "Miljatovic", "1432994189229","5325325","adresa1",
-				"0640148217", true, "fefw@iehef.com");
+				"0640148217", true, "olja.miljatovic@yahoo.com");
 		PersonRequest p2 = new PersonRequest("Sasa", "Miljatovic", "1812994185454","5325325","adresa1",
 				"0640148217", false, "fefw@iehef.com");
 		PersonRequest p3 = new PersonRequest("Sanja", "Miljatovic", "1812444489229","5325325","adresa1",
@@ -259,7 +325,7 @@ public class InsurancePolicyController {
 		
 		/*car  */		
 		
-		response.setDurationForCar(12);
+		//response.setDurationForCar(12);
 		response.setSlepovanje("safni");
 		response.setPopravka("fafa");
 		response.setPrevoz("fafa");
@@ -281,5 +347,20 @@ public class InsurancePolicyController {
 		dis.setFinalPrice(234.4);
 		response.setPriceAndDiscountsForCar(dis);
 		return response;
+	}
+	
+	private void sendMail(String from, String to, String subject, String text, File file) {
+		 try{
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			helper.setFrom(from);
+			helper.setTo(to);
+			helper.setSubject(subject);
+			helper.setText(text);
+			helper.addAttachment(file.getName(), file);
+			 mailSender.send(message);
+		 }catch (MessagingException e) {
+			   throw new MailParseException(e);
+		 }
 	}
 }

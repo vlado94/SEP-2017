@@ -15,6 +15,7 @@ export class InsurancePolicyPinComponent implements OnInit {
 	  requestPin : PinRequest;
     bankMembers;
     @Input() totalPrice;
+    @Input() policyId;
 
 
  	  constructor(private insurancePolicyService: InsurancePolicyService) { }
@@ -36,6 +37,7 @@ export class InsurancePolicyPinComponent implements OnInit {
   	submitPin(){
   		this.requestPin = this.pinForm.value;
       this.requestPin.totalPrice = this.totalPrice;
+      this.requestPin.policyId = this.policyId;
   		console.log("pin kod " + this.requestPin.pin);
   		this.insurancePolicyService.pin(this.requestPin)
   			.subscribe(pin => {

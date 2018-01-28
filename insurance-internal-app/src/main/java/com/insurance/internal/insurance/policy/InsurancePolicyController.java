@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import model.dto.InsurancePolicyFinalDTO;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCheckoutRequest;
@@ -84,4 +86,14 @@ public class InsurancePolicyController {
 				dataccessPort+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
 		return response;
 	}
+	
+	@PostMapping("/save")
+	private InsurancePolicyFinalDTO saveInsurancePolicy(@RequestBody InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse) {
+		ResponseEntity<InsurancePolicyFinalDTO> responseEntity = restTemplate.postForEntity(
+				dataccessPort+"/insurancePolicyFinal", insurancePolicyCheckoutResponse, InsurancePolicyFinalDTO.class);
+		InsurancePolicyFinalDTO insurancePolicyFinal = responseEntity.getBody();
+		System.out.println(insurancePolicyFinal.toString());
+		return insurancePolicyFinal;
+	}
+	
 }

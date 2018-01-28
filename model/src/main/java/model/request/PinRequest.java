@@ -8,6 +8,8 @@ public class PinRequest {
 
 	private int pin;
 
+	private Long policyId;
+	
 	public PinRequest() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,5 +38,15 @@ public class PinRequest {
 	public void setPin(int pin) {
 		this.pin = pin;
 	}
+
+	public Long getPolicyId() {
+		return policyId;
+	}
+
+	public void setPolicyId(Long policyId) {
+		this.policyId = policyId;
+	}
+	
+	
 
 }

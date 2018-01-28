@@ -29,7 +29,7 @@ import {InsurancePolicyService} from './insurance-policy.service';
 })
 export class InsurancePolicyComponent {
 
-    activeTab: string = '3';
+    activeTab: string = '2';
     //personsList: InsurancePolicyPersonRequest[] = [];
     currentInsurancePolicy: InsurancePolicyRequest;
     age: Age = new Age(0, 0, 0);
@@ -41,7 +41,7 @@ export class InsurancePolicyComponent {
     homeInsurancePrice = null;
     persons: InsurancePolicyPersonRequest[] = [];
     totalPrice: number;
-    
+    policyId;
     checkout = null;
 
     constructor(private insurancePolicyService: InsurancePolicyService) { }
@@ -55,6 +55,8 @@ export class InsurancePolicyComponent {
                 this.totalPrice = this.checkout.totalPrice;
             });
 
+        }else if(value ==='5'){
+            this.save(this.checkout);
         }
         
         this.activeTab = value;
@@ -119,6 +121,13 @@ export class InsurancePolicyComponent {
         }
     }
 
+    save(value){
+        this.insurancePolicyService.save(this.checkout).subscribe(response => {
+            this.policyId = response.id;
+            this.totalPrice = response.price;
+        })
+    }
+    
     personsChanged(value) {
         this.persons = value;
     }

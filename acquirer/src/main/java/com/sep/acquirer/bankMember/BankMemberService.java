@@ -11,5 +11,7 @@ public interface BankMemberService {
 	public BankMember save(BankMember bankMember);
 	
 	public void delete(Long id);
+	
+	public BankMember findByCardNumber(String cardNumber);
 
 }

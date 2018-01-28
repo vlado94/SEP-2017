@@ -50,23 +50,21 @@ public class TransactionServiceImpl implements TransactionService {
 		
 		if(this.checkRequestData(paymentRequest)) {
 			
-			BankMember member = memberRepository.findByBillNumber(Double.parseDouble(paymentRequest.getCardNum()));
-			if(member != null) {
-				
-				double curentAmount = member.getAmount();
-				member.setAmount(curentAmount - paymentRequest.getPolicyPrice());
-				
-				if( memberRepository.save(member) != null)
-				{	//Save transaction if member amount is updated
-					Transaction transaction = new Transaction();
-					transaction.setAmount(paymentRequest.getPolicyPrice());
-					transaction.setBank(member.getBank());
-					transaction.setBankMember(member);
-					repository.save(transaction);
-				}
+			BankMember member = memberRepository.findByCardNumber(paymentRequest.getCardNum());
+			double curentAmount = member.getAmount();
+			member.setAmount(curentAmount - paymentRequest.getPolicyPrice());
+			
+			if( memberRepository.save(member) != null)
+			{	//Save transaction if member amount is updated
+				Transaction transaction = new Transaction();
+				transaction.setAmount(paymentRequest.getPolicyPrice());
+				transaction.setBank(member.getBank());
+				transaction.setBankMember(member);
+				repository.save(transaction);
+			}
 				
 				return true;
-			}
+			
 		}
 		return false;
 	}
@@ -74,7 +72,7 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public boolean checkRequestData(PaymentRequest paymentRequest) {
 		
-		BankMember member = memberRepository.findByBillNumber(Double.parseDouble(paymentRequest.getCardNum()));
+		BankMember member = memberRepository.findByCardNumber(paymentRequest.getCardNum());
 		if(member != null){																		//TODO: DO MORE CHECKING
 			if(member.getAmount() >= paymentRequest.getPolicyPrice() && member.isValid() && member.getBillNumber() > 0) {
 				return true;

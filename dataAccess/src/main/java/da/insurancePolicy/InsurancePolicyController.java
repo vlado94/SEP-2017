@@ -275,7 +275,7 @@ public class InsurancePolicyController {
 		
 	}*/
 
-	/*pomocna metoda */
+	/*pomocna metoda NE BRISATI!!!*/
 	private InsurancePolicyCheckoutResponse generate() {
 		InsurancePolicyCheckoutResponse response = new InsurancePolicyCheckoutResponse();
 		LocalDate date1 = LocalDate.parse("2017-02-03");

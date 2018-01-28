@@ -34,4 +34,10 @@ public class BankMemberServiceImpl implements BankMemberService{
 		repository.delete(id);		
 	}
 
+	@Override
+	public BankMember findByCardNumber(String cardNumber) {
+		// TODO Auto-generated method stub
+		return repository.findByCardNumber(cardNumber);
+	}
+
 }

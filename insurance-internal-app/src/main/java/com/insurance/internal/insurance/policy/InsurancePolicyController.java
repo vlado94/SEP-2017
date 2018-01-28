@@ -1,4 +1,3 @@
-
 package com.insurance.internal.insurance.policy;
 
 import org.slf4j.Logger;
@@ -52,9 +51,14 @@ public class InsurancePolicyController {
 			@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 
 		logger.info("Calculate price for insurance policy");
-		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
+		/*InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
-		logger.info("Price is calculated and price is " + response.getFinalPrice());
+		logger.info("Price is calculated and price is " + response.getFinalPrice());*/
+		
+		
+		InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
+				 double d = restTemplate.postForObject(
+						 dataccessPort+"/insurancePolicy/getPDF", 1, Double.class);
 		return response;
 	}
 

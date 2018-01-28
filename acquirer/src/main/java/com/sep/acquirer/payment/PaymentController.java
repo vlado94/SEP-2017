@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.sep.acquirer.bank.Bank;
 import com.sep.acquirer.bank.BankService;
+import com.sep.acquirer.bankMember.BankMember;
+import com.sep.acquirer.bankMember.BankMemberService;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
 import com.sep.acquirer.transaction.TransactionService;
 
@@ -26,6 +28,9 @@ public class PaymentController {
 	
 	@Autowired
 	private BankService bankService;
+	
+	@Autowired
+	private BankMemberService bankMemberService;
 
 	@Value("${server.port}")
 	private String port;
@@ -40,10 +45,8 @@ public class PaymentController {
 	@PostMapping("/pay")
 	private void Pay(HttpServletResponse httpServletResponse, @RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
-		String bankCode = "";
-		if(paymentRequest.getCardNum().length()>3)
-			bankCode = paymentRequest.getCardNum().substring(0, 3);
-		Bank bank = bankService.findByCode(bankCode);
+		BankMember bankMember = bankMemberService.findByCardNumber(paymentRequest.getCardNum());
+		Bank bank = bankMember.getBank();
 		if(bank != null) {
 			if(bank.getPort().equals(port)) {
 				if(transactionService.submitPayment(paymentRequest))

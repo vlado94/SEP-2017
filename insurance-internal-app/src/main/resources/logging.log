@@ -1604,3 +1604,138 @@
 [INFO ]2018-01-28 22:40:22 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
 [INFO ]2018-01-28 22:51:48 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
 >>>>>>> 889dc43010fcfa5f5410eed9b0963d27e4e962b8
+[INFO ]2018-01-28 23:38:26 c.i.internal.factor.FactorController - Find category by factor id 13
+[INFO ]2018-01-28 23:38:26 c.i.internal.factor.FactorController - Find category by factor id 6
+[INFO ]2018-01-28 23:38:26 c.i.internal.factor.FactorController - Find category by factor id 7
+[INFO ]2018-01-28 23:38:26 c.i.internal.factor.FactorController - Find category by factor id 11
+[INFO ]2018-01-28 23:38:26 c.i.internal.factor.FactorController - Find category by factor id 12
+[INFO ]2018-01-28 23:38:26 c.i.internal.factor.FactorController - Find category by factor id 8
+[INFO ]2018-01-28 23:38:28 c.i.internal.factor.FactorController - Find category by factor id 5
+[INFO ]2018-01-28 23:38:28 c.i.internal.factor.FactorController - Find category by factor id 9
+[INFO ]2018-01-28 23:38:30 c.i.internal.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-28 23:38:30 c.i.internal.factor.FactorController - Find category by factor id 10
+[INFO ]2018-01-28 23:38:32 c.i.internal.factor.FactorController - Find category by factor id 4
+[INFO ]2018-01-28 23:38:34 c.i.internal.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-28 23:38:34 c.i.internal.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-28 23:39:19 c.i.internal.factor.FactorController - Find category by factor id 10
+[INFO ]2018-01-28 23:39:19 c.i.internal.factor.FactorController - Find category by factor id 12
+[INFO ]2018-01-28 23:39:19 c.i.internal.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-28 23:39:19 c.i.internal.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-28 23:39:19 c.i.internal.factor.FactorController - Find category by factor id 5
+[INFO ]2018-01-28 23:39:19 c.i.internal.factor.FactorController - Find category by factor id 13
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 5 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 1 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 3 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 10 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 12 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 13 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 4
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 2 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 7
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 4 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 8
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 7 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 6
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 9
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Find category by factor id 11
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 8 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 6 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 9 is found
+[INFO ]2018-01-28 23:39:20 c.i.internal.factor.FactorController - Category with id 11 is found
+[INFO ]2018-01-28 23:40:15 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:40:20 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:40:22 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:42:36 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:42:58 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:43:19 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:43:54 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:45:34 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:45:41 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 7
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 13
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 9
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 6
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 8
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 12
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 6 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 13 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 7 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 11
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 9 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 12 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 10
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 5
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 11 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 8 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 5 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 10 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 4
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 2 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 1 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 4 is found
+[INFO ]2018-01-28 23:46:00 c.i.internal.factor.FactorController - Category with id 3 is found
+[INFO ]2018-01-28 23:46:11 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:49:21 c.i.internal.factor.FactorController - Find category by factor id 7
+[INFO ]2018-01-28 23:49:21 c.i.internal.factor.FactorController - Find category by factor id 12
+[INFO ]2018-01-28 23:49:21 c.i.internal.factor.FactorController - Find category by factor id 8
+[INFO ]2018-01-28 23:49:21 c.i.internal.factor.FactorController - Find category by factor id 6
+[INFO ]2018-01-28 23:49:21 c.i.internal.factor.FactorController - Find category by factor id 13
+[INFO ]2018-01-28 23:49:21 c.i.internal.factor.FactorController - Find category by factor id 9
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 9 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 8 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 6 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 12 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 13 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 7 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 11
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 5
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 4
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 11 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 5 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 10
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 10 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 4 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 2 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 1 is found
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-28 23:49:22 c.i.internal.factor.FactorController - Category with id 3 is found
+[INFO ]2018-01-28 23:49:34 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:49:35 c.i.i.i.p.InsurancePolicyController - Price is calculated and price is 24360.0
+[INFO ]2018-01-28 23:49:39 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:49:39 c.i.i.i.p.InsurancePolicyController - Price is calculated and price is 24480.0
+[INFO ]2018-01-28 23:49:42 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:49:42 c.i.i.i.p.InsurancePolicyController - Price is calculated and price is 24360.0
+[INFO ]2018-01-28 23:49:49 c.i.i.i.p.InsurancePolicyController - Calculate price for insurance policy
+[INFO ]2018-01-28 23:49:49 c.i.i.i.p.InsurancePolicyController - Price is calculated and price is 27360.0
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 9
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 8
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 7
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 13
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 12
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 6
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 9 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 7 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 11
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 8 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 13 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 12 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 6 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 10
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 5
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 4
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 11 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 10 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 5 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 4 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 2 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 3 is found
+[INFO ]2018-01-28 23:50:29 c.i.internal.factor.FactorController - Category with id 1 is found

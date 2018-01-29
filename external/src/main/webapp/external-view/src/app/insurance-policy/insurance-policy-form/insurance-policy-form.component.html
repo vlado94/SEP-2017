@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="col-sm-6">
 			<div class="card">
-				<div class="card-header" data-background-color="green">
+				<div class="card-header" data-background-color="blue">
 					<h4 class="title">Unesite podatke o osiguranju</h4>
 				</div>
 				<div class="card-content">
@@ -13,7 +13,8 @@
 							<div class="col-sm-4">
 								<div id="startDateLabel" class="form-group form-black label-floating">
 									<label class="control-label">Od</label>
-									<input type="text" class="form-control" formControlName="startDate" bsDatepicker (blur)="diplayStartDateErrors=true" (input)="changedDate()" />
+									<input type="text" class="form-control" formControlName="startDate" bsDatepicker #dp="bsDatepicker" (click)="applyTheme(dp)" 
+									(blur)="diplayStartDateErrors=true"  [bsConfig]="bsConfig" />
 									<div *ngIf="insurancePolicyForm.controls['startDate'].errors && !insurancePolicyForm.controls['startDate'].pristine && diplayStartDateErrors">
 
 										<span class="errorClass" *ngIf="insurancePolicyForm.controls['startDate'].errors.required">Morate uneti datum pocetka osiguranja.</span>
@@ -120,7 +121,7 @@
 						<div class="price" *ngIf="price">
 							<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi : {{price}}</div>
 						</div>
-						<button type="submit" [disabled]="!insurancePolicyForm.valid || !checkNumberOfPeople()" class="btn btn-default btn-success pull-right" >Dalje</button>
+						<button type="submit" [disabled]="!insurancePolicyForm.valid || !checkNumberOfPeople()" class="btn pull-right" >Dalje</button>
 
 					</form>
 				</div>

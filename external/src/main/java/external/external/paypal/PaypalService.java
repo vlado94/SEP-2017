@@ -18,7 +18,7 @@ import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.OAuthTokenCredential;
 import com.paypal.base.rest.PayPalRESTException;
 
-import model.request.InsurancePolicyRequest;
+import model.dto.InsurancePolicyFinalDTO;
 import model.response.InsurancePolicyCheckoutResponse;
 
 @Service
@@ -35,11 +35,11 @@ public class PaypalService {
 
     private HashMap<String, String> map = new HashMap<String, String>();
     
-    private HashMap<String, InsurancePolicyCheckoutResponse> insuranceMap = new HashMap<String, InsurancePolicyCheckoutResponse>();
+    private HashMap<String, InsurancePolicyFinalDTO> insuranceMap = new HashMap<String, InsurancePolicyFinalDTO>();
 
     public Payment createPayment(String total, String currency, 
     		String method, String intent, String description, String successUrl, String cancelUrl, 
-    		Long requestTransactionEntityID, InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse) throws PayPalRESTException {
+    		Long requestTransactionEntityID, InsurancePolicyFinalDTO insurancePolicyFinalDTO) throws PayPalRESTException {
         Amount amount = new Amount();
         amount.setCurrency(currency);
         //amount.setTotal(String.format("%.2f", 3d));
@@ -77,7 +77,7 @@ public class PaypalService {
         apiContext.setConfigurationMap(sdkConfig);
         payment = payment.create(apiContext);
         map.put(payment.getId(), token);
-        insuranceMap.put(payment.getId(), insurancePolicyCheckoutResponse);
+        insuranceMap.put(payment.getId(), insurancePolicyFinalDTO);
 /*
         PaypalCreatePaymentEntity paypalCreatePaymentEntity = new PaypalCreatePaymentEntity();
         paypalCreatePaymentEntity.setAccessToken(token);
@@ -105,11 +105,11 @@ public class PaypalService {
         return payment.execute(apiContext, paymentExecute);
     }
 
-	public InsurancePolicyCheckoutResponse getInsuranceMap(String paymentId) {
+	public InsurancePolicyFinalDTO getInsuranceMap(String paymentId) {
 		return insuranceMap.get(paymentId);
 	}
 
-	public void setInsuranceMap(HashMap<String, InsurancePolicyCheckoutResponse> insuranceMap) {
+	public void setInsuranceMap(HashMap<String, InsurancePolicyFinalDTO> insuranceMap) {
 		this.insuranceMap = insuranceMap;
 	}
     

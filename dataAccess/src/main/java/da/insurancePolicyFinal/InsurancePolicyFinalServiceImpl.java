@@ -18,5 +18,10 @@ public class InsurancePolicyFinalServiceImpl implements InsurancePolicyFinalServ
 		return repo.save(insurancePolicyFinal);
 	}
 
+	@Override
+	public InsurancePolicyFinal findById(Long id) {
+		return repo.findById(id).get();
+	}
+
 	
 }

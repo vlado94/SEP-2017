@@ -32,5 +32,31 @@ public class InsurancePolicyFinalController {
 		return insurancePolicyFinalDTO;
 		
 	}
+	
+	/*@PostMapping("/paypal")
+	public InsurancePolicyCheckoutResponse getCheckoutPayPal(@RequestBody InsurancePolicyCheckoutResponse response) {
+
+		InsurancePolicyFinal insurancePolicyFinal = conversionService.convert(response, InsurancePolicyFinal.class);
+		
+		insurancePolicyFinal = insurancePolicyFinalService.save(insurancePolicyFinal);
+		response.setId(insurancePolicyFinal.getId());
+		return response;
+		
+	}*/
+	
+	@PostMapping("/paying")
+	public boolean paying(@RequestBody InsurancePolicyFinalDTO response) {
+		InsurancePolicyFinal insurancePolicyFinal = insurancePolicyFinalService.findById(response.getId());
+		insurancePolicyFinal.setPaid(true);
+		try {
+			insurancePolicyFinalService.save(insurancePolicyFinal);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+	
+	
 
 }

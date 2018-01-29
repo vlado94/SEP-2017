@@ -7,13 +7,14 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { InsurancePolicyComponent } from './insurance-policy/insurance-policy.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AboutComponent } from "./about/about.component";
-
+import { PaypalExecuteComponent } from './paypal-execute/paypal-execute.component';
 
 const routes: Routes =[
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'policy',   component: InsurancePolicyComponent },
     { path: '',  component: HomePageComponent},
-    { path: 'about', component : AboutComponent}
+    { path: 'about', component : AboutComponent},
+    { path: 'paypal', component :  PaypalExecuteComponent }
 ];
 
 @NgModule({

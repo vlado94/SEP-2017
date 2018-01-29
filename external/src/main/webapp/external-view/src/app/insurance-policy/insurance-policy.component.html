@@ -1,7 +1,6 @@
 <div class="parallax-window image-class" data-parallax="scroll">
 	<div class="parallax-content container">
-		<h1 class="carousel-title">Product Pricing</h1>
-		<p>Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br/> enim minim estudiat veniam siad venumus dolore</p>
+		<h1 class="carousel-title">Trutovi</h1>
 	</div>
 </div>
 
@@ -48,7 +47,7 @@
 					[homeInsurancePrice]="homeInsurancePrice" (calculatePriceHome)="calculateHomeInsurancePrice($event)">
 				</app-insurance-policy-home-car>
 				<app-insurance-policy-checkout [hidden]="active_tab != 4"
-					(nextTab)="nextTab($event)"
+					(nextTab)="changeTab($event)"
 					[persons]="persons"
 					[insurancePrice]="policyPrice"
 					[carInsurancePrice]="carInsurancePrice"

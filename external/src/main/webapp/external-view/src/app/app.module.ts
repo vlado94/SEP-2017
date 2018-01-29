@@ -36,6 +36,8 @@ import { InsurancePolicyService } from './insurance-policy/insurance-policy.serv
 import { InsurancePolicyCheckoutComponent } from './insurance-policy/insurance-policy-checkout/insurance-policy-checkout.component';
 import { PaypalService } from './insurance-policy/insurance-policy-checkout/paypal.service';
 import { AboutComponent } from './about/about.component';
+import { PaypalExecuteComponent } from './paypal-execute/paypal-execute.component';
+import { PaypalExecuteServiceService } from './paypal-execute/paypal-execute-service.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { AboutComponent } from './about/about.component';
     InsurancePolicyCarComponent,
     InsurancePolicyHomeComponent,
     InsurancePolicyCheckoutComponent,
-    AboutComponent
+    AboutComponent,
+    PaypalExecuteComponent
 
   ],
   imports: [BsDatepickerModule.forRoot(),
@@ -65,7 +68,7 @@ import { AboutComponent } from './about/about.component';
 RouterModule,
     AppRoutingModule
   ],
-  providers: [FactorService, InsurancePolicyService, PaypalService],
+  providers: [FactorService, InsurancePolicyService, PaypalService, PaypalExecuteServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

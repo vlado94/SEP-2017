@@ -1,0 +1,9 @@
+[INFO ]2018-01-28 17:22:33 e.external.price.PriceController - Izracunata cena za polisu 9480.0
+[INFO ]2018-01-28 18:46:09 e.external.price.PriceController - Izracunata cena za polisu 9200.0
+[INFO ]2018-01-28 18:48:58 e.external.paypal.PaypalController - Kreiran payment PAY-9AN8333227814844VLJXA2DA
+[INFO ]2018-01-28 18:49:49 e.external.paypal.PaypalController - Paypal is executed with payment id PAY-9AN8333227814844VLJXA2DA
+[INFO ]2018-01-28 19:13:38 e.external.price.PriceController - Izracunata cena za polisu 6870.0
+[INFO ]2018-01-28 19:16:01 e.external.price.PriceController - Izracunata cena za polisu 7110.0
+[INFO ]2018-01-28 19:16:22 e.external.paypal.PaypalController - Kreiran payment PAY-94S71851BF7630500LJXBG5Y
+[INFO ]2018-01-28 19:17:11 e.external.paypal.PaypalController - Paypal is executed with payment id PAY-94S71851BF7630500LJXBG5Y
+[INFO ]2018-01-28 23:35:00 e.external.price.PriceController - Izracunata cena za polisu 9480.0

@@ -5,9 +5,9 @@ import java.util.List;
 
 import model.request.PersonRequest;
 
-
 public class InsurancePolicyCheckoutResponse {
-  /*travel*/
+
+	/* travel */
 	private LocalDate startDate;
 	private Integer durationForTravel;
 	private String region;
@@ -16,8 +16,8 @@ public class InsurancePolicyCheckoutResponse {
 	private String typeOfPolicy;
 	private List<PersonRequest> persons;
 	private InsurancePolicyCalculatePriceResponse priceAndDiscountsForTravel;
-	
-	/*home*/
+
+	/* home */
 	private Integer durationForHome;
 	private String risk;
 	private String value;
@@ -28,8 +28,8 @@ public class InsurancePolicyCheckoutResponse {
 	private String lastNameOwnerHome;
 	private String jmbgOwnerHome;
 	private Double priceForHome;
-	
-	/*car*/
+
+	/* car */
 	private Integer durationForCar;
 	private String slepovanje;
 	private String popravka;
@@ -44,15 +44,13 @@ public class InsurancePolicyCheckoutResponse {
 	private String jmbgOwnerCar;
 	private String carBrand;
 	private InsurancePolicyCalculatePriceResponse priceAndDiscountsForCar;
-	
-	
+
 	private Double totalPrice;
 
 	public InsurancePolicyCheckoutResponse() {
-		
+
 	}
-	
-	
+
 	public InsurancePolicyCheckoutResponse(LocalDate startDate, Integer durationForTravel, String region, String sport,
 			String amount, String typeOfPolicy, List<PersonRequest> persons,
 			InsurancePolicyCalculatePriceResponse priceAndDiscountsForTravel, Integer durationForHome, String risk,
@@ -94,334 +92,268 @@ public class InsurancePolicyCheckoutResponse {
 		this.totalPrice = totalPrice;
 	}
 
-
 	public LocalDate getStartDate() {
 		return startDate;
 	}
-
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-
 	public Integer getDurationForTravel() {
 		return durationForTravel;
 	}
-
 
 	public void setDurationForTravel(Integer durationForTravel) {
 		this.durationForTravel = durationForTravel;
 	}
 
-
 	public String getRegion() {
 		return region;
 	}
-
 
 	public void setRegion(String region) {
 		this.region = region;
 	}
 
-
 	public String getSport() {
 		return sport;
 	}
-
 
 	public void setSport(String sport) {
 		this.sport = sport;
 	}
 
-
 	public String getAmount() {
 		return amount;
 	}
-
 
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 
-
 	public String getTypeOfPolicy() {
 		return typeOfPolicy;
 	}
-
 
 	public void setTypeOfPolicy(String typeOfPolicy) {
 		this.typeOfPolicy = typeOfPolicy;
 	}
 
-
 	public List<PersonRequest> getPersons() {
 		return persons;
 	}
-
 
 	public void setPersons(List<PersonRequest> persons) {
 		this.persons = persons;
 	}
 
-
 	public InsurancePolicyCalculatePriceResponse getPriceAndDiscountsForTravel() {
 		return priceAndDiscountsForTravel;
 	}
-
 
 	public void setPriceAndDiscountsForTravel(InsurancePolicyCalculatePriceResponse priceAndDiscountsForTravel) {
 		this.priceAndDiscountsForTravel = priceAndDiscountsForTravel;
 	}
 
-
 	public Integer getDurationForHome() {
 		return durationForHome;
 	}
-
 
 	public void setDurationForHome(Integer durationForHome) {
 		this.durationForHome = durationForHome;
 	}
 
-
 	public String getRisk() {
 		return risk;
 	}
-
 
 	public void setRisk(String risk) {
 		this.risk = risk;
 	}
 
-
 	public String getValue() {
 		return value;
 	}
-
 
 	public void setValue(String value) {
 		this.value = value;
 	}
 
-
 	public String getAge() {
 		return age;
 	}
-
 
 	public void setAge(String age) {
 		this.age = age;
 	}
 
-
 	public String getSize() {
 		return size;
 	}
-
 
 	public void setSize(String size) {
 		this.size = size;
 	}
 
-
 	public String getAddress() {
 		return address;
 	}
-
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-
 	public String getFirstNameOwnerHome() {
 		return firstNameOwnerHome;
 	}
-
 
 	public void setFirstNameOwnerHome(String firstNameOwnerHome) {
 		this.firstNameOwnerHome = firstNameOwnerHome;
 	}
 
-
 	public String getLastNameOwnerHome() {
 		return lastNameOwnerHome;
 	}
-
 
 	public void setLastNameOwnerHome(String lastNameOwnerHome) {
 		this.lastNameOwnerHome = lastNameOwnerHome;
 	}
 
-
 	public Double getPriceForHome() {
 		return priceForHome;
 	}
-
 
 	public void setPriceForHome(Double priceForHome) {
 		this.priceForHome = priceForHome;
 	}
 
-
 	public Integer getDurationForCar() {
 		return durationForCar;
 	}
-
 
 	public void setDurationForCar(Integer durationForCar) {
 		this.durationForCar = durationForCar;
 	}
 
-
 	public String getSlepovanje() {
 		return slepovanje;
 	}
-
 
 	public void setSlepovanje(String slepovanje) {
 		this.slepovanje = slepovanje;
 	}
 
-
 	public String getPopravka() {
 		return popravka;
 	}
-
 
 	public void setPopravka(String popravka) {
 		this.popravka = popravka;
 	}
 
-
 	public String getPrevoz() {
 		return prevoz;
 	}
-
 
 	public void setPrevoz(String prevoz) {
 		this.prevoz = prevoz;
 	}
 
-
 	public String getSmestaj() {
 		return smestaj;
 	}
-
 
 	public void setSmestaj(String smestaj) {
 		this.smestaj = smestaj;
 	}
 
-
 	public String getTypeOfVehicle() {
 		return typeOfVehicle;
 	}
-
 
 	public void setTypeOfVehicle(String typeOfVehicle) {
 		this.typeOfVehicle = typeOfVehicle;
 	}
 
-
 	public Integer getYear() {
 		return year;
 	}
-
 
 	public void setYear(Integer year) {
 		this.year = year;
 	}
 
-
 	public String getRegistrationNumber() {
 		return registrationNumber;
 	}
-
 
 	public void setRegistrationNumber(String registrationNumber) {
 		this.registrationNumber = registrationNumber;
 	}
 
-
 	public String getChassisNumber() {
 		return chassisNumber;
 	}
-
 
 	public void setChassisNumber(String chassisNumber) {
 		this.chassisNumber = chassisNumber;
 	}
 
-
 	public String getFirstNameOwnerCar() {
 		return firstNameOwnerCar;
 	}
-
 
 	public void setFirstNameOwnerCar(String firstNameOwnerCar) {
 		this.firstNameOwnerCar = firstNameOwnerCar;
 	}
 
-
 	public String getLastNameOwnerCar() {
 		return lastNameOwnerCar;
 	}
-
 
 	public void setLastNameOwnerCar(String lastNameOwnerCar) {
 		this.lastNameOwnerCar = lastNameOwnerCar;
 	}
 
-
 	public InsurancePolicyCalculatePriceResponse getPriceAndDiscountsForCar() {
 		return priceAndDiscountsForCar;
 	}
-
 
 	public void setPriceAndDiscountsForCar(InsurancePolicyCalculatePriceResponse priceAndDiscountsForCar) {
 		this.priceAndDiscountsForCar = priceAndDiscountsForCar;
 	}
 
-
 	public Double getTotalPrice() {
 		return totalPrice;
 	}
-
 
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-
 	public String getJmbgOwnerHome() {
 		return jmbgOwnerHome;
 	}
-
 
 	public void setJmbgOwnerHome(String jmbgOwnerHome) {
 		this.jmbgOwnerHome = jmbgOwnerHome;
 	}
 
-
 	public String getJmbgOwnerCar() {
 		return jmbgOwnerCar;
 	}
-
 
 	public void setJmbgOwnerCar(String jmbgOwnerCar) {
 		this.jmbgOwnerCar = jmbgOwnerCar;
 	}
 
-
 	public String getCarBrand() {
 		return carBrand;
 	}
 
-
 	public void setCarBrand(String carBrand) {
 		this.carBrand = carBrand;
 	}
-	
+
 }

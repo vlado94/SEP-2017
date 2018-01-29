@@ -1,3 +1,7 @@
 .errorClass{
 	color : red;
 }
+
+.form-group.is-focused.form-black .form-control {
+	background-image: linear-gradient(blue,blue), linear-gradient(#D2D2D2,#D2D2D2);
+}

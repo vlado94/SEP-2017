@@ -26,8 +26,11 @@ export class InsurancePolicyFormComponent implements OnInit {
 	agesCategory: Factor[];
 	amounts: Factor[];
 	types: Factor[];
+	public dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
 
-	constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { }
+	constructor(private insurancePolicyService: InsurancePolicyService, private factorService: FactorService) { 
+		this.dpConfig.containerClass = 'theme-dark-blue';
+	}
 
 	ngOnInit() {
 		this.insurancePolicyForm = new FormGroup({
@@ -102,8 +105,8 @@ export class InsurancePolicyFormComponent implements OnInit {
 		this.nextTab.emit(2);
 	}
 
-
-	colorTheme = 'theme-green';
+	
+	colorTheme = 'theme-blue';
 	bsConfig: Partial<BsDatepickerConfig>;
 
 	applyTheme(pop: any) {
@@ -134,12 +137,12 @@ export class InsurancePolicyFormComponent implements OnInit {
 		return new Date(+parts[0], +parts[1] - 1, parts[2]);
 	}
 
-	changedDate(){
+	/*changedDate(){
 		this.insurancePolicyForm.value['startDate']
 		if(this.insurancePolicyForm.value)
 			console.log("sss")
 			
-	}
+	}*/
 
 }
 

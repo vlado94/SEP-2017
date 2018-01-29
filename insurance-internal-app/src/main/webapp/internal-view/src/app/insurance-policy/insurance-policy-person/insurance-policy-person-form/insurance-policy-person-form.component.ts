@@ -11,6 +11,73 @@ import { Age } from '../../insurance-policy.component';
 
 //import {InsurancePolicyPersonRequest} from './insurance-policy-person-request';
 
+
+function personNoValidator( personNo: FormControl ) {
+    let result: boolean = true;
+    let personNumber = personNo.value;
+    if ( personNumber != null && personNumber.length == 13) {
+        let dd = +personNumber.substring( 0, 2 );
+        let mm = +personNumber.substring( 2, 4 );
+        let ggg = +personNumber.substring( 4, 7 );
+        let rr = +personNumber.substring( 7, 9 );
+        let bbb = +personNumber.substring( 9, 12 );
+        let k = +personNumber.substring( 12 );
+        let controlNum = 11 - ( ( 7 * ( +personNumber[0] + ( +personNumber[6] ) ) + 6 * ( +personNumber[1] + ( +personNumber[7] ) ) + 5 * ( +personNumber[2] + ( +personNumber[8] ) ) + 4 * ( +personNumber[3] + ( +personNumber[9] ) ) + 3 * ( +personNumber[4] + ( +personNumber[10] ) ) + 2 * ( +personNumber[5] + ( +personNumber[11] ) ) ) % 11 );
+        
+        
+        
+        if(mm == 1 || mm == 3 || mm == 5 || mm == 7 || mm == 8 || mm == 10 || mm == 12){
+            if(!(dd >0 && dd <= 31)){
+                result = result && false;
+            }
+        }else if(mm == 4 || mm == 6 || mm == 9 || mm == 11){
+            if(!(dd >0 && dd <= 30)){
+                result = result && false;
+            }
+        }/*else if(mm == 2 && (ggg % 4==0 && ggg % 100 != 0)){
+            if(dd >0 && dd <= 29){
+                result = result && true;
+            }else{
+                result = result && false;
+            }
+        }*/else if(mm == 2){
+            if(!(dd >0 && dd <= 28)){
+                result = result && false;
+            }            
+        }
+        
+        if(!(mm >0 && mm <= 12)){
+            result = result && false;
+        }
+        
+        if(!(ggg >= 0 &&  ggg<=999)){
+            result = result && false;
+        }
+        
+        if(!(rr >= 0 && rr<=99)){
+            result = result && false;
+        }
+        if(!(bbb >=0 && bbb <= 999)){
+            result = result && false;
+        }
+        
+        if(!(k == controlNum)){
+            result = result && false;
+        }
+    }
+    
+    if ( !result )
+        return {
+        personNoValidator: {
+                valid: false
+            }
+        }
+    else
+        return null;
+}
+
+
+
 @Component( {
     selector: 'app-insurance-policy-person-form',
     templateUrl: './insurance-policy-person-form.component.html',
@@ -55,7 +122,7 @@ export class InsurancePolicyPersonFormComponent {
             jmbg: new FormControl( '', [
                 Validators.required,
                 Validators.minLength( 13 ),
-                Validators.maxLength( 13 )
+                Validators.maxLength( 13 )/*, personNoValidator*/
             ] ),
             passportNumber: new FormControl( '', [Validators.required] ),
 
@@ -101,10 +168,10 @@ export class InsurancePolicyPersonFormComponent {
 
         this.insurancePolicyPerson.controls['contractor'].valueChanges.subscribe(
             selectedValue => {
-                if ( selectedValue == 'false' || selectedValue == null) {
+                if ( selectedValue == 'false' || selectedValue == null ) {
                     this.insurancePolicyPerson.controls['email'].setValue( '' );
-                    this.insurancePolicyPerson.controls['email'].setValidators(null);
-                } 
+                    this.insurancePolicyPerson.controls['email'].setValidators( null );
+                }
                 else {
                     this.insurancePolicyPerson.controls['email'].setValidators( [Validators.required, Validators.email] );
                 }

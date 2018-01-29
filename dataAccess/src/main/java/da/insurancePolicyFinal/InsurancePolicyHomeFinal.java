@@ -20,7 +20,7 @@ public class InsurancePolicyHomeFinal {
 	private String address;
 	private String firstNameOwnerHome;
 	private String lastNameOwnerHome;
-	// private String jmbgOwnerHome;
+	private String jmbgOwnerHome;
 	private Double priceForHome;
 
 	public InsurancePolicyHomeFinal() {
@@ -107,4 +107,13 @@ public class InsurancePolicyHomeFinal {
 		this.priceForHome = priceForHome;
 	}
 
+	public String getJmbgOwnerHome() {
+		return jmbgOwnerHome;
+	}
+
+	public void setJmbgOwnerHome(String jmbgOwnerHome) {
+		this.jmbgOwnerHome = jmbgOwnerHome;
+	}
+
+	
 }

@@ -27,7 +27,7 @@
 		<div class="form-group row">
 			<label for="lastName" class="col-4">Prezime:</label>
 			<div class="col-5">
-				<input  name ="lastName" type="text" class="form-control"
+				<input name="lastName" type="text" class="form-control"
 					formControlName="lastName"
 					[ngClass]="{'is-invalid':insurancePolicyPerson.controls['lastName'].errors && !insurancePolicyPerson.controls['lastName'].pristine}">
 			</div>
@@ -64,14 +64,14 @@
 				<input id="email" type="email" class="form-control"
 					formControlName="email" />
 			</div>
-			
+
 			<div
 				*ngIf="insurancePolicyPerson.controls['email'].errors && !insurancePolicyPerson.controls['email'].pristine"
 				class="col-5 offset-4 invalid-feedback">
 
 				<div *ngIf="insurancePolicyPerson.controls['email'].errors.required">Morate
 					uneti email ugovarača polise.</div>
-			</div>				
+			</div>
 		</div>
 
 		<div class="form-group row">
@@ -91,6 +91,9 @@
 					matični broj sadrži 13 cifara.</div>
 				<div *ngIf="insurancePolicyPerson.controls['jmbg'].errors.maxlength">Jedinstveni
 					matični broj sadrži 13 cifara.</div>
+				<!--<div
+					*ngIf="insurancePolicyPerson.controls['jmbg'].errors.personNoValidator">Nije
+					unet ispravan matični broj.</div> -->
 			</div>
 			<div class="col-5 offset-4 invalid-feedback"
 				*ngIf="jmbgExists && !insurancePolicyPerson.controls['jmbg'].pristine">Korisnik
@@ -108,9 +111,10 @@
 				*ngIf="insurancePolicyPerson.controls['passportNumber'].errors && !insurancePolicyPerson.controls['passportNumber'].pristine"
 				class="col-5 offset-4 invalid-feedback">
 
-				<div *ngIf="insurancePolicyPerson.controls['passportNumber'].errors.required">Morate
+				<div
+					*ngIf="insurancePolicyPerson.controls['passportNumber'].errors.required">Morate
 					uneti broj pasoša.</div>
-			</div>			
+			</div>
 		</div>
 
 		<div class="form-group row">

@@ -1,17 +1,20 @@
 package com.sep.acquirer.payment;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.sep.acquirer.bank.Bank;
-import com.sep.acquirer.bank.BankService;
+import com.sep.acquirer.bankMember.BankMember;
+import com.sep.acquirer.bankMember.BankMemberService;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
 import com.sep.acquirer.transaction.TransactionService;
 
@@ -25,10 +28,16 @@ public class PaymentController {
 	private TransactionService transactionService;
 	
 	@Autowired
-	private BankService bankService;
+	private RestTemplate restTemplate;
+	
+	@Autowired
+	private BankMemberService bankMemberService;
 
 	@Value("${server.port}")
 	private String port;
+	
+	@Value("${baseUrl}")
+	private String baseUrl;
 	
 	
 	@GetMapping("/test")
@@ -38,20 +47,28 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/pay")
-	private void Pay(HttpServletResponse httpServletResponse, @RequestBody PaymentRequest paymentRequest) {
+	private String Pay(@RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
-		String bankCode = "";
-		if(paymentRequest.getCardNum().length()>3)
-			bankCode = paymentRequest.getCardNum().substring(0, 3);
-		Bank bank = bankService.findByCode(bankCode);
+		BankMember bankMember = bankMemberService.findByCardNumber(paymentRequest.getCardNum());
+		Bank bank = bankMember.getBank();
 		if(bank != null) {
 			if(bank.getPort().equals(port)) {
-				if(transactionService.submitPayment(paymentRequest))
+				if(transactionService.submitPayment(paymentRequest)) {
 					System.out.println("SUCCESFUL PAYMENT");
+					return "True";
+				}
 			}
-			else
-				System.out.println("HTTP CLIENT TO ANOTHER BANK");
+			else {
+				ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + ":" + bank.getPort()+"/payment/pay", paymentRequest , String.class );
+				return response.getBody();
+			}
 		}
+		return "False";
+	}
+	
+	@Bean
+	public RestTemplate restTemplate() {
+	    return new RestTemplate();
 	}
 	
 	

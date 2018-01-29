@@ -227,10 +227,10 @@
 				<textFieldExpression><![CDATA[$P{Vrijednost}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="260" y="590" width="290" height="1" uuid="f0ba92e8-b854-4358-be98-9da7e8995c65"/>
+				<reportElement x="210" y="590" width="340" height="1" uuid="f0ba92e8-b854-4358-be98-9da7e8995c65"/>
 			</line>
 			<staticText>
-				<reportElement x="290" y="651" width="140" height="19" uuid="1461b8cc-c721-4498-817a-157c012fdf1d"/>
+				<reportElement x="238" y="651" width="192" height="19" uuid="1461b8cc-c721-4498-817a-157c012fdf1d"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Cena osiguranja kuce :]]></text>
 			</staticText>
@@ -291,7 +291,7 @@
 				<textFieldExpression><![CDATA[$P{VlasnikPrezime}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="290" y="590" width="140" height="19" uuid="ec24df8a-9af9-441a-a76f-ba7afa3024e9"/>
+				<reportElement x="239" y="590" width="191" height="19" uuid="ec24df8a-9af9-441a-a76f-ba7afa3024e9"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Cena putnog osiguranja :]]></text>
 			</staticText>
@@ -300,7 +300,7 @@
 				<textFieldExpression><![CDATA[$P{CijenaOsiguranjaKuca}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="290" y="610" width="140" height="20" uuid="44231921-f8ba-4a66-bf8b-c34a321fb9f1"/>
+				<reportElement x="238" y="610" width="192" height="20" uuid="44231921-f8ba-4a66-bf8b-c34a321fb9f1"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Popust za putno osiguranje :]]></text>
 			</staticText>
@@ -309,7 +309,7 @@
 				<textFieldExpression><![CDATA[$P{Popust}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="290" y="630" width="140" height="19" uuid="b2ac138b-13a4-4797-9591-72f7fb916e35"/>
+				<reportElement x="239" y="630" width="191" height="19" uuid="b2ac138b-13a4-4797-9591-72f7fb916e35"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Cena putnog za naplatu :]]></text>
 			</staticText>
@@ -456,12 +456,12 @@
 				<textFieldExpression><![CDATA[$P{Smestaj}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="213" y="670" width="217" height="20" uuid="d51314f4-056e-4762-8517-62d457b15215"/>
+				<reportElement x="239" y="670" width="191" height="20" uuid="d51314f4-056e-4762-8517-62d457b15215"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Cena osiguranja za automobil :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="201" y="690" width="229" height="20" uuid="2a6ed121-26c0-47ab-8af0-83b0a39018b3"/>
+				<reportElement x="238" y="690" width="191" height="20" uuid="2a6ed121-26c0-47ab-8af0-83b0a39018b3"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[Popust za osiguranje automobila :]]></text>
 			</staticText>

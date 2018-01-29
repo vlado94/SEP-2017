@@ -8,7 +8,7 @@ import { of } from 'rxjs/observable/of';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {InsurancePolicyRequest} from './insurance-policy-request';
-import {InsurancePolicyCheckoutRequest} from './insurance-policy-checkout-request'; 
+import {InsurancePolicyCheckoutRequest} from './insurance-policy-checkout-request';
 import {InsurancePolicyCalculatePriceRequest} from './insurance-policy-calculate-price-request';
 import {InsurancePolicyCarCalculatePriceRequest} from './insurance-policy-car-form/insurance-policy-car-calculate-price-request';
 import {InsurancePolicyHomeCalculatePriceRequest} from './insurance-policy-home-form/insurance-policy-home-calculate-price-request';
@@ -50,8 +50,12 @@ export class InsurancePolicyService {
             .map(res => res.json());
     }
 
+    
+    save(insurancePolicyCheckoutResponse){
+        return this.http.post(this.apiUrl+"/save",insurancePolicyCheckoutResponse).map(res=>res.json());
+    }
     pin(pinRequest: PinRequest){
-        return this.http.get('http://localhost:8086/activateJC/checkPin/' + pinRequest)
+        return this.http.post('http://localhost:8086/activateJC/checkPin/', pinRequest)
             .map(res=>res.json());
     }
 

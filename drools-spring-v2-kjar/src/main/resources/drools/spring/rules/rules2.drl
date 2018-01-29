@@ -4,12 +4,14 @@ package drools.spring.rules
 import model.request.InsurancePolicyRequest;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyHomeCalculatePriceRequest;
+import model.response.InsurancePolicyCheckoutResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.time.LocalDate;
 import model.dto.Popust;
 
-
+/* test primjer
 rule "Classify Item - High Range"
     when
         $i: InsurancePolicyRequest( this.duration > 2, this.amount==null)
@@ -19,8 +21,8 @@ rule "Classify Item - High Range"
     	}
         System.out.println("HIGH  ");
 end
-
-
+*/
+/* stari insurancepolicy request
 rule "Grupni popust ( proba, veci od 1)"
 	lock-on-active true
 	when 
@@ -45,7 +47,7 @@ rule "Popust na datum"
 		}
 		System.out.println("11% na februar");
 end	
-
+*/
 
 rule "Grupni popust2 ( proba, veci od 1)"
 	lock-on-active true
@@ -73,10 +75,10 @@ rule "Popust na datum2"
 end	
 
 
-rule "popust na kilometrazu slepa"
+rule "popust na kilometrazu slepa, preko 500 km (enumeracija)"
 	lock-on-active true
 	when
-		$c : InsurancePolicyCarCalculatePriceRequest(this.slepovanje>500)
+		$c : InsurancePolicyCarCalculatePriceRequest(this.slepovanje>30)
 		$lista : ArrayList()
 	then
 		modify($lista){
@@ -85,14 +87,89 @@ rule "popust na kilometrazu slepa"
 		System.out.println("pogodjen popust na slep");
 end
 
-rule "cijena popravke"
+rule "cijena popravke, preko 300 evra (enumeracija)"
 	lock-on-active true
 	when
-		$c : InsurancePolicyCarCalculatePriceRequest(this.popravka>500)
+		$c : InsurancePolicyCarCalculatePriceRequest(this.popravka>33)
 		$lista : ArrayList()
 	then
 		modify($lista){
 			add(new Popust("na cijenu popravke",4));
 		}
 		System.out.println("pogodjen popust na popravku");
+end
+
+
+rule "smjestaj u hotelu preko 3 dana (enumeracija)"
+	lock-on-active true
+	when
+		$c : InsurancePolicyCarCalculatePriceRequest(this.smestaj>36)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na smjestaj u hotelu",3));
+		}
+		System.out.println("pogodjen popust na smjestaj u hotelu tokom slepa");
+end
+
+
+rule "Kvadratura preko 50m^2 (enumeracija)"
+	lock-on-active true
+	when
+		$c : InsurancePolicyHomeCalculatePriceRequest(this.size>18)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na kvadraturu kuce/stana",1));
+		}
+		System.out.println("pogodjen popust na kvadraturu");
+end
+
+rule "starost stana ispod 5 godina (enumeracija)"
+	lock-on-active true
+	when
+		$c : InsurancePolicyHomeCalculatePriceRequest(this.age<22)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na starost stana",4));
+		}
+		System.out.println("pogodjen popust na starost stana manju od 5");
+end
+
+rule "iznos vrijednosti stana veca od 200 000  (enumeracija)"
+	lock-on-active true
+	when
+		$c : InsurancePolicyHomeCalculatePriceRequest(this.value>25)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na vrijednost stana",2));
+		}
+		System.out.println("pogodjen popust na vriijednost stana preko 200 000");
+end
+
+
+rule "odabrane 2 polise (xor)"
+	lock-on-active true
+	when
+		$c : InsurancePolicyCheckoutResponse((this.durationForHome!=null || this.durationForCar!=null) && !(this.durationForHome!=null && this.durationForCar!=null))
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na dve polise",2));
+		}
+		System.out.println("pogodjen popust na dve polise");
+end
+
+rule "odabrane 3 polise"
+	lock-on-active true
+	when
+		$c : InsurancePolicyCheckoutResponse(this.durationForHome!=null || this.durationForCar!=null)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na tri polise",3));
+		}
+		System.out.println("pogodjen popust na tri polise");
 end

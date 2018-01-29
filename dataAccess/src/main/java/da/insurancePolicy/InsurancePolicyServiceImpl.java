@@ -350,8 +350,10 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		double riskPrice = riskBasePrice + riskBasePrice * riskPercent/100;
 		pricePerDay = sizePrice + agePrice + valuePrice +  riskPrice;
 		
-		return duration * pricePerDay;
-		
+		double price = duration * pricePerDay;
+		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
+		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
+		return responce.getFinalPrice();
 	}
 
 	@Override
@@ -442,6 +444,19 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		}
 		response.setTotalPrice(responseForTravel.getFinalPrice() + priceForCar + priceForHome);
 		/*Poziv Sickove metode za popuste*/
+		ArrayList<Popust> discounts = ruleService.getClassifiedItem(response);
+		double basePrice=response.getTotalPrice();
+		double totalReduction = 0;
+		for (Popust popust : discounts) {
+			Discount discount = new Discount();
+			discount.setDiscountName(popust.getNazivPopusta());
+			discount.setPercent( (int) popust.getIznosPopusta());
+			discount.setAmount(basePrice* popust.getIznosPopusta()/100);
+			totalReduction += basePrice* popust.getIznosPopusta()/100;
+			//discountsToDisplay.add(discount);
+		}
+		//responce.setDiscounts(discountsToDisplay);
+		response.setTotalPrice(basePrice - totalReduction);
 		
 		return response;
 	}

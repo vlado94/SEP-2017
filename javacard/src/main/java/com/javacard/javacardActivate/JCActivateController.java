@@ -12,49 +12,78 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import model.dto.BankMemberDTO;
 import model.request.PinRequest;
 
 @RestController
 @RequestMapping("/activateJC")
-@CrossOrigin(origins = "http://localhost:4500")
+//@CrossOrigin(origins = "http://localhost:4500")
 public class JCActivateController {
 
+
+
+	@Value("${acquirerPort}")
+	private String acquirerPort;
+
+	@Autowired
+	RestTemplate restTemplate;
+
+	
 	@PostMapping("/checkPin")
-	private Boolean doCheck(@RequestBody PinRequest obj) throws IOException {
+	public Boolean doCheck(@RequestBody PinRequest obj) throws IOException {
+	
+		
 		
 		int pin=obj.getPin();
 		Long id=obj.getCardHolder();
 		
+		String cardNum =restTemplate.postForObject(acquirerPort+"/bankMember/getCardNumber", obj, String.class);
+	    
 		String finalDestination="";
+		/// izmeni ove ID-eve
 		
-		if(id==1)
+		if(cardNum.equals("132134"))
 		{
-			finalDestination="Wallet";
+			//111234
+			finalDestination="Card1";
 		}
-		if(id==2)
+		if(cardNum.equals("132135"))
 		{
-			finalDestination="Wallet1";
+			//111235
+			finalDestination="Card2";
 		}
-		if(id==3)
+		if(cardNum.equals("132136"))
 		{
-			finalDestination="Wallet2";
+			//111236
+			finalDestination="Card3";
 		}
-		if(id==4)
+		if(cardNum.equals("132137"))
 		{
-			finalDestination="Wallet3";
+			//222234
+			finalDestination="Card4";
 		}
 		
-		if(id==5)
+		if(cardNum.equals("132138"))
 		{
-			finalDestination="Wallet4";
+			//222235
+			finalDestination="Card5";
 		}
-		
+		if(cardNum.equals("132139"))
+		{
+			//222234
+			finalDestination="Card6";
+		}
 		
 		System.out.println(finalDestination);	
 		
@@ -162,6 +191,7 @@ public class JCActivateController {
 						// ukoliko je 3 puta za redom pogresen pin
 						// ubaciti deo d se u bazi promeni da je kartica boliranaa 
 						//////
+						restTemplate.postForObject(acquirerPort+"/bankMember/blockCard", obj, String.class);
 						cardBlocked = true;
 						System.out.println("3 neuspesna pokusaja,kartica je blokirana");
 					}

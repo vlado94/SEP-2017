@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -18,10 +20,11 @@ import org.springframework.web.client.RestTemplate;
 import com.insurance.internal.factor.FactorController;
 
 import model.dto.BankMemberDTO;
+import model.request.PinRequest;
 
 @RestController
 @RequestMapping("/internal/insurancePolicy/bankMember")
-@CrossOrigin(origins = "http://localhost:4500")
+//@CrossOrigin(origins = "http://localhost:4500")
 public class BankMemberController {
 	
 	@Autowired
@@ -41,5 +44,13 @@ public class BankMemberController {
 		BankMemberDTO[] objects = responseEntity.getBody();
 		logger.info("Bank members are listed");
 		return Arrays.asList(objects);		
+	}
+	
+	@PostMapping("/getCardNumber")
+	public String getCardNum(@RequestBody PinRequest obj)
+	{
+		String br="asd";
+		return br;
+		
 	}
 }

@@ -43,10 +43,10 @@ public class PriceController {
 	
 	@PostMapping("/car")
 	private Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
-		obj.setSlepovanje(30l);
-		obj.setPopravka(34l);
-		obj.setSmestaj(37l);
-		obj.setPrevoz(41l);
+		//obj.setSlepovanje(30l);
+		//obj.setPopravka(34l);
+		//obj.setSmestaj(37l);
+		//obj.setPrevoz(41l);
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Izracunata cena za auto-polisu "+price.getFinalPrice());
@@ -55,10 +55,10 @@ public class PriceController {
 	
 	@PostMapping("/home")
 	private Double calculateSuggestedPriceHome(@RequestBody InsurancePolicyHomeCalculatePriceRequest obj) {
-		obj.setSize(18l);
-		obj.setAge(22l);
-		obj.setValue(26l);
-		obj.setRisk(27l);
+		//obj.setSize(18l);
+		//obj.setAge(22l);
+		//obj.setValue(26l);
+		//obj.setRisk(27l);
 		
 		Double price = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);

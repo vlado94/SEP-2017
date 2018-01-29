@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import model.dto.Popust;
 import model.request.InsurancePolicyCalculatePriceRequest;
 import model.request.InsurancePolicyCarCalculatePriceRequest;
+import model.request.InsurancePolicyCheckoutRequest;
+import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
+import model.response.InsurancePolicyCheckoutResponse;
 
 @Service
 public class RuleService {
@@ -52,7 +55,6 @@ public class RuleService {
   public ArrayList<Popust> getClassifiedItem(InsurancePolicyCarCalculatePriceRequest request) {
     	
     	ArrayList<Popust> lista=new ArrayList();
-  
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(request);
         kieSession.insert(lista);
@@ -61,5 +63,29 @@ public class RuleService {
         
         return lista;
     }
+  
+  public ArrayList<Popust> getClassifiedItem(InsurancePolicyHomeCalculatePriceRequest request) {
+  	
+  		ArrayList<Popust> lista=new ArrayList();	
+  		KieSession kieSession = kieContainer.newKieSession();
+  		kieSession.insert(request);
+  		kieSession.insert(lista);
+  		kieSession.fireAllRules();
+  		kieSession.dispose();
+      
+  		return lista;
+  }
+  
+  public ArrayList<Popust> getClassifiedItem(InsurancePolicyCheckoutResponse request) {
+  	
+  	  	ArrayList<Popust> lista=new ArrayList();
+  	  	KieSession kieSession = kieContainer.newKieSession();
+  	  	kieSession.insert(request);
+  	  	kieSession.insert(lista);
+  	  	kieSession.fireAllRules();
+  	  	kieSession.dispose();
+      
+      	return lista;
+  }
 	
 }

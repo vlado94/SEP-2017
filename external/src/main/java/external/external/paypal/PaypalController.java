@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,7 +44,9 @@ public class PaypalController {
 	
 	@PostMapping 
 	private String paypal(@RequestBody InsurancePolicyCheckoutResponse insurancePolicyCheckoutResponse) {
-		String successUrl = URLUtils.getBaseURl(request) + "/external/paypal/execute";
+		//String successUrl = URLUtils.getBaseURl(request) + "/external/paypal/execute";
+		String successUrl = "http://localhost:4300/paypal";
+		
 		System.out.println("successurl " + successUrl);
 		ResponseEntity<InsurancePolicyFinalDTO> responseEntity = restTemplate.postForEntity(
 				dataccessPort+"/insurancePolicyFinal", insurancePolicyCheckoutResponse, InsurancePolicyFinalDTO.class);
@@ -74,25 +77,27 @@ public class PaypalController {
 	}
 	
 	@GetMapping("/execute")
-	public String executeMethod() {
-		String token=(String) request.getParameter("token");
-		String paymentId=(String) request.getParameter("paymentId");
-		String payerId=(String) request.getParameter("PayerID");
+	public boolean executeMethod(@RequestParam(value = "paymentId",required=true) String paymentId,
+			@RequestParam(value = "PayerID",required=true) String PayerID) {
+		//String token=(String) request.getParameter("token");
+		//String paymentId=(String) request.getParameter("paymentId");
+		//String payerId=(String) request.getParameter("PayerID");
 		InsurancePolicyFinalDTO insurancePolicyFinalDTO = paypalService.getInsuranceMap(paymentId);
 		//System.out.println(insurancePolicyCheckoutResponse.toString());
 		
 		try {
-			paypalService.executePayment(paymentId, payerId);
+			paypalService.executePayment(paymentId, PayerID);
 			ResponseEntity<Boolean> responseEntity = restTemplate.postForEntity(
 					dataccessPort+"/insurancePolicyFinal/paying", insurancePolicyFinalDTO, Boolean.class);
 			boolean isPaid = responseEntity.getBody();
 			System.out.println("placeno ? " + isPaid);
 			logger.info("Paypal is executed with payment id " + paymentId);
+
+			return true;
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return false;
 		}
-		return "eto me";
 	}
 
 }

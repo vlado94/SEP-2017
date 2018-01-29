@@ -54,6 +54,11 @@ export class InsurancePolicyService {
     save(insurancePolicyCheckoutResponse){
         return this.http.post(this.apiUrl+"/save",insurancePolicyCheckoutResponse).map(res=>res.json());
     }
+    setPaid(id){
+
+        return this.http.get(this.apiUrl+"/paid/"+id,).map(res=>res.json());
+    }
+    
     pin(pinRequest: PinRequest){
         return this.http.post('http://localhost:8086/activateJC/checkPin/', pinRequest)
             .map(res=>res.json());

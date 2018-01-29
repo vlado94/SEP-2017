@@ -46,7 +46,7 @@ public class InsurancePolicyCheckoutResponse {
 	private InsurancePolicyCalculatePriceResponse priceAndDiscountsForCar;
 
 	private Double totalPrice;
-
+	private String emailEmployee;
 	public InsurancePolicyCheckoutResponse() {
 
 	}
@@ -355,5 +355,15 @@ public class InsurancePolicyCheckoutResponse {
 	public void setCarBrand(String carBrand) {
 		this.carBrand = carBrand;
 	}
+
+	public String getEmailEmployee() {
+		return emailEmployee;
+	}
+
+	public void setEmailEmployee(String emailEmployee) {
+		this.emailEmployee = emailEmployee;
+	}
+
+
 
 }

@@ -58,5 +58,14 @@ public class InsurancePolicyFinalController {
 	}
 	
 	
+	@PostMapping("/paid")
+	private InsurancePolicyCheckoutResponse setPaid(@RequestBody Long id) {
+		InsurancePolicyFinal insurancePolicyFinal = insurancePolicyFinalService.findById(id);
+		insurancePolicyFinal.setPaid(true);
+		InsurancePolicyFinal insurancePaid = insurancePolicyFinalService.save(insurancePolicyFinal);
+		InsurancePolicyCheckoutResponse response = conversionService.convert(insurancePaid, InsurancePolicyCheckoutResponse.class);
+		return response;
+	}
+	
 
 }

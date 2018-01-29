@@ -22,7 +22,9 @@
 		<div>
 			<button type="submit" class="btn" [disabled]="!pinForm.valid">Ok</button>
 		</div>
-
+		<div>
+			<button type="button" class="btn" (click)="setPaid(policyId)">Set paid temp button</button>
+		</div>
 	</form>
 
 </div>

@@ -45,30 +45,5 @@ public class FactorController {
 		FactorDTO[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);
 	}
-	
-	/*@Bean
-	public RestTemplate restTemplate() {
-		try {
-			KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());//TODO: hide password
-		    keyStore.load(new FileInputStream(new File("sep.p12")), "sep12345".toCharArray());
-	
-		    SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(
-		            new SSLContextBuilder()
-		                    .loadTrustMaterial(null, new TrustSelfSignedStrategy())
-		                    .loadKeyMaterial(keyStore, "sep12345".toCharArray())
-		                    .build(),
-		            NoopHostnameVerifier.INSTANCE);
-	
-		    HttpClient httpClient = HttpClients.custom().setSSLSocketFactory(socketFactory).build();
-	
-		    ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
-		    RestTemplate restTemplate = new RestTemplate(requestFactory);
-			
-		    return restTemplate;
-		}
-		catch(Exception exc) {
-			return null;
-		}
-	}*/
 
 }

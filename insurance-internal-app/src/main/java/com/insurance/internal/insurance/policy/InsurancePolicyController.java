@@ -75,13 +75,16 @@ public class InsurancePolicyController {
 		logger.info("Calculate price for insurance policy home");
 		Double price = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPriceHome", obj, Double.class);
+		logger.info("Price is calculated and price is " + price);
 		return price;
 	}
 
 	@PostMapping("/checkout")
 	private InsurancePolicyCheckoutResponse getCheckout(@RequestBody InsurancePolicyCheckoutRequest obj) {
+		logger.info("Policy request is sent");
 		InsurancePolicyCheckoutResponse response = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/getCheckout", obj, InsurancePolicyCheckoutResponse.class);
+		logger.info("Policy response is received");
 		return response;
 	}
 }

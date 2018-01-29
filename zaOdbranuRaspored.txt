@@ -10,10 +10,10 @@ ip:		1111				1111			1111
 
 
 
-		Vladimir	Danilo A	Olja	Danilo D	Nikola		Nebojsa		Luka
+			Vladimir		Danilo A		Olja		Danilo D		Nikola			Nebojsa			Luka
 
-unosi ip:	Olja		da-Vladimir	/	da-Vladimir	acq-Nebojsa		ex-Danilo D	da-Vladimir
-				acq-Nebojsa						int-Danilo A
+unosi ip:	mail-Olja		da-Vladimir	/	da-Vladimir	da-Vladimir		acq-Nebojsa		ex-Danilo D		da-Vladimir
+							acq-Nebojsa													int-Danilo A
 	
-pokrece:	DataAccess	Internal	Mail	External	JavaCard	Mobilnu,banka	Isok
-keycloack:	Da		Da		Ne	Ne		Ne		Da		Da
+pokrece:	DataAccess		Internal		Mail		External		JavaCard		Mobilnu,banka	Isok
+keycloack:	Da				Da				Ne			Ne				Ne				Da				Da

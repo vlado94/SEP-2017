@@ -2639,3 +2639,31 @@
 [INFO ]2018-01-29 23:39:55 c.i.i.i.p.InsurancePolicyController - Price is calculated and price is 27240.0
 [INFO ]2018-01-29 23:40:02 c.i.i.i.p.InsurancePolicyController - Policy request is sent
 [INFO ]2018-01-29 23:40:02 c.i.i.i.p.InsurancePolicyController - Policy response is received
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 9
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 8
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 7
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 9 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 8 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 6
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 7 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 6 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 13
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 12
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 13 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 12 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 11
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 10
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 11 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 10 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Expect bank members
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 5
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 5 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Bank members are listed
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 4
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 2
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 1
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 2 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 4 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 1 is found
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Find category by factor id 3
+[INFO ]2018-01-29 23:54:28 c.i.internal.factor.FactorController - Category with id 3 is found

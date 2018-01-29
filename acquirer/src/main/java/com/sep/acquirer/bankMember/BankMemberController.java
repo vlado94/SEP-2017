@@ -51,4 +51,12 @@ public class BankMemberController {
 		return bmb;
 	}
 	
+	@PostMapping("/blockCard")
+	public void blockCard(@RequestBody PinRequest obj){
+		BankMember bankMember = bankMemberService.findById(obj.getCardHolder());
+		bankMember.setValid(false);
+		bankMemberService.save(bankMember);
+	}
+	
+	
 }

@@ -191,6 +191,7 @@ public class JCActivateController {
 						// ukoliko je 3 puta za redom pogresen pin
 						// ubaciti deo d se u bazi promeni da je kartica boliranaa 
 						//////
+						restTemplate.postForObject(acquirerPort+"/bankMember/blockCard", obj, String.class);
 						cardBlocked = true;
 						System.out.println("3 neuspesna pokusaja,kartica je blokirana");
 					}

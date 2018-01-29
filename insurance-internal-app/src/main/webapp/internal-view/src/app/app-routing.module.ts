@@ -6,7 +6,13 @@ import { CommonModule } from '@angular/common';
 import { Resolver } from './resolver/user-resolver';
 
 const routes: Routes = [
-    { path: 'insurancePolicy', component: InsurancePolicyComponent,
+    {
+        path: '',
+        redirectTo: 'insurancePolicy',
+        pathMatch: 'full'
+    },
+    { path: 'insurancePolicy',
+      component: InsurancePolicyComponent,
       resolve: {
   		resolver : Resolver
   	  }

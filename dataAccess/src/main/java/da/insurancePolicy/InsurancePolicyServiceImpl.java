@@ -81,7 +81,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 	}
 
 	/*servisi*/
-	
+	/*ne radi dobro*/
 	@Override
 	public InsurancePolicyCalculatePriceResponse calculatePolice(InsurancePolicyRequest insurencePolicy) {
 		double retVal = 0;
@@ -259,17 +259,22 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			double agePrice = baseForAge +   baseForAge * percentForAge/100; 
 			
 			if(priceListItem.getFactor().getName().equals("0-16")) {
-				if(policy.getFirstAgeCategory() != 0)
+				if(policy.getFirstAgeCategory() != 0  ) {
 					agePrice = agePrice * policy.getFirstAgeCategory();
-			
+					agePrices.add(agePrice);
+				}
 			}else if(priceListItem.getFactor().getName().equals("16-60")) {
-				if(policy.getSecondAgeCategory() != 0)
+				if(policy.getSecondAgeCategory() != 0) {
 					agePrice = agePrice * policy.getSecondAgeCategory();
+					agePrices.add(agePrice);
+				}
 			}else {
-				if(policy.getThirdAgeCategory() != 0)
+				if(policy.getThirdAgeCategory() != 0) {
 					agePrice = agePrice * policy.getThirdAgeCategory();
+					agePrices.add(agePrice);
+				}
 			}
-			agePrices.add(agePrice);
+		
 		}
 		int numOfPersons = policy.getFirstAgeCategory() + policy.getSecondAgeCategory() + policy.getThirdAgeCategory();
 		retVal = numOfPersons * pricePerDayForSportAndRegionAndCover; 

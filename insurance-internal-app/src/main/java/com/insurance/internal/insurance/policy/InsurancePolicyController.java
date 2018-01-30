@@ -62,9 +62,9 @@ public class InsurancePolicyController {
 		logger.info("Price is calculated and price is " + response.getFinalPrice());
 		
 		
-		/*InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
-				 double d = restTemplate.postForObject(
-						 dataccessPort+"/insurancePolicy/getPDF", 1, Double.class);*/
+		//InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
+				// double d = restTemplate.postForObject(
+						// dataccessPort+"/insurancePolicy/getPDF", 1, Double.class);
 		return response;
 	}
 

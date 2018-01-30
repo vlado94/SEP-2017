@@ -6,7 +6,7 @@ public class PaymentRequestCard {
 	private String billNum;	// required, or card ID
 	private String expDate;
 	private double policyPrice;	// required
-	private String policyID;	// required
+	private Long policyId;	// required
 	
 	
 	
@@ -34,11 +34,11 @@ public class PaymentRequestCard {
 	public void setPolicyPrice(double policyPrice) {
 		this.policyPrice = policyPrice;
 	}
-	public String getPolicyID() {
-		return policyID;
+	public Long getPolicyID() {
+		return policyId;
 	}
-	public void setPolicyID(String policyID) {
-		this.policyID = policyID;
+	public void setPolicyID(Long policyID) {
+		this.policyId = policyID;
 	}
 	
 	

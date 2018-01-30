@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.javacard.PaymentRequestCard.PaymentRequestCard;
+
 import model.dto.BankMemberDTO;
 import model.request.PinRequest;
 
@@ -41,21 +43,26 @@ public class JCActivateController {
 
 	
 	@PostMapping("/checkPin")
-	public Boolean doCheck(@RequestBody PinRequest obj) throws IOException {
+	public String doCheck(@RequestBody PinRequest obj) throws IOException {
 	
 		
+		PaymentRequestCard request=new PaymentRequestCard();
 		
 		int pin=obj.getPin();
 		Long id=obj.getCardHolder();
-		
+		Boolean payment;
 		String cardNum =restTemplate.postForObject(acquirerPort+"/bankMember/getCardNumber", obj, String.class);
-	    
+	   
+		request.setCardNum(cardNum);
+		request.setPolicyID(obj.getPolicyId());
+		request.setPolicyPrice(obj.getTotalPrice());
+				
 		String finalDestination="";
 		/// izmeni ove ID-eve
 		
 		if(cardNum.equals("132134"))
 		{
-			//111234
+			//111234 PAN
 			finalDestination="Card1";
 		}
 		if(cardNum.equals("132135"))
@@ -93,7 +100,7 @@ public class JCActivateController {
 		String correctPinResponse="SW1: 90";
 		String validationComand="INS: 20";
 		ArrayList<String> pinStr=new ArrayList<>();
-		boolean response=true;//Knit
+		String response="";//Knit
 		LinkedList<Integer> stack = new LinkedList<Integer>();
 		
 		
@@ -230,6 +237,7 @@ public class JCActivateController {
 					temp=line1.split(" ");
 					System.out.println("PAN PAN PAN PAN PAN");
 					System.out.println(temp[1]);
+					request.setBillNum(temp[1]);
 				}
 				
 				// read next line
@@ -266,12 +274,13 @@ public class JCActivateController {
 		{
 		    System.out.println("WRONG PIN");  
 		    System.out.println(pinCounter);  
-			response=false;
+			response="Wrong pin";
 		}
 		if(lastLine.toLowerCase().contains(correctPinResponse.toLowerCase()))
 		{
 			System.out.println("CORRECT PIN");
-			response=true;
+			payment=restTemplate.postForObject(acquirerPort+"/payment/payfromcard", request, Boolean.class);
+			response="Correct pin";
 		}
 		in.close();
 		

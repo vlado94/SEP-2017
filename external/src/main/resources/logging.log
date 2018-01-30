@@ -38,3 +38,5 @@
 [INFO ]2018-01-30 11:27:16 e.external.paypal.PaypalController - Kreiran payment PAY-3CK619563K0447451LJYERBQ
 [INFO ]2018-01-30 11:27:42 e.external.paypal.PaypalController - Paypal is executed with payment id PAY-3CK619563K0447451LJYERBQ
 [INFO ]2018-01-30 11:57:05 e.external.price.PriceController - Izracunata cena za polisu 6870.0
+[INFO ]2018-01-30 12:03:44 e.external.price.PriceController - Izracunata cena za polisu 4600.0
+[INFO ]2018-01-30 12:07:48 e.external.price.PriceController - Izracunata cena za polisu 11016.0

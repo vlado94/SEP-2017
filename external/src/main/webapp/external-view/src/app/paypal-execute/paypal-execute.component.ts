@@ -11,6 +11,7 @@ import { PaypalExecuteServiceService } from './paypal-execute-service.service';
 export class PaypalExecuteComponent implements OnInit {
 
 	executeSuccess: boolean = false;
+	executeNotSuccess: boolean = false;
 	PayerID: string = null
 	paymentId: string = null;
 
@@ -24,7 +25,11 @@ export class PaypalExecuteComponent implements OnInit {
 		});
 
 		this.paypalExecuteServiceService.execute(this.PayerID, this.paymentId).subscribe(
-			data => {this.executeSuccess = data;}
+			data => {if(data==true)
+						this.executeSuccess = data;
+					else 
+						this.executeNotSuccess = true;
+					}
 			)
 	}
 

@@ -45,14 +45,17 @@ public class InsurancePolicyFinalController {
 	}*/
 	
 	@PostMapping("/paying")
-	public boolean paying(@RequestBody InsurancePolicyFinalDTO response) {
+	public InsurancePolicyCheckoutResponse paying(@RequestBody InsurancePolicyFinalDTO response) {
 		InsurancePolicyFinal insurancePolicyFinal = insurancePolicyFinalService.findById(response.getId());
 		insurancePolicyFinal.setPaid(true);
 		try {
 			insurancePolicyFinalService.save(insurancePolicyFinal);
-			return true;
+			InsurancePolicyFinal insurancePaid = insurancePolicyFinalService.save(insurancePolicyFinal);
+			InsurancePolicyCheckoutResponse responseCheckout = conversionService.convert(insurancePaid, InsurancePolicyCheckoutResponse.class);
+			return responseCheckout;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
+			return null;
 		}
 		
 	}

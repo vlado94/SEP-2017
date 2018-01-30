@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,9 +124,9 @@ public class InsurancePolicyController {
 	
 	
 	@PostMapping("/getPDF")
-	public double getPDF(@RequestBody double d) throws FileNotFoundException {
+	public double getPDF(@RequestBody InsurancePolicyCheckoutResponse response) throws FileNotFoundException {
 		
-			InsurancePolicyCheckoutResponse response = generate();
+			//InsurancePolicyCheckoutResponse response = generate();
 			JasperPrint jasperPrint;
 			
 			 Map<String, Object> parameters = new HashMap<String, Object>();
@@ -161,10 +162,10 @@ public class InsurancePolicyController {
 		String outputFile;
 		
 		if(response.getDurationForHome() == null && response.getDurationForCar() == null) {
-			outputFile ="C:\\Users\\Olja\\Desktop\\TravelPolicy.pdf";
+			outputFile ="TravelPolicy.pdf";
 			  parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForTravel().getFinalPrice());
 		}else if(response.getDurationForHome() == null && response.getDurationForCar() != null) {
-			outputFile ="C:\\Users\\Olja\\Desktop\\CarPolicy.pdf";
+			outputFile ="CarPolicy.pdf";
 			parameters.put("TipAutomobila", response.getTypeOfVehicle());
 		    parameters.put("RegistracioniBroj", response.getRegistrationNumber());
 		   parameters.put("GodisteAutomobila", response.getYear());
@@ -188,7 +189,7 @@ public class InsurancePolicyController {
 			  parameters.put("NaplataAuto", response.getPriceAndDiscountsForTravel().getFinalPrice());
 			  parameters.put("UkupnoZaNaplatu", response.getPriceAndDiscountsForCar().getFinalPrice()+ response.getPriceAndDiscountsForTravel().getFinalPrice());
 		}else if(response.getDurationForHome() != null && response.getDurationForCar() == null) {
-			outputFile ="C:\\Users\\Olja\\Desktop\\HomePolicy.pdf";
+			outputFile ="HomePolicy.pdf";
 			
 			parameters.put("VlasnikIme", response.getFirstNameOwnerHome());
 			parameters.put("VlasnikPrezime", response.getLastNameOwnerHome());
@@ -201,7 +202,7 @@ public class InsurancePolicyController {
 			parameters.put("Velicina", response.getSize());
 			parameters.put("UkupnoZaNaplatu", response.getPriceForHome()+ response.getPriceAndDiscountsForTravel().getFinalPrice());
 		}else {
-				outputFile ="C:\\Users\\Olja\\Desktop\\HomeCarPolicy.pdf";
+				outputFile ="HomeCarPolicy.pdf";
 				parameters.put("TipAutomobila", response.getTypeOfVehicle());
 			    parameters.put("RegistracioniBroj", response.getRegistrationNumber());
 			   parameters.put("GodisteAutomobila", response.getYear());
@@ -239,13 +240,13 @@ public class InsurancePolicyController {
 	     
 			try {
 				if(response.getDurationForHome() == null && response.getDurationForCar() == null) {
-					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\TravelPolicy.jasper", parameters, new JREmptyDataSource());
+					jasperPrint = JasperFillManager.fillReport("TravelPolicy.jasper", parameters, new JREmptyDataSource());
 				}else if(response.getDurationForHome() == null && response.getDurationForCar() != null) {
-					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\CarPolicy.jasper", parameters, new JREmptyDataSource());
+					jasperPrint = JasperFillManager.fillReport("CarPolicy.jasper", parameters, new JREmptyDataSource());
 				}else if(response.getDurationForHome() != null && response.getDurationForCar() == null) {
-					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\HomePolicy.jasper", parameters, new JREmptyDataSource());
+					jasperPrint = JasperFillManager.fillReport("HomePolicy.jasper", parameters, new JREmptyDataSource());
 				}else {
-					jasperPrint = JasperFillManager.fillReport("C:\\Users\\Olja\\Desktop\\HomeCarPolicy.jasper", parameters, new JREmptyDataSource());
+					jasperPrint = JasperFillManager.fillReport("HomeCarPolicy.jasper", parameters, new JREmptyDataSource());
 				}
 			
 				

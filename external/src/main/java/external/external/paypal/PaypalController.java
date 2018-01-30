@@ -79,20 +79,20 @@ public class PaypalController {
 	@GetMapping("/execute")
 	public boolean executeMethod(@RequestParam(value = "paymentId",required=true) String paymentId,
 			@RequestParam(value = "PayerID",required=true) String PayerID) {
-		//String token=(String) request.getParameter("token");
-		//String paymentId=(String) request.getParameter("paymentId");
-		//String payerId=(String) request.getParameter("PayerID");
+		
 		InsurancePolicyFinalDTO insurancePolicyFinalDTO = paypalService.getInsuranceMap(paymentId);
-		//System.out.println(insurancePolicyCheckoutResponse.toString());
 		
 		try {
 			paypalService.executePayment(paymentId, PayerID);
-			ResponseEntity<Boolean> responseEntity = restTemplate.postForEntity(
-					dataccessPort+"/insurancePolicyFinal/paying", insurancePolicyFinalDTO, Boolean.class);
-			boolean isPaid = responseEntity.getBody();
-			System.out.println("placeno ? " + isPaid);
+			ResponseEntity<InsurancePolicyCheckoutResponse> responseEntity = restTemplate.postForEntity(
+					dataccessPort+"/insurancePolicyFinal/paying", insurancePolicyFinalDTO, InsurancePolicyCheckoutResponse.class);
+			InsurancePolicyCheckoutResponse response = responseEntity.getBody();
+			//response mail
+			ResponseEntity<Double> responseEntityPdf = restTemplate.postForEntity(
+					dataccessPort+"/insurancePolicy/getPDF", response, Double.class);
+			
 			logger.info("Paypal is executed with payment id " + paymentId);
-
+			
 			return true;
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block

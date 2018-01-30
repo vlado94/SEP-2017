@@ -59,7 +59,7 @@ public class InsurancePolicyController {
 		logger.info("Calculate price for insurance policy");
 		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
-		logger.info("Price is calculated and price is " + response.getFinalPrice());
+		//logger.info("Price is calculated and price is " + obj.getFinalPrice());
 		
 		
 		//InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
@@ -110,9 +110,10 @@ public class InsurancePolicyController {
 		System.out.println(insurancePolicyFinal.toString());
 		return insurancePolicyFinal;
 	}
+
 	@PreAuthorize("hasRole('seller')")
 	@GetMapping(value="/paid/{id}")
-	private String setPaymeny(@PathVariable Long id ) {
+	private String setPayment(@PathVariable Long id ) {
 		String result = "";
 		ResponseEntity<InsurancePolicyCheckoutResponse> checkoutResponseZaOljuStanojevic = restTemplate.postForEntity(
 				dataccessPort+"/insurancePolicyFinal/paid", id, InsurancePolicyCheckoutResponse.class);

@@ -165,7 +165,7 @@ end
 rule "odabrane 3 polise"
 	lock-on-active true
 	when
-		$c : InsurancePolicyCheckoutResponse(this.durationForHome!=null || this.durationForCar!=null)
+		$c : InsurancePolicyCheckoutResponse(this.durationForHome!=null && this.durationForCar!=null)
 		$lista : ArrayList()
 	then
 		modify($lista){

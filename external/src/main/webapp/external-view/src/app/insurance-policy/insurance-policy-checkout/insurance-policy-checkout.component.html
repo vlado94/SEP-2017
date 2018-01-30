@@ -4,12 +4,12 @@
 			<div class="section-title">Putnici</div>
 
 			<table class="table">
-				<thead class="text-success">
+				<thead class="table-blue">
 					<tr>
 						<th>Ime</th>
 						<th>Prezime</th>
 						<th>JMBG</th>
-						<th>Broj pasoÅ¡a</th>
+						<th>Broj pasoša</th>
 						<th>Telefon</th>
 						<th>Email</th>
 						
@@ -35,7 +35,7 @@
 			<div class="section-title" >Putno osiguranje</div>
 
 			<table class="table">
-				<thead class="text-success">
+				<thead class="table-blue">
 					<tr>
 						<th>Datum</th>
 						<th>Broj dana</th>
@@ -63,14 +63,14 @@
 		<div class="">Cena: {{insurancePrice}}</div>
 		
 	</div>
-	<div class="container">
+	<div class="container" *ngIf="checkoutVar.durationForHome">
 		<div class="col-sm-9 checkout-col">
-			<div class="section-title">Osigaranje kuÄ‡e</div>
+			<div class="section-title">Osigaranje kuće</div>
 			<table class="table">
-				<thead class="text-success">
+				<thead class="table-blue">
 					<tr>
 						<th>Broj dana</th>
-						<th>Povrsina</th>
+						<th>Površina</th>
 						<th>Starost</th>
 						<th>Vrednost</th>
 						<th>Osiguranje od</th>
@@ -97,22 +97,22 @@
 			<div class="">Cena: {{homeInsurancePrice}}</div>
 		</div>
 	</div>
-	<div class="container">
+	<div class="container" *ngIf="checkoutVar.durationForCar">
 		<div class="col-sm-9 checkout-col">
 			<div class="section-title">Osigaranje vozila</div>
 			<table class="table">
-				<thead class="text-success">
+				<thead class="table-blue">
 					<tr>
-						<th>Å lepovanje</th>
+						<th>Šlepovanje</th>
 						<th>Popravka do cene</th>
-						<th>SmeÅ¡taj</th>
+						<th>Smeštaj</th>
 						<th>Prevoz</th>
 						<th>Broj dana</th>
 						<th>Tip vozila</th>
 						<th>Marka</th>
-						<th>GodiÅ¡te</th>
+						<th>Godište</th>
 						<th>Registarska oznaka</th>
-						<th>Broj Å¡asije</th>
+						<th>Broj šasije</th>
 						<th>Ime</th>
 						<th>Prezime</th>
 						<th>JMBG vlasnika</th>
@@ -141,9 +141,9 @@
 		</div>
 	</div>
 	<div>
-		<button class="btn btn-success" (click)="changePreviousTab()">Back</button>
-		<button class="btn btn-success pull-right" (click)="paypal()">PayPal</button>
-		<button class="btn btn-success pull-right" (click)="goToAcquirer()">Credit card</button>
+		<button class="btn" (click)="changePreviousTab()">Back</button>
+		<button class="btn pull-right" (click)="paypal()">PayPal</button>
+		<button class="btn pull-right" (click)="goToAcquirer()">Credit card</button>
 		
 	</div>
 

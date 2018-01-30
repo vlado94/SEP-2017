@@ -3,6 +3,7 @@ package com.sep.acquirer.transaction;
 import java.util.List;
 
 import com.sep.acquirer.paymentRequest.PaymentRequest;
+import com.sep.acquirer.paymentRequest.PaymentRequestCard;
 
 public interface TransactionService {
 	
@@ -17,5 +18,11 @@ public interface TransactionService {
 	public boolean submitPayment(PaymentRequest paymentRequest);
 	
 	public boolean checkRequestData(PaymentRequest paymentRequest);
+	
+	public boolean submitPayment(PaymentRequestCard paymentRequest);
+	
+	public boolean checkRequestData(PaymentRequestCard paymentRequest);
 
+	
+	
 }

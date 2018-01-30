@@ -14,11 +14,9 @@ export class AppService {
   	) {}
 
 	postPayment(paymentRequest:PaymentRequest) {
-		console.log("Inservice");
-		var res = this.http.post(this.apiUrl+"/pay", paymentRequest).map(res => res.json()).subscribe(
-                err => console.log(err)
-            );
-		console.log(res);
+		//console.log("Inservice");
+		return this.http.post(this.apiUrl+"/pay", paymentRequest).map(res => res.text())
+		//console.log(res);
 	}
 
 }

@@ -38,6 +38,7 @@ import { PaypalService } from './insurance-policy/insurance-policy-checkout/payp
 import { AboutComponent } from './about/about.component';
 import { PaypalExecuteComponent } from './paypal-execute/paypal-execute.component';
 import { PaypalExecuteServiceService } from './paypal-execute/paypal-execute-service.service';
+import { CardPaymentComponent } from './card-payment/card-payment.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { PaypalExecuteServiceService } from './paypal-execute/paypal-execute-ser
     InsurancePolicyHomeComponent,
     InsurancePolicyCheckoutComponent,
     AboutComponent,
-    PaypalExecuteComponent
+    PaypalExecuteComponent,
+    CardPaymentComponent
 
   ],
   imports: [BsDatepickerModule.forRoot(),

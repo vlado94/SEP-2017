@@ -70,5 +70,21 @@ public class InsurancePolicyFinalController {
 		return response;
 	}
 	
+	@PostMapping("/cardPayment")
+	public InsurancePolicyCheckoutResponse paying(@RequestBody Long policyId) {
+		InsurancePolicyFinal insurancePolicyFinal = insurancePolicyFinalService.findById(policyId);
+		insurancePolicyFinal.setPaid(true);
+		try {
+			insurancePolicyFinalService.save(insurancePolicyFinal);
+			InsurancePolicyFinal insurancePaid = insurancePolicyFinalService.save(insurancePolicyFinal);
+			InsurancePolicyCheckoutResponse responseCheckout = conversionService.convert(insurancePaid, InsurancePolicyCheckoutResponse.class);
+			return responseCheckout;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
 
 }

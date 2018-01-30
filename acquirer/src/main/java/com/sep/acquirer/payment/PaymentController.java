@@ -57,7 +57,9 @@ public class PaymentController {
 				if(bank.getPort().equals(port)) {
 					if(transactionService.submitPayment(paymentRequest)) {
 						System.out.println("SUCCESFUL PAYMENT");
-						return "True";
+						ResponseEntity<Boolean> responsePaid = restTemplate.postForEntity(baseUrl+":8083/external/acquirer/cardPayment", Long.parseLong(paymentRequest.getPolicyID()), Boolean.class); 
+						if(responsePaid.getBody())
+							return "True";
 					}
 				}
 				else {

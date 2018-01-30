@@ -88,7 +88,8 @@ public class PaypalController {
 					dataccessPort+"/insurancePolicyFinal/paying", insurancePolicyFinalDTO, InsurancePolicyCheckoutResponse.class);
 			InsurancePolicyCheckoutResponse response = responseEntity.getBody();
 			//response mail
-			
+			ResponseEntity<Double> responseEntityPdf = restTemplate.postForEntity(
+					dataccessPort+"/insurancePolicy/getPDF", response, Double.class);
 			
 			logger.info("Paypal is executed with payment id " + paymentId);
 			

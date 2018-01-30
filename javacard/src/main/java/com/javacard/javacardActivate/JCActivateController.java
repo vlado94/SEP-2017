@@ -46,19 +46,27 @@ public class JCActivateController {
 	public String doCheck(@RequestBody PinRequest obj) throws IOException {
 	
 		
-		PaymentRequestCard request=new PaymentRequestCard();
 		
+		
+		boolean cardBlocked;
+		int pinCounter=0;
+		String wrongPinResponse="SW1: 63";
+		String correctPinResponse="SW1: 90";
+		String validationComand="INS: 20";
+		ArrayList<String> pinStr=new ArrayList<>();
+		String response="";//Knit
+		LinkedList<Integer> stack = new LinkedList<Integer>();
 		int pin=obj.getPin();
-		Long id=obj.getCardHolder();
 		Boolean payment;
 		String cardNum =restTemplate.postForObject(acquirerPort+"/bankMember/getCardNumber", obj, String.class);
 	   
+		PaymentRequestCard request=new PaymentRequestCard();
 		request.setCardNum(cardNum);
 		request.setPolicyID(obj.getPolicyId());
 		request.setPolicyPrice(obj.getTotalPrice());
 				
 		String finalDestination="";
-		/// izmeni ove ID-eve
+		
 		
 		if(cardNum.equals("132134"))
 		{
@@ -94,14 +102,6 @@ public class JCActivateController {
 		
 		System.out.println(finalDestination);	
 		
-		boolean cardBlocked;
-		int pinCounter=0;
-		String wrongPinResponse="SW1: 63";
-		String correctPinResponse="SW1: 90";
-		String validationComand="INS: 20";
-		ArrayList<String> pinStr=new ArrayList<>();
-		String response="";//Knit
-		LinkedList<Integer> stack = new LinkedList<Integer>();
 		
 		
 		while (pin > 0)
@@ -265,8 +265,8 @@ public class JCActivateController {
 		  }
 		 
 		  String lastLine = strLine;
-		  System.out.println("LAST APDU");
-		  System.out.println(lastLine);
+		  System.out.println("LAST APDU: " +lastLine);
+		  
 		 
 		 
 		  

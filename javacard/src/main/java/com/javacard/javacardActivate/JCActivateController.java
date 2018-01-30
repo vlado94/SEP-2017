@@ -30,7 +30,7 @@ import model.request.PinRequest;
 
 @RestController
 @RequestMapping("/activateJC")
-//@CrossOrigin(origins = "http://localhost:4500")
+@CrossOrigin(origins = "http://localhost:4500")
 public class JCActivateController {
 
 
@@ -40,15 +40,14 @@ public class JCActivateController {
 
 	@Autowired
 	RestTemplate restTemplate;
-
 	
 	@PostMapping("/checkPin")
 	public String doCheck(@RequestBody PinRequest obj) throws IOException {
-	
 		
+		boolean cardBlocked=false;
+		boolean correctPin=true;
+		boolean payment=false;
 		
-		
-		boolean cardBlocked;
 		int pinCounter=0;
 		String wrongPinResponse="SW1: 63";
 		String correctPinResponse="SW1: 90";
@@ -57,53 +56,15 @@ public class JCActivateController {
 		String response="";//Knit
 		LinkedList<Integer> stack = new LinkedList<Integer>();
 		int pin=obj.getPin();
-		Boolean payment;
 		String cardNum =restTemplate.postForObject(acquirerPort+"/bankMember/getCardNumber", obj, String.class);
 	   
 		PaymentRequestCard request=new PaymentRequestCard();
 		request.setCardNum(cardNum);
 		request.setPolicyID(obj.getPolicyId());
 		request.setPolicyPrice(obj.getTotalPrice());
-				
-		String finalDestination="";
-		
-		
-		if(cardNum.equals("132134"))
-		{
-			//111234 PAN
-			finalDestination="Card1";
-		}
-		if(cardNum.equals("132135"))
-		{
-			//111235
-			finalDestination="Card2";
-		}
-		if(cardNum.equals("132136"))
-		{
-			//111236
-			finalDestination="Card3";
-		}
-		if(cardNum.equals("132137"))
-		{
-			//222234
-			finalDestination="Card4";
-		}
-		
-		if(cardNum.equals("132138"))
-		{
-			//222235
-			finalDestination="Card5";
-		}
-		if(cardNum.equals("132139"))
-		{
-			//222234
-			finalDestination="Card6";
-		}
-		
-		System.out.println(finalDestination);	
-		
-		
-		
+				   
+		String finalDestination=selectCard(cardNum);
+			
 		while (pin > 0)
 		{
 		    stack.push( pin % 10 );
@@ -137,7 +98,6 @@ public class JCActivateController {
 		     //exception handling left as an exercise for the reader
 			}
        
-		
 		ProcessBuilder builder1 = new ProcessBuilder(
 	            "cmd.exe", "/c", "cd \"C:\\JavaCard33\\bin\" && cref");
 	    builder1.redirectErrorStream(true);
@@ -274,18 +234,77 @@ public class JCActivateController {
 		{
 		    System.out.println("WRONG PIN");  
 		    System.out.println(pinCounter);  
-			response="Wrong pin";
+		    correctPin=false;
+			
 		}
 		if(lastLine.toLowerCase().contains(correctPinResponse.toLowerCase()))
 		{
 			System.out.println("CORRECT PIN");
+			correctPin=true;
 			payment=restTemplate.postForObject(acquirerPort+"/payment/payfromcard", request, Boolean.class);
-			response="Correct pin";
+			
 		}
 		in.close();
 		
+		if(correctPin==false){
+			if(cardBlocked==false){
+				response="Wrong pin";
+			}
+			else{
+				response="Wrong pin,card is blocked";
+			}
+		}
+		else{
+			
+			if(payment==true){
+				response="Done";
+			}
+			else{
+				response="Error";
+			}
+		}
 		return response;
 		
+	}
+	
+	
+	private String selectCard(String cardNum)
+	{
+		String folder="";
+
+		if(cardNum.equals("132134"))
+		{
+			//111234 PAN
+			folder="Card1";
+		}
+		if(cardNum.equals("132135"))
+		{
+			//111235
+			folder="Card2";
+		}
+		if(cardNum.equals("132136"))
+		{
+			//111236
+			folder="Card3";
+		}
+		if(cardNum.equals("132137"))
+		{
+			//222234
+			folder="Card4";
+		}
+		
+		if(cardNum.equals("132138"))
+		{
+			//222235
+			folder="Card5";
+		}
+		if(cardNum.equals("132139"))
+		{
+			//222234
+			folder="Card6";
+		}
+		
+		return folder;
 	}
 	
 }

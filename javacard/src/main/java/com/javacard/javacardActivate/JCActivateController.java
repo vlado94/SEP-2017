@@ -43,7 +43,7 @@ public class JCActivateController {
 
 	
 	@PostMapping("/checkPin")
-	public Boolean doCheck(@RequestBody PinRequest obj) throws IOException {
+	public String doCheck(@RequestBody PinRequest obj) throws IOException {
 	
 		
 		PaymentRequestCard request=new PaymentRequestCard();
@@ -53,12 +53,10 @@ public class JCActivateController {
 		Boolean payment;
 		String cardNum =restTemplate.postForObject(acquirerPort+"/bankMember/getCardNumber", obj, String.class);
 	   
-		
 		request.setCardNum(cardNum);
 		request.setPolicyID(obj.getPolicyId());
 		request.setPolicyPrice(obj.getTotalPrice());
-		
-		
+				
 		String finalDestination="";
 		/// izmeni ove ID-eve
 		
@@ -102,7 +100,7 @@ public class JCActivateController {
 		String correctPinResponse="SW1: 90";
 		String validationComand="INS: 20";
 		ArrayList<String> pinStr=new ArrayList<>();
-		boolean response=true;//Knit
+		String response="";//Knit
 		LinkedList<Integer> stack = new LinkedList<Integer>();
 		
 		
@@ -276,13 +274,13 @@ public class JCActivateController {
 		{
 		    System.out.println("WRONG PIN");  
 		    System.out.println(pinCounter);  
-			response=false;
+			response="Wrong pin";
 		}
 		if(lastLine.toLowerCase().contains(correctPinResponse.toLowerCase()))
 		{
 			System.out.println("CORRECT PIN");
 			payment=restTemplate.postForObject(acquirerPort+"/payment/payfromcard", request, Boolean.class);
-			response=true;
+			response="Correct pin";
 		}
 		in.close();
 		

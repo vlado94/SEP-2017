@@ -32,4 +32,17 @@ public class AcquirerController {
 		System.out.println(insurancePolicyFinal.toString());
 		return insurancePolicyFinal;
 	}
+	
+	@PostMapping("/cardPayment")
+	private boolean cardPayment(@RequestBody Long policyId) {
+		
+		ResponseEntity<InsurancePolicyCheckoutResponse> responseEntity = restTemplate.postForEntity(
+				dataccessPort+"/insurancePolicyFinal/cardPayment", policyId, InsurancePolicyCheckoutResponse.class);
+		System.out.println("Usao u card payment");
+		InsurancePolicyCheckoutResponse response = responseEntity.getBody();
+		ResponseEntity<Double> responseEntityPdf = restTemplate.postForEntity(
+				dataccessPort+"/insurancePolicy/getPDF", response, Double.class);
+		
+		return true;
+	}
 }

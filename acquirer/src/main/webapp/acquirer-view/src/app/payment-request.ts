@@ -5,11 +5,11 @@ export class PaymentRequest {
     expDate: string;
     cvv2: string;
     policyID: string;
-    policyPrice: string;
+    policyPrice: number;
     
 
     constructor(holderName: string, cardNum: string,
-        expDate: string, cvv2: string, policyID: string, policyPrice: string) {
+        expDate: string, cvv2: string, policyID: string, policyPrice: number) {
         this.holderName = holderName;
         this.cardNum = cardNum;
         this.expDate = expDate;

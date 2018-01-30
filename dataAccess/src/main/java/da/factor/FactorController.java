@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailParseException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,11 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import da.categoryFactor.CategoryFactorService;
-import da.insurancePolicy.InsurancePolicyController;
 import da.priceList.PriceList;
 import da.priceList.PriceListService;
 import da.priceListItem.PriceListItem;
@@ -87,7 +86,7 @@ public class FactorController {
 	}
 
 	@PostMapping
-	private FactorDTO save(@RequestBody FactorDTO obj) {
+	private FactorDTO save(@RequestBody FactorDTO obj, @RequestHeader("Authorization") String token) {
 		Factor f = new Factor();
 		f.setName(obj.getName());
 		f.setCategory(categoryService.findOne(obj.getCategory()));
@@ -111,7 +110,7 @@ public class FactorController {
 	}
 	
 	@PutMapping
-	private FactorDTO update(@RequestBody FactorDTO obj) {
+	private FactorDTO update(@RequestBody FactorDTO obj, @RequestHeader("Authorization") String token) {
 		Factor f = Factor.getObj(obj);
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO updateFactor = service.save(f).getDTO();

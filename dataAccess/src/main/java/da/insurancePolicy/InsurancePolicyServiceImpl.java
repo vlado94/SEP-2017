@@ -134,7 +134,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		double sportPrice = sportBasePrice + sportBasePrice * sportPer/100;
 		double regionPrice = regBasePrice + regBasePrice * regPer/100;
 		double coverPrice = coverBasePrice + coverBasePrice * coverPer/100;
-		pricePerDayForSportAndRegion = sportPrice + regionPrice;
+		pricePerDayForSportAndRegion = sportPrice + regionPrice+coverPrice;
 		
 		InsurancePolicy policy  = insurancePolicyRepository.save(generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList));
 		InsurancePolicyResponse responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);

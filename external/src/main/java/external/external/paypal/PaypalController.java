@@ -92,7 +92,7 @@ public class PaypalController {
 			boolean isPaid = responseEntity.getBody();
 			System.out.println("placeno ? " + isPaid);
 			logger.info("Paypal is executed with payment id " + paymentId);
-
+			
 			return true;
 		} catch (PayPalRESTException e) {
 			// TODO Auto-generated catch block

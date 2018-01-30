@@ -103,4 +103,13 @@ public class InsurancePolicyController {
 		return insurancePolicyFinal;
 	}
 	
+	@PostMapping("/")
+	private boolean confirmPayment(@RequestBody Long id) {
+		boolean result = true;
+		
+		
+		return result;
+		
+	}
+	
 }

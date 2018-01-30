@@ -38,6 +38,7 @@ public class FactorController {
 	@PreAuthorize("hasRole('seller')")
 	@GetMapping("/category/{id}")
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
+		accessToken.getAccessTokenHash();
 		logger.info("Find category by factor id " + id);
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate
 				.getForEntity(dataccessPort + "/factor/category/" + id, FactorDTO[].class);

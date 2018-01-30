@@ -33,7 +33,7 @@ public class PriceController {
 	
 	@PostMapping
 	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
-		obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
+		//obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Izracunata cena za polisu " + price.getFinalPrice());

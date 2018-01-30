@@ -24,7 +24,7 @@ import model.request.PinRequest;
 
 @RestController
 @RequestMapping("/internal/insurancePolicy/bankMember")
-//@CrossOrigin(origins = "http://localhost:4500")
+@CrossOrigin(origins = "http://localhost:4500")
 public class BankMemberController {
 	
 	@Autowired

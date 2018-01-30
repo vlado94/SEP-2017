@@ -110,9 +110,10 @@ public class InsurancePolicyController {
 		System.out.println(insurancePolicyFinal.toString());
 		return insurancePolicyFinal;
 	}
+
 	@PreAuthorize("hasRole('seller')")
 	@GetMapping(value="/paid/{id}")
-	private String setPaymeny(@PathVariable Long id ) {
+	private String setPayment(@PathVariable Long id ) {
 		String result = "";
 		ResponseEntity<InsurancePolicyCheckoutResponse> checkoutResponseZaOljuStanojevic = restTemplate.postForEntity(
 				dataccessPort+"/insurancePolicyFinal/paid", id, InsurancePolicyCheckoutResponse.class);

@@ -46,3 +46,6 @@
 [INFO ]2018-01-30 13:37:43 e.external.price.PriceController - Izracunata cena za polisu 6840.0
 [INFO ]2018-01-30 13:38:03 e.external.paypal.PaypalController - Kreiran payment PAY-6RN06354DK418813KLJYGOLI
 [INFO ]2018-01-30 13:38:54 e.external.paypal.PaypalController - Paypal is executed with payment id PAY-6RN06354DK418813KLJYGOLI
+[INFO ]2018-01-30 14:10:17 e.external.price.PriceController - Izracunata cena za polisu 4600.0
+[INFO ]2018-01-30 14:22:02 e.external.price.PriceController - Izracunata cena za polisu 6870.0
+[INFO ]2018-01-30 14:46:40 e.external.price.PriceController - Izracunata cena za polisu 4580.0

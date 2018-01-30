@@ -9,7 +9,7 @@
 		<h1 class="text-color" *ngIf="executeSuccess">
 			Uspesno ste platili polisu putem paypal-a, hvala Vam na poverenju! Dobićete polisu na mail nosioca osiguranja.
 		</h1>
-		<h1 class="text-color" *ngIf="!executeSuccess">
+		<h1 class="text-color" *ngIf="executeNotSuccess">
 			Vase plaćanje putem paypal-a nije prošlo, molimo Vas pokušajte ponovo!
 		</h1>
 		

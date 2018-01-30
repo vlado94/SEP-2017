@@ -34,6 +34,13 @@ export class InsurancePolicyPinComponent implements OnInit {
         );
   	}
 
+  	setPaid(id){
+        this.insurancePolicyService.setPaid(id)
+        .subscribe(message => {
+            console.log(message);
+        });
+  	}
+  	
   	submitPin(){
   		this.requestPin = this.pinForm.value;
       this.requestPin.totalPrice = this.totalPrice;

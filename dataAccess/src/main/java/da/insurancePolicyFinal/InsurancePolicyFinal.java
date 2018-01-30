@@ -29,6 +29,7 @@ public class InsurancePolicyFinal {
 	private String sport;
 	private String amount;
 	private String typeOfPolicy;
+	private String emailEmployee;
 
 	/* home */
 	@OneToOne(cascade = CascadeType.ALL)
@@ -157,5 +158,15 @@ public class InsurancePolicyFinal {
 	public void setInsurancePolicyCar(InsurancePolicyCarFinal insurancePolicyCar) {
 		this.insurancePolicyCar = insurancePolicyCar;
 	}
+
+	public String getEmailEmployee() {
+		return emailEmployee;
+	}
+
+	public void setEmailEmployee(String emailEmployee) {
+		this.emailEmployee = emailEmployee;
+	}
+	
+	
 
 }

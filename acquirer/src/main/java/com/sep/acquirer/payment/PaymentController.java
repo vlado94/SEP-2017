@@ -16,6 +16,7 @@ import com.sep.acquirer.bank.Bank;
 import com.sep.acquirer.bankMember.BankMember;
 import com.sep.acquirer.bankMember.BankMemberService;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
+import com.sep.acquirer.paymentRequest.PaymentRequestCard;
 import com.sep.acquirer.transaction.TransactionService;
 
 
@@ -47,24 +48,51 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/pay")
-	private String Pay(@RequestBody PaymentRequest paymentRequest) {
+	private String PayFromWebApp(@RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
 		BankMember bankMember = bankMemberService.findByCardNumber(paymentRequest.getCardNum());
-		Bank bank = bankMember.getBank();
-		if(bank != null) {
-			if(bank.getPort().equals(port)) {
-				if(transactionService.submitPayment(paymentRequest)) {
-					System.out.println("SUCCESFUL PAYMENT");
-					return "True";
+		if(bankMember != null) {
+			Bank bank = bankMember.getBank();
+			if(bank != null) {
+				if(bank.getPort().equals(port)) {
+					if(transactionService.submitPayment(paymentRequest)) {
+						System.out.println("SUCCESFUL PAYMENT");
+						return "True";
+					}
 				}
-			}
-			else {
-				ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + ":" + bank.getPort()+"/payment/pay", paymentRequest , String.class );
-				return response.getBody();
+				else {
+					ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + ":" + bank.getPort()+"/payment/pay", paymentRequest , String.class );
+					return response.getBody();
+				}
 			}
 		}
 		return "False";
 	}
+	
+	@PostMapping("/payfromcard")
+	private String PayFromCard(@RequestBody PaymentRequestCard paymentRequest) {
+		System.out.println(port);
+		BankMember bankMember = bankMemberService.findByCardNumber("");
+		if(bankMember != null) {
+			Bank bank = bankMember.getBank();
+			if(bank != null) {
+				if(bank.getPort().equals(port)) {
+					if(transactionService.submitPayment(paymentRequest)) {
+						System.out.println("SUCCESFUL PAYMENT");
+						return "True";
+					}
+				}
+				else {
+					ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + ":" + bank.getPort()+"/payment/pay", paymentRequest , String.class );
+					return response.getBody();
+				}
+			}
+		}
+		return "False";
+	}
+	
+	
+	
 	
 	@Bean
 	public RestTemplate restTemplate() {

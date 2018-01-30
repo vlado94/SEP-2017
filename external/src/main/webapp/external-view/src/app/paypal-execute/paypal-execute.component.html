@@ -5,13 +5,13 @@
 </div>
 
 <div class="row">
-	<div class="container">
-		<p *ngIf="executeSuccess">
-			You paid successfull by paypal!!!
-		</p>
-		<p *ngIf="!executeSuccess">
-			You did not paid successfull by paypal!!!
-		</p>
+	<div class="container paypal">
+		<h1 class="text-color" *ngIf="executeSuccess">
+			Uspesno ste platili polisu putem paypal-a, hvala Vam na poverenju! Dobićete polisu na mail nosioca osiguranja.
+		</h1>
+		<h1 class="text-color" *ngIf="!executeSuccess">
+			Vase plaćanje putem paypal-a nije prošlo, molimo Vas pokušajte ponovo!
+		</h1>
 		
 	</div>
 </div>

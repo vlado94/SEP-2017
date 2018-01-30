@@ -30,7 +30,7 @@ public class InsurancePolicyCheckoutResponseToInsurancePolicyFinal
 		insurancePolicyFinal.setStartDate(source.getStartDate());
 		insurancePolicyFinal.setTotalPrice(source.getTotalPrice());
 		insurancePolicyFinal.setTypeOfPolicy(source.getTypeOfPolicy());
-
+		insurancePolicyFinal.setEmailEmployee(source.getEmailEmployee());
 		// INSURANCE POLICY CAR
 		InsurancePolicyCarFinal insurancePolicyCarFinal = new InsurancePolicyCarFinal();
 		insurancePolicyCarFinal.setChassisNumber(source.getChassisNumber());

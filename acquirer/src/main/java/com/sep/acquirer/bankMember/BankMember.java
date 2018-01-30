@@ -22,6 +22,8 @@ public class BankMember {
 	private String cardNumber;
 
 	private double billNumber;
+
+	private String cvv2;
 	
 	private boolean valid;
 	
@@ -87,6 +89,14 @@ public class BankMember {
 
 	public void setValid(boolean valid) {
 		this.valid = valid;
+	}
+
+	public String getCvv2() {
+		return cvv2;
+	}
+
+	public void setCvv2(String cvv2) {
+		this.cvv2 = cvv2;
 	}
 	
 	

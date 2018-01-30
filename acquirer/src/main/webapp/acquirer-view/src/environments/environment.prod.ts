@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BACKEND_URL: 'http://localhost:8084/payment'
+  BACKEND_URL: 'https://localhost:8084/payment'
 };

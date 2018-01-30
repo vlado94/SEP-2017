@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.sep.acquirer.bankMember.BankMember;
 import com.sep.acquirer.bankMember.BankMemberRepository;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
+import com.sep.acquirer.paymentRequest.PaymentRequestCard;
 
 
 @Service
@@ -74,11 +75,26 @@ public class TransactionServiceImpl implements TransactionService {
 		
 		BankMember member = memberRepository.findByCardNumber(paymentRequest.getCardNum());
 		if(member != null){																		//TODO: DO MORE CHECKING
-			if(member.getAmount() >= paymentRequest.getPolicyPrice() && member.isValid() && member.getBillNumber() > 0) {
+			if(member.getAmount() >= paymentRequest.getPolicyPrice() 
+					&& member.isValid() 
+					&& member.getBillNumber() > 0 
+					&& paymentRequest.getCvv2().equals(member.getCvv2())) {
 				return true;
 			}
 		}
 		
+		return false;
+	}
+
+	@Override
+	public boolean submitPayment(PaymentRequestCard paymentRequest) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkRequestData(PaymentRequestCard paymentRequest) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 	

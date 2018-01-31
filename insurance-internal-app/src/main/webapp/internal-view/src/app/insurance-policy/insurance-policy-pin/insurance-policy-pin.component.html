@@ -6,8 +6,10 @@
 		<div class="col-5">
 			<select id="cardHolder" class="form-control"
 				formControlName="cardHolder" placeholder="kredita kartica" required>
-				<option *ngFor="let bankMmeber of bankMembers"
+				<ng-container *ngFor="let bankMmeber of bankMembers">
+				<option *ngIf="bankMmeber.valid"
 					value="{{bankMmeber.id}}">{{bankMmeber.name}}</option>
+				</ng-container>
 			</select>
 		</div>
 	</div>

@@ -267,7 +267,11 @@ public class JCActivateController {
 		
 	}
 	
-	
+	@GetMapping("/getResponse")
+	private String getResponse() {
+		return "Done";
+		
+	}
 	private String selectCard(String cardNum)
 	{
 		String folder="";

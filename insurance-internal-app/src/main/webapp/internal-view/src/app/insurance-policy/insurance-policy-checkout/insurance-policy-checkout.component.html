@@ -108,8 +108,8 @@
 			<tbody>
 				<tr>
 					<td>{{checkoutVar.priceAndDiscountsForTravel.basePrice}} din</td>
-					<td *ngIf="checkoutVar.priceAndDiscountsForCar">{{checkoutVar.priceAndDiscountsForCar.basePrice}}</td>
-					<td *ngIf="checkoutVar.priceForHome">{{checkoutVar.priceForHome}}</td>
+					<td *ngIf="checkoutVar.priceAndDiscountsForCar">{{checkoutVar.priceAndDiscountsForCar.basePrice}} din</td>
+					<td *ngIf="checkoutVar.priceForHome">{{checkoutVar.priceForHome}} din</td>
 				</tr>
 			</tbody>
 		</table>
@@ -137,7 +137,7 @@
 					*ngFor="let d of checkoutVar.priceAndDiscountsForTravel.discounts">
 					<td>{{d.discountName}}</td>
 					<td>{{d.percent}}%</td>
-					<td>{{d.amount}}</td>
+					<td>{{d.amount}} din</td>
 				</tr>
 				</ng-container>
 
@@ -145,7 +145,7 @@
 				<tr *ngFor="let d of checkoutVar.priceAndDiscountsForCar.discounts">
 					<td>{{d.discountName}}</td>
 					<td>{{d.percent}}%</td>
-					<td>{{d.amount}}</td>
+					<td>{{d.amount}} din</td>
 				</tr>
 				</ng-container>
 			</tbody>
@@ -161,13 +161,16 @@
 						osiguranja za automobil</th>
 					<th *ngIf="checkoutVar.priceForHome">Konačna cena osiguranja
 						za kucu</th>
+					<th>Konačna cena osiguranja(sve ukupno)</th>						
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>{{checkoutVar.priceAndDiscountsForTravel.finalPrice}} din</td>
-					<td *ngIf="checkoutVar.priceAndDiscountsForCar">{{checkoutVar.priceAndDiscountsForCar.finalPrice}}</td>
-					<td *ngIf="checkoutVar.priceForHome">{{checkoutVar.priceForHome}}</td>
+					<td *ngIf="checkoutVar.priceAndDiscountsForCar">{{checkoutVar.priceAndDiscountsForCar.finalPrice}} din</td>
+					<td *ngIf="checkoutVar.priceForHome">{{checkoutVar.priceForHome}} din</td>
+					<td>{{checkoutVar.totalPrice}} din</td>
+					
 				</tr>
 			</tbody>
 		</table>

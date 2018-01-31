@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HomePolicy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="51b67320-b4db-4f9f-9609-53311c8c37a8">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Table_TH" mode="Opaque" backcolor="#8FBC8F">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#BFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="ItemDataset" uuid="e1537f39-b069-4094-8d89-127ca8ddcffa">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="firstName" class="java.lang.String"/>
+		<field name="lastName" class="java.lang.String"/>
+		<field name="personNo" class="java.lang.String"/>
+		<field name="passportNo" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="OsiguravacIme" class="java.lang.String"/>
+	<parameter name="OsiguravacJMBG" class="java.lang.String"/>
+	<parameter name="OsiguravacPasos" class="java.lang.String"/>
+	<parameter name="OsiguravacPrezime" class="java.lang.String"/>
+	<parameter name="Rizik" class="java.lang.String"/>
+	<parameter name="Vrijednost" class="java.lang.String"/>
+	<parameter name="Godiste" class="java.lang.String"/>
+	<parameter name="CijenaOsiguranja" class="java.lang.Double"/>
+	<parameter name="Popust" class="java.lang.Double"/>
+	<parameter name="Naplata" class="java.lang.Double"/>
+	<parameter name="TrajanjeOsiguranja" class="java.lang.Integer"/>
+	<parameter name="Velicina" class="java.lang.String"/>
+	<parameter name="Adresa" class="java.lang.String"/>
+	<parameter name="VlasnikIme" class="java.lang.String"/>
+	<parameter name="VlasnikPrezime" class="java.lang.String"/>
+	<parameter name="Datum1" class="java.time.LocalDate"/>
+	<parameter name="Datum2" class="java.time.LocalDate"/>
+	<parameter name="VelicinaPokrica" class="java.lang.String"/>
+	<parameter name="Sport" class="java.lang.String"/>
+	<parameter name="Region" class="java.lang.String"/>
+	<parameter name="CijenaOsiguranjaKuca" class="java.lang.Double"/>
+	<parameter name="UkupnoZaNaplatu" class="java.lang.Double"/>
+	<parameter name="TipAutomobila" class="java.lang.String"/>
+	<parameter name="RegistracioniBroj" class="java.lang.String"/>
+	<parameter name="TrajanjeAuto" class="java.lang.Integer"/>
+	<parameter name="GodisteAutomobila" class="java.lang.Integer"/>
+	<parameter name="VlasnikAutoIme" class="java.lang.String"/>
+	<parameter name="VlasnikAutoPrezime" class="java.lang.String"/>
+	<parameter name="BrojSasije" class="java.lang.String"/>
+	<parameter name="Slepanje" class="java.lang.String"/>
+	<parameter name="Prevoz" class="java.lang.String"/>
+	<parameter name="Popravka" class="java.lang.String"/>
+	<parameter name="Smestaj" class="java.lang.String"/>
+	<parameter name="PopustAuto" class="java.lang.Double"/>
+	<parameter name="CijenaZaAuto" class="java.lang.Double"/>
+	<parameter name="NaplataAuto" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="282" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="130" height="70" isRemoveLineWhenBlank="true" uuid="3c77669a-fe10-49cf-a4db-cd53ceb58a1c"/>
+				<imageExpression><![CDATA["insurance.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="190" y="10" width="240" height="50" uuid="6f4ba866-155f-44c9-a3bc-1659e49db4c6"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[POLISA BR. 6216381]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="101" width="100" height="20" uuid="55d30fde-5357-4017-afbf-63be6ddf904c"/>
+				<text><![CDATA[Osiguravac]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="140" width="100" height="20" uuid="531dc37d-d086-4d36-842d-067beaaabec8"/>
+				<text><![CDATA[Ugovarac]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="103" width="100" height="16" uuid="b3e62d6a-f31a-4c55-9451-c9a70dedfe59"/>
+				<textFieldExpression><![CDATA[$P{OsiguravacIme}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="103" width="100" height="16" uuid="18d27cba-ffd8-4d3d-9bb3-6e9dd0e1c3af"/>
+				<textFieldExpression><![CDATA[$P{OsiguravacPrezime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="103" width="100" height="17" uuid="49dd089b-9d81-465a-8478-82cc322a984a"/>
+				<textFieldExpression><![CDATA[$P{OsiguravacJMBG}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="103" width="100" height="17" uuid="1250ea32-2b9e-4a8a-981d-51477af21e39"/>
+				<textFieldExpression><![CDATA[$P{OsiguravacPasos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="140" width="100" height="18" uuid="21c55a66-fec2-4c66-b270-efe4ef6c9187"/>
+				<text><![CDATA[DDOR ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="190" width="100" height="20" uuid="d536e5a9-1d9b-4d3a-bd11-91838978a3cc"/>
+				<text><![CDATA[Korisnici osiguranja ]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="8" y="222" width="545" height="60" isRemoveLineWhenBlank="true" uuid="27ccd148-4b4b-4487-a452-2b9ecc3bf4c1">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+					<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+					<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+					<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+				</reportElement>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
+					<datasetRun subDataset="ItemDataset" uuid="14cb45a0-e0a3-496b-940d-227cf612d12d">
+						<dataSourceExpression><![CDATA[$P{ItemDataSource}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:column width="132" uuid="fbad3be9-ea92-488d-8e5d-3f91e81d17c9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="132" height="30" uuid="21c0a6a8-96b9-4a81-b20b-c1406d9063d8"/>
+								<text><![CDATA[First name]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="132" height="30" uuid="53c25e1b-162e-4266-a212-523d610a25e6"/>
+								<textFieldExpression><![CDATA[$F{firstName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="141" uuid="02fc7261-66db-43a8-8cfd-6db4574a523a">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="141" height="30" uuid="9adaa6f4-366b-4c95-91fe-b1530ac3732f"/>
+								<text><![CDATA[Last name]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="141" height="30" uuid="93d29da7-02b3-409c-b5aa-c44c8679abbf"/>
+								<textFieldExpression><![CDATA[$F{lastName}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="131" uuid="4021798d-c94b-4213-8d17-6576401121cf">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="131" height="30" uuid="fb2761a6-7af5-47c8-b1d4-335e34b6bd32"/>
+								<text><![CDATA[Person number]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="131" height="30" uuid="f66615bd-bb45-4c28-a634-5bb0f6cef568"/>
+								<textFieldExpression><![CDATA[$F{personNo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="151" uuid="5cffc84c-28e5-4b87-aab2-70f7e88f2073">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+						<jr:tableHeader style="Table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="151" height="30" uuid="733843fb-65e6-48a5-8cec-b3b5dabd1a7b"/>
+								<text><![CDATA[Passport]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="151" height="30" uuid="14110f0d-2c80-433b-a804-797fd6a5b9a5"/>
+								<textFieldExpression><![CDATA[$F{passportNo}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<line>
+				<reportElement x="0" y="170" width="561" height="1" uuid="b2c004b8-ddc5-4fc8-8407-07d328ccf9fc"/>
+			</line>
+			<line>
+				<reportElement x="0" y="80" width="561" height="1" uuid="5314a79b-abf7-4eff-ac30-4dfb4b37ad43"/>
+			</line>
+			<line>
+				<reportElement x="0" y="80" width="1" height="91" uuid="51c3d715-45a6-45aa-8252-46ef44e6fe83"/>
+			</line>
+			<line>
+				<reportElement x="560" y="80" width="1" height="90" uuid="c9c66a1f-1097-4503-b8f5-16774b01b89a"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="9"/>
+	</columnHeader>
+	<detail>
+		<band height="772" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="548" width="100" height="20" uuid="3bd1b863-a4c0-45f7-a2e7-0f4f5eabe920"/>
+				<text><![CDATA[Vrijednost :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="548" width="100" height="21" uuid="443deb71-0eb2-4b89-b42e-6fdafecad21a"/>
+				<textFieldExpression><![CDATA[$P{Vrijednost}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="210" y="590" width="340" height="1" uuid="f0ba92e8-b854-4358-be98-9da7e8995c65"/>
+			</line>
+			<staticText>
+				<reportElement x="238" y="651" width="192" height="19" uuid="1461b8cc-c721-4498-817a-157c012fdf1d"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Cena osiguranja kuce :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="453" y="590" width="100" height="19" uuid="498e1bd8-3eae-4ea8-9810-a18528b03a3f"/>
+				<textFieldExpression><![CDATA[$P{CijenaOsiguranja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="460" width="100" height="20" uuid="165d53b7-db9b-43e3-b2f0-5ce57f66ae86"/>
+				<textFieldExpression><![CDATA[$P{Adresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="430" width="100" height="20" uuid="b1ca3fee-2401-46ea-b2d1-b4f2d42c575b"/>
+				<text><![CDATA[ Vlasnik  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="460" width="100" height="14" uuid="f6d09fa9-0479-4c6e-ae47-cf8bc026b037"/>
+				<text><![CDATA[Adresa :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="490" width="100" height="15" uuid="90d04955-98a2-4d4a-beba-e43c1b4d2d48"/>
+				<text><![CDATA[Trajanje osiguranja :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="516" width="100" height="20" uuid="12ea61ef-7aa7-42bf-b206-3917bbaf118e"/>
+				<text><![CDATA[Rizik :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="489" width="100" height="16" uuid="fe5ccfc4-2429-4db6-809e-dea24274814a"/>
+				<textFieldExpression><![CDATA[$P{TrajanjeOsiguranja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="516" width="100" height="20" uuid="05c0fc56-3551-492b-9f04-e61c527f9691"/>
+				<textFieldExpression><![CDATA[$P{Rizik}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="290" y="489" width="100" height="20" uuid="3ccfd66f-7536-4bff-9b13-267f54533b71"/>
+				<text><![CDATA[Godiste :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="520" width="100" height="19" uuid="4d9d93d0-77fb-4f6b-aa3f-41521662f2c3"/>
+				<text><![CDATA[Velicina :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="488" width="100" height="19" uuid="dd652d62-e3ce-4f16-b09f-78222e5a7414"/>
+				<textFieldExpression><![CDATA[$P{Godiste}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="520" width="100" height="19" uuid="097cbe40-eb39-4d1e-8de8-8a91a1d382c9"/>
+				<textFieldExpression><![CDATA[$P{Velicina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="431" width="100" height="18" uuid="8ac1d038-3ebe-4a25-82da-3ddd84ec14db"/>
+				<textFieldExpression><![CDATA[$P{VlasnikIme}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="431" width="100" height="18" uuid="0216180d-05e6-4bfe-aaa2-37744052f9ea"/>
+				<textFieldExpression><![CDATA[$P{VlasnikPrezime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="239" y="590" width="191" height="19" uuid="ec24df8a-9af9-441a-a76f-ba7afa3024e9"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Cena putnog osiguranja :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="651" width="100" height="19" uuid="e6a59e88-b4ad-46ee-9921-4ccbab2274dd"/>
+				<textFieldExpression><![CDATA[$P{CijenaOsiguranjaKuca}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="238" y="610" width="192" height="20" uuid="44231921-f8ba-4a66-bf8b-c34a321fb9f1"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Popust za putno osiguranje :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="609" width="100" height="20" uuid="1e8aae6f-9f30-4868-88ff-15699ba2f0a2"/>
+				<textFieldExpression><![CDATA[$P{Popust}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="239" y="630" width="191" height="19" uuid="b2ac138b-13a4-4797-9591-72f7fb916e35"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Cena putnog za naplatu :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="630" width="100" height="20" uuid="aa24e840-15c3-446d-ba5b-65ab369e6d8c"/>
+				<textFieldExpression><![CDATA[$P{Naplata}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="287" y="730" width="142" height="42" uuid="2f863c7b-87f3-42e7-bcf4-a8323d94c017"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UKUPNO ZA NAPLATU :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="736" width="100" height="30" uuid="a84903bb-0ec2-4b8a-b2b3-8b776c7c1651"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{UkupnoZaNaplatu}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="69" width="100" height="20" uuid="14c5c2c5-2d1f-4887-a3d3-8eef9bc7dd56"/>
+				<text><![CDATA[Region :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="170" width="100" height="20" uuid="ef2da443-065b-4d69-9e29-876037a6d0a6"/>
+				<text><![CDATA[Godiste :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="260" width="100" height="23" uuid="ba005959-2e21-4932-86cd-f1c0e9917323"/>
+				<text><![CDATA[Vlasnik :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="201" width="100" height="20" uuid="fce630d4-3992-4cf7-95bc-5d6769f19c1f"/>
+				<text><![CDATA[Trajanje za auto :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="170" width="100" height="20" uuid="1d19a928-c7b7-42a1-b62d-2741481cc4a7"/>
+				<text><![CDATA[Tip automobila :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="170" width="100" height="21" uuid="95f903b7-bd6b-4f50-a97a-1a61e33dbb8f"/>
+				<textFieldExpression><![CDATA[$P{TipAutomobila}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="70" width="100" height="18" uuid="a50a6560-47b6-454d-8d7d-7239a3373538"/>
+				<text><![CDATA[Velicina pokrica :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="69" width="100" height="20" uuid="c8b9435c-5dfc-460a-9cef-8f8d919c828d"/>
+				<textFieldExpression><![CDATA[$P{VelicinaPokrica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="70" width="100" height="18" uuid="2c210e87-2f59-424b-86a3-853630385285"/>
+				<textFieldExpression><![CDATA[$P{Region}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="40" width="100" height="20" uuid="9c2ee123-30df-4564-9539-34386da34038"/>
+				<textFieldExpression><![CDATA[$P{Datum1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="40" width="100" height="17" uuid="65db3050-abb4-4027-bd31-463fc4ce3e9a"/>
+				<textFieldExpression><![CDATA[$P{Datum2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="193" y="130" width="174" height="20" uuid="fdcc58b2-513f-4003-a8d3-8f929c93a737"/>
+				<text><![CDATA[Osiguranje automobila ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="139" y="230" width="100" height="19" uuid="b1fa43d0-fd45-4740-a628-875c1a0237ed"/>
+				<textFieldExpression><![CDATA[$P{RegistracioniBroj}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="230" width="100" height="19" uuid="76bfecec-5a9a-4cc2-8250-d20ab072c96b"/>
+				<text><![CDATA[Registracioni broj :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="200" width="100" height="21" uuid="2d72a589-1bdc-46f2-8c47-0c819a1d0212"/>
+				<textFieldExpression><![CDATA[$P{TrajanjeAuto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="169" width="100" height="21" uuid="4b65a714-88e6-4c22-8219-c2e60301514d"/>
+				<textFieldExpression><![CDATA[$P{GodisteAutomobila}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="260" width="100" height="23" uuid="b2cda73c-46ad-46fc-b28d-faf739896526"/>
+				<textFieldExpression><![CDATA[$P{VlasnikAutoIme}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="262" width="100" height="21" uuid="10124fc7-aea8-4172-be9c-4a82f705212c"/>
+				<textFieldExpression><![CDATA[$P{VlasnikAutoPrezime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="201" width="100" height="20" uuid="9e5656a0-8f44-4a75-8cd2-69e06570aee2"/>
+				<text><![CDATA[Broj sasije :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="200" width="100" height="21" uuid="ec7b3990-d162-4951-a1a7-b5ad48114a37"/>
+				<textFieldExpression><![CDATA[$P{BrojSasije}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="19" y="310" width="100" height="18" uuid="bd4b857a-1595-4c99-bec8-71a375d879bf"/>
+				<text><![CDATA[Slepanje :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="340" width="100" height="19" uuid="41773b0f-2405-4650-999c-d2f805c13f57"/>
+				<text><![CDATA[Prevoz :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="309" width="100" height="20" uuid="6c6a8a54-cfcc-4ecd-a256-1a35364482ba"/>
+				<text><![CDATA[Popravka :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="19" y="40" width="100" height="20" uuid="d59f0afe-7dbd-4778-ba93-5529b1da0cd7"/>
+				<text><![CDATA[Trajanje osiguranja :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="139" y="99" width="100" height="15" uuid="f273b94f-35b3-4d7d-8bff-f34d6b440b67"/>
+				<textFieldExpression><![CDATA[$P{Sport}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="96" width="100" height="20" uuid="0e354f72-3d06-46aa-82ec-8540f8cb4e5f"/>
+				<text><![CDATA[Sport :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="341" width="100" height="17" uuid="768ea01f-b46f-41c3-a043-a4865161b2a5"/>
+				<text><![CDATA[Smestaj :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="140" y="310" width="100" height="19" uuid="e39742d2-a526-40bc-90f4-c6ce6c554b1a"/>
+				<textFieldExpression><![CDATA[$P{Slepanje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="340" width="100" height="19" uuid="5e2e0618-d619-4292-ae48-2d08ea9c6cc0"/>
+				<textFieldExpression><![CDATA[$P{Prevoz}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="310" width="100" height="18" uuid="b5a4495e-f45e-4451-bb14-c7c8ced8a626"/>
+				<textFieldExpression><![CDATA[$P{Popravka}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="341" width="100" height="17" uuid="df0ca527-191c-4b8f-88a3-00c7e3fe2798"/>
+				<textFieldExpression><![CDATA[$P{Smestaj}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="239" y="670" width="191" height="20" uuid="d51314f4-056e-4762-8517-62d457b15215"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Cena osiguranja za automobil :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="690" width="191" height="20" uuid="2a6ed121-26c0-47ab-8af0-83b0a39018b3"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Popust za osiguranje automobila :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="710" width="191" height="18" uuid="05513ab0-b81f-420c-87da-8d4e5ebdd38a"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Cena osiguranja automobila za naplatu :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="689" width="100" height="23" uuid="388a7572-0bcf-4dbb-a09e-7c47d6e3600e"/>
+				<textFieldExpression><![CDATA[$P{PopustAuto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="670" width="100" height="13" uuid="cf815eb1-82dd-45ad-93d5-aa8ce34961d4"/>
+				<textFieldExpression><![CDATA[$P{CijenaZaAuto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="712" width="100" height="18" uuid="e4d1294c-e6cc-47be-a516-4a8f41bf07cc"/>
+				<textFieldExpression><![CDATA[$P{NaplataAuto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="150" width="1" height="231" uuid="0fa15c47-8b83-4892-b342-8355dd9926d2"/>
+			</line>
+			<line>
+				<reportElement x="553" y="150" width="1" height="230" uuid="64df1cdf-8a1c-40e2-b971-bb3b648230c7"/>
+			</line>
+			<line>
+				<reportElement x="0" y="150" width="553" height="1" uuid="cd22f7e1-c043-47ee-931e-239e13c00eea"/>
+			</line>
+			<staticText>
+				<reportElement x="189" y="10" width="174" height="20" uuid="2c66d2b5-4722-4f77-a4af-39ff06620aff"/>
+				<text><![CDATA[Putno osiguranje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="390" width="174" height="20" uuid="8dd41575-a4e6-4562-bdbf-4aebc211b96c"/>
+				<text><![CDATA[Osiguranje kuce/stana]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="550" height="1" uuid="a06ef794-3786-4374-a944-80f4c33abcb4"/>
+			</line>
+			<line>
+				<reportElement x="553" y="0" width="1" height="116" uuid="efa91ef4-7067-4b54-abcb-84eecefb7643"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="116" uuid="de65ff75-439c-4325-b911-35c3a2b2a28a"/>
+			</line>
+			<line>
+				<reportElement x="1" y="116" width="550" height="1" uuid="5b0243dd-7131-4116-af12-09ae3c814bbc"/>
+			</line>
+			<line>
+				<reportElement x="1" y="381" width="550" height="1" uuid="d3ba6397-b33e-4b9d-9ec9-970c1fb41861"/>
+			</line>
+			<line>
+				<reportElement x="0" y="420" width="554" height="1" uuid="c372371a-c8fb-431b-97af-4092edd6e507"/>
+			</line>
+			<line>
+				<reportElement x="0" y="580" width="554" height="1" uuid="7babf6f1-8b57-4b5f-9f98-9dc434b49913"/>
+			</line>
+			<line>
+				<reportElement x="1" y="421" width="1" height="160" uuid="51f87f16-5eb7-45b3-b907-fb59e5148fb1"/>
+			</line>
+			<line>
+				<reportElement x="554" y="420" width="1" height="160" uuid="9c9b8794-bb6d-411a-9a4d-5ed20d28a9fa"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

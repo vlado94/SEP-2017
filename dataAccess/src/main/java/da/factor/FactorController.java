@@ -1,3 +1,5 @@
+
+
 package da.factor;
 
 import java.util.ArrayList;
@@ -58,12 +60,12 @@ public class FactorController {
 		 try{
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom("sepftn2017@gmail.com");
-			helper.setTo("sepftn2017@gmail.com");
+			helper.setFrom("sepftn20172@gmail.com");
+			helper.setTo("sepftn20172@gmail.com");
 			helper.setSubject("Osiguranje");
 			helper.setText("Uplacena vam je polisa osigranja. Srdacan pozdrav.");
-			FileSystemResource file = new FileSystemResource("D:\\todoSEP.txt");
-			helper.addAttachment(file.getFilename(), file);
+			//FileSystemResource file = new FileSystemResource("D:\\todoSEP.txt");
+			//helper.addAttachment(file.getFilename(), file);
 			 mailSender.send(message);
 		 }catch (MessagingException e) {
 			   throw new MailParseException(e);
@@ -86,7 +88,7 @@ public class FactorController {
 	}
 
 	@PostMapping
-	private FactorDTO save(@RequestBody FactorDTO obj, @RequestHeader("Authorization") String token) {
+	private FactorDTO save(@RequestBody FactorDTO obj) {
 		Factor f = new Factor();
 		f.setName(obj.getName());
 		f.setCategory(categoryService.findOne(obj.getCategory()));
@@ -110,7 +112,7 @@ public class FactorController {
 	}
 	
 	@PutMapping
-	private FactorDTO update(@RequestBody FactorDTO obj, @RequestHeader("Authorization") String token) {
+	private FactorDTO update(@RequestBody FactorDTO obj) {
 		Factor f = Factor.getObj(obj);
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO updateFactor = service.save(f).getDTO();

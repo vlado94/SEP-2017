@@ -136,7 +136,7 @@ public class InsurancePolicyController {
 	
 	
 	@PostMapping("/getPDF")
-	public double getPDF(@RequestBody InsurancePolicyCheckoutResponse response2) throws FileNotFoundException {
+	public Boolean getPDF(@RequestBody InsurancePolicyCheckoutResponse response2) throws FileNotFoundException {
 		
 			InsurancePolicyCheckoutResponse response = generate();
 			response.setEmailEmployee("olja.miljatovic@sep.com");
@@ -267,8 +267,10 @@ public class InsurancePolicyController {
 			        OutputStream outputStream= new FileOutputStream(file);
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
+
 			        
 			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
+
 			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja", file);
 			        	Boolean result = restTemplate().postForObject(
 			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
@@ -282,7 +284,7 @@ public class InsurancePolicyController {
 			}
 	
 		
-		return 2.3;
+		return true;
 
 		
 

@@ -63,7 +63,7 @@ export class InsurancePolicyPinComponent implements OnInit {
         this.insurancePolicyService.pin(this.requestPin)
             .subscribe(response => {
                 let result = response;
-                result = 'Done';
+               
                 if (  result == 'Done' ) {
                     console.log( response );
                     this.insurancePolicyService.setPaid(this.policyId)

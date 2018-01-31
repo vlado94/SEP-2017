@@ -273,28 +273,19 @@ public class InsurancePolicyController {
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
 
-			        
-<<<<<<< HEAD
-			       
-			        
-			        sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
-			        sendMail("sepftn2017@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);
-			        
-=======
->>>>>>> a513b9a789311e0ceccf3b5750e000d829e5424e
 			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
 
 			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja",name, lastname, response.getTotalPrice());
 			        	Boolean result = restTemplate().postForObject(
 			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
 			        }
-<<<<<<< HEAD
-			
-=======
+			       
 			        
 			        sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
 			        sendMail("sepftn2017@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);
->>>>>>> a513b9a789311e0ceccf3b5750e000d829e5424e
+			        
+			       
+			
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

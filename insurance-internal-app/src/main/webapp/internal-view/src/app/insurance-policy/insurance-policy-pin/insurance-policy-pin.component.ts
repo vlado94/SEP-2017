@@ -85,26 +85,7 @@ export class InsurancePolicyPinComponent implements OnInit {
         });*/
 
         this.insurancePolicyService.pinTest()
-            .subscribe( response => {
-                let result = response._body;
-                result = 'Done';
-                if (  result == 'Done' ) {
-                    console.log( response._body );
-                    /*this.insurancePolicyService.setPaid(this.policyId)
-                    .subscribe(message => {
-                        console.log(message);
-                    });*/
-                    this.feedback = 'done';
-                } else if ( result == 'Error' ) {
-                    this.feedback = 'error';
-                } else if ( result == 'Wrong pin' ) {
-                    this.feedback = 'wrong';
-                } else if ( result == 'Wrong pin,card is blocked' ) {
-                    this.feedback = 'block';
-                }
-
-                this.processing = false;
-            } );
+           
     }
 
 }

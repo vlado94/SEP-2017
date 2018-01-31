@@ -19,44 +19,45 @@ import model.request.PinRequest;
 @RestController
 @RequestMapping("/bankMember")
 public class BankMemberController {
-	
+
 	@Autowired
 	BankMemberService bankMemberService;
-	
+
 	@Autowired
 	ConversionService conversionService;
-	
+
 	@GetMapping
-	public List<BankMemberDTO> findAll(){
-		
+	public List<BankMemberDTO> findAll() {
+
 		List<BankMember> bankMemberList = bankMemberService.findAll();
 		List<BankMemberDTO> dtoList = new ArrayList<BankMemberDTO>();
-		for(BankMember bankMember : bankMemberList) {
-			BankMemberDTO dto = new BankMemberDTO();
-			dto.setId(bankMember.getId());
-			dto.setAmount(bankMember.getAmount());
-			dto.setBillNumber(bankMember.getBillNumber());
-			dto.setCardNumber(bankMember.getCardNumber());
-			dto.setName(bankMember.getName());
-			dto.setValid(bankMember.isValid());
-			dtoList.add(dto);
+		for (BankMember bankMember : bankMemberList) {
+			if (bankMember.isValid()) {
+				BankMemberDTO dto = new BankMemberDTO();
+				dto.setId(bankMember.getId());
+				dto.setAmount(bankMember.getAmount());
+				dto.setBillNumber(bankMember.getBillNumber());
+				dto.setCardNumber(bankMember.getCardNumber());
+				dto.setName(bankMember.getName());
+				dto.setValid(bankMember.isValid());
+				dtoList.add(dto);
+			}
 		}
-		
+
 		return dtoList;
 	}
 
 	@PostMapping("/getCardNumber")
-	public String getCardNumber(@RequestBody PinRequest obj){
-		String bmb=bankMemberService.findById(obj.getCardHolder()).getCardNumber();
+	public String getCardNumber(@RequestBody PinRequest obj) {
+		String bmb = bankMemberService.findById(obj.getCardHolder()).getCardNumber();
 		return bmb;
 	}
-	
+
 	@PostMapping("/blockCard")
-	public void blockCard(@RequestBody PinRequest obj){
+	public void blockCard(@RequestBody PinRequest obj) {
 		BankMember bankMember = bankMemberService.findById(obj.getCardHolder());
 		bankMember.setValid(false);
 		bankMemberService.save(bankMember);
 	}
-	
-	
+
 }

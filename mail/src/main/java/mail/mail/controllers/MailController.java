@@ -33,18 +33,18 @@ public class MailController {
 	
 	@PostMapping
 	public boolean getPDF(@RequestBody MailRequest response)  {
- 		sendMail("olja.miljatovic@sep.com", "olja.miljatovic@sep.com", "Polisa :*","Uplacena polisa osiguranja");
+ 		sendMail(response);
 		return true;
 	}
 	
-	private void sendMail(String from, String to, String subject, String text) {
+	private void sendMail(MailRequest request ) {
 		 try{
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom(from);
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setText(text);
+			helper.setFrom(request.getFrom());
+			helper.setTo(request.getTo());
+			helper.setSubject(request.getSubject());
+			helper.setText(request.getText() + "Nosilac polise " + request.getName() +  request.getLastName()+"\n Iznos :" + request.getAmount());
 			//helper.addAttachment(file.getName(), file);
 			 mailSender.send(message);
 		 }catch (MessagingException e) {

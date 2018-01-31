@@ -52,85 +52,24 @@ public class JCActivateController {
 		String wrongPinResponse="SW1: 63";
 		String correctPinResponse="SW1: 90";
 		String validationComand="INS: 20";
-		ArrayList<String> pinStr=new ArrayList<>();
 		String response="";//Knit
-		LinkedList<Integer> stack = new LinkedList<Integer>();
-		int pin=obj.getPin();
+		
 		String cardNum =restTemplate.postForObject(acquirerPort+"/bankMember/getCardNumber", obj, String.class);
 	   
 		PaymentRequestCard request=new PaymentRequestCard();
 		request.setCardNum(cardNum);
 		request.setPolicyID(obj.getPolicyId());
 		request.setPolicyPrice(obj.getTotalPrice());
-				   
+		//////////////////////////////////////////  
 		String finalDestination=selectCard(cardNum);
-			
-		while (pin > 0)
-		{
-		    stack.push( pin % 10 );
-		    pin = pin / 10;
-		}
 		
-		while (!stack.isEmpty())
-		{
-			pinStr.add(Integer.toString(stack.pop()));		
-		}
-			
-		String APDU_PIN="0x80 0x20 0x00 0x00 0x04";
-		for(int i=0;i<4;i++)
-		{
-			APDU_PIN+=" 0x0"+ pinStr.get(i);
-		}
+		generateAPDU(obj.getPin(),finalDestination);
 		
-		APDU_PIN+=" 0x7F;";
-			
-		System.out.println(APDU_PIN);
-			
-		try(FileWriter fw = new FileWriter("C:\\JavaCard33\\samples\\"
-				+ "classic_applets\\"+finalDestination+"\\"
-			+ "wallet.scr", true);
-				
-		BufferedWriter bw = new BufferedWriter(fw);
-	    PrintWriter out = new PrintWriter(bw))
-		    {
-				out.println(APDU_PIN);
-			} catch (IOException e) {
-		     //exception handling left as an exercise for the reader
-			}
-       
-		ProcessBuilder builder1 = new ProcessBuilder(
-	            "cmd.exe", "/c", "cd \"C:\\JavaCard33\\bin\" && cref");
-	    builder1.redirectErrorStream(true);
-	    Process p1;
-		p1 = builder1.start();
+		cref();
+
+		antAll(finalDestination);
+	    /////////////////////////////////
 		
-		try {
-			TimeUnit.SECONDS.sleep(2);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		ProcessBuilder builder = new ProcessBuilder(
-	            "cmd.exe", "/c", "cd \"C:\\JavaCard33\\samples\\"
-	            		+ "classic_applets\\"+finalDestination+"\\applet\" && ant all");
-	    builder.redirectErrorStream(true);
-	    Process p;
-			
-		p = builder.start();
-			
-	    BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	    String line;
-	    while (true)
-	    {
-	       line = r.readLine();
-	       if (line == null) { break; }
-	       System.out.println(line);
-	    }
-	   
-	    /////////////////////////////////////////////
-	    /////////////////////////////////////////////
-	    //read output, provera da li ima 3 neuspela pokusaja za pin, ako ima, kartica je blokirana
 	    BufferedReader reader;
 	    try {
 	    	reader = new BufferedReader(new FileReader(
@@ -154,10 +93,6 @@ public class JCActivateController {
 					
 					if(pinCounter==3)
 					{
-						//////
-						// ukoliko je 3 puta za redom pogresen pin
-						// ubaciti deo d se u bazi promeni da je kartica boliranaa 
-						//////
 						restTemplate.postForObject(acquirerPort+"/bankMember/blockCard", obj, String.class);
 						cardBlocked = true;
 						System.out.println("3 neuspesna pokusaja,kartica je blokirana");
@@ -168,8 +103,6 @@ public class JCActivateController {
 					}
 					
 				}
-				
-				// read next line
 				line1 = reader.readLine();
 			}
 				reader.close();
@@ -178,9 +111,6 @@ public class JCActivateController {
 				e.printStackTrace();
 			}	
 	    
-	    //////////////////
-	    //reader aplet source-a
-	    //////////////////
 	    BufferedReader reader2;
 	    try {
 	    	reader2 = new BufferedReader(new FileReader(
@@ -190,8 +120,6 @@ public class JCActivateController {
 			String[] temp;
 			while (line1 != null)
 			{
-				
-				
 				if(line1.contains("PAN"))
 				{
 					temp=line1.split(" ");
@@ -200,7 +128,6 @@ public class JCActivateController {
 					request.setBillNum(temp[1]);
 				}
 				
-				// read next line
 				line1 = reader2.readLine();
 			}
 				reader2.close();
@@ -209,10 +136,7 @@ public class JCActivateController {
 				e.printStackTrace();
 			}	
 	    
-	    
-	    ///////////
-	    //citanje poslednje komande
-	    ///////////
+	   
 	    FileInputStream in = new FileInputStream("C:\\JavaCard33\\samples"
 	    		+ "\\classic_applets\\"+finalDestination+"\\applet\\default.output");
 		BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -272,7 +196,45 @@ public class JCActivateController {
 		return "Done";
 		
 	}
+	
+	private void generateAPDU(int pin,String finalDestination){
+		ArrayList<String> pinStr=new ArrayList<>();
+		LinkedList<Integer> stack = new LinkedList<Integer>();
+		while (pin > 0)
+		{
+		    stack.push( pin % 10 );
+		    pin = pin / 10;
+		}
+		
+		while (!stack.isEmpty())
+		{
+			pinStr.add(Integer.toString(stack.pop()));		
+		}
+			
+		String APDU_PIN="0x80 0x20 0x00 0x00 0x04";
+		for(int i=0;i<4;i++)
+		{
+			APDU_PIN+=" 0x0"+ pinStr.get(i);
+		}
+		
+		APDU_PIN+=" 0x7F;";
+			
+		System.out.println(APDU_PIN);
+			
+		try(FileWriter fw = new FileWriter("C:\\JavaCard33\\samples\\"
+				+ "classic_applets\\"+finalDestination+"\\"
+			+ "wallet.scr", true);
+				
+		BufferedWriter bw = new BufferedWriter(fw);
+	    PrintWriter out = new PrintWriter(bw))
+		    {
+				out.println(APDU_PIN);
+			} catch (IOException e) {
+		     //exception handling left as an exercise for the reader
+			}
+	}
 	private String selectCard(String cardNum)
+
 	{
 		String folder="";
 
@@ -310,5 +272,42 @@ public class JCActivateController {
 		
 		return folder;
 	}
+
+	private void cref() throws IOException{
+		ProcessBuilder builder1 = new ProcessBuilder(
+	            "cmd.exe", "/c", "cd \"C:\\JavaCard33\\bin\" && cref");
+	    builder1.redirectErrorStream(true);
+	    Process p1;
+		p1 = builder1.start();
+		
+		try {
+			TimeUnit.SECONDS.sleep(2);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+	   
+	}
+	private void antAll(String finalDestination) throws IOException{
 	
+		ProcessBuilder builder = new ProcessBuilder(
+	            "cmd.exe", "/c", "cd \"C:\\JavaCard33\\samples\\"
+	            		+ "classic_applets\\"+finalDestination+"\\applet\" && ant all");
+	    builder.redirectErrorStream(true);
+	    Process p;
+			
+		p = builder.start();
+			
+	    BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	    String line;
+	    while (true)
+	    {
+	       line = r.readLine();
+	       if (line == null) { break; }
+	       System.out.println(line);
+	    }
+	   
+	}
 }

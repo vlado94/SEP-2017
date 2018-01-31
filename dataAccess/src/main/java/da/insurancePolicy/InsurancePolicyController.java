@@ -17,8 +17,11 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailParseException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import da.person.PersonService;
 import model.dto.Discount;
@@ -34,6 +38,7 @@ import model.request.InsurancePolicyCarCalculatePriceRequest;
 import model.request.InsurancePolicyCheckoutRequest;
 import model.request.InsurancePolicyHomeCalculatePriceRequest;
 import model.request.InsurancePolicyRequest;
+import model.request.MailRequest;
 import model.request.PersonRequest;
 import model.response.InsurancePolicyCalculatePriceResponse;
 import model.response.InsurancePolicyCheckoutResponse;
@@ -53,7 +58,14 @@ public class InsurancePolicyController {
 
 	@Autowired
 	private PersonService personService;
-
+	
+	@Value("${dataccessPort}")
+	private String dataccessPort;
+	
+	@Bean
+	public RestTemplate restTemplate() {
+	    return new RestTemplate();
+	}
 	@Autowired
 	private JavaMailSender mailSender;
     @Autowired
@@ -124,9 +136,10 @@ public class InsurancePolicyController {
 	
 	
 	@PostMapping("/getPDF")
-	public double getPDF(@RequestBody InsurancePolicyCheckoutResponse response) throws FileNotFoundException {
+	public double getPDF(@RequestBody InsurancePolicyCheckoutResponse response2) throws FileNotFoundException {
 		
-			//InsurancePolicyCheckoutResponse response = generate();
+			InsurancePolicyCheckoutResponse response = generate();
+			response.setEmailEmployee("olja.miljatovic@sep.com");
 			JasperPrint jasperPrint;
 			
 			 Map<String, Object> parameters = new HashMap<String, Object>();
@@ -254,6 +267,12 @@ public class InsurancePolicyController {
 			        OutputStream outputStream= new FileOutputStream(file);
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
+			        
+			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
+			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja", file);
+			        	Boolean result = restTemplate().postForObject(
+			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
+			        }
 			        
 			        sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
 			        sendMail("sepftn2017@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);

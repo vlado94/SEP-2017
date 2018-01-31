@@ -57,14 +57,14 @@ public class InsurancePolicyController {
 			@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 
 		logger.info("Calculate price for insurance policy");
-		InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
-				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
+		//InsurancePolicyCalculatePriceResponse response = restTemplate.postForObject(
+			//	dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
 		//logger.info("Price is calculated and price is " + obj.getFinalPrice());
 		
 		
-		//InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
-				// double d = restTemplate.postForObject(
-						// dataccessPort+"/insurancePolicy/getPDF", 1, Double.class);
+		InsurancePolicyCalculatePriceResponse response  = new InsurancePolicyCalculatePriceResponse();
+				 double d = restTemplate.postForObject(
+						dataccessPort+"/insurancePolicy/getPDF", response, Double.class);
 		return response;
 	}
 

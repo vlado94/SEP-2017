@@ -84,7 +84,7 @@ export class InsurancePolicyPinComponent implements OnInit {
                
         });
 
-        this.insurancePolicyService.pinTest()
+       // this.insurancePolicyService.pinTest()
            
     }
 

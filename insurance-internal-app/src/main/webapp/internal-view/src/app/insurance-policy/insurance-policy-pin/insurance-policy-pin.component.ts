@@ -60,12 +60,12 @@ export class InsurancePolicyPinComponent implements OnInit {
         this.requestPin.totalPrice = this.totalPrice;
         this.requestPin.policyId = this.policyId;
         console.log( "pin kod " + this.requestPin.pin );
-        /*this.insurancePolicyService.pin(this.requestPin)
+        this.insurancePolicyService.pin(this.requestPin)
             .subscribe(response => {
-                let result = response._body;
+                let result = response;
                 result = 'Done';
                 if (  result == 'Done' ) {
-                    console.log( response._body );
+                    console.log( response );
                     this.insurancePolicyService.setPaid(this.policyId)
                     .subscribe(message => {
                         console.log(message);
@@ -82,7 +82,7 @@ export class InsurancePolicyPinComponent implements OnInit {
 
                 this.processing = false;
                
-        });*/
+        });
 
         this.insurancePolicyService.pinTest()
            

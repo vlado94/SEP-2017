@@ -74,7 +74,7 @@ public class PaymentController {
 	}
 	
 	@PostMapping("/payfromcard")
-	private String PayFromCard(@RequestBody PaymentRequestCard paymentRequest) {
+	private boolean PayFromCard(@RequestBody PaymentRequestCard paymentRequest) {
 		System.out.println(port);
 		BankMember bankMember = bankMemberService.findByBillNumber(paymentRequest.getBillNum());
 		if(bankMember != null) {
@@ -83,16 +83,16 @@ public class PaymentController {
 				if(bank.getPort().equals(port)) {
 					if(transactionService.submitPayment(paymentRequest)) {
 						System.out.println("SUCCESFUL PAYMENT");
-						return "True";
+						return true;
 					}
 				}
 				else {
-					ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + ":" + bank.getPort()+"/payment/pay", paymentRequest , String.class );
+					ResponseEntity<Boolean> response = restTemplate.postForEntity(baseUrl + ":" + bank.getPort()+"/payment/payfromcard", paymentRequest , Boolean.class );
 					return response.getBody();
 				}
 			}
 		}
-		return "False";
+		return false;
 	}
 	
 	

@@ -61,7 +61,7 @@ export class InsurancePolicyService {
     
     pin(pinRequest: PinRequest){
         return this.http.post('http://localhost:8086/activateJC/checkPin/', pinRequest)
-            .map(res=>res.json());
+            .map(res=>res.text());
     }
     
     pinTest(){

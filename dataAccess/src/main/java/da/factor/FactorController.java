@@ -1,3 +1,5 @@
+
+
 package da.factor;
 
 import java.util.ArrayList;
@@ -86,7 +88,7 @@ public class FactorController {
 	}
 
 	@PostMapping
-	private FactorDTO save(@RequestBody FactorDTO obj, @RequestHeader("Authorization") String token) {
+	private FactorDTO save(@RequestBody FactorDTO obj) {
 		Factor f = new Factor();
 		f.setName(obj.getName());
 		f.setCategory(categoryService.findOne(obj.getCategory()));
@@ -110,7 +112,7 @@ public class FactorController {
 	}
 	
 	@PutMapping
-	private FactorDTO update(@RequestBody FactorDTO obj, @RequestHeader("Authorization") String token) {
+	private FactorDTO update(@RequestBody FactorDTO obj) {
 		Factor f = Factor.getObj(obj);
 		f.setCategory(categoryService.findOne(obj.getCategory()));
 		FactorDTO updateFactor = service.save(f).getDTO();

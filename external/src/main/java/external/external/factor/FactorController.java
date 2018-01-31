@@ -30,6 +30,7 @@ public class FactorController {
 	private List<FactorDTO> findFactorsByID(@PathVariable Long id) {
 		ResponseEntity<FactorDTO[]> responseEntity = restTemplate.getForEntity(
 				dataccessPort+"/factor/category/"+id, FactorDTO[].class);
+		System.out.println("usloooo");
 		FactorDTO[] objects = responseEntity.getBody();
 		return  Arrays.asList(objects);
 	}

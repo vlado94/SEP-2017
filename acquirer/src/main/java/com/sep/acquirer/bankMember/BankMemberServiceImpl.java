@@ -40,4 +40,10 @@ public class BankMemberServiceImpl implements BankMemberService{
 		return repository.findByCardNumber(cardNumber);
 	}
 
+	@Override
+	public BankMember findByBillNumber(String billNumber) {
+		double d = Double.parseDouble(billNumber);
+		return repository.findByBillNumber(d);
+	}
+
 }

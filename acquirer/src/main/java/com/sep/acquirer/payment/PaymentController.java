@@ -2,8 +2,10 @@ package com.sep.acquirer.payment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,9 +59,9 @@ public class PaymentController {
 				if(bank.getPort().equals(port)) {
 					if(transactionService.submitPayment(paymentRequest)) {
 						System.out.println("SUCCESFUL PAYMENT");
-						ResponseEntity<Boolean> responsePaid = restTemplate.postForEntity(baseUrl+":8083/external/acquirer/cardPayment", Long.parseLong(paymentRequest.getPolicyID()), Boolean.class); 
-						if(responsePaid.getBody())
-							return "True";
+						restTemplate.postForEntity(baseUrl+":8083/external/acquirer/cardPayment", Long.parseLong(paymentRequest.getPolicyID()), Boolean.class); 
+						//if(responsePaid.getBody())
+						return "True";
 					}
 				}
 				else {
@@ -74,7 +76,7 @@ public class PaymentController {
 	@PostMapping("/payfromcard")
 	private String PayFromCard(@RequestBody PaymentRequestCard paymentRequest) {
 		System.out.println(port);
-		BankMember bankMember = bankMemberService.findByCardNumber("");
+		BankMember bankMember = bankMemberService.findByBillNumber(paymentRequest.getBillNum());
 		if(bankMember != null) {
 			Bank bank = bankMember.getBank();
 			if(bank != null) {
@@ -95,11 +97,6 @@ public class PaymentController {
 	
 	
 	
-	
-	@Bean
-	public RestTemplate restTemplate() {
-	    return new RestTemplate();
-	}
 	
 	
 }

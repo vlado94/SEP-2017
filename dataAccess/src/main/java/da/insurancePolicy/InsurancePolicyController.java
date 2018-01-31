@@ -136,11 +136,14 @@ public class InsurancePolicyController {
 	
 	
 	@PostMapping("/getPDF")
-	public Boolean getPDF(@RequestBody InsurancePolicyCheckoutResponse response2) throws FileNotFoundException {
+	public Boolean getPDF(@RequestBody InsurancePolicyCheckoutResponse response) throws FileNotFoundException {
 		
-			InsurancePolicyCheckoutResponse response = generate();
-			response.setEmailEmployee("olja.miljatovic@sep.com");
+			//InsurancePolicyCheckoutResponse response = generate();
+			//response.setEmailEmployee("olja.miljatovic@sep.com");
 			JasperPrint jasperPrint;
+			
+			String name = null ;
+			String lastname = null;
 			
 			 Map<String, Object> parameters = new HashMap<String, Object>();
 		JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(response.getPersons());
@@ -153,6 +156,8 @@ public class InsurancePolicyController {
 				parameters.put("OsiguravacJMBG", personRequest.getPersonNo());
 				parameters.put("OsiguravacPasos", personRequest.getPassportNo());
 				mailOfContractor = personRequest.getEmail();
+				name = personRequest.getFirstName();
+				lastname = personRequest.getLastName();
 				
 			}
 		}
@@ -268,16 +273,19 @@ public class InsurancePolicyController {
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
 
-			        /*
-			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
-
-			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja", file);
-			        	Boolean result = restTemplate().postForObject(
-			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
-			        }*/
+			        
+			       
 			        
 			        sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
 			        sendMail("sepftn2017@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);
+			        
+			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
+
+			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja",name, lastname, response.getTotalPrice());
+			        	Boolean result = restTemplate().postForObject(
+			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
+			        }
+			
 			} catch (JRException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

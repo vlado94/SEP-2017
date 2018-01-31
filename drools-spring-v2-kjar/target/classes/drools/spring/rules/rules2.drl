@@ -62,6 +62,31 @@ rule "Grupni popust2 ( proba, veci od 1)"
 end
 
 
+rule "Vise od 3 ( proba, veci od 1)"
+	lock-on-active true
+	when 
+		$i : InsurancePolicyRequest(this.getNumberOfPersons() > 1)
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("na kolicinu",10));
+		}
+		System.out.println("10 % na kolicinu");
+end
+
+rule "Popust na datum2 (za cetvrti tab)"
+	lock-on-active true
+	when
+		$i : InsurancePolicyRequest(this.getStartDate().isAfter(LocalDate.of(2018,2,2)))
+		$lista : ArrayList()
+	then
+		modify($lista){
+			add(new Popust("februarski popust",11));	
+		}
+		System.out.println("11% na februar");
+end	
+
+
 rule "Popust na datum2"
 	lock-on-active true
 	when

@@ -27,17 +27,17 @@ public class MailController {
 	
 	@GetMapping
 	public boolean getPDF()  {
-		sendMail("sepftn20172@gmail.com", "sepftn20172@gmail.com", "Polisa","Uplacena polisa osiguranja");
+	//	sendMail("olja.miljatovic@sep.com", "olja.miljatovic@sep.com", "Polisa :*","Uplacena polisa osiguranja");
 		return true;
 	}
 	
 	@PostMapping
 	public boolean getPDF(@RequestBody MailRequest response)  {
-		//sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja", response.getFile());
+ 		sendMail("olja.miljatovic@sep.com", "olja.miljatovic@sep.com", "Polisa :*","Uplacena polisa osiguranja");
 		return true;
 	}
 	
-	private void sendMail(String from, String to, String subject, String text) {//, File file) {
+	private void sendMail(String from, String to, String subject, String text) {
 		 try{
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);

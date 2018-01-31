@@ -58,12 +58,12 @@ public class FactorController {
 		 try{
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom("sepftn2017@gmail.com");
-			helper.setTo("sepftn2017@gmail.com");
+			helper.setFrom("sepftn20172@gmail.com");
+			helper.setTo("sepftn20172@gmail.com");
 			helper.setSubject("Osiguranje");
 			helper.setText("Uplacena vam je polisa osigranja. Srdacan pozdrav.");
-			FileSystemResource file = new FileSystemResource("D:\\todoSEP.txt");
-			helper.addAttachment(file.getFilename(), file);
+			//FileSystemResource file = new FileSystemResource("D:\\todoSEP.txt");
+			//helper.addAttachment(file.getFilename(), file);
 			 mailSender.send(message);
 		 }catch (MessagingException e) {
 			   throw new MailParseException(e);

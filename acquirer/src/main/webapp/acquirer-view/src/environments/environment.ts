@@ -5,5 +5,5 @@
 
 export const environment = {
 	production: false,
-	BACKEND_URL: 'https://192.168.0.106:8084/payment'
+	BACKEND_URL: 'https://localhost:8084/payment'
 };

@@ -51,7 +51,7 @@ public class PaymentController {
 		return "success";
 	}
 	
-	@CrossOrigin(origins = "http://192.168.0.106:4600")
+	@CrossOrigin(origins = "http://localhost:4600")
 	@PostMapping("/pay")
 	private String PayFromWebApp(@RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);

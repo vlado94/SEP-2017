@@ -116,8 +116,7 @@ public class TransactionServiceImpl implements TransactionService {
 		BankMember member = memberRepository.findByBillNumber(Double.parseDouble(paymentRequest.getBillNum()));
 		if(member != null){																		//TODO: DO MORE CHECKING
 			if(member.getAmount() >= paymentRequest.getPolicyPrice() 
-					&& member.isValid() 
-					&& member.getName().equals(paymentRequest.getHolderName()) ) {
+					&& member.isValid() ) {
 				return true;
 			}
 		}

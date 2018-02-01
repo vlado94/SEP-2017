@@ -19,6 +19,20 @@ public class InsurancePolicyRequest {
 	private Integer firstAgeCategory;
 	private Integer secondAgeCategory;
 	private Integer thirdAgeCategory;
+	
+	private int numberOfPersons;
+	
+	
+
+	public int getNumberOfPersons() {
+		return numberOfPersons;
+	}
+
+	public void setNumberOfPersons(int numberOfPersons) {
+		this.numberOfPersons = numberOfPersons;
+	}
+
+
 
 	public InsurancePolicyRequest() {
 		super();

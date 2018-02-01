@@ -24,7 +24,7 @@ import com.sep.acquirer.transaction.TransactionService;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin(origins = "http://localhost:4600")
+
 public class PaymentController {
 
 	@Autowired
@@ -42,6 +42,8 @@ public class PaymentController {
 	@Value("${baseUrl}")
 	private String baseUrl;
 	
+	@Value("${externalUrl}")
+	private String externalUrl;
 	
 	@GetMapping("/test")
 	private String findAll() {
@@ -49,6 +51,7 @@ public class PaymentController {
 		return "success";
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4600")
 	@PostMapping("/pay")
 	private String PayFromWebApp(@RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
@@ -59,7 +62,7 @@ public class PaymentController {
 				if(bank.getPort().equals(port)) {
 					if(transactionService.submitPayment(paymentRequest)) {
 						System.out.println("SUCCESFUL PAYMENT");
-						restTemplate.postForEntity(baseUrl+":8083/external/acquirer/cardPayment", Long.parseLong(paymentRequest.getPolicyID()), Boolean.class); 
+						restTemplate.postForEntity(externalUrl+":8083/external/acquirer/cardPayment", Long.parseLong(paymentRequest.getPolicyID()), Boolean.class); 
 						//if(responsePaid.getBody())
 						return "True";
 					}

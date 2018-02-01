@@ -8,12 +8,55 @@ public class MailRequest {
 	private String to;
 	private String subject;
 	private String text;
-	private File file;
+	private String name;
+	private String lastName;
+	private double amount;
+	
 	public String getFrom() {
 		return from;
 	}
 	
 	
+	
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+
+	public double getAmount() {
+		return amount;
+	}
+
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+
 	public MailRequest() {
 		
 	}
@@ -38,19 +81,16 @@ public class MailRequest {
 	public void setText(String text) {
 		this.text = text;
 	}
-	public File getFile() {
-		return file;
-	}
-	public void setFile(File file) {
-		this.file = file;
-	}
-	public MailRequest(String from, String to, String subject, String text, File file) {
+
+	public MailRequest(String from, String to, String subject, String text, String name, String lastname,Double amount) {
 		super();
 		this.from = from;
 		this.to = to;
 		this.subject = subject;
 		this.text = text;
-		this.file = file;
+		this.name = name;
+		this.lastName = lastname;
+		this.amount = amount;
 	}
 	
 }

@@ -2,8 +2,9 @@
 ISOK
 
 Keycloak pokrecemo tako sto se pozicioniramo u bin fajl keycloak-a i u komandnoj liniji napisemo:
-standalone.bat -Djboss.socket.binding.port-offset=100 
+standalone.bat -Djboss.socket.binding.port-offset=100 -b=0.0.0.0
 
+Menjamo konfiguraciju za keycloak u index.html, envoirment.ts i application.properties
 
 Insurance app pokrecemo na portu 4500, a external app na portu 4300
 

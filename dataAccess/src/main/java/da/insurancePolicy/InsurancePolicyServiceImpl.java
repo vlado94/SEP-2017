@@ -136,7 +136,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		double coverPrice = coverBasePrice + coverBasePrice * coverPer/100;
 		pricePerDayForSportAndRegion = sportPrice + regionPrice+coverPrice;
 		
-		InsurancePolicy policy  = insurancePolicyRepository.save(generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList));
+		InsurancePolicy policy  = generatePolicyFromInsurencePolicyRequest(insurencePolicy, usableList);
 		InsurancePolicyResponse responce = generateInsurenceResponceFromPolicyRequest(insurencePolicy, policy);
 	
 		
@@ -183,6 +183,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		}
 		policy.setAmount(retVal);
 		
+		int numerOfPersons = 0;
+		insurencePolicy.setNumberOfPersons( insurencePolicy.getFirstAgeCategory() + insurencePolicy.getSecondAgeCategory() + insurencePolicy.getThirdAgeCategory());
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(insurencePolicy);
 		InsurancePolicyCalculatePriceResponse calculatedPriceResponce =  calculatePriceWithDiscounts(discounts, retVal);//return
 		
@@ -283,7 +285,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			retVal += agePrices.get(i);
 		}
 		
-		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
+		
+ 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
 		Double price = retVal * policy.getDuration();
 		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
 	
@@ -433,6 +436,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
 		InsurancePolicyCheckoutResponse response = new InsurancePolicyCheckoutResponse();
 		fillResponseWithTravelDetails(response, travelRequest ,responseForTravel);
+		
 		double priceForCar = 0;
 		double priceForHome = 0;
 		if(request.getInsurancePolicyCarRequest() != null) {
@@ -451,6 +455,7 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		/*Poziv Sickove metode za popuste*/
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(response);
 		double basePrice=response.getTotalPrice();
+		ArrayList<Discount> discountsToDisplay = new ArrayList<>();
 		double totalReduction = 0;
 		for (Popust popust : discounts) {
 			Discount discount = new Discount();
@@ -460,8 +465,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			totalReduction += basePrice* popust.getIznosPopusta()/100;
 			//discountsToDisplay.add(discount);
 		}
-		//responce.setDiscounts(discountsToDisplay);
-		response.setTotalPrice(basePrice - totalReduction);
+		//response.setDiscounts(discountsToDisplay);
+ 		response.setTotalPrice(basePrice - totalReduction);
 		
 		return response;
 	}

@@ -22,6 +22,7 @@ export class InsurancePolicyService {
 
 
     private apiUrl = `${environment.BACKEND_URL}/insurancePolicy`;
+    private javaCardUrl = `${environment.JAVA_CARD_URL}/activateJC`;
 
     // Using Angular DI we use the HTTP service 
     constructor(private http: Http) {
@@ -60,12 +61,12 @@ export class InsurancePolicyService {
     }
     
     pin(pinRequest: PinRequest){
-        return this.http.post('http://localhost:8086/activateJC/checkPin/', pinRequest)
+        return this.http.post(this.javaCardUrl+'/checkPin', pinRequest)
             .map(res=>res.text());
     }
     
     pinTest(){
-        return this.http.get('http://localhost:8086/activateJC/getResponse')
+        return this.http.get(this.javaCardUrl+'/getResponse')
             .map(res=>res);
     }
     

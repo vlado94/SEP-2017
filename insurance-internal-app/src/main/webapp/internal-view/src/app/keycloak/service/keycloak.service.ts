@@ -13,7 +13,7 @@ export class KeycloakService {
     static user: User;
 
     static init(): Promise<any> {
-        const keycloakAuth: any = Keycloak({
+        const keycloakAuth: any = new Keycloak({
             url: environment.KEYCLOAK_URL,
             realm: environment.KEYCLOAK_REALM,
             clientId: environment.KEYCLOAK_CLIENTID

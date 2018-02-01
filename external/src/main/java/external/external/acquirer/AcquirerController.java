@@ -42,7 +42,7 @@ public class AcquirerController {
 		InsurancePolicyCheckoutResponse response = responseEntity.getBody();
 		ResponseEntity<Boolean> responseEntityPdf = restTemplate.postForEntity(
 				dataccessPort+"/insurancePolicy/getPDF", response, Boolean.class);
-		System.out.println("proslo");
+		System.out.println("proslo " + responseEntityPdf.getBody());
 		return true;
 	}
 }

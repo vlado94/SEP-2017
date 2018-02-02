@@ -181,6 +181,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		for(int i = 0; i<responce.getPersons().size(); i++) {
 			retVal += insurencePolicy.getDuration() * responce.getPersons().get(i).getTotalPrice();
 		}
+		
+		retVal = Math.round(retVal*100)/100;
 		policy.setAmount(retVal);
 		
 		int numerOfPersons = 0;
@@ -288,6 +290,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		
  		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
 		Double price = retVal * policy.getDuration();
+		
+		price = (double) (Math.round(price*100)/100);
 		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
 	
 		return responce;
@@ -307,7 +311,10 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			discountsToDisplay.add(discount);
 		}
 		responce.setDiscounts(discountsToDisplay);
-		responce.setFinalPrice(basePrice - totalReduction);
+		
+		double total = basePrice - totalReduction ; 
+		total = Math.round(total*100)/100;
+		responce.setFinalPrice(total);
 		return responce;
 	}
 	
@@ -359,6 +366,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		pricePerDay = sizePrice + agePrice + valuePrice +  riskPrice;
 		
 		double price = duration * pricePerDay;
+		
+		price = Math.round(price*100)/100;
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(policy);
 		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
 		return responce.getFinalPrice();
@@ -421,6 +430,8 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 		pricePerDay = popravkaPrice + prevozPrice + slepovanjePrice +  smjestajPrice;
 
 		Double price = duration * pricePerDay;
+		
+		price = (double) (Math.round(price*100)/100);
 		ArrayList<Popust> discounts = ruleService.getClassifiedItem(request);
 		InsurancePolicyCalculatePriceResponse responce =  calculatePriceWithDiscounts(discounts, price);//return
 		return responce;
@@ -466,7 +477,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService{
 			//discountsToDisplay.add(discount);
 		}
 		//response.setDiscounts(discountsToDisplay);
- 		response.setTotalPrice(basePrice - totalReduction);
+		
+		double total = basePrice - totalReduction;
+		
+		total = Math.round(total*100)/100;
+ 		response.setTotalPrice(total);
 		
 		return response;
 	}

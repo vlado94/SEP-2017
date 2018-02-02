@@ -32,17 +32,17 @@ public class PriceController {
 	private static Logger logger = LoggerFactory.getLogger(PriceController.class);
 	
 	@PostMapping
-	private Double calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPrice(@RequestBody InsurancePolicyCalculatePriceRequest obj) {
 		//obj.setAmount(15l); //izbrisati nakon ispravljenog fronta
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPrice", obj, InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Izracunata cena za polisu " + price.getFinalPrice());
-		System.out.println("cena osiguranja je: " + price.getFinalPrice());
-		return price.getFinalPrice();
+		//System.out.println("cena osiguranja je: " + price.getFinalPrice());
+		return price;
 	}
 	
 	@PostMapping("/car")
-	private Double calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
+	private InsurancePolicyCalculatePriceResponse calculateSuggestedPriceCar(@RequestBody InsurancePolicyCarCalculatePriceRequest obj) {
 		//obj.setSlepovanje(30l);
 		//obj.setPopravka(34l);
 		//obj.setSmestaj(37l);
@@ -50,7 +50,7 @@ public class PriceController {
 		InsurancePolicyCalculatePriceResponse price = restTemplate.postForObject(
 				dataccessPort+"/insurancePolicy/calculateSuggestedPriceCar", obj, InsurancePolicyCalculatePriceResponse.class);
 		logger.info("Izracunata cena za auto-polisu "+price.getFinalPrice());
-		return price.getFinalPrice();
+		return price;
 	}
 	
 	@PostMapping("/home")

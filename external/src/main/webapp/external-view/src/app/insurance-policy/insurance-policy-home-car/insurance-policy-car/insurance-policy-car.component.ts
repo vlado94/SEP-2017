@@ -23,6 +23,7 @@ export class InsurancePolicyCarComponent implements OnInit {
 	popravka_list: Factor[];
 	smestaj_list: Factor[];
 	prevoz_list: Factor[];
+	paket_selected: boolean = false;
 
 	constructor(private factorService: FactorService) { 
 		this.insurancePolicyCarForm = new FormGroup({
@@ -62,9 +63,9 @@ export class InsurancePolicyCarComponent implements OnInit {
 					|| this.insurancePolicyCarForm.controls['prevoz'].value != '' || this.insurancePolicyCarForm.controls['smestaj'].value != '')) {
 				let insurancePolicyCarCalculatePriceRequest: InsurancePolicyCarCalculatePriceRequest = new InsurancePolicyCarCalculatePriceRequest(value.duration, value.slepovanje, value.smestaj, value.popravka, value.prevoz)
 				this.calculatePrice.emit(insurancePolicyCarCalculatePriceRequest);
-                //this.paket_selected = true;
+                this.paket_selected = true;
             } else {
-                //this.paket_selected = false;
+                this.paket_selected = false;
                 this.calculatePrice.emit(null);
             }
         })

@@ -9,6 +9,6 @@ export const environment = {
 	KEYCLOAK_REALM: 'isok',
 	KEYCLOAK_CLIENTID: 'isok-frontend-employee',
 	BACKEND_URL: 'http://localhost:8082/internal',
-	JAVA_CARD_URL: 'http://192.168.0.103:8086'
+	JAVA_CARD_URL: 'http://localhost:8086'
 
 };

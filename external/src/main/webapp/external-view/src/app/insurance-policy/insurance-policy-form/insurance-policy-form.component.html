@@ -119,7 +119,14 @@
 							</div>
 						</div>
 						<div class="price" *ngIf="price">
-							<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi : {{price}}</div>
+							<div *ngIf="price.discounts.length > 0">
+								<p>Osnovna cena : {{price.basePrice}} din</p>
+								<p>Popusti:</p>
+								<p *ngFor="let discount of price.discounts">
+									{{discount.discountName}} : {{discount.amount}} din ({{discount.percent}}%)
+								</p>
+							</div>
+							<div *ngIf="price">Trenutna cena vaseg osiguranja iznosi : {{price.finalPrice}} din</div>
 						</div>
 						<button type="submit" [disabled]="!insurancePolicyForm.valid || !checkNumberOfPeople()" class="btn pull-right" >Dalje</button>
 

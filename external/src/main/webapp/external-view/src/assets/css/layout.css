@@ -477,7 +477,7 @@ fieldset[disabled] .btn-theme {
   	[Footer]
 ------------------------------------------------------------------*/
 .footer {
-  background: url(../img/1920x1080/03.jpg) no-repeat;
+  background-color: #9acee3;
   background-size: cover;
   background-position: center center;
 }
@@ -511,6 +511,11 @@ fieldset[disabled] .btn-theme {
   width: 85px;
   height: auto;
 }
+
+.form-group.is-focused .form-control {
+    background-image: linear-gradient(blue,blue), linear-gradient(#D2D2D2,#D2D2D2) !important;
+}
+
 
 /*------------------------------------------------------------------
   	[Header]

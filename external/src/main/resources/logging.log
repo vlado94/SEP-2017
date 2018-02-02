@@ -668,3 +668,23 @@
 [INFO ]2018-02-02 01:19:46 e.external.price.PriceController - Izracunata cena za polisu 177210.0
 [INFO ]2018-02-02 01:21:03 e.external.price.PriceController - Izracunata cena za polisu 48640.0
 [INFO ]2018-02-02 01:22:18 e.external.price.PriceController - Izracunata cena za polisu 5310.0
+[INFO ]2018-02-02 10:30:23 e.external.price.PriceController - Izracunata cena za polisu 4832.7
+[INFO ]2018-02-02 10:30:25 e.external.price.PriceController - Izracunata cena za polisu 4111.8
+[INFO ]2018-02-02 10:31:59 e.external.price.PriceController - Izracunata cena za polisu 7299.6
+[INFO ]2018-02-02 10:34:14 e.external.price.PriceController - Izracunata cena za polisu 8010.0
+[INFO ]2018-02-02 10:34:33 e.external.paypal.PaypalController - Kreiran payment PAY-55P326364E473580YLJ2DBKY
+[INFO ]2018-02-02 10:35:25 e.external.paypal.PaypalController - Paypal is executed with payment id PAY-55P326364E473580YLJ2DBKY
+[INFO ]2018-02-02 11:59:46 e.external.price.PriceController - Izracunata cena za polisu 3186.2
+[INFO ]2018-02-02 12:31:22 e.external.price.PriceController - Izracunata cena za polisu 4792.65
+[INFO ]2018-02-02 12:33:01 e.external.price.PriceController - Izracunata cena za polisu 6301.2
+[INFO ]2018-02-02 12:42:14 e.external.price.PriceController - Izracunata cena za polisu 4846.05
+[INFO ]2018-02-02 12:46:57 e.external.price.PriceController - Izracunata cena za polisu 3212.9
+[INFO ]2018-02-02 12:47:37 e.external.paypal.PaypalController - Kreiran payment PAY-8PC88587K1186120PLJ2E7WY
+[INFO ]2018-02-02 12:52:05 e.external.price.PriceController - Izracunata cena za polisu 4806.0
+[INFO ]2018-02-02 12:52:27 e.external.price.PriceController - Izracunata cena za polisu 4779.3
+[INFO ]2018-02-02 12:52:32 e.external.price.PriceController - Izracunata cena za polisu 4806.0
+[INFO ]2018-02-02 12:52:34 e.external.price.PriceController - Izracunata cena za polisu 4832.7
+[INFO ]2018-02-02 12:52:36 e.external.price.PriceController - Izracunata cena za polisu 4872.75
+[INFO ]2018-02-02 12:53:08 e.external.paypal.PaypalController - Kreiran payment PAY-1SC1400026672051CLJ2FCJQ
+[INFO ]2018-02-02 12:53:49 e.external.paypal.PaypalController - Paypal is executed with payment id PAY-1SC1400026672051CLJ2FCJQ
+[INFO ]2018-02-02 12:56:30 e.external.price.PriceController - Izracunata cena za polisu 5019.6

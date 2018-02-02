@@ -1,5 +1,8 @@
 package external.external.paypal;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -56,6 +59,8 @@ public class PaypalController {
 		try {
 			double price = insurancePolicyFinalDTO.getPrice() / 100;
 			System.out.println("price " + price);
+			price = Math.round(price*100.0)/100.0;
+			
 			payment = paypalService.createPayment(Double.toString(price), "USD","paypal", "sale", "Opis paymenta", 
 					successUrl, "https://www.b92.net/", 1l, insurancePolicyFinalDTO);
 			logger.info("Kreiran payment " + payment.getId());

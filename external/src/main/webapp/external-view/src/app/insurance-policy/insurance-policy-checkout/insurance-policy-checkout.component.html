@@ -144,6 +144,7 @@
 		<div class="col-sm-12">
 			<div class="row">
 				<div class="col-sm-3">
+					Putno osiguranje
 					<div *ngIf="checkoutVar.priceAndDiscountsForTravel.discounts.length > 0">
 						<p>Osnovna cena : {{checkoutVar.priceAndDiscountsForTravel.basePrice}} din</p>
 						<p>Popusti:</p>
@@ -153,24 +154,30 @@
 					</div>
 					<div class="price">Cena putnog osiguranja : {{checkoutVar.priceAndDiscountsForTravel.finalPrice}} din</div>
 				</div>
-				<div class="col-sm-3" *ngIf="checkoutVar.priceAndDiscountsForCar">
-					<div *ngIf="checkoutVar.priceAndDiscountsForCar.discounts.length > 0">
-						<div>
-							<p>Osnovna cena : {{checkoutVar.priceAndDiscountsForCar.basePrice}} din</p>
-							<p>Popusti:</p>
-							<p *ngFor="let discount of checkoutVar.priceAndDiscountsForCar.discounts">
-								{{discount.discountName}} : {{discount.amount}} din ({{discount.percent}}%)
-							</p>
+				<div class="col-sm-3">
+					Osiguranje automobila
+					<div *ngIf="checkoutVar.priceAndDiscountsForCar">
+						<div *ngIf="checkoutVar.priceAndDiscountsForCar.discounts.length > 0">
+							<div>
+								<p>Osnovna cena : {{checkoutVar.priceAndDiscountsForCar.basePrice}} din</p>
+								<p>Popusti:</p>
+								<p *ngFor="let discount of checkoutVar.priceAndDiscountsForCar.discounts">
+									{{discount.discountName}} : {{discount.amount}} din ({{discount.percent}}%)
+								</p>
+							</div>
+
 						</div>
 						<div class="price">Cena osiguranja automobila : {{checkoutVar.priceAndDiscountsForCar.finalPrice}} din</div>
 					</div>
 				</div>
 				<div class="col-sm-3">
+					Osiguranje stana
 					<div *ngIf="checkoutVar.priceAndDiscountsForHome">
 						<div class="price">Cena osiguranja stana : {{checkoutVar.priceAndDiscountsForHome}} din</div>
 					</div>
 				</div>
 				<div class="col-sm-3">
+					Ukupno
 					<div class="price">Konačna cena : {{checkoutVar.totalPrice}} din</div>
 				</div>
 			</div>

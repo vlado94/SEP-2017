@@ -43,10 +43,10 @@ export class AppComponent implements OnInit {
       this.insuranceId = id;
 
       this.myForm = new FormGroup({
-        holderName: new FormControl('', [Validators.required]),
-        cardNum: new FormControl('', [Validators.required]),
+        holderName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        cardNum: new FormControl('', [Validators.required, Validators.pattern("[0-9]*")]),
         expDate: new FormControl('', [Validators.required]),
-        cvv2: new FormControl('', [Validators.required]),
+        cvv2: new FormControl('', [Validators.required, Validators.pattern("[0-9][0-9][0-9][0-9]?")]),
         policyID: new FormControl(id, [Validators.required]),
         policyPrice: new FormControl(price, [Validators.required]),
       });

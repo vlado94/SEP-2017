@@ -273,11 +273,12 @@ public class InsurancePolicyController {
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
 
-			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
-
-			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja",name, lastname, response.getTotalPrice());
-			        	Boolean result = restTemplate().postForObject(
-			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
+			        if(response.getEmailEmployee() != null ) {
+			        	if(!response.getEmailEmployee().equals("")) {
+				        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja",name, lastname, response.getTotalPrice());
+				        	Boolean result = restTemplate().postForObject(
+				        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
+			        	}
 			        }
 			       
 			        

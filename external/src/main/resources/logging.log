@@ -665,3 +665,6 @@
 [INFO ]2018-02-01 23:52:02 e.external.price.PriceController - Izracunata cena za auto-polisu 4597.92
 [INFO ]2018-02-01 23:52:03 e.external.price.PriceController - Izracunata cena za auto-polisu 4597.92
 [INFO ]2018-02-01 23:52:06 e.external.price.PriceController - Izracunata cena za auto-polisu 4795.68
+[INFO ]2018-02-02 01:19:46 e.external.price.PriceController - Izracunata cena za polisu 177210.0
+[INFO ]2018-02-02 01:21:03 e.external.price.PriceController - Izracunata cena za polisu 48640.0
+[INFO ]2018-02-02 01:22:18 e.external.price.PriceController - Izracunata cena za polisu 5310.0

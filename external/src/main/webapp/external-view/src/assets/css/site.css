@@ -1,8 +1,8 @@
 .btn-theme {
-	border : 3px solid black;
+	border : 3px solid white;
 	opacity : 0.4;
-	color : black;
-	background : white
+	color : white;
+	background : #6d8ea4
 }
 
 .carousel-centered p {

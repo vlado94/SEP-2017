@@ -1,5 +1,6 @@
 package external.external.acquirer;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import external.external.security.AcquirerExternalDto;
 import model.dto.InsurancePolicyFinalDTO;
 import model.response.InsurancePolicyCheckoutResponse;
 
@@ -20,6 +22,9 @@ public class AcquirerController {
 	
 	@Value("${dataccessPort}")
 	private String dataccessPort;
+	
+	@Value("${secretKey}")
+	private String secretKey;
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -34,15 +39,23 @@ public class AcquirerController {
 	}
 	
 	@PostMapping("/cardPayment")
-	private boolean cardPayment(@RequestBody Long policyId) {
+	private boolean cardPayment(@RequestBody AcquirerExternalDto aed) {
 		
-		ResponseEntity<InsurancePolicyCheckoutResponse> responseEntity = restTemplate.postForEntity(
-				dataccessPort+"/insurancePolicyFinal/cardPayment", policyId, InsurancePolicyCheckoutResponse.class);
-		System.out.println("Usao u card payment");
-		InsurancePolicyCheckoutResponse response = responseEntity.getBody();
-		ResponseEntity<Boolean> responseEntityPdf = restTemplate.postForEntity(
-				dataccessPort+"/insurancePolicy/getPDF", response, Boolean.class);
-		System.out.println("proslo");
-		return true;
+		// calculate hash MD5
+		String md5Hash = DigestUtils.md5Hex(aed.getPolicyID().toString() + secretKey);
+		
+		// compare hashes
+		if(aed.getHash().equals(md5Hash)) {
+			ResponseEntity<InsurancePolicyCheckoutResponse> responseEntity = restTemplate.postForEntity(
+					dataccessPort+"/insurancePolicyFinal/cardPayment", aed.getPolicyID(), InsurancePolicyCheckoutResponse.class);
+			System.out.println("Usao u card payment");
+			InsurancePolicyCheckoutResponse response = responseEntity.getBody();
+			ResponseEntity<Boolean> responseEntityPdf = restTemplate.postForEntity(
+					dataccessPort+"/insurancePolicy/getPDF", response, Boolean.class);
+			System.out.println("proslo");
+			return true;
+		}
+		else
+			return false;
 	}
 }

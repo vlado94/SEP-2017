@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     originalPrice;
     insuranceId;
     cardResonse: string;
+    load: boolean = false;
     constructor(private appService: AppService){ }
 
     ngOnInit() {
@@ -68,6 +69,7 @@ export class AppComponent implements OnInit {
     }
     
     submitCardDataForm(){
+      this.load = true;
       console.log("11111111111");
       let value = this.myForm.value;
       let paymentRequest = new PaymentRequest(value.holderName, value.cardNum , value.expDate , value.cvv2, value.policyID, this.originalPrice);
@@ -77,6 +79,9 @@ export class AppComponent implements OnInit {
             if(this.cardResonse === "True"){
               window.location.href="http://localhost:4300/cardPayment";
               console.log("Uspesno placeno");
+              this.load = false;
+            } else {
+              this.load = false;
             }
 
           }

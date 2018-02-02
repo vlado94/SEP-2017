@@ -2,12 +2,12 @@
 	<div class="row card">
 		<form [formGroup]="myForm" novalidate (ngSubmit)="submitCardDataForm()">
 			<div class="col-md-4 card1">
-			<div class="row img">
-			
-			</div>
-			<div class="row total">
-				<label class="totalLbl">T O T A L : {{originalPrice}} </label>
-			</div>
+				<div class="row img">
+
+				</div>
+				<div class="row total">
+					<label class="totalLbl">T O T A L : {{originalPrice}} </label>
+				</div>
 			</div>
 			<div class="col-md-8 card2">
 				<div class="row">
@@ -56,14 +56,20 @@
 					<div class="col-md-4 nopaddingL">
 						<button type="submit" [disabled]="!myForm.valid" class="btn">PLATI</button>
 					</div>
+					<div *ngIf="load">
+						<div class="loader"></div> 
+					</div>
 				</div>
 				
 				
 				
 			</div>
+
 			<input type="hidden" id="policyID">
 			<input type="hidden" id="policyPrice">
 			
 		</form>
+
+
 	</div>
 </div>

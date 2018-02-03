@@ -273,16 +273,17 @@ public class InsurancePolicyController {
 			        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 			        logger.info("kreiran PDF");
 
-			        if(response.getEmailEmployee() != null || !response.getEmailEmployee().equals("")) {
-
+			        if(response.getEmailEmployee() != null) {
+			        	if(!response.getEmailEmployee().equals("")) {
 			        	MailRequest mailRequest = new MailRequest("olja.miljatovic@sep.com", response.getEmailEmployee(), "Uplacena polisa osiguranja", "U prilogu se nalazi uplacena polisa osiguranja",name, lastname, response.getTotalPrice());
 			        	Boolean result = restTemplate().postForObject(
 			        		dataccessPort.toString()+"/mailController", mailRequest, Boolean.class);
+			        	}
 			        }
 			       
 			        
-			        sendMail("sepftn2017@gmail.com", "sepftn2017@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
-			        sendMail("sepftn2017@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);
+			        sendMail("sepftn20172@gmail.com", "sepftn20172@gmail.com", "Polisa","Uplacena polisa osiguranja",file);
+			        sendMail("sepftn20172@gmail.com", mailOfContractor, "Polisa osiguranja","U prilogu se nalazi Vasa uplacena polisa osigranja.\n\n\nSrdacan pozdrav, \n Vas DDOR.",file);
 			        
 			       
 			

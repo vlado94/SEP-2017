@@ -27,7 +27,7 @@ var app = {
     // Bind any cordova events here. Common events are:
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
-		window.location = "http://192.168.0.10:4200";
+		window.location = "http://192.168.0.100:4300";
         this.receivedEvent('deviceready');
     },
 

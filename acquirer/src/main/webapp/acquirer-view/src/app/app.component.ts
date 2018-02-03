@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     originalPrice;
     insuranceId;
     cardResonse: string;
+    load: boolean = false;
     constructor(private appService: AppService){ }
 
     ngOnInit() {
@@ -43,10 +44,10 @@ export class AppComponent implements OnInit {
       this.insuranceId = id;
 
       this.myForm = new FormGroup({
-        holderName: new FormControl('', [Validators.required]),
-        cardNum: new FormControl('', [Validators.required]),
+        holderName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        cardNum: new FormControl('', [Validators.required, Validators.pattern("[0-9]*")]),
         expDate: new FormControl('', [Validators.required]),
-        cvv2: new FormControl('', [Validators.required]),
+        cvv2: new FormControl('', [Validators.required, Validators.pattern("[0-9][0-9][0-9][0-9]?")]),
         policyID: new FormControl(id, [Validators.required]),
         policyPrice: new FormControl(price, [Validators.required]),
       });
@@ -68,6 +69,7 @@ export class AppComponent implements OnInit {
     }
     
     submitCardDataForm(){
+      this.load = true;
       console.log("11111111111");
       let value = this.myForm.value;
       let paymentRequest = new PaymentRequest(value.holderName, value.cardNum , value.expDate , value.cvv2, value.policyID, this.originalPrice);
@@ -77,6 +79,9 @@ export class AppComponent implements OnInit {
             if(this.cardResonse === "True"){
               window.location.href="http://localhost:4300/cardPayment";
               console.log("Uspesno placeno");
+              this.load = false;
+            } else {
+              this.load = false;
             }
 
           }

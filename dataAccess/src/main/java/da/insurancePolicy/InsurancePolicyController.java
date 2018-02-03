@@ -5,8 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,7 +164,7 @@ public class InsurancePolicyController {
 			}
 		}
 	   parameters.put("Datum1", response.getStartDate());
-	   parameters.put("Datum2", response.getStartDate());
+	   parameters.put("Datum2",  response.getStartDate().plusDays(response.getDurationForTravel()));
 	   parameters.put("Sport", response.getSport());
 	   parameters.put("VelicinaPokrica", response.getAmount());
 	   parameters.put("Region", response.getRegion());

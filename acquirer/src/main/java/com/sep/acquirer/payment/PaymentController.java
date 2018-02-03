@@ -1,5 +1,6 @@
 package com.sep.acquirer.payment;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,12 +20,13 @@ import com.sep.acquirer.bankMember.BankMember;
 import com.sep.acquirer.bankMember.BankMemberService;
 import com.sep.acquirer.paymentRequest.PaymentRequest;
 import com.sep.acquirer.paymentRequest.PaymentRequestCard;
+import com.sep.acquirer.security.AcquirerExternalDto;
 import com.sep.acquirer.transaction.TransactionService;
 
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin(origins = "http://localhost:4600")
+
 public class PaymentController {
 
 	@Autowired
@@ -42,6 +44,11 @@ public class PaymentController {
 	@Value("${baseUrl}")
 	private String baseUrl;
 	
+	@Value("${externalUrl}")
+	private String externalUrl;
+	
+	@Value("${secretKey}")
+	private String secretKey;
 	
 	@GetMapping("/test")
 	private String findAll() {
@@ -49,6 +56,7 @@ public class PaymentController {
 		return "success";
 	}
 	
+	@CrossOrigin(origins = "http://localhost:4600")
 	@PostMapping("/pay")
 	private String PayFromWebApp(@RequestBody PaymentRequest paymentRequest) {
 		System.out.println(port);
@@ -59,8 +67,12 @@ public class PaymentController {
 				if(bank.getPort().equals(port)) {
 					if(transactionService.submitPayment(paymentRequest)) {
 						System.out.println("SUCCESFUL PAYMENT");
-						restTemplate.postForEntity(baseUrl+":8083/external/acquirer/cardPayment", Long.parseLong(paymentRequest.getPolicyID()), Boolean.class); 
-						//if(responsePaid.getBody())
+						
+						String md5Hash = DigestUtils.md5Hex(paymentRequest.getPolicyID() + secretKey);
+						AcquirerExternalDto aed = new AcquirerExternalDto(Long.parseLong(paymentRequest.getPolicyID()), md5Hash);
+						
+						restTemplate.postForEntity(externalUrl+":8083/external/acquirer/cardPayment", aed, Boolean.class);
+						
 						return "True";
 					}
 				}

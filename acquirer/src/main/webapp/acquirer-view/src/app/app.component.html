@@ -2,56 +2,74 @@
 	<div class="row card">
 		<form [formGroup]="myForm" novalidate (ngSubmit)="submitCardDataForm()">
 			<div class="col-md-4 card1">
-			<div class="row img">
-			
-			</div>
-			<div class="row total">
-				<label class="totalLbl">T O T A L : {{originalPrice}} </label>
-			</div>
+				<div class="row img">
+
+				</div>
+				<div class="row total">
+					<label class="totalLbl">T O T A L : {{originalPrice}} </label>
+				</div>
 			</div>
 			<div class="col-md-8 card2">
 				<div class="row">
 					<div class="form-group">
 						<label>IME NOSIOCA:</label>
-						<input type="text" class="form-control" formControlName="holderName" placeholder="IME NOSIOCA">
+						<input type="text" class="form-control" formControlName="holderName" placeholder="IME NOSIOCA" (blur)="diplayNameErrors=true">
+					</div>
+					<div *ngIf="myForm.controls['holderName'].errors">
+						<span class="errorClass" *ngIf="myForm.controls['holderName'].errors.required && diplayNameErrors">Morate uneti ime nosioca kartice.</span>
+						<span class="errorClass" *ngIf="myForm.controls['holderName'].errors.minlength && diplayNameErrors">Ime nosioca mora imati bar 3 slova.</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="form-group">
 						<label>BROJ KARTICE:</label>
-						<input type="text" class="form-control" formControlName="cardNum" placeholder="BROJ KARTICE">
+						<input type="text" class="form-control" formControlName="cardNum" placeholder="BROJ KARTICE" (blur)="diplayCardNumErrors=true">
+					</div>
+					<div *ngIf="myForm.controls['cardNum'].errors">
+						<span class="errorClass" *ngIf="myForm.controls['cardNum'].errors.required && diplayCardNumErrors">Morate uneti broj kartice.</span>
+						<span class="errorClass" *ngIf="myForm.controls['cardNum'].errors.pattern && diplayCardNumErrors">Nedozvoljeni karakteri za broj kartice.</span>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-7 nopaddingL">
 						<div class="form-group">
 							<label>DATUM ISTEKA:</label>
-							<input type="text" class="form-control" formControlName="expDate" placeholder="DATUM ISTEKA">
+							<input type="date" class="form-control" formControlName="expDate" placeholder="DATUM ISTEKA" (blur)="diplayDateErrors=true">
+						</div>
+						<div *ngIf="myForm.controls['expDate'].errors">
+							<span class="errorClass" *ngIf="myForm.controls['expDate'].errors.required && diplayDateErrors">Morate uneti datum isteka kartice.</span>
 						</div>
 					</div>
 					<div class="col-md-5 nopaddingR nopaddingL">
 						<div class="form-group">
 							<label>CVV2 KOD:</label>
-							<input type="text" class="form-control" formControlName="cvv2" placeholder="CVV2 KOD">
+							<input type="text" class="form-control" formControlName="cvv2" placeholder="CVV2 KOD" (blur)="diplayCvvErrors=true">
+						</div>
+						<div *ngIf="myForm.controls['cvv2'].errors">
+							<span class="errorClass" *ngIf="myForm.controls['cvv2'].errors.required && diplayCvvErrors">Morate uneti CVV2 kod.</span>
+							<span class="errorClass" *ngIf="myForm.controls['cvv2'].errors.pattern && diplayCvvErrors">Neispravan CVV2 kod.</span>
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="col-md-4 nopaddingL">
-						<button type="submit" class="btn">PLATI</button>
+						<button type="submit" [disabled]="!myForm.valid" class="btn">PLATI</button>
 					</div>
-					<div class="col-md-8 cancel">
-						<a>ODUSTANI</a>
+					<div *ngIf="load">
+						<div class="loader"></div> 
 					</div>
 				</div>
 				
 				
 				
 			</div>
+
 			<input type="hidden" id="policyID">
 			<input type="hidden" id="policyPrice">
 			
 		</form>
+
+
 	</div>
 </div>
